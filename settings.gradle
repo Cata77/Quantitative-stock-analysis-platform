@@ -1,0 +1,8 @@
+rootProject.name = 'quant-platform'
+
+include 'gateway-service'
+include 'auth-service'
+include 'portfolio-service'
+include 'market-data-producer'
+include 'scoring-service'
+include 'screener-service'

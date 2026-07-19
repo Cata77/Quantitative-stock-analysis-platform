@@ -1,0 +1,21 @@
+# Design Documents
+Plan Design/Implementation_plan.md
+Plan Design/STATUS.md
+Plan Design/SKILLS.md
+
+# Infrastructure & Secrets
+.env
+infrastructure/.env
+*.env.template
+
+# Build Artifacts
+.gradle/
+build/
+out/
+bin/
+*.log
+
+# IDEs
+.idea/
+*.iml
+.vscode/
