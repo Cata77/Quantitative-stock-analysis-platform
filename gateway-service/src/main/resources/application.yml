@@ -6,27 +6,29 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: ${AUTH_SERVICE_URI:http://localhost:8081}
-          predicates:
-            - Path=/auth/**
-        - id: screener-service
-          uri: ${SCREENER_SERVICE_URI:http://localhost:8082}
-          predicates:
-            - Path=/screener/**
-        - id: portfolio-service
-          uri: ${PORTFOLIO_SERVICE_URI:http://localhost:8083}
-          predicates:
-            - Path=/portfolio/**
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowed-origins: ${GATEWAY_ALLOWED_ORIGINS:http://localhost:3000}
-            allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
-            allowed-headers: Authorization,Content-Type
-            exposed-headers: Location
-            allow-credentials: true
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: ${AUTH_SERVICE_URI:http://localhost:8081}
+              predicates:
+                - Path=/auth/**
+            - id: screener-service
+              uri: ${SCREENER_SERVICE_URI:http://localhost:8082}
+              predicates:
+                - Path=/screener/**
+            - id: portfolio-service
+              uri: ${PORTFOLIO_SERVICE_URI:http://localhost:8083}
+              predicates:
+                - Path=/portfolio/**
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origins: ${GATEWAY_ALLOWED_ORIGINS:http://localhost:3000}
+                allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+                allowed-headers: Authorization,Content-Type
+                exposed-headers: Location
+                allow-credentials: true
 
 security:
   jwt:

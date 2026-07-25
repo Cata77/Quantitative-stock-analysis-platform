@@ -1,0 +1,27 @@
+server:
+  port: ${AUTH_PORT:8081}
+
+spring:
+  application:
+    name: auth-service
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${AUTH_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
+    username: ${AUTH_DB_USER:postgres}
+    password: ${AUTH_DB_PASSWORD:postgres_secure_pass}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-before-deploying}
+    expiration: ${JWT_EXPIRATION:15m}
+    issuer: ${JWT_ISSUER:quant-platform-auth}

@@ -9,6 +9,8 @@
 - [x] Phase 2: TimescaleDB initialization script and hypertables (`infrastructure/init.sql`).
 - [x] Gateway service: direct routing, reactive JWT verification, trusted identity forwarding, CORS, and single-instance rate limiting.
 - [x] Gateway service production runbook (`Documentation/GATEWAY-SERVICE.md`).
+- [x] Auth service: registration, normalized usernames, BCrypt credentials, HS256 JWT issuance, validation, and integration tests.
+- [x] Auth service production runbook (`Documentation/AUTH-SERVICE.md`).
 
 ## In Progress
 
@@ -19,4 +21,3 @@
 
 - Do not modify Docker network configuration or database ports without user approval.
 - Do not introduce real-time streaming frameworks (for example, Apache Spark) into production code.
-

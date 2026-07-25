@@ -5,6 +5,7 @@ Plan Design/SKILLS.md
 
 #Documentation
 Documentation/GATEWAY-SERVICE.md
+Documentation/AUTH-SERVICE.md
 
 # Infrastructure & Secrets
 .env
