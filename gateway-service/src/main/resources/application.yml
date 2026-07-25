@@ -1,0 +1,43 @@
+server:
+  port: ${GATEWAY_PORT:8080}
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URI:http://localhost:8081}
+          predicates:
+            - Path=/auth/**
+        - id: screener-service
+          uri: ${SCREENER_SERVICE_URI:http://localhost:8082}
+          predicates:
+            - Path=/screener/**
+        - id: portfolio-service
+          uri: ${PORTFOLIO_SERVICE_URI:http://localhost:8083}
+          predicates:
+            - Path=/portfolio/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: ${GATEWAY_ALLOWED_ORIGINS:http://localhost:3000}
+            allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+            allowed-headers: Authorization,Content-Type
+            exposed-headers: Location
+            allow-credentials: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-before-deploying}
+
+gateway:
+  rate-limit:
+    enabled: ${GATEWAY_RATE_LIMIT_ENABLED:true}
+    requests: ${GATEWAY_RATE_LIMIT_REQUESTS:100}
+    window: ${GATEWAY_RATE_LIMIT_WINDOW:1m}
+
+logging:
+  level:
+    org.springframework.security: INFO

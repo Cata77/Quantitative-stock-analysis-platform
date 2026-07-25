@@ -3,6 +3,9 @@ Plan Design/Implementation_plan.md
 Plan Design/STATUS.md
 Plan Design/SKILLS.md
 
+#Documentation
+Documentation/GATEWAY-SERVICE.md
+
 # Infrastructure & Secrets
 .env
 infrastructure/.env

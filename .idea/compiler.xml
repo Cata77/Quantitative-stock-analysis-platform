@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="18" />
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.4.1/8dfcdae21f559be9c8a4d6d515e77cfd1d9c06a8/spring-boot-configuration-processor-3.4.1.jar" />
+        </processorPath>
+        <module name="quant-platform.gateway-service.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="18">
+      <module name="quant-platform.auth-service" target="25" />
+      <module name="quant-platform.auth-service.main" target="25" />
+      <module name="quant-platform.auth-service.test" target="25" />
+      <module name="quant-platform.market-data-producer" target="25" />
+      <module name="quant-platform.market-data-producer.main" target="25" />
+      <module name="quant-platform.market-data-producer.test" target="25" />
+      <module name="quant-platform.portfolio-service" target="25" />
+      <module name="quant-platform.portfolio-service.main" target="25" />
+      <module name="quant-platform.portfolio-service.test" target="25" />
+      <module name="quant-platform.scoring-service" target="25" />
+      <module name="quant-platform.scoring-service.main" target="25" />
+      <module name="quant-platform.scoring-service.test" target="25" />
+      <module name="quant-platform.screener-service" target="25" />
+      <module name="quant-platform.screener-service.main" target="25" />
+      <module name="quant-platform.screener-service.test" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>
