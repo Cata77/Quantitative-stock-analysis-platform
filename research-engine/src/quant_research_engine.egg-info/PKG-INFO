@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: quant-research-engine
+Version: 0.1.0
+Summary: Point-in-time quantitative factor research and validation engine
+Requires-Python: <3.15,>=3.11
+Requires-Dist: hmmlearn==0.3.3
+Requires-Dist: numpy==2.4.6
+Requires-Dist: polars==1.43.0
+Requires-Dist: psycopg[binary]==3.3.4
+Requires-Dist: scipy==1.17.1
+Requires-Dist: statsmodels==0.14.6
+Requires-Dist: vectorbt==1.1.0
+Provides-Extra: dev
+Requires-Dist: pytest<10,>=8.4; extra == "dev"
+Requires-Dist: pytest-cov<8,>=6; extra == "dev"
+Requires-Dist: ruff<1,>=0.12; extra == "dev"

@@ -10,6 +10,7 @@ Documentation/MARKET-DATA-PRODUCER.md
 Documentation/PORTFOLIO-SERVICE.md
 Documentation/SCORING-SERVICE.md
 Documentation/SCREENER-SERVICE.md
+Documentation/RESEARCH-ENGINE.md
 
 # Infrastructure & Secrets
 .env
@@ -22,6 +23,15 @@ build/
 out/
 bin/
 *.log
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+
+# Research outputs
+research-engine/artifacts/
+research-engine/.env
 
 # IDEs
 .idea/

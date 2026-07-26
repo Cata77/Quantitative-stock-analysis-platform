@@ -19,13 +19,15 @@
 - [x] Scoring service production runbook (`Documentation/SCORING-SERVICE.md`).
 - [x] Screener service core: as-of ranking pages from TimescaleDB, weighted full-text company search through the Elasticsearch 8.11 Java client, validation, dependency failure handling, and tests.
 - [x] Screener service production runbook (`Documentation/SCREENER-SERVICE.md`).
+- [x] Python Research Engine core: strict point-in-time TimescaleDB reads, Phase 4 formula parity, next-bar vectorbt simulations with transaction costs, SVD diagnostics, Newey-West inference, HMM regimes, CLI workflows, and tests.
+- [x] Python Research Engine runbook (`Documentation/RESEARCH-ENGINE.md`).
 
 ## In Progress
 
 - [ ] Phase 3: Develop remaining Spring Boot microservices (Java 25).
 - [ ] Scoring service deployment validation against Kafka, TimescaleDB, and Elasticsearch, including a JFR virtual-thread pinning run.
 - [ ] Screener service deployment validation against TimescaleDB and Elasticsearch, including query-plan and load checks.
-- [ ] Phase 4: Develop Python Research Sandbox.
+- [ ] Phase 4 live research validation against a seeded long-horizon dataset and production formula-parity batch.
 
 ## Never Touch
 
