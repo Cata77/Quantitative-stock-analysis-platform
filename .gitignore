@@ -6,6 +6,9 @@ Plan Design/SKILLS.md
 #Documentation
 Documentation/GATEWAY-SERVICE.md
 Documentation/AUTH-SERVICE.md
+Documentation/MARKET-DATA-PRODUCER.md
+Documentation/PORTFOLIO-SERVICE.md
+Documentation/SCORING-SERVICE.md
 
 # Infrastructure & Secrets
 .env

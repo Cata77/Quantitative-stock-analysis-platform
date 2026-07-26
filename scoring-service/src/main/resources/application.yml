@@ -1,0 +1,69 @@
+server:
+  port: ${SCORING_PORT:8085}
+
+spring:
+  application:
+    name: scoring-service
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${SCORING_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
+    username: ${SCORING_DB_USER:postgres}
+    password: ${SCORING_DB_PASSWORD:postgres_secure_pass}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    client-id: ${KAFKA_CLIENT_ID:scoring-service}
+    admin:
+      fail-fast: false
+    consumer:
+      group-id: ${SCORING_CONSUMER_GROUP:scoring-service-v1}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        isolation.level: read_committed
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        enable.idempotence: true
+    listener:
+      ack-mode: record
+      concurrency: ${SCORING_CONSUMER_CONCURRENCY:3}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+scoring:
+  input-topic: ${MARKET_DATA_TOPIC:market-data-events}
+  dead-letter-topic: ${MARKET_DATA_DLQ_TOPIC:market-data-events-dlq}
+  topic-partitions: ${MARKET_DATA_TOPIC_PARTITIONS:6}
+  consumer-concurrency: ${SCORING_CONSUMER_CONCURRENCY:3}
+  retry-backoff: ${SCORING_RETRY_BACKOFF:1s}
+  retry-attempts: ${SCORING_RETRY_ATTEMPTS:3}
+  momentum-lookback: ${SCORING_MOMENTUM_LOOKBACK:365d}
+  minimum-universe-size: ${SCORING_MINIMUM_UNIVERSE_SIZE:3}
+  schedule-cron: ${SCORING_SCHEDULE_CRON:0 5 0 * * *}
+  schedule-zone: ${SCORING_SCHEDULE_ZONE:UTC}
+  elasticsearch:
+    enabled: ${SCORING_ELASTICSEARCH_ENABLED:true}
+    base-url: ${ELASTICSEARCH_URL:http://localhost:9200}
+    company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies}
+
+logging:
+  level:
+    com.quantplatform.scoring: INFO

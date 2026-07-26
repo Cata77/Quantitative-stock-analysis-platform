@@ -15,10 +15,13 @@
 - [x] Portfolio service production runbook (`Documentation/PORTFOLIO-SERVICE.md`).
 - [x] Market data producer: Alpaca OHLCV, Alpha Vantage fundamentals, Tradier options, normalized Kafka events, and tests.
 - [x] Market data producer production runbook (`Documentation/MARKET-DATA-PRODUCER.md`).
+- [x] Scoring service core: validated Kafka ingestion, durable point-in-time inputs, daily cross-sectional factor scores, 52-week IV rank, DLQ recovery, Elasticsearch metadata updates, and tests.
+- [x] Scoring service production runbook (`Documentation/SCORING-SERVICE.md`).
 
 ## In Progress
 
 - [ ] Phase 3: Develop remaining Spring Boot microservices (Java 25).
+- [ ] Scoring service deployment validation against Kafka, TimescaleDB, and Elasticsearch, including a JFR virtual-thread pinning run.
 - [ ] Phase 4: Develop Python Research Sandbox.
 
 ## Never Touch
