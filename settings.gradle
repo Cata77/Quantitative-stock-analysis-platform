@@ -2,3 +2,4 @@ rootProject.name = 'quant-platform'
 
 include 'gateway-service'
 include 'auth-service'
+include 'portfolio-service'

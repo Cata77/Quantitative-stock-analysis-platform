@@ -11,6 +11,8 @@
 - [x] Gateway service production runbook (`Documentation/GATEWAY-SERVICE.md`).
 - [x] Auth service: registration, normalized usernames, BCrypt credentials, HS256 JWT issuance, validation, and integration tests.
 - [x] Auth service production runbook (`Documentation/AUTH-SERVICE.md`).
+- [x] Portfolio service: authenticated user-scoped CRUD, validation, ownership isolation, and integration tests.
+- [x] Portfolio service production runbook (`Documentation/PORTFOLIO-SERVICE.md`).
 
 ## In Progress
 
