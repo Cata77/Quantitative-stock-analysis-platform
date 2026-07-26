@@ -9,6 +9,7 @@ Documentation/AUTH-SERVICE.md
 Documentation/MARKET-DATA-PRODUCER.md
 Documentation/PORTFOLIO-SERVICE.md
 Documentation/SCORING-SERVICE.md
+Documentation/SCREENER-SERVICE.md
 
 # Infrastructure & Secrets
 .env

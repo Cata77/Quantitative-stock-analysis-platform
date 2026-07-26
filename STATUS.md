@@ -17,11 +17,14 @@
 - [x] Market data producer production runbook (`Documentation/MARKET-DATA-PRODUCER.md`).
 - [x] Scoring service core: validated Kafka ingestion, durable point-in-time inputs, daily cross-sectional factor scores, 52-week IV rank, DLQ recovery, Elasticsearch metadata updates, and tests.
 - [x] Scoring service production runbook (`Documentation/SCORING-SERVICE.md`).
+- [x] Screener service core: as-of ranking pages from TimescaleDB, weighted full-text company search through the Elasticsearch 8.11 Java client, validation, dependency failure handling, and tests.
+- [x] Screener service production runbook (`Documentation/SCREENER-SERVICE.md`).
 
 ## In Progress
 
 - [ ] Phase 3: Develop remaining Spring Boot microservices (Java 25).
 - [ ] Scoring service deployment validation against Kafka, TimescaleDB, and Elasticsearch, including a JFR virtual-thread pinning run.
+- [ ] Screener service deployment validation against TimescaleDB and Elasticsearch, including query-plan and load checks.
 - [ ] Phase 4: Develop Python Research Sandbox.
 
 ## Never Touch

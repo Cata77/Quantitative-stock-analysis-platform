@@ -125,3 +125,5 @@ CREATE TABLE IF NOT EXISTS factor_scores (
    PRIMARY KEY (time, symbol)
 );
 SELECT create_hypertable('factor_scores', 'time', if_not_exists => TRUE);
+CREATE INDEX IF NOT EXISTS idx_factor_scores_time_composite
+   ON factor_scores (time DESC, composite_score DESC, symbol ASC);

@@ -1,0 +1,34 @@
+server:
+  port: ${SCREENER_PORT:8082}
+
+spring:
+  application:
+    name: screener-service
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${SCREENER_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
+    username: ${SCREENER_DB_USER:postgres}
+    password: ${SCREENER_DB_PASSWORD:postgres_secure_pass}
+    hikari:
+      read-only: true
+      maximum-pool-size: ${SCREENER_DB_POOL_SIZE:10}
+  sql:
+    init:
+      mode: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+screener:
+  elasticsearch:
+    url: ${ELASTICSEARCH_URL:http://localhost:9200}
+    company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies}
+
+logging:
+  level:
+    com.quantplatform.screener: INFO
