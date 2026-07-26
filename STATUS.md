@@ -13,6 +13,8 @@
 - [x] Auth service production runbook (`Documentation/AUTH-SERVICE.md`).
 - [x] Portfolio service: authenticated user-scoped CRUD, validation, ownership isolation, and integration tests.
 - [x] Portfolio service production runbook (`Documentation/PORTFOLIO-SERVICE.md`).
+- [x] Market data producer: Alpaca OHLCV, Alpha Vantage fundamentals, Tradier options, normalized Kafka events, and tests.
+- [x] Market data producer production runbook (`Documentation/MARKET-DATA-PRODUCER.md`).
 
 ## In Progress
 

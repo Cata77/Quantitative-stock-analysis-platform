@@ -1,0 +1,67 @@
+server:
+  port: ${MARKET_DATA_PORT:8084}
+
+spring:
+  application:
+    name: market-data-producer
+  threads:
+    virtual:
+      enabled: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    client-id: ${KAFKA_CLIENT_ID:market-data-producer}
+    admin:
+      fail-fast: false
+    producer:
+      acks: all
+      retries: 2147483647
+      compression-type: zstd
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+        delivery.timeout.ms: 120000
+        request.timeout.ms: 30000
+        spring.json.add.type.headers: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+market-data:
+  enabled: ${MARKET_DATA_ENABLED:false}
+  symbols: ${MARKET_DATA_SYMBOLS:AAPL,MSFT}
+  topic: ${MARKET_DATA_TOPIC:market-data-events}
+  topic-partitions: ${MARKET_DATA_TOPIC_PARTITIONS:6}
+  provider-timeout: ${MARKET_DATA_PROVIDER_TIMEOUT:10s}
+  kafka-send-timeout: ${MARKET_DATA_KAFKA_SEND_TIMEOUT:15s}
+  latest-bars-enabled: ${MARKET_DATA_LATEST_BARS_ENABLED:true}
+  historical-backfill-enabled: ${MARKET_DATA_BACKFILL_ENABLED:false}
+  historical-lookback-days: ${MARKET_DATA_BACKFILL_LOOKBACK_DAYS:365}
+  historical-timeframe: ${MARKET_DATA_BACKFILL_TIMEFRAME:1Day}
+  fundamentals-enabled: ${MARKET_DATA_FUNDAMENTALS_ENABLED:false}
+  options-enabled: ${MARKET_DATA_OPTIONS_ENABLED:false}
+  schedules:
+    initial-delay: ${MARKET_DATA_INITIAL_DELAY_MS:15000}
+    latest-bars-fixed-delay: ${MARKET_DATA_LATEST_BARS_INTERVAL_MS:60000}
+    fundamentals-fixed-delay: ${MARKET_DATA_FUNDAMENTALS_INTERVAL_MS:86400000}
+    options-fixed-delay: ${MARKET_DATA_OPTIONS_INTERVAL_MS:900000}
+  providers:
+    alpaca:
+      base-url: ${ALPACA_BASE_URL:https://data.alpaca.markets}
+      key-id: ${ALPACA_API_KEY_ID:}
+      secret-key: ${ALPACA_API_SECRET_KEY:}
+      feed: ${ALPACA_DATA_FEED:iex}
+    alpha-vantage:
+      base-url: ${ALPHA_VANTAGE_BASE_URL:https://www.alphavantage.co}
+      api-key: ${ALPHA_VANTAGE_API_KEY:}
+    tradier:
+      base-url: ${TRADIER_BASE_URL:https://sandbox.tradier.com/v1}
+      token: ${TRADIER_API_TOKEN:}
+
+logging:
+  level:
+    com.quantplatform.marketdata: INFO
