@@ -5,7 +5,6 @@ import pytest
 
 from quant_research.factors import (
     calculate_factor_scores,
-    calculate_iv_rank,
     cross_sectional_z_score,
 )
 
@@ -43,10 +42,3 @@ def test_zero_variance_has_the_same_deterministic_rule_as_java() -> None:
     result = cross_sectional_z_score(frame, "raw", "z")
 
     assert result.get_column("z").to_list() == [0.0, 0.0]
-
-
-def test_iv_rank_uses_the_exact_phase_four_equation() -> None:
-    assert calculate_iv_rank(0.25, 0.10, 0.30) == pytest.approx(75.0)
-    assert calculate_iv_rank(0.20, 0.20, 0.20) is None
-    with pytest.raises(ValueError):
-        calculate_iv_rank(-0.01, 0.10, 0.30)

@@ -66,8 +66,7 @@ class MarketDataEventParserTest {
                     "volumeWeightedAveragePrice": 122,
                     "tradeCount": 200
                   },
-                  "fundamentals": null,
-                  "option": null
+                  "fundamentals": null
                 }
                 """.formatted(close);
     }

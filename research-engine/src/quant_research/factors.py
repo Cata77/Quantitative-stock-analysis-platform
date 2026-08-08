@@ -72,21 +72,6 @@ def calculate_factor_scores(
     ).sort([group_column, "symbol"])
 
 
-def calculate_iv_rank(
-    current_iv: float,
-    minimum_52_week_iv: float,
-    maximum_52_week_iv: float,
-) -> float | None:
-    """Apply the Phase 4 IVR equation; return None for an undefined range."""
-    if min(current_iv, minimum_52_week_iv, maximum_52_week_iv) < 0:
-        raise ValueError("implied volatility values must not be negative")
-    if maximum_52_week_iv < minimum_52_week_iv:
-        raise ValueError("maximum_52_week_iv must not be below minimum_52_week_iv")
-    if maximum_52_week_iv == minimum_52_week_iv:
-        return None
-    return (current_iv - minimum_52_week_iv) / (maximum_52_week_iv - minimum_52_week_iv) * 100.0
-
-
 def _require_columns(frame: pl.DataFrame, columns: Sequence[str]) -> None:
     missing = sorted(set(columns) - set(frame.columns))
     if missing:

@@ -10,7 +10,6 @@ import com.quantplatform.marketdata.event.StockBar;
 import com.quantplatform.marketdata.kafka.MarketDataEventPublisher;
 import com.quantplatform.marketdata.provider.alpaca.AlpacaStockMarketClient;
 import com.quantplatform.marketdata.provider.alphavantage.AlphaVantageFundamentalClient;
-import com.quantplatform.marketdata.provider.tradier.TradierOptionMarketClient;
 import com.quantplatform.marketdata.support.TestProperties;
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -30,9 +29,6 @@ class MarketDataIngestionJobTest {
 
     @Mock
     private AlphaVantageFundamentalClient alphaVantage;
-
-    @Mock
-    private TradierOptionMarketClient tradier;
 
     @Mock
     private MarketDataEventPublisher publisher;
@@ -69,11 +65,9 @@ class MarketDataIngestionJobTest {
                         symbols,
                         true,
                         false,
-                        false,
                         false),
                 alpaca,
                 alphaVantage,
-                tradier,
                 publisher,
                 Clock.fixed(Instant.parse("2026-07-26T10:00:00Z"), ZoneOffset.UTC));
     }

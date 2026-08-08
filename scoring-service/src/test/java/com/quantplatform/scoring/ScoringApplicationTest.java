@@ -17,12 +17,8 @@ import com.quantplatform.scoring.ingestion.MarketDataEventProcessor;
 import com.quantplatform.scoring.ingestion.event.FundamentalSnapshot;
 import com.quantplatform.scoring.ingestion.event.MarketDataEvent;
 import com.quantplatform.scoring.ingestion.event.MarketDataEventType;
-import com.quantplatform.scoring.ingestion.event.OptionSnapshot;
-import com.quantplatform.scoring.ingestion.event.OptionType;
 import com.quantplatform.scoring.ingestion.event.StockBar;
 import com.quantplatform.scoring.persistence.FactorScoreRepository;
-import com.quantplatform.scoring.persistence.OptionChainRepository;
-import com.quantplatform.scoring.persistence.TemporalSymbolId;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
@@ -49,9 +45,6 @@ class ScoringApplicationTest {
     @Autowired
     private FactorScoreRepository scoreRepository;
 
-    @Autowired
-    private OptionChainRepository optionRepository;
-
     @Test
     void contextLoadsAndPersistsPointInTimeScores() {
         seed("AAA", "10", "0.10", "100", "110");
@@ -65,23 +58,6 @@ class ScoringApplicationTest {
         assertThat(scores).extracting(score -> score.symbol())
                 .containsExactly("AAA", "BBB", "CCC");
         assertThat(scores.get(1).zMomentum()).isEqualByComparingTo("0");
-    }
-
-    @Test
-    void persistsAnOptionWithItsFiftyTwoWeekIvRank() {
-        processor.process(option(
-                Instant.parse("2026-01-02T15:30:00Z"), "0.10"));
-        processor.process(option(
-                Instant.parse("2026-02-02T15:30:00Z"), "0.30"));
-        var currentTime = Instant.parse("2026-07-25T15:30:00Z");
-        processor.process(option(currentTime, "0.25"));
-
-        var saved = optionRepository.findById(
-                new TemporalSymbolId(currentTime, "AAPL260821C00200000"));
-
-        assertThat(saved).isPresent();
-        assertThat(saved.orElseThrow().getImpliedVolatilityRank())
-                .isEqualByComparingTo("75.000000");
     }
 
     private void seed(
@@ -133,8 +109,7 @@ class ScoringApplicationTest {
                 "alpha-vantage",
                 LATEST.minusSeconds(60),
                 null,
-                snapshot,
-                null);
+                snapshot);
     }
 
     private MarketDataEvent bar(String symbol, Instant time, String close) {
@@ -156,37 +131,6 @@ class ScoringApplicationTest {
                 "alpaca",
                 time,
                 bar,
-                null,
                 null);
-    }
-
-    private MarketDataEvent option(Instant time, String impliedVolatility) {
-        var snapshot = new OptionSnapshot(
-                "AAPL260821C00200000",
-                time,
-                LocalDate.of(2026, 8, 21),
-                new BigDecimal("200"),
-                OptionType.CALL,
-                new BigDecimal("12"),
-                new BigDecimal("11.90"),
-                new BigDecimal("12.10"),
-                100,
-                500,
-                new BigDecimal(impliedVolatility),
-                new BigDecimal("0.55"),
-                new BigDecimal("0.02"),
-                new BigDecimal("-0.10"),
-                new BigDecimal("0.15"),
-                new BigDecimal("0.05"));
-        return new MarketDataEvent(
-                UUID.randomUUID(),
-                1,
-                MarketDataEventType.OPTION_SNAPSHOT,
-                "AAPL",
-                "tradier",
-                time,
-                null,
-                null,
-                snapshot);
     }
 }

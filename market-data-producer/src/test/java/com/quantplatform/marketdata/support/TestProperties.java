@@ -10,7 +10,7 @@ public final class TestProperties {
     }
 
     public static MarketDataProperties disabled() {
-        return properties(false, List.of("AAPL"), true, false, false, false);
+        return properties(false, List.of("AAPL"), true, false, false);
     }
 
     public static MarketDataProperties properties(
@@ -18,8 +18,7 @@ public final class TestProperties {
             List<String> symbols,
             boolean latestBars,
             boolean backfill,
-            boolean fundamentals,
-            boolean options
+            boolean fundamentals
     ) {
         return new MarketDataProperties(
                 enabled,
@@ -32,7 +31,6 @@ public final class TestProperties {
                 backfill,
                 365,
                 "1Day",
-                fundamentals,
-                options);
+                fundamentals);
     }
 }

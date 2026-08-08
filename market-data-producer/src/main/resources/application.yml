@@ -43,12 +43,10 @@ market-data:
   historical-lookback-days: ${MARKET_DATA_BACKFILL_LOOKBACK_DAYS:365}
   historical-timeframe: ${MARKET_DATA_BACKFILL_TIMEFRAME:1Day}
   fundamentals-enabled: ${MARKET_DATA_FUNDAMENTALS_ENABLED:false}
-  options-enabled: ${MARKET_DATA_OPTIONS_ENABLED:false}
   schedules:
     initial-delay: ${MARKET_DATA_INITIAL_DELAY_MS:15000}
     latest-bars-fixed-delay: ${MARKET_DATA_LATEST_BARS_INTERVAL_MS:60000}
     fundamentals-fixed-delay: ${MARKET_DATA_FUNDAMENTALS_INTERVAL_MS:86400000}
-    options-fixed-delay: ${MARKET_DATA_OPTIONS_INTERVAL_MS:900000}
   providers:
     alpaca:
       base-url: ${ALPACA_BASE_URL:https://data.alpaca.markets}
@@ -58,9 +56,6 @@ market-data:
     alpha-vantage:
       base-url: ${ALPHA_VANTAGE_BASE_URL:https://www.alphavantage.co}
       api-key: ${ALPHA_VANTAGE_API_KEY:}
-    tradier:
-      base-url: ${TRADIER_BASE_URL:https://sandbox.tradier.com/v1}
-      token: ${TRADIER_API_TOKEN:}
 
 logging:
   level:

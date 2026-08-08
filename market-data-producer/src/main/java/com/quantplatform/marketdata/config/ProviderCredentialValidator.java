@@ -9,18 +9,15 @@ public class ProviderCredentialValidator implements InitializingBean {
     private final MarketDataProperties marketData;
     private final AlpacaProperties alpaca;
     private final AlphaVantageProperties alphaVantage;
-    private final TradierProperties tradier;
 
     public ProviderCredentialValidator(
             MarketDataProperties marketData,
             AlpacaProperties alpaca,
-            AlphaVantageProperties alphaVantage,
-            TradierProperties tradier
+            AlphaVantageProperties alphaVantage
     ) {
         this.marketData = marketData;
         this.alpaca = alpaca;
         this.alphaVantage = alphaVantage;
-        this.tradier = tradier;
     }
 
     @Override
@@ -36,10 +33,6 @@ public class ProviderCredentialValidator implements InitializingBean {
         if (marketData.fundamentalsEnabled() && isBlank(alphaVantage.apiKey())) {
             throw new IllegalStateException(
                     "An Alpha Vantage API key is required when fundamentals are enabled");
-        }
-        if (marketData.optionsEnabled() && isBlank(tradier.token())) {
-            throw new IllegalStateException(
-                    "A Tradier token is required when options are enabled");
         }
     }
 

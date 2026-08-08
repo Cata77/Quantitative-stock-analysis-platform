@@ -6,7 +6,6 @@ import com.quantplatform.marketdata.event.StockBar;
 import com.quantplatform.marketdata.kafka.MarketDataEventPublisher;
 import com.quantplatform.marketdata.provider.alpaca.AlpacaStockMarketClient;
 import com.quantplatform.marketdata.provider.alphavantage.AlphaVantageFundamentalClient;
-import com.quantplatform.marketdata.provider.tradier.TradierOptionMarketClient;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Map;
@@ -25,7 +24,6 @@ public class MarketDataIngestionJob {
     private final MarketDataProperties properties;
     private final AlpacaStockMarketClient alpaca;
     private final AlphaVantageFundamentalClient alphaVantage;
-    private final TradierOptionMarketClient tradier;
     private final MarketDataEventPublisher publisher;
     private final Clock clock;
     private final Map<String, Instant> lastPublishedBar = new ConcurrentHashMap<>();
@@ -34,14 +32,12 @@ public class MarketDataIngestionJob {
             MarketDataProperties properties,
             AlpacaStockMarketClient alpaca,
             AlphaVantageFundamentalClient alphaVantage,
-            TradierOptionMarketClient tradier,
             MarketDataEventPublisher publisher,
             Clock clock
     ) {
         this.properties = properties;
         this.alpaca = alpaca;
         this.alphaVantage = alphaVantage;
-        this.tradier = tradier;
         this.publisher = publisher;
         this.clock = clock;
     }
@@ -75,32 +71,6 @@ public class MarketDataIngestionJob {
                         fundamentals));
             } catch (RuntimeException exception) {
                 logFailure("fundamentals", symbol, exception);
-            }
-        }
-    }
-
-    @Scheduled(
-            fixedDelayString = "${market-data.schedules.options-fixed-delay:900000}",
-            initialDelayString = "${market-data.schedules.initial-delay:15000}")
-    public void collectOptions() {
-        if (!properties.enabled() || !properties.optionsEnabled()) {
-            return;
-        }
-        for (String symbol : properties.symbols()) {
-            try {
-                var optionChain = tradier.fetchNearestOptionChain(symbol);
-                for (var option : optionChain) {
-                    publisher.publish(MarketDataEvent.option(
-                            symbol,
-                            TradierOptionMarketClient.PROVIDER,
-                            option));
-                }
-                LOGGER.info(
-                        "Published {} option snapshots for {}",
-                        optionChain.size(),
-                        symbol);
-            } catch (RuntimeException exception) {
-                logFailure("options", symbol, exception);
             }
         }
     }

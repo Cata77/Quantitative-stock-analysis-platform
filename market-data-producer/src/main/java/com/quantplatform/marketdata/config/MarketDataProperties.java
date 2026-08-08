@@ -17,8 +17,7 @@ public record MarketDataProperties(
         boolean historicalBackfillEnabled,
         int historicalLookbackDays,
         String historicalTimeframe,
-        boolean fundamentalsEnabled,
-        boolean optionsEnabled
+        boolean fundamentalsEnabled
 ) {
 
     public MarketDataProperties {

@@ -13,8 +13,7 @@ public record MarketDataEvent(
         String provider,
         Instant observedAt,
         StockBar stockBar,
-        FundamentalSnapshot fundamentals,
-        OptionSnapshot option
+        FundamentalSnapshot fundamentals
 ) {
 
     private static final int CURRENT_SCHEMA_VERSION = 1;
@@ -35,15 +34,13 @@ public record MarketDataEvent(
             throw new IllegalArgumentException("schemaVersion is unsupported");
         }
         int payloads = (stockBar == null ? 0 : 1)
-                + (fundamentals == null ? 0 : 1)
-                + (option == null ? 0 : 1);
+                + (fundamentals == null ? 0 : 1);
         if (payloads != 1) {
             throw new IllegalArgumentException("exactly one event payload is required");
         }
         if ((eventType == MarketDataEventType.STOCK_BAR) != (stockBar != null)
                 || (eventType == MarketDataEventType.FUNDAMENTAL_SNAPSHOT)
-                        != (fundamentals != null)
-                || (eventType == MarketDataEventType.OPTION_SNAPSHOT) != (option != null)) {
+                        != (fundamentals != null)) {
             throw new IllegalArgumentException("eventType does not match its payload");
         }
     }
@@ -57,7 +54,6 @@ public record MarketDataEvent(
                 provider,
                 bar.time(),
                 bar,
-                null,
                 null);
     }
 
@@ -75,24 +71,6 @@ public record MarketDataEvent(
                 provider,
                 observedAt,
                 null,
-                fundamentals,
-                null);
-    }
-
-    public static MarketDataEvent option(
-            String symbol,
-            String provider,
-            OptionSnapshot option
-    ) {
-        return new MarketDataEvent(
-                UUID.randomUUID(),
-                CURRENT_SCHEMA_VERSION,
-                MarketDataEventType.OPTION_SNAPSHOT,
-                symbol,
-                provider,
-                option.time(),
-                null,
-                null,
-                option);
+                fundamentals);
     }
 }

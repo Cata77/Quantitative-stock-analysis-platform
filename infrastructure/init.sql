@@ -29,36 +29,7 @@ CREATE TABLE IF NOT EXISTS tick_data (
 );
 SELECT create_hypertable('tick_data', 'time', if_not_exists => TRUE);
 
--- 4. Time-Series Table (Option Chain Snapshots) -> Converted into a Hypertable
-CREATE TABLE IF NOT EXISTS option_chain (
-   time TIMESTAMPTZ NOT NULL,
-   symbol VARCHAR(30) NOT NULL,
-   underlying VARCHAR(10) NOT NULL,
-   expiry TIMESTAMPTZ NOT NULL,
-   strike NUMERIC(20, 8) NOT NULL,
-   option_type VARCHAR(5) NOT NULL, -- "CALL" or "PUT"
-   ltp NUMERIC(20, 8) NOT NULL,      -- Last Traded Price
-   bid NUMERIC(20, 8) NOT NULL,
-   ask NUMERIC(20, 8) NOT NULL,
-   volume BIGINT NOT NULL,
-   oi BIGINT NOT NULL,              -- Open Interest
-   iv NUMERIC(20, 8) NOT NULL,      -- Implied Volatility
-   iv_rank NUMERIC(10, 6),
-   delta NUMERIC(20, 8) NOT NULL,   -- Greeks: Delta
-   gamma NUMERIC(20, 8) NOT NULL,
-   theta NUMERIC(20, 8) NOT NULL,
-   vega NUMERIC(20, 8) NOT NULL,
-   rho NUMERIC(20, 8) NOT NULL,
-   CHECK (option_type IN ('CALL', 'PUT')),
-   CHECK (strike > 0),
-   CHECK (ltp >= 0 AND bid >= 0 AND ask >= 0),
-   CHECK (volume >= 0 AND oi >= 0),
-   CHECK (iv >= 0),
-   PRIMARY KEY (time, symbol)
-);
-SELECT create_hypertable('option_chain', 'time', if_not_exists => TRUE);
-
--- 5. Point-in-time OHLCV bars used by the scoring service
+-- 4. Point-in-time OHLCV bars used by the scoring service
 CREATE TABLE IF NOT EXISTS market_bars (
    time TIMESTAMPTZ NOT NULL,
    symbol VARCHAR(10) NOT NULL,
@@ -80,7 +51,7 @@ SELECT create_hypertable('market_bars', 'time', if_not_exists => TRUE);
 CREATE INDEX IF NOT EXISTS idx_market_bars_symbol_time
    ON market_bars (symbol, time DESC);
 
--- 6. Fundamental snapshots keyed by their actual publication/observation time.
+-- 5. Fundamental snapshots keyed by their actual publication/observation time.
 CREATE TABLE IF NOT EXISTS fundamental_snapshots (
    time TIMESTAMPTZ NOT NULL,
    symbol VARCHAR(10) NOT NULL,
@@ -114,7 +85,7 @@ SELECT create_hypertable('fundamental_snapshots', 'time', if_not_exists => TRUE)
 CREATE INDEX IF NOT EXISTS idx_fundamental_snapshots_symbol_time
    ON fundamental_snapshots (symbol, time DESC);
 
--- 7. Time-Series Table (Factor Scores - Result calculated by Scoring)
+-- 6. Time-Series Table (Factor Scores - Result calculated by Scoring)
 CREATE TABLE IF NOT EXISTS factor_scores (
    time TIMESTAMPTZ NOT NULL,
    symbol VARCHAR(10) NOT NULL,
