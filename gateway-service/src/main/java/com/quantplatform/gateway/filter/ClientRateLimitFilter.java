@@ -6,6 +6,7 @@ import java.time.Clock;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -21,7 +22,8 @@ public class ClientRateLimitFilter implements GlobalFilter, Ordered {
     private final Clock clock;
     private final ConcurrentMap<String, Window> clients = new ConcurrentHashMap<>();
 
-    ClientRateLimitFilter(GatewayRateLimitProperties properties) {
+    @Autowired
+    public ClientRateLimitFilter(GatewayRateLimitProperties properties) {
         this(properties, Clock.systemUTC());
     }
 
