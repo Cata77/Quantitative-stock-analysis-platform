@@ -1,0 +1,10 @@
+.git
+.gradle
+.idea
+.venv
+.ruff_cache
+**/build
+**/out
+**/__pycache__
+research-engine
+Plan Design

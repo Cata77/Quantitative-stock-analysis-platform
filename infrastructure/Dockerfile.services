@@ -1,0 +1,50 @@
+FROM gradle:9.1.0-jdk25 AS builder
+
+WORKDIR /workspace
+COPY settings.gradle build.gradle ./
+COPY gateway-service ./gateway-service
+COPY auth-service ./auth-service
+COPY portfolio-service ./portfolio-service
+COPY market-data-producer ./market-data-producer
+COPY scoring-service ./scoring-service
+COPY screener-service ./screener-service
+COPY database-migrations/build.gradle ./database-migrations/build.gradle
+
+RUN gradle \
+    :gateway-service:bootJar \
+    :auth-service:bootJar \
+    :portfolio-service:bootJar \
+    :market-data-producer:bootJar \
+    :scoring-service:bootJar \
+    :screener-service:bootJar \
+    --no-daemon
+
+FROM eclipse-temurin:25.0.2_10-jre AS gateway-service
+WORKDIR /app
+COPY --from=builder /workspace/gateway-service/build/libs/gateway-service-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM eclipse-temurin:25.0.2_10-jre AS auth-service
+WORKDIR /app
+COPY --from=builder /workspace/auth-service/build/libs/auth-service-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM eclipse-temurin:25.0.2_10-jre AS portfolio-service
+WORKDIR /app
+COPY --from=builder /workspace/portfolio-service/build/libs/portfolio-service-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM eclipse-temurin:25.0.2_10-jre AS market-data-producer
+WORKDIR /app
+COPY --from=builder /workspace/market-data-producer/build/libs/market-data-producer-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM eclipse-temurin:25.0.2_10-jre AS scoring-service
+WORKDIR /app
+COPY --from=builder /workspace/scoring-service/build/libs/scoring-service-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM eclipse-temurin:25.0.2_10-jre AS screener-service
+WORKDIR /app
+COPY --from=builder /workspace/screener-service/build/libs/screener-service-*.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
