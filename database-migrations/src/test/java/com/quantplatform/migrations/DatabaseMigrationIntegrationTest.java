@@ -33,7 +33,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(2);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(4);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
 
@@ -54,6 +54,22 @@ class DatabaseMigrationIntegrationTest {
                           'tick_data', 'market_bars', 'fundamental_snapshots', 'factor_scores'
                       )
                     """)).isEqualTo(4);
+            assertThat(queryInt(connection, """
+                    SELECT COUNT(*)
+                    FROM information_schema.tables
+                    WHERE table_schema = 'reference'
+                      AND table_name IN (
+                          'exchanges', 'issuers', 'instruments', 'instrument_identifiers',
+                          'instrument_symbols', 'classification_versions',
+                          'issuer_classifications', 'trading_sessions', 'universes',
+                          'universe_snapshots', 'universe_memberships'
+                      )
+                    """)).isEqualTo(11);
+            assertThat(queryInt(connection, """
+                    SELECT COUNT(*)
+                    FROM reference.universes
+                    WHERE code IN ('SP500', 'NASDAQ100')
+                    """)).isEqualTo(2);
         }
     }
 
@@ -61,10 +77,10 @@ class DatabaseMigrationIntegrationTest {
     void upgradesFromThePreviousMigrationVersion() {
         var database = createDatabase();
 
-        assertThat(flyway(database, "001").migrate().migrationsExecuted).isEqualTo(1);
+        assertThat(flyway(database, "002").migrate().migrationsExecuted).isEqualTo(2);
 
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(1);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(2);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
     }
 

@@ -1,0 +1,49 @@
+{
+  "deduplicated_union_instruments": 518,
+  "generated_at": "2026-08-28T13:20:38Z",
+  "import_mode": "CURRENT_SNAPSHOT_FORWARD",
+  "outputs": {
+    "nasdaq100": {
+      "file": "nasdaq100-2026-08-27.csv",
+      "members": 102,
+      "sha256": "76234a8c3c4b4b8c3409928acb3bcc0d7af9d619845b2a05992bd4f94540f390"
+    },
+    "sp500": {
+      "file": "sp500-2026-08-27.csv",
+      "members": 503,
+      "sha256": "81a6826b4cbc3645052c5fec529afb7c2c443778cc0fa9c53fda46c74a0a11ef"
+    }
+  },
+  "overlapping_instruments": 87,
+  "snapshot_date": "2026-08-27",
+  "sources": {
+    "identity_enrichment": {
+      "official_filing_overrides": {
+        "HONA": {
+          "cik": "0002089271",
+          "source_uri": "https://www.sec.gov/Archives/edgar/data/2089271/000208927126000021/0002089271-26-000021-index.htm"
+        },
+        "SPCX": {
+          "cik": "0001181412",
+          "source_uri": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026052535/0001628280-26-052535-index.htm"
+        }
+      },
+      "official_uri": "https://www.sec.gov/files/company_tickers_exchange.json",
+      "retrieval_uri": "https://raw.githubusercontent.com/lwowlwowl/company_name_to_ticker/main/company_tickers_exchange.json",
+      "retrieved_sha256": "295240b13f201bad6b74db2d31bce0f0add6abcb88f099cb0ba5cde0008ec119"
+    },
+    "nasdaq100_membership": {
+      "retrieved_sha256": "6972bbf11073bb288ec1ad70cd944554f45ee477052caf0ac1998e5727c79408",
+      "source_date": "Aug 27, 2026",
+      "uri": "https://api.nasdaq.com/api/quote/list-type/nasdaq100"
+    },
+    "sp500_membership": {
+      "exchange_source_sha256": "baba9744fdd55605e4b4018f04210061c7246fddfe68f06cfeac32e705d946c7",
+      "exchange_uri": "https://en.wikipedia.org/w/index.php?title=List_of_S%26P_500_companies&action=raw",
+      "license": "ODC-PDDL-1.0",
+      "retrieved_sha256": "7d2240408ca6852b485c0ad0f37bc8db22c24aed35cf80b28cda71ddcf208c84",
+      "upstream": "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+      "uri": "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv"
+    }
+  }
+}

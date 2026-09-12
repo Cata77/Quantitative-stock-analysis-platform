@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: market-data-producer
+  datasource:
+    url: ${MARKET_DATA_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
+    username: ${MARKET_DATA_DB_USER:postgres}
+    password: ${MARKET_DATA_DB_PASSWORD:postgres_secure_pass}
   threads:
     virtual:
       enabled: true
@@ -56,6 +60,22 @@ market-data:
     alpha-vantage:
       base-url: ${ALPHA_VANTAGE_BASE_URL:https://www.alphavantage.co}
       api-key: ${ALPHA_VANTAGE_API_KEY:}
+
+reference-data:
+  import:
+    enabled: ${REFERENCE_DATA_IMPORT_ENABLED:false}
+    file: ${REFERENCE_DATA_IMPORT_FILE:}
+    universe: ${REFERENCE_DATA_IMPORT_UNIVERSE:}
+    effective-date: ${REFERENCE_DATA_IMPORT_EFFECTIVE_DATE:}
+    available-at: ${REFERENCE_DATA_IMPORT_AVAILABLE_AT:}
+    observed-at: ${REFERENCE_DATA_IMPORT_OBSERVED_AT:}
+    source: ${REFERENCE_DATA_IMPORT_SOURCE:}
+    source-uri: ${REFERENCE_DATA_IMPORT_SOURCE_URI:}
+    mode: ${REFERENCE_DATA_IMPORT_MODE:CURRENT_SNAPSHOT_FORWARD}
+    completeness: ${REFERENCE_DATA_IMPORT_COMPLETENESS:COMPLETE}
+    expected-member-count: ${REFERENCE_DATA_IMPORT_EXPECTED_MEMBER_COUNT:0}
+    classification-source: ${REFERENCE_DATA_CLASSIFICATION_SOURCE:}
+    classification-version: ${REFERENCE_DATA_CLASSIFICATION_VERSION:}
 
 logging:
   level:
