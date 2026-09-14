@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name = "market-data.legacy-enabled", havingValue = "true")
 public class MarketDataIngestionJob {
 
     private static final Logger LOGGER =

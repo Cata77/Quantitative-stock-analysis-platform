@@ -32,10 +32,6 @@ public record MarketDataProperties(
             throw new IllegalArgumentException(
                     "market-data.symbols must contain valid tickers of at most 10 characters");
         }
-        if (enabled && symbols.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "market-data.symbols must not be empty when collection is enabled");
-        }
         if (topic == null || topic.isBlank()) {
             throw new IllegalArgumentException("market-data.topic must not be blank");
         }

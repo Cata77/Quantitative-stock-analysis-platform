@@ -14,6 +14,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name = "market-data.legacy-enabled", havingValue = "true")
 public class HistoricalBackfillRunner implements ApplicationRunner {
 
     private static final Logger LOGGER =

@@ -9,7 +9,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/auth-service" />
+            <option value="$PROJECT_DIR$/database-migrations" />
             <option value="$PROJECT_DIR$/gateway-service" />
+            <option value="$PROJECT_DIR$/ingestion-contract" />
+            <option value="$PROJECT_DIR$/market-data-producer" />
+            <option value="$PROJECT_DIR$/portfolio-service" />
+            <option value="$PROJECT_DIR$/scoring-service" />
+            <option value="$PROJECT_DIR$/screener-service" />
           </set>
         </option>
       </GradleProjectSettings>

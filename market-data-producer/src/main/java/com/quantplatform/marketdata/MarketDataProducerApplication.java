@@ -15,11 +15,18 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         MarketDataProperties.class,
         AlpacaProperties.class,
         AlphaVantageProperties.class,
+        com.quantplatform.marketdata.operations.IngestionProperties.class,
         ReferenceDataImportProperties.class
 })
 public class MarketDataProducerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MarketDataProducerApplication.class, args);
+        var context = SpringApplication.run(MarketDataProducerApplication.class, args);
+        var properties = context.getBean(com.quantplatform.marketdata.operations.IngestionProperties.class);
+        if (!properties.mode().equals("catch-up-and-serve")) {
+            var runtime = context.getBeanProvider(com.quantplatform.marketdata.operations.IngestionRuntime.class).getIfAvailable();
+            int code = runtime == null ? 2 : runtime.exitCode();
+            System.exit(SpringApplication.exit(context, () -> code));
+        }
     }
 }

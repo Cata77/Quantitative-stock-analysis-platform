@@ -6,6 +6,8 @@ import com.quantplatform.marketdata.event.StockBar;
 import com.quantplatform.marketdata.provider.MarketDataProviderException;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.net.URI;
+import com.quantplatform.ingestion.CanonicalJson;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -61,6 +63,28 @@ public class AlpacaStockMarketClient {
             throw providerFailure("latest bar", symbol, exception);
         }
     }
+
+    public DurableBarPage fetchDurablePage(String symbol, Instant start, Instant end, String pageToken) {
+        URI uri = org.springframework.web.util.UriComponentsBuilder.fromUri(alpaca.baseUrl())
+                .path("/v2/stocks/{symbol}/bars").queryParam("timeframe", "1Day")
+                .queryParam("start", start).queryParam("end", end).queryParam("limit", 10_000)
+                .queryParam("adjustment", "raw").queryParam("feed", alpaca.feed())
+                .queryParam("currency", "USD").queryParam("sort", "asc")
+                .queryParamIfPresent("page_token", java.util.Optional.ofNullable(pageToken).filter(s -> !s.isBlank()))
+                .buildAndExpand(symbol).encode().toUri();
+        try {
+            String raw = webClient.get().uri(uri).retrieve().bodyToMono(String.class).block(marketData.providerTimeout());
+            if (raw == null) throw new MarketDataProviderException("Alpaca returned no historical response");
+            var response = CanonicalJson.MAPPER.readValue(raw, AlpacaHistoricalBarsResponse.class);
+            if (response.bars() == null) throw new MarketDataProviderException("Alpaca response has no bars field");
+            return new DurableBarPage(response.bars().stream().map(AlpacaBar::toStockBar).toList(),
+                    response.next_page_token(), raw, uri.toString(), Instant.now());
+        } catch (WebClientException exception) {
+            throw providerFailure("historical page", symbol, exception);
+        }
+    }
+
+    public record DurableBarPage(List<StockBar> bars, String nextPageToken, String rawJson, String sourceUri, Instant retrievedAt) { }
 
     public List<StockBar> fetchHistoricalBars(
             String symbol,

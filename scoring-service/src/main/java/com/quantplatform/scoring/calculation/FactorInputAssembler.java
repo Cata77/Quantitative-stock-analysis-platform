@@ -30,10 +30,14 @@ public class FactorInputAssembler {
     }
 
     public List<RawFactorMetrics> assemble(Instant asOf) {
+        return assemble(asOf, fundamentalRepository.findDistinctSymbols());
+    }
+
+    public List<RawFactorMetrics> assemble(Instant asOf, List<String> symbols) {
         var referenceTime = asOf.minus(properties.momentumLookback());
         var metrics = new ArrayList<RawFactorMetrics>();
 
-        for (var symbol : fundamentalRepository.findDistinctSymbols()) {
+        for (var symbol : symbols) {
             var fundamentals = fundamentalRepository
                     .findFirstBySymbolAndTimeLessThanEqualOrderByTimeDesc(symbol, asOf);
             var latestBar = marketBarRepository

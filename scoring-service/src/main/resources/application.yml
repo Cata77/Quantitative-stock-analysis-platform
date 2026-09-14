@@ -25,17 +25,17 @@ spring:
     admin:
       fail-fast: false
     consumer:
-      group-id: ${SCORING_CONSUMER_GROUP:scoring-service-v1}
+      group-id: ${SCORING_CONSUMER_GROUP:scoring-service-v2}
       auto-offset-reset: earliest
       enable-auto-commit: false
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       properties:
         isolation.level: read_committed
     producer:
       acks: all
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
       properties:
         enable.idempotence: true
     listener:
@@ -49,8 +49,10 @@ management:
         include: health,info
 
 scoring:
-  input-topic: ${MARKET_DATA_TOPIC:market-data-events}
-  dead-letter-topic: ${MARKET_DATA_DLQ_TOPIC:market-data-events-dlq}
+  command:
+    operation: ${SCORING_OPERATION:serve}
+  input-topic: ${MARKET_DATA_TOPIC:market-data-observations-v2}
+  dead-letter-topic: ${MARKET_DATA_DLQ_TOPIC:market-data-observations-v2-dlq}
   topic-partitions: ${MARKET_DATA_TOPIC_PARTITIONS:6}
   consumer-concurrency: ${SCORING_CONSUMER_CONCURRENCY:3}
   retry-backoff: ${SCORING_RETRY_BACKOFF:1s}

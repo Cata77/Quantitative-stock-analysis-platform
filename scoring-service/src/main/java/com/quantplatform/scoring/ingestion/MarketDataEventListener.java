@@ -7,6 +7,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name = "scoring.legacy-listener-enabled", havingValue = "true")
 public class MarketDataEventListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketDataEventListener.class);

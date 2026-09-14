@@ -8,7 +8,8 @@ RUN mkdir -p \
     portfolio-service \
     market-data-producer \
     scoring-service \
-    screener-service
+    screener-service \
+    ingestion-contract
 COPY database-migrations/build.gradle ./database-migrations/build.gradle
 COPY database-migrations/src ./database-migrations/src
 

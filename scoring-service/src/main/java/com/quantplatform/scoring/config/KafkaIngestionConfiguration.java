@@ -38,19 +38,15 @@ class KafkaIngestionConfiguration {
 
     @Bean
     CommonErrorHandler scoringErrorHandler(
-            KafkaTemplate<Object, Object> kafkaTemplate,
+            com.quantplatform.scoring.ingestion.DeadLetterService deadLetters,
             ScoringProperties properties
     ) {
-        var recoverer = new DeadLetterPublishingRecoverer(
-                kafkaTemplate,
-                (record, exception) ->
-                        new TopicPartition(properties.deadLetterTopic(), record.partition()));
         var backOff = new ExponentialBackOffWithMaxRetries(properties.retryAttempts());
         backOff.setInitialInterval(properties.retryBackoff().toMillis());
         backOff.setMultiplier(2.0);
         backOff.setMaxInterval(properties.retryBackoff().multipliedBy(8).toMillis());
 
-        var errorHandler = new DefaultErrorHandler(recoverer, backOff);
+        var errorHandler = new DefaultErrorHandler(deadLetters::recover, backOff);
         errorHandler.addNotRetryableExceptions(
                 MarketDataValidationException.class,
                 DeserializationException.class,

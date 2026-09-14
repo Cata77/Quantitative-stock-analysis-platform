@@ -38,7 +38,7 @@ management:
 market-data:
   enabled: ${MARKET_DATA_ENABLED:false}
   symbols: ${MARKET_DATA_SYMBOLS:AAPL,MSFT}
-  topic: ${MARKET_DATA_TOPIC:market-data-events}
+  topic: ${MARKET_DATA_TOPIC:market-data-observations-v2}
   topic-partitions: ${MARKET_DATA_TOPIC_PARTITIONS:6}
   provider-timeout: ${MARKET_DATA_PROVIDER_TIMEOUT:10s}
   kafka-send-timeout: ${MARKET_DATA_KAFKA_SEND_TIMEOUT:15s}

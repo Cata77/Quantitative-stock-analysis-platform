@@ -40,17 +40,15 @@ public class FactorScoringService {
         this.scoreRepository = scoreRepository;
     }
 
-    @Scheduled(
-            cron = "${scoring.schedule-cron}",
-            zone = "${scoring.schedule-zone}")
-    @Transactional
-    public void calculateDailyScores() {
-        calculateAt(clock.instant());
+    public List<FactorScore> calculateAt(Instant asOf) {
+        return calculateAt(asOf, null);
     }
 
-    public List<FactorScore> calculateAt(Instant asOf) {
+    public List<FactorScore> calculateAt(Instant asOf, List<String> expectedSymbols) {
         var scoringTime = asOf.truncatedTo(ChronoUnit.SECONDS);
-        var universe = inputAssembler.assemble(scoringTime);
+        var universe = expectedSymbols == null ? inputAssembler.assemble(scoringTime)
+                : inputAssembler.assemble(scoringTime, expectedSymbols);
+        if (expectedSymbols != null && universe.size() != expectedSymbols.size()) return List.of();
         if (universe.size() < properties.minimumUniverseSize()) {
             LOGGER.info(
                     "Skipped daily score calculation at {}: eligible universe {} is below {}",

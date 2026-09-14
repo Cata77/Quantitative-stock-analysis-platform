@@ -210,7 +210,7 @@ class UniverseSnapshotImporterIntegrationTest {
                 .validateMigrationNaming(true)
                 .locations("classpath:db/migration")
                 .load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(4);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(9);
         return database;
     }
 

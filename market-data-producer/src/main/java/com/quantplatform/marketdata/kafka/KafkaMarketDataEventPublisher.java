@@ -9,6 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name = "market-data.legacy-enabled", havingValue = "true")
 public class KafkaMarketDataEventPublisher implements MarketDataEventPublisher {
 
     private final KafkaTemplate<String, MarketDataEvent> kafkaTemplate;

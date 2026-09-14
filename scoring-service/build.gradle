@@ -7,6 +7,7 @@ springBoot {
 }
 
 dependencies {
+    implementation project(':ingestion-contract')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-kafka'
@@ -19,5 +20,14 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation project(':market-data-producer')
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.flywaydb:flyway-database-postgresql'
+    testImplementation platform('org.testcontainers:testcontainers-bom:2.0.5')
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
+    testImplementation 'org.testcontainers:testcontainers-kafka'
     testRuntimeOnly 'com.h2database:h2'
 }
+
+sourceSets.test.resources.srcDir project(':database-migrations').file('src/main/resources')

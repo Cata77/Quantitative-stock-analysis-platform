@@ -6,6 +6,8 @@ import com.quantplatform.marketdata.event.FundamentalSnapshot;
 import com.quantplatform.marketdata.provider.MarketDataProviderException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Instant;
+import com.quantplatform.ingestion.CanonicalJson;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 import org.springframework.core.ParameterizedTypeReference;
@@ -39,9 +41,14 @@ public class AlphaVantageFundamentalClient {
     }
 
     public FundamentalSnapshot fetchCompanyOverview(String symbol) {
+        return fetchDurableOverview(symbol).snapshot();
+    }
+
+    public DurableOverview fetchDurableOverview(String symbol) {
         Map<String, Object> response;
+        String raw;
         try {
-            response = webClient.get()
+            raw = webClient.get()
                     .uri(uriBuilder -> uriBuilder
                             .path("/query")
                             .queryParam("function", "OVERVIEW")
@@ -49,15 +56,16 @@ public class AlphaVantageFundamentalClient {
                             .queryParam("apikey", nullToEmpty(alphaVantage.apiKey()))
                             .build())
                     .retrieve()
-                    .bodyToMono(RESPONSE_TYPE)
+                    .bodyToMono(String.class)
                     .block(marketData.providerTimeout());
+            response = raw == null ? null : CanonicalJson.readObject(raw);
         } catch (WebClientException exception) {
             throw new MarketDataProviderException(
                     "Alpha Vantage company overview request failed for " + symbol,
                     exception);
         }
         validateResponse(symbol, response);
-        return new FundamentalSnapshot(
+        var snapshot = new FundamentalSnapshot(
                 text(response, "Name"),
                 text(response, "AssetType"),
                 text(response, "Exchange"),
@@ -81,7 +89,11 @@ public class AlphaVantageFundamentalClient {
                 decimal(response, "QuarterlyEarningsGrowthYOY"),
                 decimal(response, "AnalystTargetPrice"),
                 decimal(response, "Beta"));
+        return new DurableOverview(snapshot, raw, Instant.now(),
+                alphaVantage.baseUrl() + "/query?function=OVERVIEW&symbol=" + symbol);
     }
+
+    public record DurableOverview(FundamentalSnapshot snapshot, String rawJson, Instant retrievedAt, String sourceUri) { }
 
     private void validateResponse(String symbol, Map<String, Object> response) {
         if (response == null || response.isEmpty()) {
@@ -95,7 +107,7 @@ public class AlphaVantageFundamentalClient {
                         "Alpha Vantage rejected " + symbol + ": " + message);
             }
         }
-        if (text(response, "Symbol") == null || text(response, "Name") == null) {
+        if (!symbol.equalsIgnoreCase(text(response, "Symbol")) || text(response, "Name") == null) {
             throw new MarketDataProviderException(
                     "Alpha Vantage returned an incomplete company overview for " + symbol);
         }

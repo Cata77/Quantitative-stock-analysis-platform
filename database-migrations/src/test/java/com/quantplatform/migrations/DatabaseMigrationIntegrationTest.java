@@ -13,7 +13,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@Testcontainers(disabledWithoutDocker = true)
+@Testcontainers
 class DatabaseMigrationIntegrationTest {
 
     private static final DockerImageName TIMESCALE_IMAGE = DockerImageName
@@ -33,7 +33,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(4);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(9);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
 
@@ -70,18 +70,35 @@ class DatabaseMigrationIntegrationTest {
                     FROM reference.universes
                     WHERE code IN ('SP500', 'NASDAQ100')
                     """)).isEqualTo(2);
+            assertThat(queryInt(connection, """
+                    SELECT COUNT(*) FROM information_schema.tables
+                    WHERE table_schema = 'operations' AND table_name IN (
+                        'data_providers', 'datasets', 'job_definitions', 'ingestion_runs',
+                        'ingestion_run_snapshots', 'ingestion_run_items', 'ingestion_attempts',
+                        'ingestion_checkpoints', 'data_quality_issues', 'data_coverage', 'data_watermarks',
+                        'source_artifacts', 'outbox_events', 'ingestion_item_events', 'ingestion_item_artifacts', 'kafka_inbox'
+                    )
+                    """)).isEqualTo(16);
         }
     }
 
     @Test
-    void upgradesFromThePreviousMigrationVersion() {
+    void upgradesFromThePreviousMigrationVersion() throws SQLException {
         var database = createDatabase();
 
-        assertThat(flyway(database, "002").migrate().migrationsExecuted).isEqualTo(2);
+        assertThat(flyway(database, "004").migrate().migrationsExecuted).isGreaterThanOrEqualTo(4);
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
+                var statement = connection.createStatement()) {
+            statement.execute("INSERT INTO reference.issuers (legal_name, cik) VALUES ('Upgrade fixture', '0000000001')");
+        }
 
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(2);
+        assertThat(upgraded.migrate().migrationsExecuted).isGreaterThanOrEqualTo(4);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertThat(queryInt(connection, "SELECT COUNT(*) FROM reference.issuers WHERE cik = '0000000001'"))
+                    .isEqualTo(1);
+        }
     }
 
     private String createDatabase() {
