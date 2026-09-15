@@ -34,12 +34,14 @@ public class IngestionCoordinator {
     private final AlpacaProperties alpacaConfig;
     private final IngestionProperties properties;
     private final Clock clock;
+    private final BulkDailyCollector bulk;
+    private final DailyPriceProperties prices;
     private final String worker = "ingestion-" + UUID.randomUUID();
     private volatile Status status = new Status("SYNCING", "Startup reconciliation has not finished", 0, 0, null);
 
     public IngestionCoordinator(DataSource source, PlatformTransactionManager manager, IngestionRunStore store,
             TradingCalendarLoader calendar, AlpacaStockMarketClient alpaca, AlphaVantageFundamentalClient fundamentals,
-            MarketDataProperties market, AlpacaProperties alpacaConfig, IngestionProperties properties, Clock clock) {
+            MarketDataProperties market, AlpacaProperties alpacaConfig, IngestionProperties properties, Clock clock, BulkDailyCollector bulk, DailyPriceProperties prices) {
         jdbc = JdbcClient.create(source);
         transactions = new TransactionTemplate(manager);
         this.store = store;
@@ -50,6 +52,8 @@ public class IngestionCoordinator {
         this.alpacaConfig = alpacaConfig;
         this.properties = properties;
         this.clock = clock;
+        this.bulk = bulk;
+        this.prices = prices;
     }
 
     public Status status() { return status; }
@@ -68,19 +72,43 @@ public class IngestionCoordinator {
         var sessions = jdbc.sql("""
                 SELECT session_date FROM reference.trading_sessions WHERE exchange_mic = 'XNYS'
                     AND NOT holiday AND session_date BETWEEN :start AND :end AND closes_at < :now
+                    AND ((session_date + 1)::timestamp AT TIME ZONE 'America/New_York') <= :eligible
                 ORDER BY session_date
                 """).param("start", start).param("end", through).param("now", clock.instant().atOffset(ZoneOffset.UTC))
+                .param("eligible", clock.instant().minus(prices.publicationDelay()).atOffset(ZoneOffset.UTC))
                 .query(LocalDate.class).list();
         if (sessions.isEmpty()) return status = new Status("DEGRADED", "No trading sessions in the requested window", 0, 0, null);
         var runIds = new ArrayList<UUID>();
         var work = new LinkedHashMap<UUID, String>();
-        if (market.latestBarsEnabled() || market.historicalBackfillEnabled() || properties.mode().equals("backfill")) {
-            UUID job = register("alpaca", "daily-bars-" + alpacaConfig.feed() + "-raw", "STOCK_BAR",
-                    Map.of("feed", alpacaConfig.feed(), "adjustment", "RAW", "timeframe", "1Day", "baseUrl", alpacaConfig.baseUrl().toString()));
-            for (LocalDate date : sessions) {
-                UUID run = plan(job, date);
-                runIds.add(run);
-                work.put(run, "STOCK_BAR");
+        if (market.latestBarsEnabled() || market.historicalBackfillEnabled()
+                || List.of("backfill","force-refresh").contains(properties.mode())) {
+            for (String adjustment : prices.adjustedEnabled() ? List.of("RAW","SPLIT_DIVIDEND") : List.of("RAW")) {
+                var configuration = new LinkedHashMap<String,Object>();
+                configuration.put("feed",prices.feed());
+                configuration.put("adjustment",adjustment);
+                configuration.put("timeframe","1Day");
+                configuration.put("baseUrl",alpacaConfig.baseUrl().toString());
+                if (!adjustment.equals("RAW")) configuration.put("adjustmentAsOf",today.toString());
+                UUID job = register("alpaca","daily-prices-" + prices.feed() + "-" + adjustment.toLowerCase(java.util.Locale.ROOT),
+                        "DAILY_PRICE",configuration);
+                for (LocalDate date : sessions) {
+                    UUID run = plan(job,date);
+                    runIds.add(run);
+                    work.put(run,"DAILY_PRICE");
+                }
+            }
+            if (prices.corporateActionsEnabled()) {
+                for (LocalDate date = start; !date.isAfter(through); date = date.plusDays(1)) {
+                    var configuration = new LinkedHashMap<String,Object>();
+                    configuration.put("adjustment","NONE");
+                    configuration.put("baseUrl",alpacaConfig.baseUrl().toString());
+                    // Provider process dates can arrive late. Revisit recent days with a dated audited run.
+                    if (!date.isBefore(today.minusDays(prices.actionsRefreshDays()))) configuration.put("refreshDate",today.toString());
+                    UUID job = register("alpaca","corporate-actions","CORPORATE_ACTION_BATCH",configuration);
+                    UUID run = plan(job,date);
+                    runIds.add(run);
+                    work.put(run,"CORPORATE_ACTION_BATCH");
+                }
             }
         }
         // OVERVIEW has no historical point-in-time endpoint. Never relabel today's response as an old observation.
@@ -95,10 +123,12 @@ public class IngestionCoordinator {
         int remaining = properties.itemsPerCycle();
         for (var entry : work.entrySet()) {
             while (remaining > 0) {
-                var claims = store.claim(entry.getKey(), worker, 1, properties.jobLease());
+                int batchSize = entry.getValue().equals("FUNDAMENTAL_SNAPSHOT") ? 1 : Math.min(remaining,prices.symbolsPerRequest());
+                var claims = store.claim(entry.getKey(), worker, batchSize, properties.jobLease());
                 if (claims.isEmpty()) break;
-                remaining--;
-                process(claims.getFirst(), entry.getValue());
+                remaining -= claims.size();
+                if (entry.getValue().equals("FUNDAMENTAL_SNAPSHOT")) process(claims.getFirst(),entry.getValue());
+                else bulk.collect(claims,entry.getValue(),market.topic());
             }
         }
         reconcileCanonicalCoverage();
@@ -114,9 +144,13 @@ public class IngestionCoordinator {
                 WHERE i.ingestion_run_id IN (:runs) AND i.status <> 'COMPLETE' AND o.status = 'FAILED_TERMINAL'
                 """).param("runs", runIds).query(Long.class).single();
         LocalDate completeThrough = jdbc.sql("""
-                SELECT MAX(w.complete_through) FROM operations.data_watermarks w
-                JOIN operations.data_coverage c ON c.dataset_id = w.dataset_id AND c.partition_key = w.partition_key
-                    AND c.boundary_date = w.complete_through WHERE c.ingestion_run_id IN (:runs)
+                SELECT MAX(r.window_end) FROM operations.ingestion_runs r
+                JOIN reference.trading_sessions s ON s.exchange_mic='XNYS' AND s.session_date=r.window_end AND NOT s.holiday
+                WHERE r.ingestion_run_id IN (:runs)
+                  AND NOT EXISTS (SELECT 1 FROM operations.ingestion_runs missing
+                    WHERE missing.ingestion_run_id IN (:runs) AND missing.window_end<=r.window_end
+                      AND (missing.status<>'COMPLETE' OR NOT EXISTS (
+                        SELECT 1 FROM operations.data_coverage c WHERE c.ingestion_run_id=missing.ingestion_run_id AND c.valid)))
                 """).param("runs", runIds).query((rs, row) -> rs.getObject(1, LocalDate.class)).optional().orElse(null);
         long blockingCoverage = jdbc.sql("""
                 SELECT COUNT(*) FROM operations.ingestion_runs r WHERE r.ingestion_run_id IN (:runs)
@@ -129,7 +163,7 @@ public class IngestionCoordinator {
         String state = progress[1] > 0 || failedDelivery > 0 ? "FAILED"
                 : progress[2] > 0 || blockingCoverage > 0 ? "DEGRADED" : progress[0] > 0 ? "SYNCING" : "READY";
         return status = new Status(state, state.equals("READY") ? "Required observations are durably accepted"
-                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough);
+                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough, sessions.getLast(), prices.feed(), prices.feed().equals("sip"));
     }
 
     private void process(JobLease lease, String type) {
@@ -202,7 +236,7 @@ public class IngestionCoordinator {
     private UUID plan(UUID job, LocalDate date) {
         String requestKey = properties.mode().equals("force-refresh") ? "force:" + properties.requestId() + ":" + properties.reason() : "scheduled";
         return store.plan(new IngestionPlan(job, snapshot("SP500", date), snapshot("NASDAQ100", date), date, date,
-                properties.mode(), requestKey, "phase3-v2"));
+                properties.mode(), requestKey, "phase4-v1"));
     }
 
     private UUID snapshot(String code, LocalDate date) {
@@ -255,6 +289,11 @@ public class IngestionCoordinator {
                 .query(Integer.class).single();
     }
 
-    public record Status(String state, String detail, long pendingItems, long failedItems, LocalDate completeThrough) { }
+    public record Status(String state, String detail, long pendingItems, long failedItems, LocalDate completeThrough,
+                         LocalDate latestEligibleSession, String feed, boolean consolidatedLiquidityEligible) {
+        public Status(String state, String detail, long pendingItems, long failedItems, LocalDate completeThrough) {
+            this(state,detail,pendingItems,failedItems,completeThrough,null,null,false);
+        }
+    }
     private record Request(LocalDate date, String symbol) { }
 }

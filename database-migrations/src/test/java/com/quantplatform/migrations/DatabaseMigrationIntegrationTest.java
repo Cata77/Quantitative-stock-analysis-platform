@@ -33,9 +33,20 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(9);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(11);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
+
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertThat(queryInt(connection, """
+                    SELECT COUNT(*) FROM timescaledb_information.hypertables
+                    WHERE hypertable_schema='market_data' AND hypertable_name='daily_bar_observations'
+                    """)).isEqualTo(1);
+            assertThat(queryInt(connection, """
+                    SELECT COUNT(*) FROM timescaledb_information.jobs
+                    WHERE hypertable_schema='market_data' AND proc_name IN ('policy_retention','policy_compression')
+                    """)).isZero();
+        }
 
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
             assertThat(queryInt(connection, """
@@ -86,14 +97,14 @@ class DatabaseMigrationIntegrationTest {
     void upgradesFromThePreviousMigrationVersion() throws SQLException {
         var database = createDatabase();
 
-        assertThat(flyway(database, "004").migrate().migrationsExecuted).isGreaterThanOrEqualTo(4);
+        assertThat(flyway(database, "008").migrate().migrationsExecuted).isEqualTo(8);
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
                 var statement = connection.createStatement()) {
             statement.execute("INSERT INTO reference.issuers (legal_name, cik) VALUES ('Upgrade fixture', '0000000001')");
         }
 
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isGreaterThanOrEqualTo(4);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(3);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
             assertThat(queryInt(connection, "SELECT COUNT(*) FROM reference.issuers WHERE cik = '0000000001'"))
@@ -130,6 +141,19 @@ class DatabaseMigrationIntegrationTest {
                 .locations("classpath:db/migration");
         if (target != null) {
             configuration.target(target);
+            // An older installation contains only its versioned SQL, not views from future phases.
+            try {
+                var subset = java.nio.file.Files.createTempDirectory("migration-upgrade-fixture");
+                var resources = java.nio.file.Path.of(getClass().getResource("/db/migration").toURI());
+                try (var files = java.nio.file.Files.list(resources)) {
+                    for (var file : files.toList()) {
+                        String name = file.getFileName().toString();
+                        if (name.startsWith("V") && Integer.parseInt(name.substring(1,4)) <= Integer.parseInt(target))
+                            java.nio.file.Files.copy(file, subset.resolve(name));
+                    }
+                }
+                configuration.locations("filesystem:" + subset);
+            } catch (Exception failure) { throw new IllegalStateException(failure); }
         }
         return configuration.load();
     }

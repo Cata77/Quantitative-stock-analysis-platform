@@ -22,10 +22,12 @@ public class DurableObservationProcessor {
     private final TransactionTemplate transactions;
     private final MarketDataEventProcessor projection;
     private final String consumer;
+    private final DailyMarketDataStore dailyData;
 
     public DurableObservationProcessor(DataSource source, PlatformTransactionManager manager,
             MarketDataEventProcessor projection, @Value("${spring.kafka.consumer.group-id}") String consumer) {
         jdbc = JdbcClient.create(source);
+        dailyData = new DailyMarketDataStore(source);
         transactions = new TransactionTemplate(manager);
         this.projection = projection;
         this.consumer = consumer;
@@ -42,6 +44,11 @@ public class DurableObservationProcessor {
                     fundamentals = null;
                     if (!bar.time().equals(event.economicTime())) throw new IllegalArgumentException("bar time differs from envelope");
                     if (!event.adjustmentMode().equals("RAW")) throw new IllegalArgumentException("unsupported price adjustment");
+                }
+                case "DAILY_PRICE", "CORPORATE_ACTION_BATCH" -> {
+                    bar = null;
+                    fundamentals = null;
+                    dailyData.validate(event);
                 }
                 case "FUNDAMENTAL_SNAPSHOT" -> {
                     bar = null;
@@ -111,7 +118,9 @@ public class DurableObservationProcessor {
                     .param("type", event.eventType()).param("time", event.economicTime().atOffset(ZoneOffset.UTC))
                     .param("adjustment", event.adjustmentMode()).param("payload", payload).param("artifact", source.id())
                     .param("observed", source.observedAt().atOffset(ZoneOffset.UTC)).update();
-            if (canonical == 1) {
+            if (canonical == 1 && (event.eventType().equals("DAILY_PRICE") || event.eventType().equals("CORPORATE_ACTION_BATCH"))) {
+                dailyData.persist(event,source.id(),source.observedAt());
+            } else if (canonical == 1) {
                 var newest = jdbc.sql("""
                         SELECT observation_key FROM market_data.observations WHERE dataset_id = :dataset
                             AND instrument_id = :instrument AND economic_time = :time AND adjustment_mode = :adjustment

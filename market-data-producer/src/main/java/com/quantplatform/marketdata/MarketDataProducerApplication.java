@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         AlpacaProperties.class,
         AlphaVantageProperties.class,
         com.quantplatform.marketdata.operations.IngestionProperties.class,
+        com.quantplatform.marketdata.operations.DailyPriceProperties.class,
         ReferenceDataImportProperties.class
 })
 public class MarketDataProducerApplication {

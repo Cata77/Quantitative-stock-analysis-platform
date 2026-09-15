@@ -80,3 +80,15 @@ reference-data:
 logging:
   level:
     com.quantplatform.marketdata: INFO
+
+# Daily ingestion uses the stable universe and its own explicit feed.
+ingestion:
+  prices:
+    feed: ${DAILY_PRICE_FEED:sip}
+    symbols-per-request: ${DAILY_PRICE_SYMBOLS_PER_REQUEST:100}
+    page-limit: ${DAILY_PRICE_PAGE_LIMIT:10000}
+    request-spacing: ${DAILY_PRICE_REQUEST_SPACING:350ms}
+    publication-delay: ${DAILY_PRICE_PUBLICATION_DELAY:16m}
+    adjusted-enabled: ${DAILY_PRICE_ADJUSTED_ENABLED:true}
+    corporate-actions-enabled: ${DAILY_PRICE_CORPORATE_ACTIONS_ENABLED:true}
+    actions-refresh-days: ${DAILY_PRICE_ACTIONS_REFRESH_DAYS:14}

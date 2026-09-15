@@ -17,7 +17,7 @@ reconciliation function validates accepted work and contiguous watermarks. Appli
 versioned migrations are never edited.
 
 The observation journal is the Phase 3 canonical durability boundary. Specialized daily
-prices/corporate actions and filings remain Phases 4/5. The existing equal-weight
+prices/corporate actions now use the [phase 4 pipeline](DAILY-PRICES.md); filings remain Phase 5. The existing equal-weight
 demonstration formula is unchanged. Its monthly scheduling guard is not the production
 model or historical research gate planned for Phases 7/8.
 
@@ -37,7 +37,7 @@ Calendar sessions, holidays, and early closes are persisted from the Alpaca cale
 with source response/hash metadata. The current day is excluded conservatively. Provider
 calls happen outside database transactions. Each page atomically stages its artifact,
 outbox observations, lineage, and checkpoint. Empty expected sessions and repeated page
-tokens remain failures. Detailed price coverage and provider contracts belong to Phase 4.
+tokens remain failures. See [daily prices](DAILY-PRICES.md) for phase 4 coverage and provider contracts.
 
 Current OVERVIEW collection is optional and only runs for today's observation. It does
 not relabel today's response as historical data or replace the filing model in Phase 5.
