@@ -92,3 +92,15 @@ ingestion:
     adjusted-enabled: ${DAILY_PRICE_ADJUSTED_ENABLED:true}
     corporate-actions-enabled: ${DAILY_PRICE_CORPORATE_ACTIONS_ENABLED:true}
     actions-refresh-days: ${DAILY_PRICE_ACTIONS_REFRESH_DAYS:14}
+
+# SEC and FFIEC ingestion are independent of the optional legacy OVERVIEW adapter.
+fundamentals:
+  enabled: ${SEC_FUNDAMENTALS_ENABLED:false}
+  sec-user-agent: ${SEC_USER_AGENT:}
+  sec-base-url: ${SEC_BASE_URL:https://data.sec.gov}
+  start-date: ${SEC_FILINGS_START_DATE:2010-01-01}
+  request-spacing: ${SEC_REQUEST_SPACING:200ms}
+  max-submission-pages: ${SEC_MAX_SUBMISSION_PAGES:40}
+  timeout: ${SEC_REQUEST_TIMEOUT:30s}
+  ffiec-file: ${FFIEC_BULK_FILE:}
+  ffiec-manifest: ${FFIEC_IDENTITY_MANIFEST:}

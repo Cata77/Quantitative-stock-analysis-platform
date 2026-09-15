@@ -17,7 +17,7 @@ reconciliation function validates accepted work and contiguous watermarks. Appli
 versioned migrations are never edited.
 
 The observation journal is the Phase 3 canonical durability boundary. Specialized daily
-prices/corporate actions now use the [phase 4 pipeline](DAILY-PRICES.md); filings remain Phase 5. The existing equal-weight
+prices/corporate actions now use the [phase 4 pipeline](DAILY-PRICES.md); filings use the [phase 5 canonical pipeline](FUNDAMENTALS.md). The existing equal-weight
 demonstration formula is unchanged. Its monthly scheduling guard is not the production
 model or historical research gate planned for Phases 7/8.
 
@@ -93,7 +93,7 @@ Append these arguments to the market-data-producer runnable jar:
 | Bounded history | --market-data.enabled=true --ingestion.mode=backfill --ingestion.start-date=2026-09-01 --ingestion.end-date=2026-09-11 |
 | Audited correction | --market-data.enabled=true --ingestion.mode=force-refresh --ingestion.start-date=2026-09-01 --ingestion.end-date=2026-09-01 --ingestion.request-id=correction-001 --ingestion.reason=provider-correction |
 
-Force refresh currently handles daily bars. Reuse request ID and reason to resume the
+Force refresh handles daily bars and enabled SEC/FFIEC collections. Reuse request ID and reason to resume the
 same correction. Producer exit codes are 0 complete, 1 failed, and 2 incomplete/timeout.
 Setting ingestion.schedules-enabled=false preserves startup reconciliation but disables
 recurring triggers. The sync-timeout, items-per-cycle, max-attempts, job-lease,

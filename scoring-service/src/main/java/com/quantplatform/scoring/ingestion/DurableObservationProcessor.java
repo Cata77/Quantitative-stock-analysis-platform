@@ -23,11 +23,13 @@ public class DurableObservationProcessor {
     private final MarketDataEventProcessor projection;
     private final String consumer;
     private final DailyMarketDataStore dailyData;
+    private final com.quantplatform.scoring.fundamentals.FundamentalDataStore fundamentalData;
 
     public DurableObservationProcessor(DataSource source, PlatformTransactionManager manager,
             MarketDataEventProcessor projection, @Value("${spring.kafka.consumer.group-id}") String consumer) {
         jdbc = JdbcClient.create(source);
         dailyData = new DailyMarketDataStore(source);
+        fundamentalData = new com.quantplatform.scoring.fundamentals.FundamentalDataStore(source);
         transactions = new TransactionTemplate(manager);
         this.projection = projection;
         this.consumer = consumer;
@@ -49,6 +51,9 @@ public class DurableObservationProcessor {
                     bar = null;
                     fundamentals = null;
                     dailyData.validate(event);
+                }
+                case "FILING_FACTS", "FUNDAMENTAL_COLLECTION_STATUS", "REGULATORY_FACTS" -> {
+                    bar = null; fundamentals = null; fundamentalData.validate(event);
                 }
                 case "FUNDAMENTAL_SNAPSHOT" -> {
                     bar = null;
@@ -120,6 +125,8 @@ public class DurableObservationProcessor {
                     .param("observed", source.observedAt().atOffset(ZoneOffset.UTC)).update();
             if (canonical == 1 && (event.eventType().equals("DAILY_PRICE") || event.eventType().equals("CORPORATE_ACTION_BATCH"))) {
                 dailyData.persist(event,source.id(),source.observedAt());
+            } else if (canonical == 1 && java.util.Set.of("FILING_FACTS","FUNDAMENTAL_COLLECTION_STATUS","REGULATORY_FACTS").contains(event.eventType())) {
+                fundamentalData.persist(event,source.id(),source.observedAt());
             } else if (canonical == 1) {
                 var newest = jdbc.sql("""
                         SELECT observation_key FROM market_data.observations WHERE dataset_id = :dataset

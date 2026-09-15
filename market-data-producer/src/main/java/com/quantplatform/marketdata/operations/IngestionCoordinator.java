@@ -36,6 +36,13 @@ public class IngestionCoordinator {
     private final Clock clock;
     private final BulkDailyCollector bulk;
     private final DailyPriceProperties prices;
+    private com.quantplatform.marketdata.fundamentals.SecFilingsCollector secFilings;
+    private com.quantplatform.marketdata.fundamentals.FfiecBulkCollector ffiec;
+    @org.springframework.beans.factory.annotation.Autowired
+    public void fundamentalCollectors(com.quantplatform.marketdata.fundamentals.SecFilingsCollector sec,
+            com.quantplatform.marketdata.fundamentals.FfiecBulkCollector regulatory) {
+        this.secFilings=sec;this.ffiec=regulatory;
+    }
     private final String worker = "ingestion-" + UUID.randomUUID();
     private volatile Status status = new Status("SYNCING", "Startup reconciliation has not finished", 0, 0, null);
 
@@ -63,25 +70,36 @@ public class IngestionCoordinator {
         status = new Status("SYNCING", "Reconciling desired coverage", status.pendingItems(), status.failedItems(), status.completeThrough());
         if (!market.enabled()) return status = new Status("DEGRADED", "Collection is disabled", 0, 0, null);
         LocalDate today = LocalDate.ofInstant(clock.instant(), NEW_YORK);
-        LocalDate latestCompleteDay = today.minusDays(1);
+        boolean collectPrices=market.latestBarsEnabled()||market.historicalBackfillEnabled();
+        LocalDate latestCompleteDay = collectPrices?today.minusDays(1):today;
         LocalDate start = properties.startDate() == null ? firstSupportedDate() : properties.startDate();
         LocalDate through = properties.endDate() == null ? latestCompleteDay : properties.endDate();
         if (through.isAfter(latestCompleteDay)) throw new IllegalArgumentException("daily history must end before the current New York date");
         if (through.isBefore(start)) return status = new Status("DEGRADED", "No completed supported session is due", 0, 0, null);
-        calendar.ensure(start, today);
-        var sessions = jdbc.sql("""
+        if(collectPrices) calendar.ensure(start, today);
+        var sessions = collectPrices ? jdbc.sql("""
                 SELECT session_date FROM reference.trading_sessions WHERE exchange_mic = 'XNYS'
                     AND NOT holiday AND session_date BETWEEN :start AND :end AND closes_at < :now
                     AND ((session_date + 1)::timestamp AT TIME ZONE 'America/New_York') <= :eligible
                 ORDER BY session_date
                 """).param("start", start).param("end", through).param("now", clock.instant().atOffset(ZoneOffset.UTC))
                 .param("eligible", clock.instant().minus(prices.publicationDelay()).atOffset(ZoneOffset.UTC))
-                .query(LocalDate.class).list();
+                .query(LocalDate.class).list() : List.of(through);
         if (sessions.isEmpty()) return status = new Status("DEGRADED", "No trading sessions in the requested window", 0, 0, null);
         var runIds = new ArrayList<UUID>();
         var work = new LinkedHashMap<UUID, String>();
-        if (market.latestBarsEnabled() || market.historicalBackfillEnabled()
-                || List.of("backfill","force-refresh").contains(properties.mode())) {
+        if(secFilings!=null && secFilings.enabled()) {
+            var config=new LinkedHashMap<>(secFilings.configuration());
+            config.put("retrievalDate",today.toString());
+            UUID job=register("sec","companyfacts","FILING_FACTS",config);
+            UUID run=plan(job,List.of("backfill","force-refresh").contains(properties.mode())?through:today);
+            runIds.add(run);work.put(run,"FILING_FACTS");
+        }
+        if(ffiec!=null && ffiec.enabled()) {
+            UUID job=register("ffiec","call-reports","REGULATORY_FACTS",ffiec.configuration());
+            UUID run=plan(job,through);runIds.add(run);work.put(run,"REGULATORY_FACTS");
+        }
+        if (collectPrices) {
             for (String adjustment : prices.adjustedEnabled() ? List.of("RAW","SPLIT_DIVIDEND") : List.of("RAW")) {
                 var configuration = new LinkedHashMap<String,Object>();
                 configuration.put("feed",prices.feed());
@@ -123,11 +141,13 @@ public class IngestionCoordinator {
         int remaining = properties.itemsPerCycle();
         for (var entry : work.entrySet()) {
             while (remaining > 0) {
-                int batchSize = entry.getValue().equals("FUNDAMENTAL_SNAPSHOT") ? 1 : Math.min(remaining,prices.symbolsPerRequest());
+                int batchSize = List.of("FUNDAMENTAL_SNAPSHOT","FILING_FACTS","REGULATORY_FACTS").contains(entry.getValue()) ? 1 : Math.min(remaining,prices.symbolsPerRequest());
                 var claims = store.claim(entry.getKey(), worker, batchSize, properties.jobLease());
                 if (claims.isEmpty()) break;
                 remaining -= claims.size();
                 if (entry.getValue().equals("FUNDAMENTAL_SNAPSHOT")) process(claims.getFirst(),entry.getValue());
+                else if(entry.getValue().equals("FILING_FACTS")) secFilings.collect(claims.getFirst(),market.topic());
+                else if(entry.getValue().equals("REGULATORY_FACTS")) ffiec.collect(claims.getFirst(),market.topic());
                 else bulk.collect(claims,entry.getValue(),market.topic());
             }
         }
@@ -145,13 +165,13 @@ public class IngestionCoordinator {
                 """).param("runs", runIds).query(Long.class).single();
         LocalDate completeThrough = jdbc.sql("""
                 SELECT MAX(r.window_end) FROM operations.ingestion_runs r
-                JOIN reference.trading_sessions s ON s.exchange_mic='XNYS' AND s.session_date=r.window_end AND NOT s.holiday
-                WHERE r.ingestion_run_id IN (:runs)
+                LEFT JOIN reference.trading_sessions s ON s.exchange_mic='XNYS' AND s.session_date=r.window_end AND NOT s.holiday
+                WHERE r.ingestion_run_id IN (:runs) AND (:prices=false OR s.session_date IS NOT NULL)
                   AND NOT EXISTS (SELECT 1 FROM operations.ingestion_runs missing
                     WHERE missing.ingestion_run_id IN (:runs) AND missing.window_end<=r.window_end
                       AND (missing.status<>'COMPLETE' OR NOT EXISTS (
                         SELECT 1 FROM operations.data_coverage c WHERE c.ingestion_run_id=missing.ingestion_run_id AND c.valid)))
-                """).param("runs", runIds).query((rs, row) -> rs.getObject(1, LocalDate.class)).optional().orElse(null);
+                """).param("runs", runIds).param("prices",collectPrices).query((rs, row) -> rs.getObject(1, LocalDate.class)).optional().orElse(null);
         long blockingCoverage = jdbc.sql("""
                 SELECT COUNT(*) FROM operations.ingestion_runs r WHERE r.ingestion_run_id IN (:runs)
                   AND (EXISTS (SELECT 1 FROM operations.data_quality_issues q WHERE q.dataset_id = r.dataset_id
@@ -163,7 +183,7 @@ public class IngestionCoordinator {
         String state = progress[1] > 0 || failedDelivery > 0 ? "FAILED"
                 : progress[2] > 0 || blockingCoverage > 0 ? "DEGRADED" : progress[0] > 0 ? "SYNCING" : "READY";
         return status = new Status(state, state.equals("READY") ? "Required observations are durably accepted"
-                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough, sessions.getLast(), prices.feed(), prices.feed().equals("sip"));
+                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough, collectPrices?sessions.getLast():null, prices.feed(), collectPrices&&prices.feed().equals("sip"));
     }
 
     private void process(JobLease lease, String type) {
