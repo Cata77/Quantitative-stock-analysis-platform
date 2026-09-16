@@ -18,6 +18,6 @@ public record ScoringInput(UUID instrumentId, UUID issuerId, String symbol,
     public record Reason(String code, String detail) {}
     public record PriceSource(LocalDate date, String mode, String observationKey, UUID sourceArtifactId) {}
     public record Fact(UUID factId, UUID filingId, String metric, LocalDate start, LocalDate end,
-        BigDecimal value, String unit, Instant availableAt, LocalDate filedDate,
+        BigDecimal value, String unit, Instant availableAt, Instant observedAt, LocalDate filedDate,
         UUID sourceArtifactId, String mappingVersion, String parserVersion) {}
 }

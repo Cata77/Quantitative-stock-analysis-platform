@@ -122,6 +122,11 @@ class ScoringInputIntegrationTest extends DurableDeliveryFixture {
         assertThat(row.liquidityCount()).isEqualTo(20);
         assertThat(row.inSp500()&&row.inNasdaq100()).isTrue();
         assertThat(row.facts()).hasSize(2);
+        assertThat(row.facts()).allSatisfy(fact -> {
+            var stored=jdbc.sql("SELECT observed_at FROM fundamentals.fundamental_facts WHERE fact_id=:id")
+                .param("id",fact.factId()).query((rs,n)->rs.getTimestamp(1).toInstant()).single();
+            assertThat(fact.observedAt()).isEqualTo(stored);
+        });
         assertThat(row.priceLineage()).hasSize(23);
         assertThat(row.sharesOutstanding()).isEqualByComparingTo("1000");
         var boundary=jdbc.sql("""

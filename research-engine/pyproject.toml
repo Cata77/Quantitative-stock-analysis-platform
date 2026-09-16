@@ -26,6 +26,7 @@ dev = [
 
 [project.scripts]
 quant-research = "quant_research.cli:main"
+quant-model = "quant_research.model.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -40,3 +41,6 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.setuptools.package-data]
+"quant_research.model" = ["*.json", "*.sha256"]

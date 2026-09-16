@@ -123,7 +123,7 @@ fact_bundles AS (
         array_agg(DISTINCT metric_code) FILTER (WHERE filed_date>=p.score_date-180) recent_metrics,
         jsonb_agg(jsonb_build_object(
         'factId',fact_id,'filingId',filing_id,'metric',metric_code,'start',period_start,'end',period_end,
-        'value',numeric_value,'unit',canonical_unit,'availableAt',available_at,'filedDate',filed_date,
+        'value',numeric_value,'unit',canonical_unit,'availableAt',available_at,'observedAt',observed_at,'filedDate',filed_date,
         'sourceArtifactId',source_artifact_id,'mappingVersion',mapping_version,'parserVersion',parser_version)
         ORDER BY metric_code,period_end DESC,period_start) facts
     FROM facts CROSS JOIN p GROUP BY issuer_id

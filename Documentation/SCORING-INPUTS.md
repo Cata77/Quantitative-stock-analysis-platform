@@ -110,3 +110,12 @@ All 57 scoring tests passed, including the 12 Phase 6 integration cases and exis
 Kafka recovery, DLQ and warmed virtual-thread/JFR tests. Producer and migration checks
 were up-to-date (36 and 2 previously passing tests). The scoring bootJar build passed.
 No schema changes or live provider import were required for this phase.
+
+
+## Phase 7 research consumer
+
+The immutable fact DTO now includes `observedAt` alongside `availableAt`, allowing the
+Python adapter to independently reject knowledge acquired after the cutoff. Serialize the
+complete `CrossSection` record for `quant_research.model.cli --format phase6`.
+See [MODEL.md](MODEL.md) for period assembly, prepared profile inputs, model freeze and CLI
+usage. Java production scoring and publication remain Phase 8.

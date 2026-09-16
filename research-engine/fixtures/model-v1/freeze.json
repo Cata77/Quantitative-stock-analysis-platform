@@ -1,0 +1,33 @@
+{
+  "files": {
+    "research-engine/fixtures/model-v1/edge-cases.json": "73e8903c2890bb47e87b8f919fd6faacf4ad5d72960e680215690338ab0a48c7",
+    "research-engine/fixtures/model-v1/expected.json": "054265bf1046ea9192e1e2fde17890ff42ab21622ccea279ef697e661213bc11",
+    "research-engine/fixtures/model-v1/inputs.json": "64a53c4bb007247276bc8515f66c0e4fa31ce97110c1262bafcfadb8514998e4",
+    "research-engine/fixtures/model-v1/prepared.json": "f5da9e99b0bbdaa66d54ac537784205e5e2c5c252df39c561f4b65d7abab346e",
+    "research-engine/fixtures/model-v1/varied-expected.json": "a55580fad9c28972da60cb23ea282823c0b52b9aab3408cf447efb0586135b68",
+    "research-engine/fixtures/model-v1/varied-prepared.json": "abf7fdd4ca529698735e4d4dda917f945577c4cd0d981103d2d6f296e461e038",
+    "research-engine/src/quant_research/model/__init__.py": "4fe769c31ece5ca1e52bc8ff6fd7e5440c2700a9fa1f3d770ed3396c0a656631",
+    "research-engine/src/quant_research/model/cli.py": "b81629baa759ea572228fe8480729ea71d64281d932e30eae581090837b07f6f",
+    "research-engine/src/quant_research/model/engine.py": "1c6f387cf555fabe4ba07cd64c4927ac33e88e7a73a496fe1acf53b3f8c44559",
+    "research-engine/src/quant_research/model/freeze.py": "a456678cb56e3acef7a6a7a60712ffc3a57f57db4cb9ae6049f2473e1ae9eedc",
+    "research-engine/src/quant_research/model/manifest.json": "7951def6ff434ec4eba6b6317e673a8a04c3e72569c276c577f6a7f1f427bee8",
+    "research-engine/src/quant_research/model/manifest.py": "78a59672d633a354bdf36b62e4f331b4355503926a0cc96677475c878978d3af",
+    "research-engine/src/quant_research/model/manifest.schema.json": "8aa07f421e1839c8efc69b8268a56e0ed7d21391c8cd644f1c1ca00dda4fe251",
+    "research-engine/src/quant_research/model/manifest.sha256": "39232394390a30ca3f3a916e5f814234d585e147edd923472185a067e8c27028",
+    "research-engine/src/quant_research/model/periods.py": "1a070fd5bba5e59bf85c00938e0bffac418190d32bc122bbbe84a98f7f2c854e",
+    "research-engine/tests/model_fixtures.py": "8e10f66cee97e9b4eb7dbf491d2e961df7805306be504be7bea6221f0695cd0f",
+    "research-engine/tests/test_model.py": "92a867d9a9a91120d9bb8860b51cfee037370932ed8b939a4d28aaa31b4d1c50",
+    "research-engine/tests/test_model_periods.py": "11672f99c22c9419b05d7335f742e4d7639eab03844138147b028d1567af4bcb",
+    "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInput.java": "ecadb33a75e8e5e6c75fdc20499407b45933b7d43d7584b1635419d0493575d8",
+    "scoring-service/src/main/resources/sql/scoring-inputs.sql": "21b65c8de0248bece2ea425262723bfa52214f2cfce8fea66e46ecc30a99918a"
+  },
+  "final_historical_test_opened": false,
+  "frozen_at": "2026-09-16T14:03:24.270190+00:00",
+  "hash_convention": "UTF-8 text with LF newlines; JSON object hashes use sorted compact JSON.",
+  "historical_acceptance": "NOT_EVALUATED",
+  "manifest_sha256": "75c93c4176359f4dcd62cd4d68680f310b727ae27ff6c35a4fe5941006fdcd06",
+  "model_version": "1.0.0",
+  "source_base_commit": "6a46db69554c84355297873d8418fe4159826eff",
+  "source_commit_note": "Base commit plus exact file hashes; implementation is an uncommitted workspace change.",
+  "source_tree_sha256": "59be8f819a74a9a4eed130a09515e29324c3e3ac66396efc8fb365eab33c7cb4"
+}

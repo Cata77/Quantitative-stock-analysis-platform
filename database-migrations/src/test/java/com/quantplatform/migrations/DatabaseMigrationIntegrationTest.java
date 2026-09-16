@@ -33,7 +33,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(13);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(14);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
 
@@ -97,7 +97,7 @@ class DatabaseMigrationIntegrationTest {
     void upgradesFromThePreviousMigrationVersion() throws SQLException {
         var database = createDatabase();
 
-        assertThat(flyway(database, "009").migrate().migrationsExecuted).isEqualTo(9);
+        assertThat(flyway(database, "010").migrate().migrationsExecuted).isEqualTo(10);
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
                 var statement = connection.createStatement()) {
             statement.execute("INSERT INTO reference.issuers (legal_name, cik) VALUES ('Upgrade fixture', '0000000001')");
@@ -109,6 +109,27 @@ class DatabaseMigrationIntegrationTest {
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
             assertThat(queryInt(connection, "SELECT COUNT(*) FROM reference.issuers WHERE cik = '0000000001'"))
                     .isEqualTo(1);
+        }
+    }
+
+    @Test
+    void modelRegistryRetainsFrozenManifestAndRejectsChecksumMismatch() throws SQLException {
+        var database = createDatabase();
+        flyway(database, null).migrate();
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertThat(queryInt(connection, """
+                    SELECT count(*) FROM research.model_versions
+                    WHERE model_code='stock-value-quality-momentum' AND semantic_version='1.0.0'
+                      AND approval_state='FROZEN_RESEARCH_HYPOTHESIS'
+                      AND manifest->'research'->>'final_test_opened'='false'
+                      AND length(source_commit)=40 AND length(source_tree_sha256)=64
+                      AND manifest_sha256=encode(sha256(convert_to(canonical_manifest,'UTF8')),'hex')
+                    """)).isEqualTo(1);
+            org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+                try (var statement = connection.createStatement()) {
+                    statement.executeUpdate("UPDATE research.model_versions SET manifest_sha256=repeat('0',64)");
+                }
+            }).isInstanceOf(SQLException.class);
         }
     }
 
