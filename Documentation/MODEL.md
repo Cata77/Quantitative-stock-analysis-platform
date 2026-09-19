@@ -3,7 +3,8 @@
 Phase 7 implements the research hypothesis in `research-engine/src/quant_research/model`.
 It does not establish predictive performance. The final historical test remains unopened.
 The legacy `quant-research` commands still use the demonstration model. Use the separate
-model CLI below for the redesign; Java scoring and parity are Phase 8.
+model CLI below for the redesign. Java scoring and parity are now implemented; see
+[complete scoring runs](SCORING-RUNS.md).
 
 ## Run and inspect
 
@@ -115,4 +116,5 @@ V011 creates and seeds `research.model_versions` with the manifest, checksum, so
 and source-tree hash. PostgreSQL verifies the stored canonical JSON hash and JSON equality.
 The approval state is FROZEN_RESEARCH_HYPOTHESIS, not production approval. Apply central Flyway
 before deployment; tests use isolated databases and do not migrate the application database.
-Score-run publication tables, Java/Python parity and production approval remain Phase 8.
+V012 adds complete scoring runs and parity certification. See SCORING-RUNS.md. Historical
+acceptance and production approval remain separate; certification alone does not approve the model.

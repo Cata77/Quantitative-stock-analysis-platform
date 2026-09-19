@@ -49,6 +49,10 @@ management:
         include: health,info
 
 scoring:
+  model:
+    raw-dataset: ${SCORING_MODEL_RAW_DATASET:}
+    adjusted-dataset: ${SCORING_MODEL_ADJUSTED_DATASET:}
+    classification-version: ${SCORING_MODEL_CLASSIFICATION_VERSION:}
   command:
     operation: ${SCORING_OPERATION:serve}
   input-topic: ${MARKET_DATA_TOPIC:market-data-observations-v2}

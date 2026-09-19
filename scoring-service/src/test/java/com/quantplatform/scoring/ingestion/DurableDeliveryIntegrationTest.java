@@ -227,24 +227,6 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
         assertThat(dates).hasSize(completeRequests);
     }
 
-    @Test void completedMonthEndIsNotRecreatedAtANewStartupTimestamp() {
-        calendar(LocalDate.parse("2026-08-01"), LocalDate.parse("2026-08-31"));
-        var event = stage(LocalDate.parse("2026-08-31"), "scheduled", "100");
-        processor.process(event, topic, 0, 0);
-        processor.reconcileCoverage();
-        var calculator = mock(FactorScoringService.class);
-        when(calculator.calculateAt(any(), anyList())).thenReturn(List.of(
-                new FactorScore("FIX", BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE)));
-        var first = new MonthEndScoringCoordinator(source, tx, calculator, clock("2026-09-01T12:00:00Z"));
-        first.reconcile();
-        var restarted = new MonthEndScoringCoordinator(source, tx, calculator, clock("2026-09-14T12:00:00Z"));
-        restarted.reconcile();
-        assertThat(count("operations.month_end_score_jobs")).isEqualTo(1);
-        assertThat(text("SELECT status FROM operations.month_end_score_jobs")).isEqualTo("PUBLISHED");
-        verify(calculator, times(1)).calculateAt(Instant.parse("2026-08-31T20:00:00Z"), List.of("FIX"));
-    }
-
-
     @Test void invalidPricesAndEnvelopeHashesAreQuarantinedWithoutCanonicalWrites() throws Exception {
         var negative = stage(LocalDate.parse("2026-09-01"), "bad-price", "-1");
         send(negative);

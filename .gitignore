@@ -12,6 +12,13 @@ Documentation/PORTFOLIO-SERVICE.md
 Documentation/SCORING-SERVICE.md
 Documentation/SCREENER-SERVICE.md
 Documentation/RESEARCH-ENGINE.md
+Documentation/MODEL.md
+Documentation/SCORING-INPUTS.md
+Documentation/INGESTION-STATE.md
+Documentation/FUNDAMENTALS.md
+Documentation/DAILY-PRICES.md
+Documentation/SCORING-RUNS.md
+
 
 # Infrastructure & Secrets
 .env

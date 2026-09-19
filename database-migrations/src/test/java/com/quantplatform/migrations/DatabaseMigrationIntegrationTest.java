@@ -33,7 +33,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(14);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(15);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
 
@@ -97,7 +97,7 @@ class DatabaseMigrationIntegrationTest {
     void upgradesFromThePreviousMigrationVersion() throws SQLException {
         var database = createDatabase();
 
-        assertThat(flyway(database, "010").migrate().migrationsExecuted).isEqualTo(10);
+        assertThat(flyway(database, "011").migrate().migrationsExecuted).isEqualTo(11);
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
                 var statement = connection.createStatement()) {
             statement.execute("INSERT INTO reference.issuers (legal_name, cik) VALUES ('Upgrade fixture', '0000000001')");
