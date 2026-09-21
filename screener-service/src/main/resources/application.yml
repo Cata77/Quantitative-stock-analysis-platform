@@ -12,7 +12,7 @@ spring:
     username: ${SCREENER_DB_USER:postgres}
     password: ${SCREENER_DB_PASSWORD:postgres_secure_pass}
     hikari:
-      read-only: true
+      read-only: false # API transactions are read-only; rebuild job writes its checkpoint.
       maximum-pool-size: ${SCREENER_DB_POOL_SIZE:10}
   sql:
     init:
@@ -25,9 +25,13 @@ management:
         include: health,info
 
 screener:
+  mode: ${SCREENER_MODE:serve}
+  search-rebuild:
+    enabled: ${SEARCH_REBUILD_ENABLED:true}
+    interval: ${SEARCH_REBUILD_INTERVAL:300000}
   elasticsearch:
     url: ${ELASTICSEARCH_URL:http://localhost:9200}
-    company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies}
+    company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies-read}
 
 logging:
   level:

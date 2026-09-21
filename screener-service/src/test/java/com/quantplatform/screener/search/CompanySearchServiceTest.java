@@ -55,6 +55,7 @@ class CompanySearchServiceTest {
     @Test
     void mapsSearchHitsAndTrimsTheQuery() throws Exception {
         var document = new CompanySearchDocument(
+                "30000000-0000-0000-0000-000000000001",
                 "NVDA",
                 "NVIDIA Corporation",
                 "NASDAQ",
@@ -62,7 +63,7 @@ class CompanySearchServiceTest {
                 "Technology",
                 "Semiconductors",
                 "Accelerated computing and graphics",
-                "2026-07-25T20:00:00Z");
+                "2026-07-25T20:00:00Z", null, 1);
         var hit = Hit.<CompanySearchDocument>of(builder -> builder
                 .index("companies")
                 .id("NVDA")
@@ -90,6 +91,18 @@ class CompanySearchServiceTest {
         assertThatThrownBy(() -> service.search("nvidia", 0, 20))
                 .isInstanceOf(SearchUnavailableException.class)
                 .hasMessage("Company search is temporarily unavailable");
+    }
+
+    @Test
+    void refusesPartialAndTimedOutResults() throws Exception {
+        var failed=SearchResponse.<CompanySearchDocument>of(b->b.took(1).timedOut(false)
+            .shards(v->v.total(2).successful(1).failed(1)).hits(h->h.hits(java.util.List.of())));
+        when(client.search(any(SearchRequest.class),eq(CompanySearchDocument.class))).thenReturn(failed);
+        assertThatThrownBy(()->service.search("test",0,10)).isInstanceOf(SearchUnavailableException.class);
+        var timeout=SearchResponse.<CompanySearchDocument>of(b->b.took(1).timedOut(true)
+            .shards(v->v.total(1).successful(1).failed(0)).hits(h->h.hits(java.util.List.of())));
+        when(client.search(any(SearchRequest.class),eq(CompanySearchDocument.class))).thenReturn(timeout);
+        assertThatThrownBy(()->service.search("test",0,10)).isInstanceOf(SearchUnavailableException.class);
     }
 
     private SearchResponse<CompanySearchDocument> response(

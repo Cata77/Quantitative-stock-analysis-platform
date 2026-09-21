@@ -26,11 +26,15 @@ public class CompanySearchService {
     }
 
     public CompanySearchPage search(String rawQuery, int page, int size) {
+        if(page < 0 || size < 1 || size > 100 || (long)page*size+size > 10000)
+            throw new IllegalArgumentException("Search pagination exceeds the 10000 result window");
         var query = rawQuery.trim();
         try {
             var response = client.search(
                     buildRequest(query, page, size),
                     CompanySearchDocument.class);
+            if(response.timedOut() || response.shards().failed().intValue()>0)
+                throw new SearchUnavailableException(new IllegalStateException("Incomplete search response"));
             var content = response.hits().hits().stream()
                     .filter(hit -> hit.source() != null)
                     .map(hit -> CompanySearchItem.from(hit.source(), hit.score()))
@@ -47,9 +51,6 @@ public class CompanySearchService {
                     totalPages,
                     content);
         } catch (ElasticsearchException exception) {
-            if (exception.status() == 404) {
-                return CompanySearchPage.empty(query, page, size);
-            }
             throw new SearchUnavailableException(exception);
         } catch (IOException exception) {
             throw new SearchUnavailableException(exception);
@@ -62,6 +63,8 @@ public class CompanySearchService {
                 .from(page * size)
                 .size(size)
                 .trackTotalHits(tracking -> tracking.enabled(true))
+                .sort(s -> s.score(v -> v.order(co.elastic.clients.elasticsearch._types.SortOrder.Desc)))
+                .sort(s -> s.field(v -> v.field("instrumentId").order(co.elastic.clients.elasticsearch._types.SortOrder.Asc)))
                 .query(root -> root.multiMatch(multiMatch -> multiMatch
                         .query(query)
                         .fields(

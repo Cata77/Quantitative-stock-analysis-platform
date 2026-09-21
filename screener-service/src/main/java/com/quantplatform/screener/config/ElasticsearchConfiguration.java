@@ -17,7 +17,9 @@ class ElasticsearchConfiguration {
 
     @Bean
     RestClient screenerElasticsearchRestClient(ScreenerProperties properties) {
-        return RestClient.builder(HttpHost.create(properties.elasticsearch().url())).build();
+        return RestClient.builder(HttpHost.create(properties.elasticsearch().url()))
+                .setRequestConfigCallback(config -> config.setConnectTimeout(3000).setSocketTimeout(15000))
+                .build();
     }
 
     @Bean(destroyMethod = "close")

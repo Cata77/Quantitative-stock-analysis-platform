@@ -1,13 +1,17 @@
 package com.quantplatform.screener.api;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.UUID;
+import com.quantplatform.screener.ranking.RankingFilter;
+import com.quantplatform.screener.ranking.RankingFilter.*;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +42,19 @@ public class ScreenerController {
     @GetMapping("/rankings")
     public RankingPage rankings(
             @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-            Instant asOf,
+            String asOf,
+            @RequestParam(defaultValue="UNION") Universe universe,
+            @RequestParam(required=false) UUID modelVersion,
+            @RequestParam(required=false) UUID runId,
+            @RequestParam(required=false) UUID instrumentId,
+            @RequestParam(required=false) String profile,
+            @RequestParam(required=false) String sector,
+            @RequestParam(required=false) String peerGroup,
+            @RequestParam(defaultValue="ELIGIBLE") Eligibility eligibility,
+            @RequestParam(required=false) String warning,
+            @RequestParam(defaultValue="COMPOSITE") Sort sort,
+            @RequestParam(defaultValue="DESC") Direction direction,
+            @RequestParam(required=false) String metric,
             @RequestParam(defaultValue = "0")
             @Min(value = 0, message = "page must not be negative")
             @Max(value = 100_000, message = "page is too large")
@@ -49,7 +64,13 @@ public class ScreenerController {
             @Max(value = 200, message = "size must not exceed 200")
             int size
     ) {
-        return rankingService.findRankings(asOf, page, size);
+        LocalDate date=null;
+        if(asOf!=null) {
+            try { date=asOf.length()==10?LocalDate.parse(asOf):Instant.parse(asOf).atOffset(ZoneOffset.UTC).toLocalDate(); }
+            catch(java.time.DateTimeException e) { throw new IllegalArgumentException("asOf must be an ISO date or timestamp"); }
+        }
+        return rankingService.findRankings(date,page,size,new RankingFilter(universe,modelVersion,
+                profile,sector,peerGroup,eligibility,warning,sort,direction,metric,runId,instrumentId));
     }
 
     @GetMapping("/search")

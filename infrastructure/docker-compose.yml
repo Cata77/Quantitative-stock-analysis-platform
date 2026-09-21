@@ -231,11 +231,14 @@ services:
       SCREENER_DB_USER: ${TIMESCALEDB_USER:-postgres}
       SCREENER_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
       ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_COMPANY_INDEX: ${ELASTICSEARCH_COMPANY_INDEX:-companies-read}
+      SEARCH_REBUILD_ENABLED: ${SEARCH_REBUILD_ENABLED:-true}
+      SEARCH_REBUILD_INTERVAL: ${SEARCH_REBUILD_INTERVAL:-300000}
     depends_on:
       database-migrations:
         condition: service_completed_successfully
       elasticsearch:
-        condition: service_healthy
+        condition: service_started
     restart: unless-stopped
 
   gateway-service:

@@ -46,7 +46,7 @@ public class ApiExceptionHandler {
         return problem(HttpStatus.BAD_REQUEST, "Request validation failed", request);
     }
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
     ResponseEntity<ProblemDetail> handleTypeMismatch(HttpServletRequest request) {
         return problem(HttpStatus.BAD_REQUEST, "Query parameter is invalid", request);
     }
