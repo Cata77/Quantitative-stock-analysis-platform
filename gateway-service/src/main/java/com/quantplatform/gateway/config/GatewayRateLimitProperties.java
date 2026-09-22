@@ -7,10 +7,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record GatewayRateLimitProperties(
         boolean enabled,
         int requests,
-        Duration window
+        Duration window,
+        int maxClients
 ) {
 
+    public GatewayRateLimitProperties(boolean enabled,int requests,Duration window) { this(enabled,requests,window,10000); }
+
+    @org.springframework.boot.context.properties.bind.ConstructorBinding
     public GatewayRateLimitProperties {
+        if(maxClients<1) throw new IllegalArgumentException("maxClients must be positive");
         if (requests < 1) {
             throw new IllegalArgumentException("gateway.rate-limit.requests must be positive");
         }

@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${MARKET_DATA_PORT:8084}
 
 spring:
@@ -6,12 +7,19 @@ spring:
     name: market-data-producer
   datasource:
     url: ${MARKET_DATA_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
-    username: ${MARKET_DATA_DB_USER:postgres}
-    password: ${MARKET_DATA_DB_PASSWORD:postgres_secure_pass}
+    username: ${MARKET_DATA_DB_USER:quant_ingestion}
+    password: ${MARKET_DATA_DB_PASSWORD:}
   threads:
     virtual:
       enabled: true
   kafka:
+    properties:
+      security.protocol: ${KAFKA_SECURITY_PROTOCOL:SSL}
+      ssl.keystore.location: ${KAFKA_SSL_KEYSTORE_LOCATION:}
+      ssl.keystore.password: ${KAFKA_SSL_KEYSTORE_PASSWORD:}
+      ssl.key.password: ${KAFKA_SSL_KEY_PASSWORD:}
+      ssl.truststore.location: ${KAFKA_SSL_TRUSTSTORE_LOCATION:}
+      ssl.truststore.password: ${KAFKA_SSL_TRUSTSTORE_PASSWORD:}
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     client-id: ${KAFKA_CLIENT_ID:market-data-producer}
     admin:
@@ -33,7 +41,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health
 
 market-data:
   enabled: ${MARKET_DATA_ENABLED:false}

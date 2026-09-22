@@ -8,3 +8,5 @@ include 'scoring-service'
 include 'screener-service'
 include 'database-migrations'
 include 'ingestion-contract'
+
+include 'security-common'

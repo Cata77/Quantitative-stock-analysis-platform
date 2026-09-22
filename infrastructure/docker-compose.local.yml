@@ -1,0 +1,95 @@
+# Explicitly insecure local development. Combine with docker-compose.yml; never deploy this overlay.
+services:
+  timescaledb:
+    environment:
+      POSTGRES_PASSWORD: postgres_secure_pass
+    volumes:
+      - ./bootstrap-roles.sql:/bootstrap/bootstrap-roles.sql:ro
+      - ./local-roles.sql:/docker-entrypoint-initdb.d/002-local-roles.sql:ro
+  database-migrations:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      DATABASE_MIGRATION_USER: quant_migrator
+      DATABASE_MIGRATION_PASSWORD: local-quant_migrator-development-only
+  elasticsearch:
+    environment:
+      xpack.security.enabled: "false"
+      xpack.security.http.ssl.enabled: "false"
+      xpack.security.http.ssl.key: null
+      xpack.security.http.ssl.certificate: null
+    healthcheck:
+      test: [CMD-SHELL, "curl --fail --silent http://localhost:9200/_cluster/health?wait_for_status=yellow >/dev/null"]
+  kafka:
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_SSL_CLIENT_AUTH: none
+    healthcheck:
+      test: [CMD-SHELL, "kafka-broker-api-versions --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+  auth-service:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      AUTH_DB_PASSWORD: local-quant_auth-development-only
+      JWT_PRIVATE_KEY: classpath:security/local-private.pem
+      JWT_KEY_ID: local-development-only
+    volumes: !override []
+  portfolio-service:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      PORTFOLIO_DB_PASSWORD: local-quant_portfolio-development-only
+    volumes: !override []
+  market-data-producer:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      MARKET_DATA_DB_PASSWORD: local-quant_ingestion-development-only
+    volumes: !override
+      - ./reference-data:/reference-data:ro
+  scoring-service:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      SCORING_DB_PASSWORD: local-quant_scoring-development-only
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      JAVA_TOOL_OPTIONS: ""
+    volumes: !override []
+  screener-service:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      SCREENER_DB_PASSWORD: local-quant_screener-development-only
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      JAVA_TOOL_OPTIONS: ""
+    volumes: !override []
+  gateway-service:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      GATEWAY_ALLOWED_ORIGINS: http://localhost:3000
+    volumes: !override []
+  search-indexer:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JWT_ISSUER: quant-platform-local
+      JWT_AUDIENCE: quant-platform
+      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
+      SCREENER_DB_PASSWORD: local-quant_search-development-only
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      JAVA_TOOL_OPTIONS: ""
+    volumes: !override []

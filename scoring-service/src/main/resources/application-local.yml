@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    password: ${SCORING_DB_PASSWORD:local-quant_scoring-development-only}
+  kafka:
+    properties:
+      security.protocol: PLAINTEXT
+scoring:
+  elasticsearch:
+    enabled: ${SCORING_ELASTICSEARCH_ENABLED:true}
+    base-url: ${ELASTICSEARCH_URL:http://localhost:9200}

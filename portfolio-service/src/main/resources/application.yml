@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${PORTFOLIO_PORT:8083}
 
 spring:
@@ -9,8 +10,8 @@ spring:
       enabled: true
   datasource:
     url: ${PORTFOLIO_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
-    username: ${PORTFOLIO_DB_USER:postgres}
-    password: ${PORTFOLIO_DB_PASSWORD:postgres_secure_pass}
+    username: ${PORTFOLIO_DB_USER:quant_portfolio}
+    password: ${PORTFOLIO_DB_PASSWORD:}
   jpa:
     open-in-view: false
     hibernate:

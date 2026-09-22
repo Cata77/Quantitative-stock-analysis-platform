@@ -63,7 +63,7 @@ public class HistoricalBackfillRunner implements ApplicationRunner {
                 LOGGER.warn(
                         "Historical market-data backfill failed for {}: {}",
                         symbol,
-                        exception.getMessage());
+                        exception.getClass().getSimpleName());
             }
         }
     }

@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    password: ${PORTFOLIO_DB_PASSWORD:local-quant_portfolio-development-only}

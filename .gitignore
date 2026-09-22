@@ -45,3 +45,7 @@ research-engine/.env
 .idea/
 *.iml
 .vscode/
+
+# Deployment-only signing keys and TLS material
+infrastructure/keys/
+infrastructure/certs/

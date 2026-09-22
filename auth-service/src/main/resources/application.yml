@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${AUTH_PORT:8081}
 
 spring:
@@ -9,8 +10,8 @@ spring:
       enabled: true
   datasource:
     url: ${AUTH_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
-    username: ${AUTH_DB_USER:postgres}
-    password: ${AUTH_DB_PASSWORD:postgres_secure_pass}
+    username: ${AUTH_DB_USER:quant_auth}
+    password: ${AUTH_DB_PASSWORD:}
   jpa:
     open-in-view: false
     hibernate:
@@ -22,6 +23,6 @@ spring:
 
 security:
   jwt:
-    secret: ${JWT_SECRET:change-this-development-secret-before-deploying}
+    private-key: ${JWT_PRIVATE_KEY:}
+    key-id: ${JWT_KEY_ID:}
     expiration: ${JWT_EXPIRATION:15m}
-    issuer: ${JWT_ISSUER:quant-platform-auth}

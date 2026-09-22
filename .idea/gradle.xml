@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/portfolio-service" />
             <option value="$PROJECT_DIR$/scoring-service" />
             <option value="$PROJECT_DIR$/screener-service" />
+            <option value="$PROJECT_DIR$/security-common" />
           </set>
         </option>
       </GradleProjectSettings>

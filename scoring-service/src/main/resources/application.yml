@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${SCORING_PORT:8085}
 
 spring:
@@ -9,8 +10,8 @@ spring:
       enabled: true
   datasource:
     url: ${SCORING_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
-    username: ${SCORING_DB_USER:postgres}
-    password: ${SCORING_DB_PASSWORD:postgres_secure_pass}
+    username: ${SCORING_DB_USER:quant_scoring}
+    password: ${SCORING_DB_PASSWORD:}
   jpa:
     open-in-view: false
     hibernate:
@@ -20,6 +21,13 @@ spring:
         jdbc:
           time_zone: UTC
   kafka:
+    properties:
+      security.protocol: ${KAFKA_SECURITY_PROTOCOL:SSL}
+      ssl.keystore.location: ${KAFKA_SSL_KEYSTORE_LOCATION:}
+      ssl.keystore.password: ${KAFKA_SSL_KEYSTORE_PASSWORD:}
+      ssl.key.password: ${KAFKA_SSL_KEY_PASSWORD:}
+      ssl.truststore.location: ${KAFKA_SSL_TRUSTSTORE_LOCATION:}
+      ssl.truststore.password: ${KAFKA_SSL_TRUSTSTORE_PASSWORD:}
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     client-id: ${KAFKA_CLIENT_ID:scoring-service}
     admin:
@@ -46,7 +54,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health
 
 scoring:
   model:
@@ -66,8 +74,8 @@ scoring:
   schedule-cron: ${SCORING_SCHEDULE_CRON:0 5 0 * * *}
   schedule-zone: ${SCORING_SCHEDULE_ZONE:UTC}
   elasticsearch:
-    enabled: ${SCORING_ELASTICSEARCH_ENABLED:true}
-    base-url: ${ELASTICSEARCH_URL:http://localhost:9200}
+    enabled: ${SCORING_ELASTICSEARCH_ENABLED:false}
+    base-url: ${ELASTICSEARCH_URL:https://localhost:9200}
     company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies}
 
 logging:

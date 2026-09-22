@@ -1,7 +1,6 @@
 package com.quantplatform.portfolio.api;
 
 import com.quantplatform.portfolio.holding.PortfolioHolding;
-import com.quantplatform.portfolio.service.InvalidAuthenticatedUserException;
 import com.quantplatform.portfolio.service.PortfolioService;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,20 +32,20 @@ public class PortfolioController {
 
     @GetMapping
     List<HoldingResponse> findAll(
-            @RequestHeader(name = AUTHENTICATED_USER_HEADER, required = false) String userHeader
+            @AuthenticationPrincipal Jwt principal
     ) {
-        return portfolioService.findAll(authenticatedUserId(userHeader)).stream()
+        return portfolioService.findAll(UUID.fromString(principal.getSubject())).stream()
                 .map(HoldingResponse::from)
                 .toList();
     }
 
     @PostMapping
     ResponseEntity<HoldingResponse> create(
-            @RequestHeader(name = AUTHENTICATED_USER_HEADER, required = false) String userHeader,
+            @AuthenticationPrincipal Jwt principal,
             @Valid @RequestBody HoldingRequest request
     ) {
         PortfolioHolding holding = portfolioService.create(
-                authenticatedUserId(userHeader),
+                UUID.fromString(principal.getSubject()),
                 request.ticker(),
                 request.quantity(),
                 request.entryPrice(),
@@ -56,21 +56,21 @@ public class PortfolioController {
 
     @GetMapping("/{holdingId}")
     HoldingResponse find(
-            @RequestHeader(name = AUTHENTICATED_USER_HEADER, required = false) String userHeader,
+            @AuthenticationPrincipal Jwt principal,
             @PathVariable UUID holdingId
     ) {
         return HoldingResponse.from(
-                portfolioService.find(authenticatedUserId(userHeader), holdingId));
+                portfolioService.find(UUID.fromString(principal.getSubject()), holdingId));
     }
 
     @PutMapping("/{holdingId}")
     HoldingResponse update(
-            @RequestHeader(name = AUTHENTICATED_USER_HEADER, required = false) String userHeader,
+            @AuthenticationPrincipal Jwt principal,
             @PathVariable UUID holdingId,
             @Valid @RequestBody HoldingRequest request
     ) {
         return HoldingResponse.from(portfolioService.update(
-                authenticatedUserId(userHeader),
+                UUID.fromString(principal.getSubject()),
                 holdingId,
                 request.ticker(),
                 request.quantity(),
@@ -80,21 +80,11 @@ public class PortfolioController {
 
     @DeleteMapping("/{holdingId}")
     ResponseEntity<Void> delete(
-            @RequestHeader(name = AUTHENTICATED_USER_HEADER, required = false) String userHeader,
+            @AuthenticationPrincipal Jwt principal,
             @PathVariable UUID holdingId
     ) {
-        portfolioService.delete(authenticatedUserId(userHeader), holdingId);
+        portfolioService.delete(UUID.fromString(principal.getSubject()), holdingId);
         return ResponseEntity.noContent().build();
     }
 
-    private UUID authenticatedUserId(String headerValue) {
-        if (headerValue == null || headerValue.isBlank()) {
-            throw new InvalidAuthenticatedUserException();
-        }
-        try {
-            return UUID.fromString(headerValue);
-        } catch (IllegalArgumentException exception) {
-            throw new InvalidAuthenticatedUserException();
-        }
-    }
 }

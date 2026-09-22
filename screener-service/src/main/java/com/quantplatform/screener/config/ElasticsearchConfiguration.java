@@ -16,8 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class ElasticsearchConfiguration {
 
     @Bean
-    RestClient screenerElasticsearchRestClient(ScreenerProperties properties) {
-        return RestClient.builder(HttpHost.create(properties.elasticsearch().url()))
+    RestClient screenerElasticsearchRestClient(ScreenerProperties properties,
+            @org.springframework.beans.factory.annotation.Value("${screener.elasticsearch.api-key:}") String apiKey) {
+        var builder = RestClient.builder(HttpHost.create(properties.elasticsearch().url()));
+        if(!apiKey.isBlank()) builder.setDefaultHeaders(new org.apache.http.Header[]{
+                new org.apache.http.message.BasicHeader("Authorization","ApiKey "+apiKey)});
+        return builder
                 .setRequestConfigCallback(config -> config.setConnectTimeout(3000).setSocketTimeout(15000))
                 .build();
     }

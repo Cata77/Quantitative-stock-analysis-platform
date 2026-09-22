@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${SCREENER_PORT:8082}
 
 spring:
@@ -9,8 +10,8 @@ spring:
       enabled: true
   datasource:
     url: ${SCREENER_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
-    username: ${SCREENER_DB_USER:postgres}
-    password: ${SCREENER_DB_PASSWORD:postgres_secure_pass}
+    username: ${SCREENER_DB_USER:quant_screener}
+    password: ${SCREENER_DB_PASSWORD:}
     hikari:
       read-only: false # API transactions are read-only; rebuild job writes its checkpoint.
       maximum-pool-size: ${SCREENER_DB_POOL_SIZE:10}
@@ -22,15 +23,16 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health
 
 screener:
   mode: ${SCREENER_MODE:serve}
   search-rebuild:
-    enabled: ${SEARCH_REBUILD_ENABLED:true}
+    enabled: ${SEARCH_REBUILD_ENABLED:false}
     interval: ${SEARCH_REBUILD_INTERVAL:300000}
   elasticsearch:
-    url: ${ELASTICSEARCH_URL:http://localhost:9200}
+    url: ${ELASTICSEARCH_URL:https://localhost:9200}
+    api-key: ${ELASTICSEARCH_API_KEY:}
     company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies-read}
 
 logging:

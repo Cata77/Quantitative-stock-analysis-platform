@@ -2,6 +2,7 @@ FROM gradle:9.1.0-jdk25 AS builder
 
 WORKDIR /workspace
 COPY settings.gradle build.gradle ./
+COPY security-common ./security-common
 COPY ingestion-contract ./ingestion-contract
 COPY gateway-service ./gateway-service
 COPY auth-service ./auth-service

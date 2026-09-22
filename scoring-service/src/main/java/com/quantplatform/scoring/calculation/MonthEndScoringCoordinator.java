@@ -27,7 +27,7 @@ public class MonthEndScoringCoordinator {
     public void reconcile(){
         if(rawDataset.isBlank()||adjustedDataset.isBlank()||classification.isBlank())return;
         for(LocalDate date:dueDates())try{calculate(date);}
-        catch(RuntimeException failure){org.slf4j.LoggerFactory.getLogger(getClass()).warn("Scoring {} will retry: {}",date,failure.getMessage());}
+        catch(RuntimeException failure){org.slf4j.LoggerFactory.getLogger(getClass()).warn("Scoring {} will retry: {}",date,failure.getClass().getSimpleName());}
     }
     public List<LocalDate> dueDates(){
         return jdbc.sql("""

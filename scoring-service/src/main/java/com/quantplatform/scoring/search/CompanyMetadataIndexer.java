@@ -49,7 +49,7 @@ public class CompanyMetadataIndexer {
                         exception -> LOGGER.warn(
                                 "Could not index company metadata for {}: {}",
                                 metadata.symbol(),
-                                exception.getMessage()));
+                                exception.getClass().getSimpleName()));
     }
 
     private Map<String, Object> document(CompanyMetadataChanged metadata) {

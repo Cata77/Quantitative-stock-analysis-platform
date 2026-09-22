@@ -50,10 +50,19 @@ class ScreenerApplicationTest {
     @Autowired ElasticsearchClient client;
     @Autowired SearchRebuildService rebuild;
     @Autowired CompanySearchService search;
+    static final java.util.UUID READER_ID=java.util.UUID.fromString("70000000-0000-0000-0000-000000000001");
+    static final String READER_TOKEN=com.quantplatform.security.SecurityTokens.token(READER_ID);
+    @Test void directRequestsRequireBearerAuthenticationAndReadScope() throws Exception {
+        mvc.perform(get("/screener/rankings").header("X-Authenticated-User-Id",READER_ID))
+            .andExpect(status().isUnauthorized());
+        mvc.perform(get("/screener/rankings").header("Authorization",
+            com.quantplatform.security.SecurityTokens.token(READER_ID,"portfolio:write")))
+            .andExpect(status().isForbidden());
+    }
     static final String RUN="50000000-0000-0000-0000-000000000002";
 
     @Test void latestPublicationRejectsPendingAndFailedRunsAndKeepsOriginalTieRanks() throws Exception {
-        mvc.perform(get("/screener/rankings").param("asOf","2026-08-31").param("size","1"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-08-31").param("size","1"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.id").value(RUN))
             .andExpect(jsonPath("$.run.complete").value(true)).andExpect(jsonPath("$.run.expectedCount").value(3))
             .andExpect(jsonPath("$.run.profileCoverage.GENERAL.scored").value(2))
@@ -62,7 +71,7 @@ class ScreenerApplicationTest {
             .andExpect(jsonPath("$.content[0].symbol").value("OLD1"))
             .andExpect(jsonPath("$.content[0].rank").value(1)).andExpect(jsonPath("$.content[0].factors.length()").value(7))
             .andExpect(content().string(org.hamcrest.Matchers.containsString("12345678901234567890.123456789")));
-        mvc.perform(get("/screener/rankings").param("asOf","2026-08-31").param("size","1").param("page","1").param("runId",RUN))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-08-31").param("size","1").param("page","1").param("runId",RUN))
             .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].symbol").value("OLD2"))
             .andExpect(jsonPath("$.content[0].rank").value(2)).andExpect(jsonPath("$.content[0].percentile").value(50));
     }
@@ -86,62 +95,62 @@ class ScreenerApplicationTest {
                 excluded_count=o.excluded_count,state='PUBLISHED',published_at='2026-08-02'
             FROM research.scoring_runs o WHERE o.score_run_id=CAST(:old AS uuid) AND r.score_run_id=CAST(:id AS uuid)
             """).param("id",newer).param("old",RUN).update();
-        mvc.perform(get("/screener/rankings")).andExpect(status().isOk()).andExpect(jsonPath("$.run.id").value(newer));
-        mvc.perform(get("/screener/rankings").param("runId",RUN))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN)).andExpect(status().isOk()).andExpect(jsonPath("$.run.id").value(newer));
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("runId",RUN))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.id").value(RUN));
     }
     @Test void filtersMembershipProfileWarningsAndSectorWithoutReranking() throws Exception {
-        mvc.perform(get("/screener/rankings").param("asOf","2026-08-01").param("universe","NASDAQ100")
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-08-01").param("universe","NASDAQ100")
             .param("profile","GENERAL").param("sector","Technology").param("peerGroup","Technology").param("warning","NO_DISPERSION"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(1))
             .andExpect(jsonPath("$.content[0].rank").value(2));
-        mvc.perform(get("/screener/rankings").param("universe","SP500").param("sector","Technology' OR true --"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("universe","SP500").param("sector","Technology' OR true --"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(0));
     }
     @Test void sortsFamiliesAndContributionsAndInspectsExclusions() throws Exception {
         for(String sort:List.of("VALUE","CONTRIBUTION")) {
-            mvc.perform(get("/screener/rankings").param("sort",sort).param("metric","metric1"))
+            mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("sort",sort).param("metric","metric1"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].symbol").value("OLD2"));
         }
         for(String sort:List.of("QUALITY","MOMENTUM")) {
-            mvc.perform(get("/screener/rankings").param("sort",sort))
+            mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("sort",sort))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].symbol").value("OLD1"));
         }
-        mvc.perform(get("/screener/rankings").param("direction","ASC"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("direction","ASC"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].symbol").value("OLD2"));
-        mvc.perform(get("/screener/rankings").param("eligibility","EXCLUDED"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("eligibility","EXCLUDED"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(1))
             .andExpect(jsonPath("$.content[0].eligible").value(false))
             .andExpect(jsonPath("$.content[0].rank").doesNotExist())
             .andExpect(jsonPath("$.content[0].exclusions[0].reason_code").value("MODEL_NOT_SUPPORTED"));
-        mvc.perform(get("/screener/rankings").param("eligibility","ALL"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("eligibility","ALL"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(3));
-        mvc.perform(get("/screener/rankings").param("eligibility","ALL").param("instrumentId","30000000-0000-0000-0000-000000000003"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("eligibility","ALL").param("instrumentId","30000000-0000-0000-0000-000000000003"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(1))
             .andExpect(jsonPath("$.content[0].symbol").value("OLD3"));
     }
     @Test void datesModelSelectionAndFreshnessAreExplicit() throws Exception {
-        mvc.perform(get("/screener/rankings").param("asOf","2026-07-15T00:00:00Z"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-07-15T00:00:00Z"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.asOfDate").value("2026-06-30"))
             .andExpect(jsonPath("$.freshness").value("CURRENT"));
-        mvc.perform(get("/screener/rankings").param("asOf","2026-10-01"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-10-01"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.freshness").value("STALE"));
-        mvc.perform(get("/screener/rankings").param("asOf","2026-05-01"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-05-01"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.freshness").value("UNAVAILABLE"));
-        mvc.perform(get("/screener/rankings").param("modelVersion",UUID.randomUUID().toString()))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("modelVersion",UUID.randomUUID().toString()))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(0));
         String model=jdbc.sql("SELECT model_version_id::text FROM research.model_versions").query(String.class).single();
-        mvc.perform(get("/screener/rankings").param("modelVersion",model))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("modelVersion",model))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.modelVersionId").value(model));
     }
     @Test void validatesQueriesAndNeverExposesAnUnpublishedPinnedRun() throws Exception {
         for(var pair:List.of(new String[]{"size","201"},new String[]{"asOf","bad"},new String[]{"universe","BAD"},
                 new String[]{"sort","bad"},new String[]{"sort","CONTRIBUTION"},new String[]{"page","-1"}))
-            mvc.perform(get("/screener/rankings").param(pair[0],pair[1])).andExpect(status().isBadRequest());
-        mvc.perform(get("/screener/search").param("q","   ")).andExpect(status().isBadRequest());
-        mvc.perform(get("/screener/search").param("q","test").param("page","500").param("size","100"))
+            mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param(pair[0],pair[1])).andExpect(status().isBadRequest());
+        mvc.perform(get("/screener/search").header("Authorization",READER_TOKEN).param("q","   ")).andExpect(status().isBadRequest());
+        mvc.perform(get("/screener/search").header("Authorization",READER_TOKEN).param("q","test").param("page","500").param("size","100"))
             .andExpect(status().isBadRequest());
-        mvc.perform(get("/screener/rankings").param("runId","50000000-0000-0000-0000-000000000003"))
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("runId","50000000-0000-0000-0000-000000000003"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.freshness").value("UNAVAILABLE"));
     }
     @Test void fullRebuildIsIdempotentAndRestoresDeletedSearchWithStableIdentity() throws Exception {
@@ -156,11 +165,11 @@ class ScreenerApplicationTest {
             assertThat(d.score().get("symbolAtScore")).isEqualTo("OLD1");
             assertThat(d.score().get("runId")).isEqualTo(RUN);
         });
-        mvc.perform(get("/screener/search/status")).andExpect(status().isOk())
+        mvc.perform(get("/screener/search/status").header("Authorization",READER_TOKEN)).andExpect(status().isOk())
             .andExpect(jsonPath("$.schema_version").value(1)).andExpect(jsonPath("$.document_count").value(3));
         client.indices().delete(r->r.index(first));
-        mvc.perform(get("/screener/search").param("q","Fixture")).andExpect(status().isServiceUnavailable());
-        mvc.perform(get("/screener/rankings")).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
+        mvc.perform(get("/screener/search").header("Authorization",READER_TOKEN).param("q","Fixture")).andExpect(status().isServiceUnavailable());
+        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
         String second=rebuild.rebuild(false);
         assertThat(second).isNotEqualTo(first);
         assertThat(search.search("Fixture",0,10).totalElements()).isEqualTo(3);

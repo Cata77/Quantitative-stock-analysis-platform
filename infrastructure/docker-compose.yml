@@ -5,11 +5,11 @@ services:
     image: timescale/timescaledb-ha:pg18.4-ts2.29.1-all-oss
     profiles: [infrastructure, application]
     ports:
-      - "6543:5432"
+      - "127.0.0.1:6543:5432"
     environment:
       POSTGRES_DB: ${TIMESCALEDB_DB:-quant_platform}
       POSTGRES_USER: ${TIMESCALEDB_USER:-postgres}
-      POSTGRES_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
+      POSTGRES_PASSWORD: ${TIMESCALEDB_PASSWORD:-}
     volumes:
       - pgdata:/home/postgres/pgdata
       - ./init.sql:/docker-entrypoint-initdb.d/001-timescaledb-extension.sql:ro
@@ -30,8 +30,8 @@ services:
       dockerfile: database-migrations/Dockerfile
     environment:
       DATABASE_MIGRATION_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      DATABASE_MIGRATION_USER: ${TIMESCALEDB_USER:-postgres}
-      DATABASE_MIGRATION_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
+      DATABASE_MIGRATION_USER: ${DATABASE_MIGRATION_USER:-quant_migrator}
+      DATABASE_MIGRATION_PASSWORD: ${DATABASE_MIGRATION_PASSWORD:-}
     depends_on:
       timescaledb:
         condition: service_healthy
@@ -41,16 +41,21 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
     profiles: [infrastructure, application]
     ports:
-      - "9200:9200"
+      - "127.0.0.1:9200:9200"
     environment:
       discovery.type: single-node
-      xpack.security.enabled: "false"
+      xpack.security.enabled: "true"
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:-}
+      xpack.security.http.ssl.enabled: "true"
+      xpack.security.http.ssl.key: certs/http.key
+      xpack.security.http.ssl.certificate: certs/http.crt
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./certs/elasticsearch:/usr/share/elasticsearch/config/certs:ro
     healthcheck:
       test:
         - CMD-SHELL
-        - curl --fail --silent http://localhost:9200/_cluster/health?wait_for_status=yellow >/dev/null
+        - curl --fail --silent --cacert config/certs/ca.crt -u "elastic:$${ELASTIC_PASSWORD}" https://localhost:9200/_cluster/health?wait_for_status=yellow >/dev/null
       interval: 10s
       timeout: 5s
       retries: 20
@@ -80,21 +85,28 @@ services:
       zookeeper:
         condition: service_healthy
     ports:
-      - "9092:9092"
+      - "127.0.0.1:9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_LISTENERS: SSL://0.0.0.0:9092,SSL_INTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: SSL://localhost:9092,SSL_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SSL:SSL,SSL_INTERNAL:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: SSL_INTERNAL
+      KAFKA_SSL_CLIENT_AUTH: required
+      KAFKA_SSL_KEYSTORE_FILENAME: broker.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: keystore-password
+      KAFKA_SSL_KEY_CREDENTIALS: key-password
+      KAFKA_SSL_TRUSTSTORE_FILENAME: broker.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: truststore-password
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - kafka-data:/var/lib/kafka/data
+      - ./certs/kafka:/etc/kafka/secrets:ro
     healthcheck:
       test:
         - CMD-SHELL
-        - kafka-broker-api-versions --bootstrap-server localhost:9092 >/dev/null 2>&1
+        - kafka-broker-api-versions --bootstrap-server localhost:9092 --command-config /etc/kafka/secrets/client.properties >/dev/null 2>&1
       interval: 10s
       timeout: 10s
       retries: 15
@@ -108,12 +120,19 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: auth-service
     ports:
-      - "${AUTH_HOST_PORT:-18081}:8081"
+      - "127.0.0.1:${AUTH_HOST_PORT:-18081}:8081"
     environment:
+      JWT_PRIVATE_KEY: file:/run/signing/private.pem
+      JWT_KEY_ID: ${JWT_KEY_ID:-}
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       AUTH_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      AUTH_DB_USER: ${TIMESCALEDB_USER:-postgres}
-      AUTH_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
-      JWT_SECRET: ${JWT_SECRET:-change-this-development-secret-before-deploying}
+      AUTH_DB_USER: ${AUTH_DB_USER:-quant_auth}
+      AUTH_DB_PASSWORD: ${AUTH_DB_PASSWORD:-}
+    volumes:
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
+      - ./keys/private.pem:/run/signing/private.pem:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
@@ -126,11 +145,16 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: portfolio-service
     ports:
-      - "${PORTFOLIO_HOST_PORT:-18083}:8083"
+      - "127.0.0.1:${PORTFOLIO_HOST_PORT:-18083}:8083"
     environment:
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       PORTFOLIO_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      PORTFOLIO_DB_USER: ${TIMESCALEDB_USER:-postgres}
-      PORTFOLIO_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
+      PORTFOLIO_DB_USER: ${PORTFOLIO_DB_USER:-quant_portfolio}
+      PORTFOLIO_DB_PASSWORD: ${PORTFOLIO_DB_PASSWORD:-}
+    volumes:
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
@@ -143,12 +167,20 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: market-data-producer
     ports:
-      - "${MARKET_DATA_HOST_PORT:-18084}:8084"
+      - "127.0.0.1:${MARKET_DATA_HOST_PORT:-18084}:8084"
     environment:
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       MARKET_DATA_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      MARKET_DATA_DB_USER: ${TIMESCALEDB_USER:-postgres}
-      MARKET_DATA_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
+      MARKET_DATA_DB_USER: ${MARKET_DATA_DB_USER:-quant_ingestion}
+      MARKET_DATA_DB_PASSWORD: ${MARKET_DATA_DB_PASSWORD:-}
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_SSL_KEYSTORE_LOCATION: /run/kafka/client.keystore.jks
+      KAFKA_SSL_KEYSTORE_PASSWORD: ${INGESTION_KAFKA_KEYSTORE_PASSWORD:-}
+      KAFKA_SSL_KEY_PASSWORD: ${INGESTION_KAFKA_KEY_PASSWORD:-}
+      KAFKA_SSL_TRUSTSTORE_LOCATION: /run/kafka/client.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: ${INGESTION_KAFKA_TRUSTSTORE_PASSWORD:-}
       MARKET_DATA_ENABLED: ${MARKET_DATA_ENABLED:-false}
       SEC_FUNDAMENTALS_ENABLED: ${SEC_FUNDAMENTALS_ENABLED:-false}
       SEC_USER_AGENT: ${SEC_USER_AGENT:-}
@@ -184,6 +216,8 @@ services:
       REFERENCE_DATA_CLASSIFICATION_SOURCE: ${REFERENCE_DATA_CLASSIFICATION_SOURCE:-}
       REFERENCE_DATA_CLASSIFICATION_VERSION: ${REFERENCE_DATA_CLASSIFICATION_VERSION:-}
     volumes:
+      - ./certs/market-data-producer:/run/kafka:ro
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
       - ./reference-data:/reference-data:ro
     depends_on:
       database-migrations:
@@ -199,16 +233,27 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: scoring-service
     ports:
-      - "${SCORING_HOST_PORT:-18085}:8085"
+      - "127.0.0.1:${SCORING_HOST_PORT:-18085}:8085"
     environment:
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       SCORING_MODEL_RAW_DATASET: ${SCORING_MODEL_RAW_DATASET:-}
       SCORING_MODEL_ADJUSTED_DATASET: ${SCORING_MODEL_ADJUSTED_DATASET:-}
       SCORING_MODEL_CLASSIFICATION_VERSION: ${SCORING_MODEL_CLASSIFICATION_VERSION:-}
       SCORING_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      SCORING_DB_USER: ${TIMESCALEDB_USER:-postgres}
-      SCORING_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
+      SCORING_DB_USER: ${SCORING_DB_USER:-quant_scoring}
+      SCORING_DB_PASSWORD: ${SCORING_DB_PASSWORD:-}
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      KAFKA_SSL_KEYSTORE_LOCATION: /run/kafka/client.keystore.jks
+      KAFKA_SSL_KEYSTORE_PASSWORD: ${SCORING_KAFKA_KEYSTORE_PASSWORD:-}
+      KAFKA_SSL_KEY_PASSWORD: ${SCORING_KAFKA_KEY_PASSWORD:-}
+      KAFKA_SSL_TRUSTSTORE_LOCATION: /run/kafka/client.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: ${SCORING_KAFKA_TRUSTSTORE_PASSWORD:-}
+      ELASTICSEARCH_URL: ${ELASTICSEARCH_URL:-https://elasticsearch:9200}
+    volumes:
+      - ./certs/scoring-service:/run/kafka:ro
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
@@ -225,21 +270,41 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: screener-service
     ports:
-      - "${SCREENER_HOST_PORT:-18082}:8082"
+      - "127.0.0.1:${SCREENER_HOST_PORT:-18082}:8082"
     environment:
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       SCREENER_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      SCREENER_DB_USER: ${TIMESCALEDB_USER:-postgres}
-      SCREENER_DB_PASSWORD: ${TIMESCALEDB_PASSWORD:-postgres_secure_pass}
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      SCREENER_DB_USER: ${SCREENER_DB_USER:-quant_screener}
+      SCREENER_DB_PASSWORD: ${SCREENER_DB_PASSWORD:-}
+      ELASTICSEARCH_URL: ${ELASTICSEARCH_URL:-https://elasticsearch:9200}
       ELASTICSEARCH_COMPANY_INDEX: ${ELASTICSEARCH_COMPANY_INDEX:-companies-read}
-      SEARCH_REBUILD_ENABLED: ${SEARCH_REBUILD_ENABLED:-true}
+      SEARCH_REBUILD_ENABLED: "false"
+      JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/run/search/truststore.jks
+      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_API_KEY:-}
       SEARCH_REBUILD_INTERVAL: ${SEARCH_REBUILD_INTERVAL:-300000}
+    volumes:
+      - ./certs/search-client:/run/search:ro
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
       elasticsearch:
         condition: service_started
     restart: unless-stopped
+
+  search-indexer:
+    extends:
+      service: screener-service
+    ports: !reset []
+    command: ["--spring.main.web-application-type=none", "--spring.main.keep-alive=true"]
+    environment:
+      SCREENER_DB_USER: quant_search
+      SCREENER_DB_PASSWORD: ${SEARCH_DB_PASSWORD:-}
+      SEARCH_REBUILD_ENABLED: "true"
+      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_INDEXER_API_KEY:-}
+
 
   gateway-service:
     profiles: [application]
@@ -248,12 +313,17 @@ services:
       dockerfile: infrastructure/Dockerfile.services
       target: gateway-service
     ports:
-      - "${GATEWAY_HOST_PORT:-18080}:8080"
+      - "127.0.0.1:${GATEWAY_HOST_PORT:-18080}:8080"
     environment:
+      GATEWAY_ALLOWED_ORIGINS: ${GATEWAY_ALLOWED_ORIGINS:-}
+      JWT_ISSUER: ${JWT_ISSUER:-}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
+      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
       AUTH_SERVICE_URI: http://auth-service:8081
       SCREENER_SERVICE_URI: http://screener-service:8082
       PORTFOLIO_SERVICE_URI: http://portfolio-service:8083
-      JWT_SECRET: ${JWT_SECRET:-change-this-development-secret-before-deploying}
+    volumes:
+      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       auth-service:
         condition: service_started

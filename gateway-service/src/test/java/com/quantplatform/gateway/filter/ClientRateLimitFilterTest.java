@@ -56,6 +56,38 @@ class ClientRateLimitFilterTest {
         assertThat(calls).hasValue(2);
     }
 
+    @Test
+    void capacityIsBoundedAndExpiredEntriesAreReclaimed() {
+        var instant=new java.util.concurrent.atomic.AtomicLong(1000);
+        Clock clock=new Clock() {
+            public java.time.ZoneId getZone(){return ZoneOffset.UTC;}
+            public Clock withZone(java.time.ZoneId zone){return this;}
+            public Instant instant(){return Instant.ofEpochMilli(instant.get());}
+        };
+        var filter=new ClientRateLimitFilter(new GatewayRateLimitProperties(true,1,Duration.ofSeconds(10),2),clock);
+        org.springframework.cloud.gateway.filter.GatewayFilterChain chain=e->Mono.empty();
+        for(int i=1;i<=3;i++) {
+            var request=MockServerWebExchange.from(MockServerHttpRequest.get("/auth/login")
+                .remoteAddress(new InetSocketAddress("192.0.2."+i,1000)).build());
+            filter.filter(request,chain).block();
+            if(i==3) assertThat(request.getResponse().getStatusCode()).isEqualTo(HttpStatus.TOO_MANY_REQUESTS);
+        }
+        assertThat(filter.trackedClients()).isEqualTo(2);
+        instant.addAndGet(10001);
+        filter.filter(exchange(),chain).block();assertThat(filter.trackedClients()).isEqualTo(1);
+    }
+    @Test
+    void forwardedHeadersCannotChangeTheRateLimitIdentity() {
+        var filter=new ClientRateLimitFilter(new GatewayRateLimitProperties(true,1,Duration.ofMinutes(1)));
+        for(int i=1;i<=2;i++) {
+            var request=MockServerWebExchange.from(MockServerHttpRequest.get("/auth/login")
+                .remoteAddress(new InetSocketAddress("127.0.0.1",1000)).header("X-Forwarded-For","192.0.2."+i)
+                .header("Forwarded","for=192.0.2."+i).build());
+            filter.filter(request,e->Mono.empty()).block();
+            if(i==2) assertThat(request.getResponse().getStatusCode()).isEqualTo(HttpStatus.TOO_MANY_REQUESTS);
+        }
+    }
+
     private MockServerWebExchange exchange() {
         return MockServerWebExchange.from(MockServerHttpRequest.get("/screener/rankings")
                 .remoteAddress(new InetSocketAddress("127.0.0.1", 12345))

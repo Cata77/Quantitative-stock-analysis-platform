@@ -1,21 +1,13 @@
 package com.quantplatform.auth.config;
-
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 @ConfigurationProperties("security.jwt")
-public record JwtProperties(String secret, Duration expiration, String issuer) {
-
+public record JwtProperties(String privateKey,String keyId,Duration expiration) {
     public JwtProperties {
-        if (secret == null || secret.getBytes(StandardCharsets.UTF_8).length < 32) {
-            throw new IllegalArgumentException("security.jwt.secret must contain at least 32 bytes");
-        }
-        if (expiration == null || expiration.isZero() || expiration.isNegative()) {
-            throw new IllegalArgumentException("security.jwt.expiration must be positive");
-        }
-        if (issuer == null || issuer.isBlank()) {
-            throw new IllegalArgumentException("security.jwt.issuer must not be blank");
-        }
+        if(privateKey==null||privateKey.isBlank()||(!privateKey.startsWith("file:")&&!privateKey.startsWith("classpath:")))
+            throw new IllegalArgumentException("A private signing key file is required");
+        if(keyId==null||keyId.isBlank()) throw new IllegalArgumentException("Signing key ID is required");
+        if(expiration==null||expiration.isNegative()||expiration.isZero()||expiration.compareTo(Duration.ofHours(1))>0)
+            throw new IllegalArgumentException("Token expiration must be positive and at most one hour");
     }
 }

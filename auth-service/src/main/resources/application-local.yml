@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    password: ${AUTH_DB_PASSWORD:local-quant_auth-development-only}
+security:
+  jwt:
+    private-key: ${JWT_PRIVATE_KEY:classpath:security/local-private.pem}
+    key-id: ${JWT_KEY_ID:local-development-only}

@@ -98,6 +98,6 @@ public class MarketDataIngestionJob {
                 "Market-data {} collection failed for {}: {}",
                 operation,
                 symbol,
-                exception.getMessage());
+                exception.getClass().getSimpleName());
     }
 }

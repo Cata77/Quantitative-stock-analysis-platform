@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 class AuthControllerIntegrationTest {
 
+    @Autowired private com.quantplatform.security.JwtTrust trust;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -52,6 +54,19 @@ class AuthControllerIntegrationTest {
                 .andExpect(jsonPath("$.tokenType").value("Bearer"))
                 .andExpect(jsonPath("$.accessToken", not(blankOrNullString())))
                 .andExpect(jsonPath("$.expiresAt", not(blankOrNullString())));
+    }
+
+    @Test
+    void issuesAsymmetricAudienceBoundTokensAndPublishesOnlyPublicKeys() throws Exception {
+        var user=userRepository.save(new com.quantplatform.auth.user.User("token_user","unused-hash"));
+        var properties=new com.quantplatform.auth.config.JwtProperties("classpath:security/local-private.pem","local-development-only",java.time.Duration.ofMinutes(15));
+        var issued=new com.quantplatform.auth.security.JwtService(properties,trust).issue(user);
+        var token=trust.decoder().decode(issued.value());
+        org.assertj.core.api.Assertions.assertThat(token.getSubject()).isEqualTo(user.getId().toString());
+        org.assertj.core.api.Assertions.assertThat(token.getHeaders()).containsEntry("alg","RS256").containsEntry("kid","local-development-only");
+        org.assertj.core.api.Assertions.assertThat(token.getAudience()).contains("quant-platform");
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/auth/jwks"))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.keys[0].n").exists()).andExpect(jsonPath("$.keys[0].d").doesNotExist());
     }
 
     @Test

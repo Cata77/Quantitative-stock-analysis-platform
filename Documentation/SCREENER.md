@@ -124,18 +124,18 @@ Configuration:
 
 | Environment variable | Default |
 |---|---|
-| `ELASTICSEARCH_URL` | `http://localhost:9200` |
+| `ELASTICSEARCH_URL` | HTTPS required outside `local` |
 | `ELASTICSEARCH_COMPANY_INDEX` | `companies-read` |
-| `SEARCH_REBUILD_ENABLED` | `true` |
+| `SEARCH_REBUILD_ENABLED` | `false` for reader; `true` in search-indexer |
 | `SEARCH_REBUILD_INTERVAL` | `300000` milliseconds |
 | `SCREENER_MODE` | `serve` (`rebuild-and-exit` for the command) |
 
 HTTP endpoints only read data. The rebuild worker needs SELECT on canonical/reference/research
 data, writes only its operations checkpoint, and needs Elasticsearch index/alias privileges.
-The connection pool permits writes for that worker; ranking and status transactions explicitly
-remain read-only. For a separate reader deployment disable `SEARCH_REBUILD_ENABLED` and run
-the rebuild command from a worker with checkpoint-write privileges. Dedicated roles and secrets
-are phase 10 work. There is no public rebuild HTTP endpoint.
+The reader uses `quant_screener`; the separate `search-indexer` uses `quant_search` with
+checkpoint-write permission and its own Elasticsearch API key. Ranking/status transactions
+remain read-only. All HTTP reads require a bearer token with `research:read` scope.
+See [security configuration and rollout](SECURITY.md). There is no public rebuild HTTP endpoint.
 
 Build and execute a forced full rebuild using the configured database/Elasticsearch environment:
 
@@ -147,7 +147,7 @@ java -jar screener-service/build/libs/screener-service-0.0.1-SNAPSHOT.jar --scre
 Or, after building the application image and applying Flyway:
 
 ```powershell
-docker compose -f infrastructure/docker-compose.yml --profile application run --rm --no-deps screener-service --screener.mode=rebuild-and-exit --spring.main.web-application-type=none
+docker compose -f infrastructure/docker-compose.yml --profile application run --rm --no-deps search-indexer --screener.mode=rebuild-and-exit --spring.main.web-application-type=none
 ```
 
 A successful command closes the process; a failed rebuild exits with an application startup

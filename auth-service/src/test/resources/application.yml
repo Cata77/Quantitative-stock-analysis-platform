@@ -8,8 +8,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+
 security:
   jwt:
-    secret: integration-test-secret-that-is-at-least-32-bytes
     expiration: 15m
-    issuer: quant-platform-auth-test

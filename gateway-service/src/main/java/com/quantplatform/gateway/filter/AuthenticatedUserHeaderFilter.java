@@ -20,14 +20,21 @@ public class AuthenticatedUserHeaderFilter implements GlobalFilter, Ordered {
                 .cast(JwtAuthenticationToken.class)
                 .map(authentication -> exchange.mutate()
                         .request(request -> request.headers(headers -> {
-                            headers.remove(USER_ID_HEADER);
+                            stripUntrusted(headers);
                             headers.set(USER_ID_HEADER, authentication.getToken().getSubject());
                         }))
                         .build())
                 .defaultIfEmpty(exchange.mutate()
-                        .request(request -> request.headers(headers -> headers.remove(USER_ID_HEADER)))
+                        .request(request -> request.headers(AuthenticatedUserHeaderFilter::stripUntrusted))
                         .build())
                 .flatMap(chain::filter);
+    }
+
+    private static void stripUntrusted(org.springframework.http.HttpHeaders headers) {
+        new java.util.ArrayList<>(headers.headerNames()).stream()
+            .filter(name->name.toLowerCase(java.util.Locale.ROOT).startsWith("x-authenticated-")
+                || name.toLowerCase(java.util.Locale.ROOT).startsWith("x-forwarded-") || name.equalsIgnoreCase("Forwarded"))
+            .forEach(headers::remove);
     }
 
     @Override

@@ -44,7 +44,7 @@ class PortfolioControllerIntegrationTest {
     @Test
     void createsListsUpdatesAndDeletesHolding() throws Exception {
         mockMvc.perform(post("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID)
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -63,13 +63,13 @@ class PortfolioControllerIntegrationTest {
         PortfolioHolding created = holdingRepository.findAll().getFirst();
 
         mockMvc.perform(get("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id").value(created.getId().toString()));
 
         mockMvc.perform(put("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID)
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -84,16 +84,16 @@ class PortfolioControllerIntegrationTest {
                 .andExpect(jsonPath("$.quantity").value(4.0));
 
         mockMvc.perform(get("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entryPrice").value(420.75));
 
         mockMvc.perform(delete("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID)))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
@@ -101,7 +101,7 @@ class PortfolioControllerIntegrationTest {
     @Test
     void isolatesHoldingsByAuthenticatedUser() throws Exception {
         mockMvc.perform(post("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID)
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validHoldingJson()))
                 .andExpect(status().isCreated());
@@ -109,40 +109,41 @@ class PortfolioControllerIntegrationTest {
         PortfolioHolding created = holdingRepository.findAll().getFirst();
 
         mockMvc.perform(get("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, OTHER_USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(OTHER_USER_ID))
+                        .header(PortfolioController.AUTHENTICATED_USER_HEADER,USER_ID))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
 
         mockMvc.perform(get("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, OTHER_USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(OTHER_USER_ID))
+                        .header(PortfolioController.AUTHENTICATED_USER_HEADER,USER_ID))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.detail").value("Portfolio holding was not found"));
 
         mockMvc.perform(delete("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, OTHER_USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(OTHER_USER_ID))
+                        .header(PortfolioController.AUTHENTICATED_USER_HEADER,USER_ID))
                 .andExpect(status().isNotFound());
 
         mockMvc.perform(get("/portfolio/{holdingId}", created.getId())
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID)))
                 .andExpect(status().isOk());
     }
 
     @Test
     void rejectsMissingAndMalformedAuthenticatedIdentity() throws Exception {
         mockMvc.perform(get("/portfolio"))
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.detail")
-                        .value("A valid authenticated user identity is required"));
+                .andExpect(status().isUnauthorized());
 
         mockMvc.perform(get("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, "not-a-uuid"))
+                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     void validatesFinancialFieldsAndTicker() throws Exception {
         mockMvc.perform(post("/portfolio")
-                        .header(PortfolioController.AUTHENTICATED_USER_HEADER, USER_ID)
+                        .header("Authorization", com.quantplatform.security.SecurityTokens.token(USER_ID))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

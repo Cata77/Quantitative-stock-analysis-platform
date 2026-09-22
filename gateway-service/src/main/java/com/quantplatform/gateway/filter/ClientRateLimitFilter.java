@@ -3,9 +3,6 @@ package com.quantplatform.gateway.filter;
 import com.quantplatform.gateway.config.GatewayRateLimitProperties;
 import java.net.InetSocketAddress;
 import java.time.Clock;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.atomic.AtomicReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,7 +17,8 @@ public class ClientRateLimitFilter implements GlobalFilter, Ordered {
 
     private final GatewayRateLimitProperties properties;
     private final Clock clock;
-    private final ConcurrentMap<String, Window> clients = new ConcurrentHashMap<>();
+    private final java.util.Map<String, Window> clients = new java.util.HashMap<>();
+    private long nextCleanup;
 
     @Autowired
     public ClientRateLimitFilter(GatewayRateLimitProperties properties) {
@@ -44,24 +42,22 @@ public class ClientRateLimitFilter implements GlobalFilter, Ordered {
         return exchange.getResponse().setComplete();
     }
 
-    private boolean acquire(String clientId) {
-        long now = clock.millis();
-        long windowMillis = properties.window().toMillis();
-        AtomicReference<Boolean> allowed = new AtomicReference<>(false);
-
-        clients.compute(clientId, (ignored, current) -> {
-            if (current == null || now - current.startedAt() >= windowMillis) {
-                allowed.set(true);
-                return new Window(now, 1);
-            }
-            if (current.requests() < properties.requests()) {
-                allowed.set(true);
-                return new Window(current.startedAt(), current.requests() + 1);
-            }
-            return current;
-        });
-        return allowed.get();
+    private synchronized boolean acquire(String clientId) {
+        long now=clock.millis(),window=properties.window().toMillis();
+        if(now>=nextCleanup || clients.size()>=properties.maxClients()) {
+            clients.values().removeIf(w->now-w.startedAt()>=window);
+            nextCleanup=now+window;
+        }
+        Window current=clients.get(clientId);
+        if(current==null) {
+            if(clients.size()>=properties.maxClients()) return false;
+            clients.put(clientId,new Window(now,1));return true;
+        }
+        if(now-current.startedAt()>=window) { clients.put(clientId,new Window(now,1));return true; }
+        if(current.requests()>=properties.requests()) return false;
+        clients.put(clientId,new Window(current.startedAt(),current.requests()+1));return true;
     }
+    synchronized int trackedClients() { return clients.size(); }
 
     private String clientId(ServerWebExchange exchange) {
         InetSocketAddress remoteAddress = exchange.getRequest().getRemoteAddress();

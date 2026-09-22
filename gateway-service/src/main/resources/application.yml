@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: none
   port: ${GATEWAY_PORT:8080}
 
 spring:
@@ -24,19 +25,17 @@ spring:
           globalcors:
             cors-configurations:
               '[/**]':
-                allowed-origins: ${GATEWAY_ALLOWED_ORIGINS:http://localhost:3000}
+                allowed-origins: ${gateway.allowed-origins}
                 allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
                 allowed-headers: Authorization,Content-Type
                 exposed-headers: Location
                 allow-credentials: true
 
-security:
-  jwt:
-    secret: ${JWT_SECRET:change-this-development-secret-before-deploying}
-
 gateway:
+  allowed-origins: ${GATEWAY_ALLOWED_ORIGINS:}
   rate-limit:
     enabled: ${GATEWAY_RATE_LIMIT_ENABLED:true}
+    max-clients: ${GATEWAY_RATE_LIMIT_MAX_CLIENTS:10000}
     requests: ${GATEWAY_RATE_LIMIT_REQUESTS:100}
     window: ${GATEWAY_RATE_LIMIT_WINDOW:1m}
 

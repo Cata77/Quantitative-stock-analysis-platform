@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    password: ${MARKET_DATA_DB_PASSWORD:local-quant_ingestion-development-only}
+  kafka:
+    properties:
+      security.protocol: PLAINTEXT

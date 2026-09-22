@@ -16,4 +16,17 @@ class MarketDataProducerApplicationTest {
     @Test
     void startsWithoutProviderCredentialsWhenCollectionIsDisabled() {
     }
+
+    @org.springframework.boot.test.web.server.LocalServerPort int port;
+    @Test void internalStatusRequiresAnExplicitOperationsIdentity() {
+        var client=org.springframework.test.web.reactive.server.WebTestClient.bindToServer()
+            .baseUrl("http://127.0.0.1:"+port).build();
+        var user=java.util.UUID.randomUUID();
+        client.get().uri("/internal/ingestion/status").header("X-Authenticated-User-Id",user.toString())
+            .exchange().expectStatus().isUnauthorized();
+        client.get().uri("/internal/ingestion/status").header("Authorization",com.quantplatform.security.SecurityTokens.token(user))
+            .exchange().expectStatus().isForbidden();
+        client.get().uri("/internal/ingestion/status").header("Authorization",com.quantplatform.security.SecurityTokens.token(user,"operations:read"))
+            .exchange().expectStatus().isOk();
+    }
 }

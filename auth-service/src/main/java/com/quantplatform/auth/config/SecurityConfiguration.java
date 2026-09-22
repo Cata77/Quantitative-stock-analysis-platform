@@ -21,7 +21,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/register", "/auth/login", "/actuator/health").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login", "/auth/jwks", "/actuator/health").permitAll()
                         .anyRequest().denyAll())
                 .cors(Customizer.withDefaults())
                 .build();
