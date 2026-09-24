@@ -10,7 +10,8 @@ requires-python = ">=3.11,<3.15"
 dependencies = [
     "hmmlearn==0.3.3",
     "numpy==2.4.6",
-    "polars==1.43.0",
+    "polars==1.44.2",
+    "plotly==6.9.0", # vectorbt 1.1.0 templates use traces removed in Plotly 7
     "psycopg[binary]==3.3.4",
     "scipy==1.17.1",
     "statsmodels==0.14.6",
@@ -27,6 +28,7 @@ dev = [
 [project.scripts]
 quant-research = "quant_research.cli:main"
 quant-model = "quant_research.model.cli:main"
+quant-validation = "quant_research.validation:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

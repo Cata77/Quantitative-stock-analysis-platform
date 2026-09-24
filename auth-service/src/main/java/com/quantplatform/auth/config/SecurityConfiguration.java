@@ -21,8 +21,10 @@ public class SecurityConfiguration {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/register", "/auth/login", "/auth/jwks", "/actuator/health").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login", "/auth/jwks", "/actuator/health", "/actuator/health/liveness", "/actuator/health/readiness").permitAll()
+                        .requestMatchers("/actuator/prometheus").hasAuthority("SCOPE_operations:read")
                         .anyRequest().denyAll())
+                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
                 .cors(Customizer.withDefaults())
                 .build();
     }

@@ -29,6 +29,15 @@ subprojects {
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
+    dependencyLocking { lockAllConfigurations(); lockMode = LockMode.STRICT }
+    tasks.register('resolveLockedDependencies') {
+        doLast {
+            configurations.findAll { it.canBeResolved }.each { it.resolve() }
+        }
+    }
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs += ['-Xlint:unchecked', '-Xlint:deprecation']
+    }
     tasks.named('test') {
         useJUnitPlatform()
     }

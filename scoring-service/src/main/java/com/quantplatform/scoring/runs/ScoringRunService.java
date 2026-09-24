@@ -100,6 +100,8 @@ public class ScoringRunService {
                     WHERE score_run_id=:id
                     """).param("cert",certification).param("scored",report.get("eligible_count")).param("excluded",report.get("excluded_count")).param("id",id).update();
             });
+            org.slf4j.LoggerFactory.getLogger(getClass()).atInfo().addKeyValue("run_id",id)
+                .addKeyValue("score_date",request.scoreDate()).log("Complete scoring publication available");
             return id;
         }catch(RuntimeException failure){
             tx.executeWithoutResult(status->{

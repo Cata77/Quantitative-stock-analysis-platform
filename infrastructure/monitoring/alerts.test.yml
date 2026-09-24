@@ -1,0 +1,40 @@
+rule_files:
+  - alerts.yml
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'up{job="quant-services",instance="fixture"}'
+        values: '0+0x15'
+      - series: 'quant_telemetry_up{application="scoring-service"}'
+        values: '0+0x15'
+      - series: 'quant_outbox_oldest_seconds{application="scoring-service"}'
+        values: '600+0x15'
+    alert_rule_test:
+      - eval_time: 6m
+        alertname: QuantServiceScrapeFailed
+        exp_alerts:
+          - exp_labels: {job: quant-services, instance: fixture, severity: critical}
+            exp_annotations: {summary: "Service unreachable or metrics credential expired"}
+      - eval_time: 6m
+        alertname: QuantTelemetryUnavailable
+        exp_alerts:
+          - exp_labels: {application: scoring-service, severity: critical}
+            exp_annotations: {summary: "Durable-state telemetry query failed; do not interpret absent metrics as healthy"}
+      - eval_time: 6m
+        alertname: QuantDeliveryStalled
+        exp_alerts:
+          - exp_labels: {application: scoring-service, severity: warning}
+            exp_annotations: {summary: "Oldest undelivered observation exceeds five minutes"}
+  - interval: 1m
+    input_series:
+      - series: 'up{job="quant-services",instance="fixture"}'
+        values: '1+0x15'
+      - series: 'quant_telemetry_up{application="scoring-service"}'
+        values: '1+0x15'
+      - series: 'quant_outbox_oldest_seconds{application="scoring-service"}'
+        values: '0+0x15'
+    alert_rule_test:
+      - {eval_time: 6m, alertname: QuantServiceScrapeFailed, exp_alerts: []}
+      - {eval_time: 6m, alertname: QuantTelemetryUnavailable, exp_alerts: []}
+      - {eval_time: 6m, alertname: QuantDeliveryStalled, exp_alerts: []}

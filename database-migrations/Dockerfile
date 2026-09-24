@@ -10,8 +10,9 @@ RUN mkdir -p \
     scoring-service \
     screener-service \
     ingestion-contract \
-    security-common
-COPY database-migrations/build.gradle ./database-migrations/build.gradle
+    security-common \
+    observability-common
+COPY database-migrations/build.gradle database-migrations/gradle.lockfile ./database-migrations/
 COPY database-migrations/src ./database-migrations/src
 
 RUN gradle :database-migrations:bootJar --no-daemon \

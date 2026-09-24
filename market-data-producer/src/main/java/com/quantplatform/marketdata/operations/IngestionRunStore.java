@@ -178,8 +178,13 @@ public class IngestionRunStore {
         Objects.requireNonNull(source, "source");
         var page = List.copyOf(observations);
         String checkpoint = ObservationIdentity.canonicalJson(mapper, checkpointJson);
-        return Objects.requireNonNull(transactions.execute(transaction -> {
+        var staged = Objects.requireNonNull(transactions.execute(transaction -> {
             UUID dataset = lockLease(lease);
+            String provider = jdbc.sql("""
+                    SELECT provider.code FROM operations.datasets dataset
+                    JOIN operations.data_providers provider USING (provider_id)
+                    WHERE dataset.dataset_id = :dataset
+                    """).param("dataset", dataset).query(String.class).single();
             var artifact = jdbc.sql("""
                     INSERT INTO operations.source_artifacts
                         (dataset_id, request_key, source_uri, retrieved_at, content_hash, media_type, parser_version, inline_content)
@@ -229,9 +234,16 @@ public class IngestionRunStore {
                 finishAttempt(lease, "STAGED", null);
             }
             refreshRun(lease.runId());
-            return List.copyOf(events);
+            return new StagedPage(dataset, provider, List.copyOf(events));
         }));
+        org.slf4j.LoggerFactory.getLogger(getClass()).atInfo().addKeyValue("run_id",lease.runId())
+            .addKeyValue("instrument_id",lease.instrumentId()).addKeyValue("event_ids",staged.events())
+            .addKeyValue("dataset_id",staged.dataset()).addKeyValue("provider",staged.provider())
+            .log("Provider page staged in durable outbox");
+        return staged.events();
     }
+
+    private record StagedPage(UUID dataset, String provider, List<UUID> events) {}
 
     private void requireSnapshot(UUID snapshot, String code) {
         boolean valid = jdbc.sql("""

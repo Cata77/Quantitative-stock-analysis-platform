@@ -34,6 +34,22 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
+    void probesArePublicAndMetricsRequireAnOperatorToken() throws Exception {
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/actuator/health/liveness"))
+            .andExpect(status().isOk());
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/actuator/health/readiness"))
+            .andExpect(status().isOk());
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/actuator/prometheus"))
+            .andExpect(status().isUnauthorized());
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/actuator/prometheus")
+            .header("Authorization", com.quantplatform.security.SecurityTokens.token(java.util.UUID.randomUUID())))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/actuator/prometheus")
+            .header("Authorization", com.quantplatform.security.SecurityTokens.token(java.util.UUID.randomUUID(), "operations:read")))
+            .andExpect(status().isOk());
+    }
+
+    @Test
     void registersThenAuthenticatesUser() throws Exception {
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)

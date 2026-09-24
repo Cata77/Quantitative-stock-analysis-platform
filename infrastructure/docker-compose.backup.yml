@@ -1,0 +1,17 @@
+# Explicit opt-in. Mount an operator-owned off-host/encrypted backup location and a 0600 pgpass.
+services:
+  database-backup:
+    image: timescale/timescaledb:2.29.1-pg18
+    profiles: [backup]
+    entrypoint: [sh, /scripts/backup-loop.sh]
+    environment:
+      PGHOST: timescaledb
+      PGPORT: 5432
+      PGDATABASE: ${TIMESCALEDB_DB:-quant_platform}
+      PGUSER: ${BACKUP_DB_USER:?Set a dedicated backup operator}
+      PGPASSFILE: /run/secrets/backup-pgpass
+    volumes:
+      - ./backup:/scripts:ro
+      - ${BACKUP_DIRECTORY:?Set a durable backup directory}:/backups
+      - ${BACKUP_PGPASS_FILE:?Set a 0600 pgpass file}:/run/secrets/backup-pgpass:ro
+    restart: on-failure

@@ -10,3 +10,4 @@ include 'database-migrations'
 include 'ingestion-contract'
 
 include 'security-common'
+include 'observability-common'

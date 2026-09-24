@@ -8,7 +8,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfiguration {
     @Bean SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.csrf(c->c.disable()).httpBasic(c->c.disable()).formLogin(c->c.disable())
-            .authorizeExchange(a->a.pathMatchers("/auth/register","/auth/login","/auth/jwks","/actuator/health").permitAll()
+            .authorizeExchange(a->a.pathMatchers("/auth/register","/auth/login","/auth/jwks","/actuator/health","/actuator/health/liveness","/actuator/health/readiness").permitAll()
+                .pathMatchers("/actuator/prometheus").hasAuthority("SCOPE_operations:read")
                 .pathMatchers(org.springframework.http.HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/portfolio","/portfolio/**").hasAuthority("SCOPE_portfolio:write")
                 .pathMatchers("/screener/**").hasAuthority("SCOPE_research:read").anyExchange().denyAll())

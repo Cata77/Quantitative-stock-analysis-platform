@@ -65,7 +65,7 @@ public class DurableObservationProcessor {
         } catch (RuntimeException exception) {
             throw new MarketDataValidationException("invalid economic payload", exception);
         }
-        return Boolean.TRUE.equals(transactions.execute(transaction -> {
+        boolean accepted = Boolean.TRUE.equals(transactions.execute(transaction -> {
             lock(consumer + ":event:" + event.eventId());
             lock(event.datasetId() + ":" + event.instrumentId() + ":" + event.economicTime());
             int inserted = jdbc.sql("""
@@ -150,6 +150,11 @@ public class DurableObservationProcessor {
             }
             return true;
         }));
+        org.slf4j.LoggerFactory.getLogger(getClass()).atInfo()
+            .addKeyValue("event_id",event.eventId()).addKeyValue("instrument_id",event.instrumentId())
+            .addKeyValue("dataset_id",event.datasetId()).addKeyValue("accepted",accepted)
+            .log("Canonical observation transaction committed");
+        return accepted;
     }
 
     public int reconcileCoverage() {

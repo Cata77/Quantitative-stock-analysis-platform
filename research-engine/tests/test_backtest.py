@@ -60,5 +60,5 @@ def test_vectorbt_backtest_applies_plan_compliant_costs() -> None:
 
 
 def test_rejects_backtests_without_the_required_cost_penalty() -> None:
-    with pytest.raises(ValueError, match="between 5 and 10"):
+    with pytest.raises(ValueError, match="between 5 and 50"):
         BacktestCosts(fees_bps=0, slippage_bps=0)

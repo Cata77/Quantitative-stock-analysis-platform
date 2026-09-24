@@ -11,13 +11,13 @@ import vectorbt as vbt
 
 @dataclass(frozen=True)
 class BacktestCosts:
-    fees_bps: float = 2.5
+    fees_bps: float = 5.0
     slippage_bps: float = 5.0
 
     def __post_init__(self) -> None:
         total = self.fees_bps + self.slippage_bps
-        if not 5.0 <= total <= 10.0:
-            raise ValueError("total transaction cost must be between 5 and 10 bps")
+        if not 5.0 <= total <= 50.0:
+            raise ValueError("total transaction cost must be between 5 and 50 bps")
 
     @property
     def total_bps(self) -> float:

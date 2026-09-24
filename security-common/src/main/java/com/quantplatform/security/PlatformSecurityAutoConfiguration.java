@@ -40,7 +40,8 @@ public class PlatformSecurityAutoConfiguration {
                 org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
             return http.csrf(c->c.disable()).httpBasic(c->c.disable()).formLogin(c->c.disable())
                 .sessionManagement(s->s.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(a->a.requestMatchers("/actuator/health").permitAll()
+                .authorizeHttpRequests(a->a.requestMatchers("/actuator/health","/actuator/health/liveness","/actuator/health/readiness").permitAll()
+                    .requestMatchers("/actuator/prometheus").hasAuthority("SCOPE_operations:read")
                     .requestMatchers("/portfolio","/portfolio/**").hasAuthority("SCOPE_portfolio:write")
                     .requestMatchers("/screener/**").hasAuthority("SCOPE_research:read")
                     .requestMatchers("/internal/**").hasAuthority("SCOPE_operations:read").anyRequest().denyAll())
@@ -54,7 +55,8 @@ public class PlatformSecurityAutoConfiguration {
         org.springframework.security.web.server.SecurityWebFilterChain platformReactiveSecurity(
                 org.springframework.security.config.web.server.ServerHttpSecurity http) {
             return http.csrf(c->c.disable()).httpBasic(c->c.disable()).formLogin(c->c.disable())
-                .authorizeExchange(a->a.pathMatchers("/actuator/health").permitAll()
+                .authorizeExchange(a->a.pathMatchers("/actuator/health","/actuator/health/liveness","/actuator/health/readiness").permitAll()
+                    .pathMatchers("/actuator/prometheus").hasAuthority("SCOPE_operations:read")
                     .pathMatchers("/internal/**").hasAuthority("SCOPE_operations:read").anyExchange().denyAll())
                 .oauth2ResourceServer(o->o.jwt(j->{})).build();
         }

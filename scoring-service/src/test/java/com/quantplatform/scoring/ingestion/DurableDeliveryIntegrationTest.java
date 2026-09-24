@@ -246,11 +246,20 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
     @Test void concurrentVirtualThreadDeliveriesHaveOneEffectWithoutCarrierPinning(
             @org.junit.jupiter.api.io.TempDir java.nio.file.Path recordingDirectory) throws Exception {
         var event = stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
-        // Initialize the JDK socket poller before measuring steady-state database contention.
-        // Cold startup on Windows records class-initialization pinning, not application monitor I/O.
+        // Warm sockets, Jackson and both ingestion branches independently of test execution order.
+        // Roll back warm-up effects before measuring steady-state database contention.
         try (var warmup = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
-            warmup.submit(() -> jdbc.sql("SELECT 1 FROM pg_sleep(0.01)").query(Integer.class).single())
-                    .get(10, TimeUnit.SECONDS);
+            warmup.submit(() -> {
+                jdbc.sql("SELECT 1 FROM pg_sleep(0.01)").query(Integer.class).single();
+                new org.springframework.transaction.support.TransactionTemplate(tx).executeWithoutResult(status -> {
+                    assertThat(processor.process(event, topic, 0, 0)).isTrue();
+                    assertThat(processor.process(event, topic, 0, 0)).isFalse();
+                    status.setRollbackOnly();
+                });
+            }).get(10, TimeUnit.SECONDS);
+            clearInvocations(projection);
+            assertThat(count("operations.kafka_inbox")).isZero();
+            assertThat(count("market_data.observations")).isZero();
         }
         var recordingFile = recordingDirectory.resolve("phase3-ingestion.jfr");
         try (var recording = new jdk.jfr.Recording()) {
@@ -267,6 +276,9 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
             recording.stop();
             recording.dump(recordingFile);
         }
+        var evidenceFile = java.nio.file.Path.of("build/reports/phase11-ingestion.jfr");
+        java.nio.file.Files.createDirectories(evidenceFile.getParent());
+        java.nio.file.Files.copy(recordingFile, evidenceFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         assertThat(jdk.jfr.consumer.RecordingFile.readAllEvents(recordingFile))
                 .noneMatch(eventRecord -> eventRecord.getEventType().getName().equals("jdk.VirtualThreadPinned"));
         assertThat(scalar("SELECT delivery_count FROM operations.kafka_inbox")).isEqualTo(16);

@@ -41,6 +41,15 @@ class GatewayApplicationTest {
         client().get().uri("/portfolio").header("Authorization",SecurityTokens.token(user,"research:read"))
             .exchange().expectStatus().isForbidden();
     }
+    @Test void probesArePublicButMetricsRequireOperatorScope() {
+        client().get().uri("/actuator/health/liveness").exchange().expectStatus().isOk();
+        client().get().uri("/actuator/health/readiness").exchange().expectStatus().isOk();
+        client().get().uri("/actuator/prometheus").exchange().expectStatus().isUnauthorized();
+        client().get().uri("/actuator/prometheus").header("Authorization",SecurityTokens.token(UUID.randomUUID()))
+            .exchange().expectStatus().isForbidden();
+        client().get().uri("/actuator/prometheus").header("Authorization",SecurityTokens.token(UUID.randomUUID(),"operations:read"))
+            .exchange().expectStatus().isOk();
+    }
     @Test void corsAllowsOnlyConfiguredOrigins() {
         client().options().uri("/portfolio").header("Origin","http://localhost:3000")
             .header("Access-Control-Request-Method","GET").exchange().expectStatus().isOk()

@@ -1,0 +1,16 @@
+plugins { id 'java-library' }
+dependencyManagement { imports { mavenBom 'org.springframework.boot:spring-boot-dependencies:4.1.0' } }
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    compileOnly 'org.springframework.boot:spring-boot-webclient'
+    compileOnly 'org.springframework:spring-webflux'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webclient'
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.flywaydb:flyway-database-postgresql'
+    testImplementation 'org.postgresql:postgresql'
+    testImplementation platform('org.testcontainers:testcontainers-bom:2.0.5')
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
+}
+sourceSets.test.resources.srcDir project(':database-migrations').file('src/main/resources')

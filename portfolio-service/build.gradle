@@ -7,6 +7,7 @@ springBoot {
 }
 
 dependencies {
+    implementation project(':observability-common')
     implementation project(':security-common')
     testImplementation testFixtures(project(':security-common'))
     implementation 'org.springframework.boot:spring-boot-starter-web'

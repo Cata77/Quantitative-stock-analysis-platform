@@ -1,2 +1,4 @@
 [console_scripts]
+quant-model = quant_research.model.cli:main
 quant-research = quant_research.cli:main
+quant-validation = quant_research.validation:main

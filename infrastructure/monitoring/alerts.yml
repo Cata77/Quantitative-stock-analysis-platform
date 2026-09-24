@@ -1,0 +1,48 @@
+groups:
+  - name: quant-platform
+    rules:
+      - alert: QuantServiceScrapeFailed
+        expr: up{job="quant-services"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations: {summary: "Service unreachable or metrics credential expired"}
+      - alert: QuantTelemetryUnavailable
+        expr: quant_telemetry_up == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations: {summary: "Durable-state telemetry query failed; do not interpret absent metrics as healthy"}
+      - alert: QuantDeliveryStalled
+        expr: quant_outbox_oldest_seconds > 300
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: "Oldest undelivered observation exceeds five minutes"}
+      - alert: QuantDeadLetters
+        expr: quant_dlq_unreplayed > 0
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: "Dead letters require audited inspection/replay"}
+      - alert: QuantBlockingDataQuality
+        expr: quant_quality_blocking > 0
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: "Blocking data-quality issues prevent complete coverage"}
+      - alert: QuantNoPublishedRun
+        expr: quant_publication_present == 0
+        for: 10m
+        labels: {severity: warning}
+        annotations: {summary: "No complete primary publication is available"}
+      - alert: QuantStalePublication
+        expr: quant_publication_age_seconds > 3024000
+        for: 10m
+        labels: {severity: warning}
+        annotations: {summary: "Latest complete monthly publication is over 35 days old"}
+      - alert: QuantProviderQuota
+        expr: sum by (application, provider) (increase(quant_provider_requests_seconds_count{outcome="quota"}[10m])) > 3
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: "Repeated provider quota responses; inspect request budget and retry schedule"}
+      - alert: QuantLowCoverage
+        expr: quant_universe_coverage < 0.9
+        for: 10m
+        labels: {severity: warning}
+        annotations: {summary: "Published universe coverage is below the research threshold"}

@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/gateway-service" />
             <option value="$PROJECT_DIR$/ingestion-contract" />
             <option value="$PROJECT_DIR$/market-data-producer" />
+            <option value="$PROJECT_DIR$/observability-common" />
             <option value="$PROJECT_DIR$/portfolio-service" />
             <option value="$PROJECT_DIR$/scoring-service" />
             <option value="$PROJECT_DIR$/screener-service" />
