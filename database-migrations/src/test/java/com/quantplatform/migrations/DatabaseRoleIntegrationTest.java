@@ -43,7 +43,7 @@ class DatabaseRoleIntegrationTest {
         }
         var flyway=Flyway.configure().dataSource(url,"quant_migrator","isolated-test-migration-password")
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(18);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(19);
         assertThat(flyway.migrate().migrationsExecuted).isZero();
     }
     @Test void everyApplicationRoleIsNonAdministrativeAndCannotAssumeTheMigrator() throws Exception {

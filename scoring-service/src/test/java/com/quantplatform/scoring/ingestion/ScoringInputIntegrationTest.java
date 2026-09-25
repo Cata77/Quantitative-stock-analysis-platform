@@ -107,6 +107,33 @@ class ScoringInputIntegrationTest extends DurableDeliveryFixture {
             """).param("artifact",artifact).update();
     }
 
+
+    ScoringInputRequest delayedRequest() {
+        calendar(DAY.plusDays(1),DAY.plusDays(1));
+        jdbc.sql("UPDATE reference.trading_sessions SET available_at='2025-01-01',observed_at='2025-01-01' WHERE session_date=:next")
+            .param("next",DAY.plusDays(1)).update();
+        return new ScoringInputRequest(DAY,CLOSE,Instant.parse("2026-09-02T13:00:00Z"),sp500,nasdaq,
+            dataset,dataset,DAY.plusDays(1),classification,"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
+    }
+    @Test void delayedBarsAreUsableOnlyWithinTheVersionedDecisionBoundary() {
+        var delayed=delayedRequest();
+        jdbc.sql("UPDATE market_data.daily_bar_observations SET available_at='2026-09-02T12:00:00Z',observed_at='2026-09-02T12:00:00Z',ingested_at='2026-09-02T12:01:00Z',adjustment_as_of=CASE WHEN adjustment_mode='SPLIT_DIVIDEND' THEN '2026-09-02'::date END").update();
+        assertThat(repository.load(request()).inputs().getFirst().rawClose()).isNull();
+        assertThat(repository.load(delayed).readyCount()).isEqualTo(1);
+        jdbc.sql("UPDATE market_data.daily_bar_observations SET observed_at='2026-09-02T13:01:00Z' WHERE session_date=:day").param("day",DAY).update();
+        assertThat(repository.load(delayed).inputs().getFirst().rawClose()).isNull();
+        jdbc.sql("UPDATE market_data.daily_bar_observations SET observed_at='2026-09-02T12:00:00Z',ingested_at='2026-09-02T13:01:00Z' WHERE session_date=:day").param("day",DAY).update();
+        assertThat(repository.load(delayed).inputs().getFirst().rawClose()).isNull();
+    }
+    @Test void delayedPolicyRejectsWrongDecisionAndLateCalendarKnowledge() {
+        var delayed=delayedRequest();
+        var wrong=new ScoringInputRequest(DAY,CLOSE,delayed.knowledgeCutoff().plusSeconds(60),sp500,nasdaq,
+            dataset,dataset,DAY.plusDays(1),classification,"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
+        assertThatThrownBy(()->repository.load(wrong)).hasMessageContaining("INVALID_PRE_OPEN_CUTOFF");
+        jdbc.sql("UPDATE reference.trading_sessions SET observed_at='2026-09-02T12:00:00Z' WHERE session_date=:next").param("next",DAY.plusDays(1)).update();
+        assertThatThrownBy(()->repository.load(delayed)).hasMessageContaining("INVALID_PRE_OPEN_CUTOFF");
+    }
+
     ScoringInputRequest request() {
         return new ScoringInputRequest(DAY,CLOSE,CLOSE,sp500,nasdaq,dataset,dataset,DAY,
             classification,"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"));

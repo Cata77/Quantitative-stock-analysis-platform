@@ -16,13 +16,17 @@ class CanonicalModelInputsTest {
             from test_model_periods import section, fact
             from quant_research.model.periods import from_cross_section, ttm
             documents=[]
-            for scenario in range(4):
+            for scenario in range(6):
                 d=section()
                 if scenario==1:
                     d['inputs'][0]['profile']='BANK'
                     d['inputs'][0]['reasons']=[{'code':'BLOCKING_ISSUE','detail':'split'}]
                 if scenario==2: d['inputs'][0]['facts']=[]
                 if scenario==3: d['inputs'][0]['facts'][0]['observedAt']='2026-10-01T00:00:00Z'
+                if scenario>=4:
+                    d['request']['knowledgeCutoff']='2026-10-01T13:00:00Z'
+                    d['request']['timingPolicy']='NEXT_OPEN_MINUS_30M_V1'
+                    if scenario==5: d['inputs'][0]['facts'][0]['observedAt']='2026-10-01T13:01:00Z'
                 a,r=from_cross_section(d)
                 documents.append({'input':d,'expected':{'as_of':a,'rows':r}})
             quarters=[fact('2025-07-01','2025-09-30',10),fact('2025-10-01','2025-12-31',20),fact('2026-01-01','2026-03-31',30),fact('2026-04-01','2026-06-30',40)]

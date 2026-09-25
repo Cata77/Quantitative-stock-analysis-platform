@@ -139,7 +139,7 @@ class ScreenerApplicationTest {
             .andExpect(status().isOk()).andExpect(jsonPath("$.freshness").value("UNAVAILABLE"));
         mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("modelVersion",UUID.randomUUID().toString()))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(0));
-        String model=jdbc.sql("SELECT model_version_id::text FROM research.model_versions").query(String.class).single();
+        String model=jdbc.sql("SELECT model_version_id::text FROM research.model_versions WHERE semantic_version='1.0.0'").query(String.class).single();
         mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("modelVersion",model))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.modelVersionId").value(model));
     }

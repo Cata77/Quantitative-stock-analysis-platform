@@ -1,15 +1,19 @@
 {
   "model_code": "stock-value-quality-momentum",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "profile_version": "profiles-v1",
-  "input_version": "prepared-canonical-v1",
+  "input_version": "prepared-canonical-v2",
   "status": "FROZEN_RESEARCH_HYPOTHESIS",
   "schedule": {
-    "signal": "LAST_REGULAR_SESSION_CLOSE_OF_MONTH",
+    "signal": "THIRTY_MINUTES_BEFORE_NEXT_REGULAR_SESSION_OPEN",
     "execution": "NEXT_REGULAR_SESSION_OPEN",
     "holding": "UNTIL_NEXT_MONTHLY_REBALANCE",
     "universe": "POINT_IN_TIME_SP500_NASDAQ100_UNION",
-    "baseline_cost_bps_per_side": 10
+    "baseline_cost_bps_per_side": 10,
+    "market_data_through": "LAST_REGULAR_SESSION_CLOSE_OF_MONTH",
+    "timing_policy": "NEXT_OPEN_MINUS_30M_V1",
+    "legacy_input_policy": "CLOSE_V1_FOR_REPRODUCIBLE_OFFLINE_COMPARISON",
+    "adjustment_vintage": "KNOWLEDGE_CUTOFF_NEW_YORK_DATE"
   },
   "profiles": {
     "GENERAL": {
@@ -275,6 +279,7 @@
     "regulatory_scope": "PUBLIC_PARENT with explicit STANDARDIZED or ADVANCED capital approach",
     "capital_requirement_dates": "Each component requires effective_from <= score date < effective_to, plus available/observed cutoffs",
     "period_alignment": "Current balances and TTM share current period_end; prior balances are 350-380 days earlier; prior REIT payout components share previous quarter end",
-    "price_availability": "Phase 6 adapter records a conservative cutoff upper bound and retains observation keys"
+    "price_availability": "Phase 6 adapter records a conservative cutoff upper bound and retains observation keys",
+    "economic_score_date": "Explicit score_date controls economic periods, current bar and freshness; availability/observation remain bounded by as_of. Legacy prepared fixtures default score_date to as_of date."
   }
 }

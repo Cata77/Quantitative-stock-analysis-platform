@@ -13,8 +13,11 @@ required canonical metric codes. The result retains that request so a later scor
 store the exact selection contract.
 
 The market cutoff must equal the regular XNYS session close on the score date. Knowledge
-cannot be later than that close. Effective dates are inclusive at the start and exclusive at
-the end. Snapshot dates and observations must be known by the cutoff. Only complete
+cannot be later than that close under legacy CLOSE_V1. The runtime NEXT_OPEN_MINUS_30M_V1
+policy fixes knowledge to 30 minutes before the next regular opening, with the intervening
+calendar known by the close and adjustment vintage equal to the decision date in New York.
+See [versioned timing policy](SCORING-RUNS.md#version-110-timing-policy-local-checklist-step-2).
+Effective dates are inclusive at the start and exclusive at the end. Snapshot dates and observations must be known by the cutoff. Only complete
 CURRENT_SNAPSHOT_FORWARD snapshots are accepted; biased/proxy research needs its own explicit
 future contract. A wrong pair, unknown dataset/classification/metric or incomplete calendar
 fails the request rather than presenting an apparently complete cross-section.
@@ -73,6 +76,8 @@ when consuming this new CrossSection.
 Daily observations collected after the signal close cannot be used at that close. The
 repository will report missing inputs rather than relax the knowledge cutoff. The operational
 collection schedule must deliver appropriate vintages for a complete strict historical run.
+Version 1.1.0 permits delayed bars only through its fixed pre-open cutoff; it preserves all
+economic-date, source-observation and ingestion-time filters.
 
 ## Verification and query plan
 

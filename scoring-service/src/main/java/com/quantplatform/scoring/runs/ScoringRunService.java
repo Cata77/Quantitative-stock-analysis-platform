@@ -63,7 +63,7 @@ public class ScoringRunService {
             jdbc.sql("""
                 INSERT INTO research.scoring_runs(logical_key,as_of_date,market_cutoff,knowledge_cutoff,effective_from,
                     sp500_snapshot_id,nasdaq100_snapshot_id,model_version_id,certification_id,candidate,input_version,request,supersedes)
-                VALUES(:key,:date,:market,:knowledge,:effective,:sp,:nq,:model,:cert,'primary','prepared-canonical-v1',CAST(:request AS jsonb),
+                VALUES(:key,:date,:market,:knowledge,:effective,:sp,:nq,:model,:cert,'primary','prepared-canonical-v2',CAST(:request AS jsonb),
                     (SELECT score_run_id FROM research.scoring_runs WHERE as_of_date=:date AND model_version_id=:model AND candidate='primary' AND state='PUBLISHED' ORDER BY published_at DESC,score_run_id LIMIT 1))
                 ON CONFLICT(logical_key) DO NOTHING
                 """).param("key",key).param("date",request.scoreDate()).param("market",request.marketCutoff().atOffset(ZoneOffset.UTC))

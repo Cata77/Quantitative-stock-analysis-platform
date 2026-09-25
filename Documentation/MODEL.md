@@ -1,4 +1,4 @@
-# Frozen Python scoring model v1
+# Frozen Python scoring model 1.1.0
 
 Phase 7 implements the research hypothesis in `research-engine/src/quant_research/model`.
 It does not establish predictive performance. The final historical test remains unopened.
@@ -55,8 +55,11 @@ the query cutoff as an upper bound, not as the provider's original timestamp.
 The SQL boundary validates trading observations, listing and membership. Offline prepared
 imports must establish the same calendar, share-class and corporate-action facts.
 
-Signals are defined at the last regular-session close monthly, with execution at the next
-regular-session open, 10 bps costs per side and holding until the next rebalance.
+Model 1.1.0 fixes signals 30 minutes before the next regular opening, using market data
+through the preceding month-end close. Economic score_date is distinct from the as_of
+knowledge boundary. Execution remains the next regular-session open, with 10 bps costs per
+side and holding until the next rebalance. See the [timing revision](SCORING-RUNS.md#version-110-timing-policy-local-checklist-step-2)
+for calendar, adjustment-vintage, late-publication and legacy comparison rules.
 This phase calculates a cross-section; it neither schedules signals nor simulates trades.
 The legacy backtest is not evidence for this model. Historical execution and the untouched
 60/20/20 research split remain Phase 11 gates.

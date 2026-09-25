@@ -21,7 +21,7 @@ SELECT '40000000-0000-0000-0000-000000000001',instrument_id,'OLD'||right(instrum
 INSERT INTO reference.universe_memberships(universe_snapshot_id,instrument_id,source_symbol,source_exchange_mic)
 VALUES('40000000-0000-0000-0000-000000000002','30000000-0000-0000-0000-000000000002','OLD2','XNAS');
 INSERT INTO research.model_parity_certifications(certification_id,model_version_id,manifest_sha256,implementation_version,absolute_tolerance)
-SELECT repeat('a',64),model_version_id,manifest_sha256,'fixture',0.000000001 FROM research.model_versions;
+SELECT repeat('a',64),model_version_id,manifest_sha256,'fixture',0.000000001 FROM research.model_versions WHERE semantic_version='1.0.0';
 INSERT INTO research.scoring_runs(score_run_id,logical_key,as_of_date,market_cutoff,knowledge_cutoff,effective_from,
     sp500_snapshot_id,nasdaq100_snapshot_id,model_version_id,certification_id,candidate,input_version,request)
 SELECT ('50000000-0000-0000-0000-'||lpad(n::text,12,'0'))::uuid,lpad(n::text,64,'0'),
@@ -29,7 +29,7 @@ SELECT ('50000000-0000-0000-0000-'||lpad(n::text,12,'0'))::uuid,lpad(n::text,64,
     '2026-08-31T20:00Z','2026-08-31T20:00Z','2026-09-01T13:30Z',
     '40000000-0000-0000-0000-000000000001','40000000-0000-0000-0000-000000000002',
     model_version_id,repeat('a',64),'primary','prepared-canonical-v1','{"inputs":{"classificationVersion":"60000000-0000-0000-0000-000000000001"}}'
-FROM research.model_versions CROSS JOIN generate_series(1,4) n;
+FROM research.model_versions CROSS JOIN generate_series(1,4) n WHERE semantic_version='1.0.0';
 UPDATE research.scoring_runs SET state='FAILED' WHERE score_run_id='50000000-0000-0000-0000-000000000004';
 INSERT INTO research.score_lineage(score_run_id,instrument_id,issuer_id,symbol,canonical_input,prepared_input)
 SELECT r.score_run_id,i.instrument_id,i.issuer_id,'OLD'||right(i.instrument_id::text,1),

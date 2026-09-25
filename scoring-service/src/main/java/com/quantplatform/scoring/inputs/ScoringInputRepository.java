@@ -39,7 +39,7 @@ public class ScoringInputRepository {
             .param("basis",r.adjustmentBasis()).param("rawDataset",r.rawDataset())
             .param("adjustedDataset",r.adjustedDataset()).param("sp500",r.sp500Snapshot())
             .param("nasdaq",r.nasdaq100Snapshot()).param("classification",r.classificationVersion())
-            .param("mapping",r.mappingVersion())
+            .param("mapping",r.mappingVersion()).param("timingPolicy",r.timingPolicy())
             .param("requiredMetrics","{"+String.join(",",new TreeSet<>(r.requiredMetrics()))+"}");
     }
     public record CrossSection(ScoringInputRequest request,List<ScoringInput> inputs) {

@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 
 /** Manual binary64 implementation of the frozen v1 contract. No executable manifest expressions. */
 public final class FrozenModel {
-    public static final String SHA = "75c93c4176359f4dcd62cd4d68680f310b727ae27ff6c35a4fe5941006fdcd06";
+    public static final String SHA = "716f99aefbb24798dfdd1deca1a08e5615e7b41c99f963e74be52f98889f1b65";
     public final Map<String,Object> manifest;
     public FrozenModel() {
         try {
@@ -46,9 +46,12 @@ public final class FrozenModel {
     }
     static final Set<String> CURRENT=Set.of("TOTAL_ASSETS","COMMON_EQUITY","CASH","DEBT_CURRENT","DEBT_NONCURRENT","PREFERRED_EQUITY","MINORITY_INTEREST","GOODWILL","INTANGIBLES","CET1_CAPITAL","RISK_WEIGHTED_ASSETS","NONACCRUAL_LOANS","PAST_DUE_90_LOANS","GROSS_LOANS","TOTAL_ADJUSTED_CAPITAL","AUTHORIZED_CONTROL_LEVEL_RBC");
     static final class Calc {
-        final Map<String,Object> row; final OffsetDateTime cutoff;
+        final Map<String,Object> row; final OffsetDateTime cutoff; final LocalDate scoreDate;
         final Map<String,Object> derived=new LinkedHashMap<>(), reasons=new LinkedHashMap<>();
-        Calc(Map<String,Object> r,OffsetDateTime t){row=r;cutoff=t;}
+        Calc(Map<String,Object> r,OffsetDateTime t){row=r;cutoff=t;
+            scoreDate=date(r.getOrDefault("score_date",t.toLocalDate().toString()));
+            if(!span(ChronoUnit.DAYS.between(scoreDate,t.toLocalDate()),0,7))throw new IllegalArgumentException("Invalid economic score date");
+        }
         Double get(String key) {
             if(derived.containsKey(key))return (Double)derived.get(key);
             Object raw=map(row.get("values")).get(key); var e=map(map(row.get("provenance")).get(key)); String reason=null;
@@ -58,11 +61,11 @@ public final class FrozenModel {
             else try {
                 LocalDate end=date(e.get("period_end"));
                 String unit=key.startsWith("OPERATING_ROA_Q")||key.startsWith("CET1_REQUIREMENT_")?"pure":key.equals("SHARES_OUTSTANDING")?"shares":Set.of("OCCUPIED_AREA","AVAILABLE_AREA").contains(key)?"square_feet":"USD";
-                if(time(e.get("available_at")).isAfter(cutoff)||time(e.get("observed_at")).isAfter(cutoff)||end.isAfter(cutoff.toLocalDate()))reason="FUTURE_INFORMATION";
+                if(time(e.get("available_at")).isAfter(cutoff)||time(e.get("observed_at")).isAfter(cutoff)||end.isAfter(scoreDate))reason="FUTURE_INFORMATION";
                 else if(!unit.equals(e.get("unit")))reason="INVALID_UNIT";
-                else if(Set.of("RAW_CLOSE","ADJUSTED_CLOSE").contains(key)&&!end.equals(cutoff.toLocalDate()))reason="MISSING_SCORE_DATE_BAR";
+                else if(Set.of("RAW_CLOSE","ADJUSTED_CLOSE").contains(key)&&!end.equals(scoreDate))reason="MISSING_SCORE_DATE_BAR";
                 else if(key.startsWith("CET1_REQUIREMENT_")){
-                    if(cutoff.toLocalDate().isBefore(date(e.get("effective_from")))||!cutoff.toLocalDate().isBefore(date(e.get("effective_to"))))reason="STALE";
+                    if(scoreDate.isBefore(date(e.get("effective_from")))||!scoreDate.isBefore(date(e.get("effective_to"))))reason="STALE";
                 } else if(key.endsWith("_PRIOR")||key.equals("SAME_STORE_NOI_PRIOR_TTM")){
                     if(!span(ChronoUnit.DAYS.between(end,date(row.get("period_end"))),350,380))reason="INSUFFICIENT_HISTORY";
                 } else if(Set.of("AFFO_PRIOR_TTM","DIVIDENDS_DECLARED_PRIOR_TTM").contains(key)){
@@ -97,7 +100,7 @@ public final class FrozenModel {
             &&span(ChronoUnit.DAYS.between(ends.get(1),ends.get(0)),350,380)&&span(ChronoUnit.DAYS.between(ends.get(2),ends.get(1)),350,380))
             return clip(percentile(rates,.5),0,.4);
         for(Object rule:list(map(manifest.get("tax")).get("fallbacks"))){var r=map(rule);
-            if(Objects.equals(r.get("jurisdiction"),c.row.get("jurisdiction"))&&!c.cutoff.toLocalDate().isBefore(date(r.get("effective_from")))&&c.cutoff.toLocalDate().isBefore(date(r.get("effective_to")))){
+            if(Objects.equals(r.get("jurisdiction"),c.row.get("jurisdiction"))&&!c.scoreDate.isBefore(date(r.get("effective_from")))&&c.scoreDate.isBefore(date(r.get("effective_to")))){
                 warnings.add("STATUTORY_TAX_FALLBACK:"+r.get("version"));return number(r.get("rate"));
             }
         }return null;
@@ -118,7 +121,7 @@ public final class FrozenModel {
         }
         if(number(row.getOrDefault("history_count",0))<252)errors.add("INSUFFICIENT_HISTORY");
         if(number(row.getOrDefault("liquidity_count",0))<20)errors.add("INCOMPLETE_LIQUIDITY_WINDOW");
-        try{if(!span(ChronoUnit.DAYS.between(date(row.get("filing_date")),cutoff.toLocalDate()),0,180))errors.add("STALE");}catch(RuntimeException e){errors.add("STALE");}
+        try{if(!span(ChronoUnit.DAYS.between(date(row.get("filing_date")),c.scoreDate),0,180))errors.add("STALE");}catch(RuntimeException e){errors.add("STALE");}
         Double close=c.get("RAW_CLOSE"),shares=c.get("SHARES_OUTSTANDING");
         c.derived.put("market_cap",close!=null&&shares!=null&&close>0&&shares>0?close*shares:null);
         if(c.derived.get("market_cap")==null)errors.add("INVALID_MARKET_CAP");
@@ -253,7 +256,7 @@ public final class FrozenModel {
             row.put("rank",i+1);row.put("percentile",100*(eligible.size()-sum/count)/(eligible.size()-1));
         }
         for(var row:results)for(String k:List.of("warnings","reasons"))row.put(k,list(row.get(k)).stream().map(FrozenModel::str).distinct().sorted().toList());
-        return obj("model_version","1.0.0","manifest_sha256",SHA,"candidate",candidate,"as_of",asOf,"expected_count",results.size(),"eligible_count",eligible.size(),"excluded_count",results.size()-eligible.size(),"status",enough?"COMPLETE":"FAILED","reasons",enough?List.of():List.of("INSUFFICIENT_UNIVERSE"),"rows",results);
+        return obj("model_version","1.1.0","manifest_sha256",SHA,"candidate",candidate,"as_of",asOf,"expected_count",results.size(),"eligible_count",eligible.size(),"excluded_count",results.size()-eligible.size(),"status",enough?"COMPLETE":"FAILED","reasons",enough?List.of():List.of("INSUFFICIENT_UNIVERSE"),"rows",results);
     }
     public static Object serialize(Object value){
         if(value instanceof BigDecimal b)return b.setScale(6,RoundingMode.HALF_EVEN);

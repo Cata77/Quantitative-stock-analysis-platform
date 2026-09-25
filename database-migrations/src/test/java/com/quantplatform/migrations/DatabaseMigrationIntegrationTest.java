@@ -33,7 +33,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(18);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(19);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
 
@@ -97,7 +97,7 @@ class DatabaseMigrationIntegrationTest {
     void upgradesFromThePreviousMigrationVersion() throws SQLException {
         var database = createDatabase();
 
-        assertThat(flyway(database, "013").migrate().migrationsExecuted).isEqualTo(13);
+        assertThat(flyway(database, "014").migrate().migrationsExecuted).isEqualTo(14);
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
                 var statement = connection.createStatement()) {
             statement.execute("INSERT INTO reference.issuers (legal_name, cik) VALUES ('Upgrade fixture', '0000000001')");
@@ -107,6 +107,8 @@ class DatabaseMigrationIntegrationTest {
         assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(5);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertThat(queryInt(connection, "SELECT count(*) FROM research.model_versions WHERE semantic_version IN ('1.0.0','1.1.0') AND approval_state='FROZEN_RESEARCH_HYPOTHESIS'"))
+                    .isEqualTo(2);
             assertThat(queryInt(connection, "SELECT COUNT(*) FROM reference.issuers WHERE cik = '0000000001'"))
                     .isEqualTo(1);
         }

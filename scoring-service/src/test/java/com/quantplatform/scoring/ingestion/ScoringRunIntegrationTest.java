@@ -134,11 +134,120 @@ class ScoringRunIntegrationTest extends DurableDeliveryFixture {
         assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("FAILED");
         service.run(request,OPEN,jurisdictions);verify(repository,times(2)).load(request);
     }
+
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(booleans={false,true})
+    void realDelayedCanonicalInputsPublishAndRetryWithoutFutureLeakage(boolean tooLate) {
+        jdbc.sql("""
+            INSERT INTO reference.trading_sessions(exchange_mic,session_date,opens_at,closes_at,timezone,holiday,early_close,source,available_at,observed_at)
+            SELECT 'XNYS',d::date,CASE WHEN extract(isodow FROM d)<6 THEN (d+interval '13 hours 30 minutes') AT TIME ZONE 'UTC' END,
+                CASE WHEN extract(isodow FROM d)<6 THEN (d+interval '20 hours') AT TIME ZONE 'UTC' END,
+                'America/New_York',extract(isodow FROM d)>5,false,'fixture','2025-01-01','2025-01-01'
+            FROM generate_series('2025-06-01'::timestamp,'2026-10-01',interval '1 day') d
+            """).update();
+        for(var row:section.inputs()) {
+            jdbc.sql("INSERT INTO reference.instrument_symbols(instrument_id,symbol,exchange_mic,effective_from,source,available_at,observed_at) VALUES(:id,:symbol,'XNYS','2025-01-01','fixture','2025-01-01','2025-01-01')")
+                .param("id",row.instrumentId()).param("symbol",row.symbol()).update();
+            jdbc.sql("INSERT INTO reference.issuer_classifications(issuer_id,classification_version_id,mapped_sector,effective_from,available_at,observed_at) VALUES(:issuer,:version,'Technology','2025-01-01','2025-01-01','2025-01-01')")
+                .param("issuer",row.issuerId()).param("version",request.classificationVersion()).update();
+            String observation=CanonicalJson.sha256(row.instrumentId().toString());
+            jdbc.sql("INSERT INTO market_data.observations(observation_key,dataset_id,instrument_id,event_type,economic_time,adjustment_mode,payload,source_artifact_id,observed_at) VALUES(:key,:dataset,:stock,'FILING_FACTS','2026-06-30','NONE','{}',:artifact,'2026-08-01')")
+                .param("key",observation).param("dataset",dataset).param("stock",row.instrumentId()).param("artifact",artifact).update();
+            UUID filing=jdbc.sql("""
+                INSERT INTO fundamentals.filings(issuer_id,accession,revision_hash,form,fiscal_period_end,filed_date,accepted_at,published_at,available_at,observed_at,ingested_at,primary_document,parser_version,mapping_version,source_artifact_id,observation_key)
+                VALUES(:issuer,:accession,repeat('a',64),'10-Q','2026-06-30','2026-08-01','2026-08-01','2026-08-01','2026-08-01','2026-08-01','2026-08-01','fixture','fixture','sec-us-gaap-v1',:artifact,:key) RETURNING filing_id
+                """).param("issuer",row.issuerId()).param("accession",row.instrumentId().toString()).param("artifact",artifact).param("key",observation).query(UUID.class).single();
+            var facts=new ArrayList<>(row.facts());
+            facts.add(new ScoringInput.Fact(row.shareFactId(),filing,"SHARES_OUTSTANDING",null,LocalDate.parse("2026-06-30"),row.sharesOutstanding(),"shares",Instant.parse("2026-08-01T00:00:00Z"),Instant.parse("2026-08-01T00:00:00Z"),LocalDate.parse("2026-08-01"),artifact,"sec-us-gaap-v1","fixture"));
+            for(var fact:facts) {
+                jdbc.sql("""
+                    INSERT INTO fundamentals.fundamental_facts(fact_id,issuer_id,filing_id,metric_code,mapping_version,taxonomy,source_concept,period_start,period_end,source_value,numeric_value,unit,dimensions,source_context,source_fact_hash,priority,quality_state,available_at,observed_at,source_artifact_id)
+                    VALUES(:id,:issuer,:filing,:metric,'sec-us-gaap-v1','us-gaap',:metric,:start,:end,:value,:value,:unit,'{}','{}',:hash,1,'VALID','2026-08-01','2026-08-01',:artifact)
+                    """).param("id",fact.factId()).param("issuer",row.issuerId()).param("filing",filing).param("metric",fact.metric()).param("start",fact.start()).param("end",fact.end()).param("value",fact.value()).param("unit",fact.unit()).param("hash",CanonicalJson.sha256(fact.factId().toString())).param("artifact",artifact).update();
+            }
+            jdbc.sql("INSERT INTO fundamentals.instrument_share_facts VALUES(:stock,:fact,'SINGLE_SHARE_CLASS','2026-08-01')").param("stock",row.instrumentId()).param("fact",row.shareFactId()).update();
+            jdbc.sql("INSERT INTO fundamentals.profile_observations VALUES(:issuer,:key,'GENERAL','FACTS_AVAILABLE','fixture','2026-08-01',:artifact)").param("issuer",row.issuerId()).param("key",observation).param("artifact",artifact).update();
+        }
+        jdbc.sql("""
+            INSERT INTO market_data.observations(observation_key,dataset_id,instrument_id,event_type,economic_time,adjustment_mode,payload,source_artifact_id,observed_at,ingested_at)
+            SELECT md5(i.instrument_id::text||s.session_date||m.mode)||md5(i.instrument_id::text||s.session_date||m.mode),:dataset,i.instrument_id,'DAILY_PRICE',s.session_date,m.mode,'{}',:artifact,'2026-10-01T12:00:00Z','2026-10-01T12:01:00Z'
+            FROM reference.instruments i CROSS JOIN reference.trading_sessions s CROSS JOIN (VALUES('RAW'),('SPLIT_DIVIDEND')) m(mode)
+            WHERE s.exchange_mic='XNYS' AND NOT s.holiday AND s.session_date<='2026-09-30'
+            """).param("dataset",dataset).param("artifact",artifact).update();
+        jdbc.sql("""
+            INSERT INTO market_data.daily_bar_observations(session_date,observation_key,instrument_id,provider_id,dataset_id,exchange_mic,feed,adjustment_mode,adjustment_as_of,currency,bar_time,open,high,low,close,volume,trade_count,source_revision,source_artifact_id,available_at,observed_at,ingested_at)
+            SELECT o.economic_time::date,o.observation_key,o.instrument_id,d.provider_id,o.dataset_id,'XNYS','sip',o.adjustment_mode,CASE WHEN o.adjustment_mode='SPLIT_DIVIDEND' THEN '2026-10-01'::date END,'USD',o.economic_time,100,110,90,100,1000000,1000,repeat('d',64),:artifact,'2026-10-01T12:00:00Z','2026-10-01T12:00:00Z','2026-10-01T12:01:00Z'
+            FROM market_data.observations o JOIN operations.datasets d USING(dataset_id) WHERE o.event_type='DAILY_PRICE'
+            """).param("artifact",artifact).update();
+        jdbc.sql("UPDATE operations.job_definitions SET configuration=jsonb_set(configuration,'{adjustmentAsOf}','\"2026-10-01\"') WHERE code='scoring-SPLIT_DIVIDEND'").update();
+        repository=new ScoringInputRepository(source);
+        var coordinator=new MonthEndScoringCoordinator(source,service(),clock("2026-10-01T13:00:00Z"),dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        jdbc.sql("UPDATE operations.data_coverage SET valid=false").update();
+        assertThat(coordinator.calculate(DAY)).isFalse();
+        assertThat(count("research.scoring_runs")).isZero();
+        jdbc.sql("UPDATE operations.data_coverage SET valid=true").update();
+        if(tooLate) {
+            jdbc.sql("UPDATE market_data.daily_bar_observations SET observed_at='2026-10-01T13:01:00Z'").update();
+            assertThatThrownBy(()->coordinator.calculate(DAY)).hasMessageContaining("INSUFFICIENT_UNIVERSE");
+            assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("FAILED");
+            assertThat(count("research.stock_scores")).isZero();
+            return;
+        }
+        assertThat(coordinator.calculate(DAY)).isTrue();
+        assertThat(jdbc.sql("SELECT scored_count FROM research.scoring_runs").query(Integer.class).single()).isEqualTo(12);
+        assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("PUBLISHED");
+        assertThat(text("SELECT request->'inputs'->>'timingPolicy' FROM research.scoring_runs")).isEqualTo(ScoringInputRequest.PRE_OPEN);
+        assertThat(jdbc.sql("SELECT knowledge_cutoff<effective_from FROM research.scoring_runs").query(Boolean.class).single()).isTrue();
+        String captured=text("SELECT input_sha256 FROM research.scoring_runs");
+        // A later provider correction cannot change a captured run on restart.
+        jdbc.sql("UPDATE market_data.daily_bar_observations SET close=105,observed_at='2026-10-01T13:01:00Z'").update();
+        assertThat(coordinator.calculate(DAY)).isTrue();
+        assertThat(count("research.scoring_runs")).isEqualTo(1);
+        assertThat(text("SELECT input_sha256 FROM research.scoring_runs")).isEqualTo(captured);
+    }
+
+    @Test void delayedDailyRunWaitsUntilTheFixedPreOpenDecision() {
+        calendar(LocalDate.parse("2026-09-01"), LocalDate.parse("2026-10-01"));
+        jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();
+        var coordinator=new MonthEndScoringCoordinator(source,service(),
+            Clock.fixed(Instant.parse("2026-09-30T21:00:00Z"),ZoneOffset.UTC),
+            dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        assertThat(coordinator.calculate(DAY)).isFalse();
+        assertThat(count("research.scoring_runs")).isZero();
+    }
+    @Test void lateNextOpeningCannotBeSkippedForALaterKnownSession(){
+        calendar(LocalDate.parse("2026-09-01"),LocalDate.parse("2026-10-02"));
+        jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();
+        jdbc.sql("UPDATE reference.trading_sessions SET observed_at='2026-10-01T12:00:00Z' WHERE session_date='2026-10-01'").update();
+        var coordinator=new MonthEndScoringCoordinator(source,service(),clock("2026-10-02T12:00:00Z"),
+            dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        assertThat(coordinator.calculate(DAY)).isFalse();
+        assertThat(count("research.scoring_runs")).isZero();
+        verifyNoInteractions(repository);
+    }
+    @Test void databaseRejectsIncorrectPreOpenExecutionAndLateCalendar(){
+        calendar(LocalDate.parse("2026-09-01"),LocalDate.parse("2026-10-01"));
+        jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();
+        var delayed=new ScoringInputRequest(DAY,CLOSE,OPEN.minusSeconds(1800),sp500,nasdaq,dataset,dataset,
+            DAY.plusDays(1),request.classificationVersion(),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
+        assertThatThrownBy(()->service().run(delayed,OPEN.plusSeconds(60),jurisdictions))
+            .hasMessageContaining("Invalid pre-open scoring timing or calendar");
+        jdbc.sql("UPDATE reference.trading_sessions SET observed_at='2026-10-01T12:00:00Z' WHERE session_date='2026-10-01'").update();
+        assertThatThrownBy(()->service().run(delayed,OPEN,jurisdictions))
+            .hasMessageContaining("Invalid pre-open scoring timing or calendar");
+        assertThat(count("research.scoring_runs")).isZero();
+        verifyNoInteractions(repository);
+    }
     @Test void newStartupClockDoesNotChangeMonthEndIdentity(){
         calendar(LocalDate.parse("2026-09-01"),LocalDate.parse("2026-10-01"));
         // Calendar source was known before this signal.
         jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();
         var first=new MonthEndScoringCoordinator(source,service(),Clock.fixed(Instant.parse("2026-10-02T00:00:00Z"),ZoneOffset.UTC),dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        jdbc.sql("UPDATE operations.job_definitions SET configuration=jsonb_set(configuration,'{adjustmentAsOf}','\"2026-10-01\"') WHERE code='scoring-SPLIT_DIVIDEND'").update();
+        var original=section;
+        request=new ScoringInputRequest(DAY,CLOSE,OPEN.minusSeconds(1800),sp500,nasdaq,dataset,dataset,DAY.plusDays(1),request.classificationVersion(),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
+        section=new ScoringInputRepository.CrossSection(request,original.inputs());
+        when(repository.load(request)).thenReturn(section);
         // The coordinator deliberately has no inferred tax jurisdiction; other quality metrics still cover the family.
         assertThat(first.calculate(DAY)).isTrue();
         var restarted=new MonthEndScoringCoordinator(source,service(),Clock.fixed(Instant.parse("2026-10-15T00:00:00Z"),ZoneOffset.UTC),dataset.toString(),dataset.toString(),request.classificationVersion().toString());

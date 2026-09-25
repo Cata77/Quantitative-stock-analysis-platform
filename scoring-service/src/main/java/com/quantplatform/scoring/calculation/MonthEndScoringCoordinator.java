@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /** Calendar reconciliation for complete frozen-model runs. Dataset identities are explicit configuration. */
 @Service
 public class MonthEndScoringCoordinator {
-    public static final String MODEL="stock-value-quality-momentum:1.0.0";
+    public static final String MODEL="stock-value-quality-momentum:1.1.0";
     private final JdbcClient jdbc;
     private final ScoringRunService runs;
     private final Clock clock;
@@ -44,9 +44,10 @@ public class MonthEndScoringCoordinator {
         if(rawDataset.isBlank()||adjustedDataset.isBlank()||classification.isBlank())return false;
         Instant cutoff=jdbc.sql("SELECT closes_at FROM reference.trading_sessions WHERE exchange_mic='XNYS' AND session_date=:date")
             .param("date",date).query((rs,n)->rs.getTimestamp(1).toInstant()).single();
-        UUID sp=snapshot("SP500",date,cutoff),nq=snapshot("NASDAQ100",date,cutoff);if(sp==null||nq==null)return false;
+
         var next=jdbc.sql("""
             SELECT s.opens_at FROM reference.trading_sessions s WHERE s.exchange_mic='XNYS' AND s.session_date>:date AND NOT s.holiday
+                AND s.session_date=(SELECT min(session_date) FROM reference.trading_sessions WHERE exchange_mic='XNYS' AND session_date>:date AND NOT holiday)
                 AND s.available_at<=:cutoff AND s.observed_at<=:cutoff
                 AND (SELECT count(*) FROM reference.trading_sessions c WHERE c.exchange_mic='XNYS'
                     AND c.session_date>:date AND c.session_date<=s.session_date AND c.available_at<=:cutoff AND c.observed_at<=:cutoff)=s.session_date-CAST(:date AS date)
@@ -54,8 +55,11 @@ public class MonthEndScoringCoordinator {
             """).param("date",date).param("cutoff",cutoff.atOffset(ZoneOffset.UTC))
             .query((rs,n)->rs.getTimestamp(1).toInstant()).optional();
         if(next.isEmpty())return false;
-        var request=new ScoringInputRequest(date,cutoff,cutoff,sp,nq,UUID.fromString(rawDataset),UUID.fromString(adjustedDataset),
-            date,UUID.fromString(classification),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"));
+        Instant decision=next.get().minus(Duration.ofMinutes(30));
+        if(clock.instant().isBefore(decision))return false;
+        UUID sp=snapshot("SP500",date,decision),nq=snapshot("NASDAQ100",date,decision);if(sp==null||nq==null)return false;
+        var request=new ScoringInputRequest(date,cutoff,decision,sp,nq,UUID.fromString(rawDataset),UUID.fromString(adjustedDataset),
+            decision.atZone(ZoneId.of("America/New_York")).toLocalDate(),UUID.fromString(classification),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
         if(!runs.inputsReady(request))return false;
         runs.run(request,next.get(),Map.of());
         return true;

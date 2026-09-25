@@ -51,7 +51,7 @@ public final class CanonicalModelInputs {
     }
     public static Map<String,Object> prepare(Map<String,Object> section,Map<String,String> jurisdictions){
         var request=map(section.get("request"));var cutoff=time(request.get("knowledgeCutoff"));var scoreDate=date(request.get("scoreDate"));
-        if(cutoff.isAfter(time(request.get("marketCutoff"))))throw new IllegalArgumentException("Knowledge cutoff exceeds market cutoff");
+        com.quantplatform.scoring.inputs.ScoringInputRequest.validateTiming(time(request.get("marketCutoff")).toInstant(),cutoff.toInstant(),str(request.getOrDefault("timingPolicy","CLOSE_V1")));
         String evidenceCutoff=cutoff.format(java.time.format.DateTimeFormatter.ofPattern("uuuu-MM-dd\u0027T\u0027HH:mm:ss"))+(cutoff.getNano()==0?"":String.format(java.util.Locale.ROOT,".%06d",cutoff.getNano()/1000))+(cutoff.getOffset().equals(ZoneOffset.UTC)?"+00:00":cutoff.getOffset().toString());
         var rows=new ArrayList<Map<String,Object>>();
         for(Object input:list(section.get("inputs"))){
@@ -76,7 +76,7 @@ public final class CanonicalModelInputs {
             var fields=Map.of("RAW_CLOSE","rawClose","ADJUSTED_CLOSE","adjustedClose","MOMENTUM_RECENT","momentumRecent","MOMENTUM_OLD","momentumOld","MEDIAN_DOLLAR_VOLUME","medianDollarVolume","SHARES_OUTSTANDING","sharesOutstanding");
             fields.forEach((key,field)->{if(item.get(field)!=null)put(values,provenance,key,obj("value",item.get(field),"unit",key.equals("SHARES_OUTSTANDING")?"shares":"USD","source_ids",key.equals("SHARES_OUTSTANDING")?Arrays.asList(item.get("shareFactId")):priceSources,
                 "available_at",evidenceCutoff,"observed_at",evidenceCutoff,"availability_basis","PHASE6_CUTOFF_UPPER_BOUND","period_end",scoreDate.toString()));});
-            rows.add(obj("instrument_id",item.get("instrumentId"),"issuer_id",item.get("issuerId"),"profile",item.get("profile"),"profile_supported","GENERAL".equals(item.get("profile")),"peer_group",item.get("peerGroup"),
+            rows.add(obj("score_date",scoreDate.toString(),"instrument_id",item.get("instrumentId"),"issuer_id",item.get("issuerId"),"profile",item.get("profile"),"profile_supported","GENERAL".equals(item.get("profile")),"peer_group",item.get("peerGroup"),
                 "jurisdiction",jurisdictions.get(str(item.get("issuerId"))),"in_universe",yes(item,"inSp500")||yes(item,"inNasdaq100"),"active",true,"primary_class",item.get("primaryClass"),"security_type","COMMON_STOCK",
                 "history_count",item.get("historyCount"),"liquidity_count",item.get("liquidityCount"),"filing_date",facts.stream().map(f->str(f.get("filedDate"))).max(String::compareTo).orElse("1900-01-01"),
                 "period_end",latest,"values",values,"provenance",provenance,"blocking_reasons",list(item.get("reasons")).stream().map(FrozenModel::map).map(r->r.get("code")+(r.get("detail")!=null&&!str(r.get("detail")).isEmpty()?":"+r.get("detail"):"")).toList()));

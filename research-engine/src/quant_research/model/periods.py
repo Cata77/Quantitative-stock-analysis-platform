@@ -107,8 +107,13 @@ def from_cross_section(
     """
     request = section["request"]
     cutoff = timestamp(request["knowledgeCutoff"])
-    if cutoff > timestamp(request["marketCutoff"]):
-        raise ValueError("Knowledge cutoff exceeds the market cutoff")
+    market = timestamp(request["marketCutoff"])
+    policy = request.get("timingPolicy", "CLOSE_V1")
+    valid = (policy == "CLOSE_V1" and cutoff <= market) or (
+        policy == "NEXT_OPEN_MINUS_30M_V1" and 0 < (cutoff - market).total_seconds() <= 7 * 86400
+    )
+    if not valid:
+        raise ValueError("Invalid knowledge cutoff for timing policy")
     score_date = date.fromisoformat(request["scoreDate"])
     rows = []
     for item in section["inputs"]:
@@ -198,6 +203,7 @@ def from_cross_section(
                 )
         rows.append(
             {
+                "score_date": score_date.isoformat(),
                 "instrument_id": item["instrumentId"],
                 "issuer_id": item["issuerId"],
                 "profile": item["profile"],

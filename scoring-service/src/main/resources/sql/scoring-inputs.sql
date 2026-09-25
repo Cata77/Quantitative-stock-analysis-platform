@@ -30,6 +30,16 @@ sessions AS MATERIALIZED (
 ),
 validation AS (
     SELECT ARRAY_REMOVE(ARRAY[
+        CASE WHEN :timingPolicy='NEXT_OPEN_MINUS_30M_V1' AND NOT EXISTS (
+            SELECT 1 FROM reference.trading_sessions n CROSS JOIN p
+            WHERE n.exchange_mic='XNYS' AND n.session_date=(SELECT min(session_date)
+                FROM reference.trading_sessions WHERE exchange_mic='XNYS' AND session_date>p.score_date AND NOT holiday)
+              AND n.available_at<=p.market_cutoff AND n.observed_at<=p.market_cutoff
+              AND n.opens_at=p.knowledge_cutoff+interval '30 minutes'
+              AND (SELECT count(*) FROM reference.trading_sessions c WHERE c.exchange_mic='XNYS'
+                AND c.session_date>p.score_date AND c.session_date<=n.session_date
+                AND c.available_at<=p.market_cutoff AND c.observed_at<=p.market_cutoff)=n.session_date-p.score_date
+        ) THEN 'INVALID_PRE_OPEN_CUTOFF' END,
         CASE WHEN (SELECT count(*) FROM snapshots)<>2 THEN 'INVALID_SNAPSHOT_PAIR' END,
         CASE WHEN EXISTS (SELECT 1 FROM snapshots s CROSS JOIN p
             WHERE s.completeness_status<>'COMPLETE' OR s.effective_date>p.score_date

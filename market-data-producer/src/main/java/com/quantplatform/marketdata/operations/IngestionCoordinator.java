@@ -76,7 +76,7 @@ public class IngestionCoordinator {
         LocalDate through = properties.endDate() == null ? latestCompleteDay : properties.endDate();
         if (through.isAfter(latestCompleteDay)) throw new IllegalArgumentException("daily history must end before the current New York date");
         if (through.isBefore(start)) return status = new Status("DEGRADED", "No completed supported session is due", 0, 0, null);
-        if(collectPrices) calendar.ensure(start, today);
+        if(collectPrices) calendar.ensure(start.withDayOfMonth(1), today.plusMonths(1).with(java.time.temporal.TemporalAdjusters.lastDayOfMonth()));
         var sessions = collectPrices ? jdbc.sql("""
                 SELECT session_date FROM reference.trading_sessions WHERE exchange_mic = 'XNYS'
                     AND NOT holiday AND session_date BETWEEN :start AND :end AND closes_at < :now

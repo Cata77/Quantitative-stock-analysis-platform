@@ -246,7 +246,7 @@ def test_frozen_source_and_golden_artifacts_match():
 
     record = verify_freeze()
     assert record["final_historical_test_opened"] is False
-    assert record["model_version"] == "1.0.0"
+    assert record["model_version"] == "1.1.0"
 
 
 def test_regulatory_requirements_need_effective_dates_and_parent_scope():

@@ -30,6 +30,9 @@ class Calculation:
     def __init__(self, row: dict, cutoff: datetime):
         self.row = row
         self.cutoff = cutoff
+        self.score_date = date.fromisoformat(row.get("score_date", cutoff.date().isoformat()))
+        if not 0 <= (cutoff.date() - self.score_date).days <= 7:
+            raise ValueError("Invalid economic score date")
         self.derived: dict[str, float | None] = {}
         self.reasons: dict[str, str] = {}
 
@@ -56,7 +59,7 @@ class Calculation:
                 if (
                     timestamp(evidence["available_at"]) > self.cutoff
                     or timestamp(evidence["observed_at"]) > self.cutoff
-                    or date.fromisoformat(evidence["period_end"]) > self.cutoff.date()
+                    or date.fromisoformat(evidence["period_end"]) > self.score_date
                 ):
                     reason = "FUTURE_INFORMATION"
                 elif evidence.get("unit") != (
@@ -70,11 +73,11 @@ class Calculation:
                 ):
                     reason = "INVALID_UNIT"
                 elif key in ("RAW_CLOSE", "ADJUSTED_CLOSE") and (
-                    evidence["period_end"] != self.cutoff.date().isoformat()
+                    evidence["period_end"] != self.score_date.isoformat()
                 ):
                     reason = "MISSING_SCORE_DATE_BAR"
                 elif key.startswith("CET1_REQUIREMENT_"):
-                    signal_date = self.cutoff.date().isoformat()
+                    signal_date = self.score_date.isoformat()
                     if not (evidence["effective_from"] <= signal_date < evidence["effective_to"]):
                         reason = "STALE"
                 elif key.endswith("_PRIOR") or key == "SAME_STORE_NOI_PRIOR_TTM":
@@ -180,7 +183,7 @@ def _tax(c: Calculation, manifest: dict, warnings: list[str]) -> float | None:
     for rule in manifest["tax"]["fallbacks"]:
         if (
             rule["jurisdiction"] == c.row.get("jurisdiction")
-            and rule["effective_from"] <= c.cutoff.date().isoformat() < rule["effective_to"]
+            and rule["effective_from"] <= c.score_date.isoformat() < rule["effective_to"]
         ):
             warnings.append("STATUTORY_TAX_FALLBACK:" + rule["version"])
             return rule["rate"]
@@ -222,7 +225,7 @@ def _raw(row: dict, cutoff: datetime, model: dict) -> dict:
     if row.get("liquidity_count", 0) < gates["liquidity_sessions"]:
         errors.append("INCOMPLETE_LIQUIDITY_WINDOW")
     try:
-        age = (cutoff.date() - date.fromisoformat(row["filing_date"])).days
+        age = (c.score_date - date.fromisoformat(row["filing_date"])).days
         if not 0 <= age <= gates["maximum_filing_age_days"]:
             errors.append("STALE")
     except (KeyError, ValueError):

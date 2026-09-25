@@ -4,8 +4,8 @@
   "eligible_count": 50,
   "excluded_count": 0,
   "expected_count": 50,
-  "manifest_sha256": "75c93c4176359f4dcd62cd4d68680f310b727ae27ff6c35a4fe5941006fdcd06",
-  "model_version": "1.0.0",
+  "manifest_sha256": "716f99aefbb24798dfdd1deca1a08e5615e7b41c99f963e74be52f98889f1b65",
+  "model_version": "1.1.0",
   "reasons": [],
   "rows": [
     {
