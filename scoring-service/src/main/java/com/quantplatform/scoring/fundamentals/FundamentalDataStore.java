@@ -16,6 +16,8 @@ public class FundamentalDataStore {
         if(!event.adjustmentMode().equals("NONE"))throw new IllegalArgumentException("invalid fundamental adjustment");
         if(event.eventType().equals("FILING_FACTS")) {
             var filing=filing(event);
+            if(filing.facts().stream().anyMatch(f->f.taxonomy().equals("quant-reconciled")))
+                throw new IllegalArgumentException("reconciliation is consumer-owned");
             if(!filing.fiscalPeriodEnd().atStartOfDay(ZoneOffset.UTC).toInstant().equals(event.economicTime()))
                 throw new IllegalArgumentException("filing envelope period mismatch");
         } else if(event.eventType().equals("REGULATORY_FACTS")) {
@@ -49,22 +51,26 @@ public class FundamentalDataStore {
                 accepted_at,published_at,available_at,observed_at,amends_accession,primary_document,
                 parser_version,mapping_version,source_artifact_id,observation_key)
             VALUES (:issuer,:accession,:revision,:form,:period,:filed,:accepted,:accepted,:observed,:observed,
-                :amends,:document,'sec-companyfacts-v1',:mapping,:artifact,:key)
+                :amends,:document,:parser,:mapping,:artifact,:key)
             ON CONFLICT (issuer_id,accession,revision_hash) DO NOTHING RETURNING filing_id
             """).param("issuer",identity.id()).param("accession",filing.accession()).param("revision",revision)
             .param("form",filing.form()).param("period",filing.fiscalPeriodEnd()).param("filed",filing.filedDate())
             .param("accepted",offset(filing.acceptedAt())).param("observed",offset(observed))
             .param("amends",filing.amendsAccession()).param("document",filing.primaryDocument())
+            .param("parser",filing.mappingVersion().equals("sec-us-gaap-v2")?"sec-companyfacts-v2":"sec-companyfacts-v1")
             .param("mapping",filing.mappingVersion()).param("artifact",artifact).param("key",event.observationKey())
             .query(UUID.class).optional().orElse(null);
         if(id==null)return;
         var mappings=mappings(filing.mappingVersion());
         int validFacts=0;
-        for(var fact:filing.facts()) {
-            if(fact.end().isAfter(filing.filedDate()))throw new MarketDataValidationException("fact ends after filing");
+        var canonicalFacts=new ArrayList<>(filing.facts());
+        canonicalFacts.addAll(CommonEquityReconciliation.derive(filing));
+        for(var fact:canonicalFacts) {
             var mapping=mappings.get(fact.taxonomy()+":"+fact.concept());
             String quality="VALID";
-            if(mapping==null || fact.end().isBefore(mapping.from()) || mapping.to()!=null&&!fact.end().isBefore(mapping.to()))quality="UNMAPPED";
+            // Preserve malformed provider facts for review without discarding the valid filing.
+            if(fact.end().isAfter(filing.filedDate()))quality="INVALID_PERIOD";
+            else if(mapping==null || fact.end().isBefore(mapping.from()) || mapping.to()!=null&&!fact.end().isBefore(mapping.to()))quality="UNMAPPED";
             else if(!mapping.unit().equals(fact.unit()))quality="INVALID_UNIT";
             else if(!fact.dimensions().isEmpty())quality="UNSUPPORTED_DIMENSIONS";
             else if(mapping.period().equals("INSTANT")!=(fact.start()==null))quality="INVALID_PERIOD";

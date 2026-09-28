@@ -185,7 +185,14 @@ public class IngestionRunStore {
                     JOIN operations.data_providers provider USING (provider_id)
                     WHERE dataset.dataset_id = :dataset
                     """).param("dataset", dataset).query(String.class).single();
+            String sourceHash = ObservationIdentity.contentHash(source.rawJson());
+            // Repeated SEC filings and bulk symbols share an immutable response. Avoid sending
+            // and parsing its potentially multi-megabyte JSON again after it is already durable.
             var artifact = jdbc.sql("""
+                    SELECT source_artifact_id FROM operations.source_artifacts
+                    WHERE dataset_id=:dataset AND request_key=:request AND content_hash=:hash AND parser_version=:parser
+                    """).param("dataset",dataset).param("request",source.requestKey()).param("hash",sourceHash)
+                    .param("parser",source.parserVersion()).query(UUID.class).optional().orElseGet(() -> jdbc.sql("""
                     INSERT INTO operations.source_artifacts
                         (dataset_id, request_key, source_uri, retrieved_at, content_hash, media_type, parser_version, inline_content)
                     VALUES (:dataset, :request, :uri, :retrieved, :hash, 'application/json', :parser, CAST(:raw AS jsonb))
@@ -194,8 +201,8 @@ public class IngestionRunStore {
                     RETURNING source_artifact_id
                     """).param("dataset", dataset).param("request", source.requestKey()).param("uri", source.sourceUri())
                     .param("retrieved", source.retrievedAt().atOffset(ZoneOffset.UTC))
-                    .param("hash", ObservationIdentity.contentHash(source.rawJson()))
-                    .param("parser", source.parserVersion()).param("raw", source.rawJson()).query(UUID.class).single();
+                    .param("hash", sourceHash)
+                    .param("parser", source.parserVersion()).param("raw", source.rawJson()).query(UUID.class).single());
             jdbc.sql("""
                     INSERT INTO operations.ingestion_item_artifacts VALUES (:item, :artifact) ON CONFLICT DO NOTHING
                     """).param("item", lease.itemId()).param("artifact", artifact).update();

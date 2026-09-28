@@ -1,0 +1,82 @@
+{
+  "retrieved_at": "2026-09-26T11:13:10.883238+00:00",
+  "sources": {
+    "sp500.source": {
+      "uri": "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv",
+      "sha256": "8e8c5a9aa27079a1feb6f92f9d56c5ad7a2084263a66d4191c54705a5b77c2ed",
+      "retrieved_at": "2026-09-26T11:13:11.023871+00:00"
+    },
+    "nasdaq100.source": {
+      "uri": "https://api.nasdaq.com/api/quote/list-type/nasdaq100",
+      "sha256": "61075b9fdab1b089fff81bcd42933455bf994545f46cf25e99948d4fdeb961f3",
+      "retrieved_at": "2026-09-26T11:13:14.286099+00:00"
+    },
+    "sec-listings.json": {
+      "uri": "https://www.sec.gov/files/company_tickers_exchange.json",
+      "sha256": "934b2cf31597017f4da5dbf1da2a717fa03fc1a240e6cfa219f0289788f7c5e2",
+      "retrieved_at": "2026-09-26T11:13:14.758783+00:00"
+    },
+    "primary-class-bars.json": {
+      "uri": "https://data.alpaca.markets/v2/stocks/bars?symbols=FOX,FOXA,GOOG,GOOGL,NWS,NWSA&timeframe=1Day&start=2026-08-27T04:00:00Z&end=2026-09-26T03:59:59Z&feed=sip&adjustment=raw&asof=-&limit=10000",
+      "sha256": "00a675008cd402633cf2dab02d66c4ec3fb95788d2b9c9da3b23940271cf3faa",
+      "retrieved_at": "2026-09-26T11:13:15.311474+00:00"
+    }
+  },
+  "nasdaq_source_date": "Sep 24, 2026",
+  "nasdaq_only_mapping": {
+    "ASML": "Information Technology",
+    "MSTR": "Information Technology",
+    "ALNY": "Health Care",
+    "MELI": "Consumer Discretionary",
+    "NBIS": "Information Technology",
+    "SHOP": "Information Technology",
+    "CCEP": "Consumer Staples",
+    "PDD": "Consumer Discretionary",
+    "RKLB": "Industrials",
+    "ARM": "Information Technology",
+    "TRI": "Industrials",
+    "FER": "Industrials",
+    "ALAB": "Information Technology",
+    "CRWV": "Information Technology",
+    "SPCX": "Industrials"
+  },
+  "classification_description": "Public S&P source sector labels; explicitly reviewed broad development sectors for Nasdaq-only issuers. Not licensed GICS or historical classification.",
+  "primary_class_median_dollar_volume": {
+    "FOX": 59590608.35,
+    "FOXA": 309412557.36999995,
+    "GOOG": 5419433835.629999,
+    "GOOGL": 8023026271.499999,
+    "NWS": 35031918.48,
+    "NWSA": 113845066.44
+  },
+  "effective_date": "2026-09-26",
+  "classification_source": "PUBLIC_SECTOR_LOCAL_REVIEW",
+  "classification_version": "local-sectors-2026-09-26",
+  "outputs": {
+    "sp500": {
+      "file": "sp500-2026-09-26.csv",
+      "sha256": "acaa48632af19984ed5f739ddcd1d5ba142342e905e26f12f507602c39e2c17c",
+      "count": 503,
+      "added": [
+        "BE",
+        "ILMN",
+        "P"
+      ],
+      "removed": [
+        "BLDR",
+        "TAP",
+        "TTD"
+      ]
+    },
+    "nasdaq100": {
+      "file": "nasdaq100-2026-09-26.csv",
+      "sha256": "bebda45363ee1791b7e60707bd134428d67fa9adbaca8ca90115bb897734d66c",
+      "count": 101,
+      "added": [],
+      "removed": [
+        "KHC"
+      ]
+    }
+  },
+  "union_count": 518
+}

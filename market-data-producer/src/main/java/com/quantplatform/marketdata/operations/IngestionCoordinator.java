@@ -70,6 +70,11 @@ public class IngestionCoordinator {
         status = new Status("SYNCING", "Reconciling desired coverage", status.pendingItems(), status.failedItems(), status.completeThrough());
         if (!market.enabled()) return status = new Status("DEGRADED", "Collection is disabled", 0, 0, null);
         LocalDate today = LocalDate.ofInstant(clock.instant(), NEW_YORK);
+        if (properties.priceHistoryUniverseDate()!=null && properties.priceHistoryUniverseDate().isAfter(today))
+            throw new IllegalArgumentException("price history universe date cannot be in the future");
+        if (properties.priceHistoryUniverseDate()!=null && (prices.corporateActionsEnabled()
+                || (secFilings!=null && secFilings.enabled()) || (ffiec!=null && ffiec.enabled()) || market.fundamentalsEnabled()))
+            throw new IllegalArgumentException("current-universe price history must run separately from filings and corporate actions");
         boolean collectPrices=market.latestBarsEnabled()||market.historicalBackfillEnabled();
         LocalDate latestCompleteDay = collectPrices?today.minusDays(1):today;
         LocalDate start = properties.startDate() == null ? firstSupportedDate() : properties.startDate();
@@ -106,6 +111,10 @@ public class IngestionCoordinator {
                 configuration.put("adjustment",adjustment);
                 configuration.put("timeframe","1Day");
                 configuration.put("baseUrl",alpacaConfig.baseUrl().toString());
+                if (properties.priceHistoryUniverseDate()!=null) {
+                    configuration.put("symbolAsOf",properties.priceHistoryUniverseDate().toString());
+                    configuration.put("collectionScope","CURRENT_UNIVERSE_PRICE_HISTORY");
+                }
                 if (!adjustment.equals("RAW")) configuration.put("adjustmentAsOf",today.toString());
                 UUID job = register("alpaca","daily-prices-" + prices.feed() + "-" + adjustment.toLowerCase(java.util.Locale.ROOT),
                         "DAILY_PRICE",configuration);
@@ -255,7 +264,8 @@ public class IngestionCoordinator {
 
     private UUID plan(UUID job, LocalDate date) {
         String requestKey = properties.mode().equals("force-refresh") ? "force:" + properties.requestId() + ":" + properties.reason() : "scheduled";
-        return store.plan(new IngestionPlan(job, snapshot("SP500", date), snapshot("NASDAQ100", date), date, date,
+        LocalDate membershipDate = properties.priceHistoryUniverseDate()==null ? date : properties.priceHistoryUniverseDate();
+        return store.plan(new IngestionPlan(job, snapshot("SP500", membershipDate), snapshot("NASDAQ100", membershipDate), date, date,
                 properties.mode(), requestKey, "phase4-v1"));
     }
 

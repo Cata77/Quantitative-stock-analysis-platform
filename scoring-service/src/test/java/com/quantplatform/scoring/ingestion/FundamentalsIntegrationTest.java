@@ -31,6 +31,22 @@ class FundamentalsIntegrationTest extends DurableDeliveryFixture {
         queries=new PointInTimeFundamentals(source);
     }
 
+    @Test void versionedCommonEquityPersistsLineageAndWithdrawsOnCorrection() {
+        var old=filing("0000320193-26-000099","10-K","2025-12-31","2026-02-01","3571",null,List.of(
+            fact("StockholdersEquity",null,"2025-12-31","100","USD"),
+            fact("PreferredStockValue",null,"2025-12-31","0","USD"),
+            fact("PreferredStockSharesOutstanding",null,"2025-12-31","0","shares")));
+        var v2=new FilingFacts(old.cik(),old.accession(),old.form(),old.filedDate(),old.acceptedAt(),old.fiscalPeriodEnd(),null,
+            old.primaryDocument(),old.sic(),"sec-us-gaap-v2",old.facts());
+        stage(v2,"2026-02-02T12:00:00Z");acceptStaged();acceptStaged();
+        assertThat(scalar("SELECT count(*) FROM fundamentals.fundamental_facts WHERE metric_code='COMMON_EQUITY' AND numeric_value=100 AND jsonb_array_length(source_context->'sourceFactHashes')=3")).isEqualTo(1);
+        var corrected=new FilingFacts(v2.cik(),v2.accession(),v2.form(),v2.filedDate(),v2.acceptedAt(),v2.fiscalPeriodEnd(),null,
+            v2.primaryDocument(),v2.sic(),v2.mappingVersion(),v2.facts().subList(0,2));
+        stage(corrected,"2026-02-03T12:00:00Z");acceptStaged();
+        assertThat(scalar("SELECT count(*) FROM fundamentals.facts_as_of('"+issuer+"','2026-02-02T23:00:00Z','sec-us-gaap-v2') WHERE metric_code='COMMON_EQUITY'")).isEqualTo(1);
+        assertThat(scalar("SELECT count(*) FROM fundamentals.facts_as_of('"+issuer+"','2026-02-04T00:00:00Z','sec-us-gaap-v2') WHERE metric_code='COMMON_EQUITY'")).isZero();
+    }
+
     @Test void reproducesAppleAnnualAndFiscalWeekAlignedTtmWithFullLineage() {
         // Actual reported values/dates: Apple 2023 10-K and 2024 Q3 10-Q.
         var annual=filing("0000320193-23-000106","10-K","2023-09-30","2023-11-03","3571",null,List.of(
@@ -89,6 +105,18 @@ class FundamentalsIntegrationTest extends DurableDeliveryFixture {
         assertThat(queries.load(issuer,Instant.parse("2026-02-03T00:00:00Z"))).isEmpty();
         assertThat(count("fundamentals.fundamental_facts")).isEqualTo(5);
         assertThat(scalar("SELECT COUNT(*) FROM fundamentals.fundamental_facts WHERE quality_state='UNSUPPORTED_DIMENSIONS'")).isEqualTo(1);
+    }
+
+    @Test void factsEndingAfterFilingAreRetainedButCannotEnterCanonicalInputs() {
+        stage(filing("0000320193-25-000035","10-Q","2025-03-31","2025-05-01","4991",null,List.of(
+            fact("Assets",null,"2025-03-31","100","USD"),
+            fact("NetIncomeLoss","2025-01-01","2025-09-30","46","USD"))),"2026-09-26T12:00:00Z");
+        acceptStaged();acceptStaged();
+        assertThat(count("fundamentals.filings")).isEqualTo(1);
+        assertThat(count("fundamentals.fundamental_facts")).isEqualTo(2);
+        assertThat(scalar("SELECT COUNT(*) FROM fundamentals.fundamental_facts WHERE quality_state='INVALID_PERIOD' AND numeric_value IS NULL AND source_value=46")).isEqualTo(1);
+        assertThat(scalar("SELECT COUNT(*) FROM fundamentals.fundamental_facts WHERE quality_state='VALID' AND numeric_value=100")).isEqualTo(1);
+        assertThat(queries.load(issuer,Instant.parse("2026-09-27T00:00:00Z"))).hasSize(1);
     }
 
     @Test void ttmRequiresContiguousQuartersAndDoesNotAddWeightedAverageShares() {

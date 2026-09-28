@@ -39,6 +39,22 @@ class TradingCalendarTimingIntegrationTest extends DurableDeliveryFixture {
         coordinator.reconcile();
         verify(loader).ensure(LocalDate.parse("2026-09-01"),LocalDate.parse("2026-10-31"));
     }
+    @Test void priceHistoryPlansAgainstExplicitCurrentMembershipWithoutBackdatingIt() {
+        var oldDate=LocalDate.parse("2026-07-31");
+        var membershipDate=LocalDate.parse("2026-09-01");
+        calendar(oldDate,oldDate);
+        var loader=mock(TradingCalendarLoader.class);
+        var settings=new IngestionProperties("backfill",oldDate,oldDate,null,null,false,100,3,Duration.ofMinutes(2),
+            Duration.ofSeconds(5),Duration.ofSeconds(10),"https://paper-api.alpaca.markets",group,membershipDate);
+        var coordinator=new IngestionCoordinator(source,tx,jobs,loader,mock(AlpacaStockMarketClient.class),mock(AlphaVantageFundamentalClient.class),
+            market(),new AlpacaProperties(URI.create("https://data.alpaca.markets"),"","","sip"),settings,clock("2026-09-02T12:00:00Z"),
+            mock(BulkDailyCollector.class),new DailyPriceProperties("sip",100,10000,Duration.ofMillis(350),Duration.ofMinutes(16),true,false,14));
+        coordinator.reconcile();
+        assertThat(count("operations.ingestion_runs")).isEqualTo(2);
+        assertThat(jdbc.sql("SELECT count(*) FROM operations.job_definitions WHERE configuration->>'symbolAsOf'='2026-09-01' AND configuration->>'collectionScope'='CURRENT_UNIVERSE_PRICE_HISTORY'").query(Integer.class).single()).isEqualTo(2);
+        assertThat(jdbc.sql("SELECT min(effective_date) > DATE '2026-07-31' FROM reference.universe_snapshots").query(Boolean.class).single()).isTrue();
+    }
+
     IngestionProperties settings(){return new IngestionProperties("catch-up-and-serve",LocalDate.parse("2026-09-01"),null,null,null,false,100,3,Duration.ofMinutes(2),Duration.ofSeconds(5),Duration.ofSeconds(10),"https://paper-api.alpaca.markets",group);}
     MarketDataProperties market(){return new MarketDataProperties(true,List.of("IGNORED"),topic,1,Duration.ofSeconds(10),Duration.ofSeconds(10),true,false,365,"1Day",false);}
 }

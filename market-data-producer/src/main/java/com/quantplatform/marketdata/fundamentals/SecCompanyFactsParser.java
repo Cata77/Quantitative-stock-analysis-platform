@@ -9,6 +9,11 @@ import java.util.*;
 public class SecCompanyFactsParser {
     public List<FilingFacts> parse(String cik, Map<String,Object> company, List<Map<String,Object>> catalogs,
             LocalDate from, LocalDate through, String sic, Set<String> concepts) {
+        return parse(cik,company,catalogs,from,through,sic,concepts,"sec-us-gaap-v1");
+    }
+    public List<FilingFacts> parse(String cik, Map<String,Object> company, List<Map<String,Object>> catalogs,
+            LocalDate from, LocalDate through, String sic, Set<String> concepts, String mappingVersion) {
+        if (!Set.of("sec-us-gaap-v1","sec-us-gaap-v2").contains(mappingVersion)) throw new IllegalArgumentException("unknown mapping");
         if (!String.format("%010d",Long.parseLong(company.get("cik").toString())).equals(cik))
             throw new IllegalArgumentException("SEC companyfacts CIK differs from request");
         var metadata=new TreeMap<String,Map<String,Object>>();
@@ -27,7 +32,7 @@ public class SecCompanyFactsParser {
         }
         var byAccession=new TreeMap<String,List<FilingFacts.Fact>>();
         map(company.get("facts")).forEach((taxonomy,rawConcepts)->map(rawConcepts).forEach((concept,rawDefinition)->{
-            if(!concepts.contains(taxonomy+":"+concept))return;
+            if(!concepts.contains(taxonomy+":"+concept) && !(mappingVersion.equals("sec-us-gaap-v2") && taxonomy.equals("us-gaap") && concept.startsWith("PreferredStock")))return;
             map(map(rawDefinition).get("units")).forEach((unit,rawValues)->{
                 if(!(rawValues instanceof List<?> values))throw new IllegalArgumentException("invalid SEC unit facts");
                 for(var raw:values) {
@@ -68,7 +73,7 @@ public class SecCompanyFactsParser {
             var facts=byAccession.getOrDefault(entry.getKey(),List.of()).stream().distinct()
                     .sorted(Comparator.comparing(f->CanonicalJson.MAPPER.writeValueAsString(f))).toList();
             result.add(new FilingFacts(cik,entry.getKey(),form,filed,Instant.parse(meta.get("acceptanceDateTime").toString()),
-                    LocalDate.parse(period),amends,Objects.toString(meta.get("primaryDocument"),""),sic,"sec-us-gaap-v1",facts));
+                    LocalDate.parse(period),amends,Objects.toString(meta.get("primaryDocument"),""),sic,mappingVersion,facts));
         }
         result.sort(Comparator.comparing(FilingFacts::acceptedAt).thenComparing(FilingFacts::accession));
         return List.copyOf(result);

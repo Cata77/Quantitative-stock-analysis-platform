@@ -58,6 +58,7 @@ management:
 
 scoring:
   model:
+    mapping-version: ${SCORING_MODEL_MAPPING_VERSION:sec-us-gaap-v1}
     raw-dataset: ${SCORING_MODEL_RAW_DATASET:}
     adjusted-dataset: ${SCORING_MODEL_ADJUSTED_DATASET:}
     classification-version: ${SCORING_MODEL_CLASSIFICATION_VERSION:}

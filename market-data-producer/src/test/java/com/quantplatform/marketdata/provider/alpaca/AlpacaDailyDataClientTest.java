@@ -34,6 +34,21 @@ class AlpacaDailyDataClientTest {
         verify(gate,times(2)).awaitTurn();
     }
 
+    @Test void explicitCurrentSymbolDateMapsOlderPricesWithoutChangingVintageOrDefault() {
+        var client=client("2026-09-02T12:00:00Z", request -> json("""
+            {"bars":{"AAPL":[{"t":"2026-09-01T04:00:00Z","o":100,"h":110,"l":90,"c":105,"v":1000,"n":10}]}}
+            """));
+        client.bars(List.of("AAPL"),DATE,"RAW",null,"",VINTAGE);
+        assertThat(requests.getFirst().url().getQuery()).contains("asof=2026-09-02","adjustment=raw");
+        assertThatThrownBy(()->client.bars(List.of("AAPL"),DATE,"RAW",null,"",VINTAGE.plusDays(1)))
+            .hasMessageContaining("symbol mapping date");
+        assertThatThrownBy(()->client.bars(List.of("AAPL"),DATE,"RAW",null,"",DATE.minusDays(1)))
+            .hasMessageContaining("symbol mapping date");
+        assertThatThrownBy(()->client.bars(List.of("AAPL"),DATE,"SPLIT_DIVIDEND",DATE,"",VINTAGE))
+            .hasMessageContaining("vintage");
+        assertThat(requests).hasSize(1);
+    }
+
     @Test void rejectsPublicationDelayAndFalseAdjustmentVintageWithoutCallingProvider() {
         var client = client("2026-09-02T04:10:00Z", request -> json("{}"));
         assertThatThrownBy(() -> client.bars(List.of("AAPL"),DATE,"RAW",null,""))
@@ -55,6 +70,16 @@ class AlpacaDailyDataClientTest {
                 """));
         assertThatThrownBy(() -> invalid.bars(List.of("AAPL"),DATE,"RAW",null,""))
                 .hasMessageContaining("OHLCV");
+    }
+
+    @Test void zeroTradeVwapIsUnavailableWhileTradedInvalidVwapStillFails() {
+        String raw="{\"bars\":{\"AAPL\":[{\"t\":\"2026-09-01T04:00:00Z\",\"o\":22,\"h\":22,\"l\":22,\"c\":22,\"v\":0,\"n\":0,\"vw\":0}]}}";
+        var empty=client("2026-09-02T12:00:00Z",request->json(raw));
+        var page=empty.bars(List.of("AAPL"),DATE,"RAW",null,"");
+        assertThat(page.rawJson()).isEqualTo(raw);
+        assertThat(page.observations().get("AAPL").getFirst().get("volumeWeightedAveragePrice")).isNull();
+        var traded=client("2026-09-02T12:00:00Z",request->json(raw.replace("\"v\":0","\"v\":100")));
+        assertThatThrownBy(()->traded.bars(List.of("AAPL"),DATE,"RAW",null,"")).hasMessageContaining("OHLCV");
     }
 
     @Test void keepsActionSubjectsAndIncompleteRecords() {

@@ -103,6 +103,7 @@ ingestion:
 
 # SEC and FFIEC ingestion are independent of the optional legacy OVERVIEW adapter.
 fundamentals:
+  mapping-version: ${SEC_MAPPING_VERSION:sec-us-gaap-v1}
   enabled: ${SEC_FUNDAMENTALS_ENABLED:false}
   sec-user-agent: ${SEC_USER_AGENT:}
   sec-base-url: ${SEC_BASE_URL:https://data.sec.gov}

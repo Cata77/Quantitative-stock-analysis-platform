@@ -56,6 +56,8 @@ public class BulkDailyCollector {
                 new Run(rs.getObject(1,LocalDate.class),CanonicalJson.readObject(rs.getString(2)))).single();
         String adjustment = run.config().getOrDefault("adjustment","NONE").toString();
         LocalDate vintage = run.config().containsKey("adjustmentAsOf") ? LocalDate.parse(run.config().get("adjustmentAsOf").toString()) : null;
+        LocalDate symbolAsOf = run.config().containsKey("symbolAsOf") ? LocalDate.parse(run.config().get("symbolAsOf").toString()) : null;
+        if (symbolAsOf!=null && !type.equals("DAILY_PRICE")) throw new IllegalArgumentException("symbol mapping is price-only");
         var symbols = new TreeMap<UUID,String>();
         var aliases = new TreeMap<UUID,List<String>>();
         for (var lease : group) {
@@ -64,7 +66,7 @@ public class BulkDailyCollector {
                     SELECT symbol FROM reference.instrument_symbols WHERE instrument_id=:id
                     AND effective_from<=:date AND (effective_to IS NULL OR effective_to>:date)
                     ORDER BY effective_from DESC LIMIT 1
-                    """).param("id",lease.instrumentId()).param("date",run.date()).query(String.class).optional()
+                    """).param("id",lease.instrumentId()).param("date",symbolAsOf==null ? run.date() : symbolAsOf).query(String.class).optional()
                     .orElseThrow(() -> new IllegalArgumentException("NO_EFFECTIVE_SYMBOL"));
             symbols.put(lease.instrumentId(),symbol);
             aliases.put(lease.instrumentId(), type.equals("DAILY_PRICE") ? List.of(symbol) : jdbc.sql("""
@@ -92,7 +94,9 @@ public class BulkDailyCollector {
             if (savedTokens instanceof List<?> list) list.forEach(value -> seen.add(value.toString()));
             while (true) {
                 active.forEach(lease -> store.renew(lease,properties.jobLease()));
-                var page = type.equals("DAILY_PRICE") ? client.bars(requestSymbols,run.date(),adjustment,vintage,token)
+                var page = type.equals("DAILY_PRICE") ? (symbolAsOf==null
+                        ? client.bars(requestSymbols,run.date(),adjustment,vintage,token)
+                        : client.bars(requestSymbols,run.date(),adjustment,vintage,token,symbolAsOf))
                         : client.actions(requestSymbols,run.date(),token);
                 String next = Objects.toString(page.nextPageToken(),"");
                 if (!next.isBlank() && (seen.contains(next) || seen.size() >= 1000)) throw new IllegalArgumentException("repeated/excessive page token");

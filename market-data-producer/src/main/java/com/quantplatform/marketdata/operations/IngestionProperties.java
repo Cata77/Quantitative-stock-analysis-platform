@@ -16,8 +16,18 @@ public record IngestionProperties(@DefaultValue("catch-up-and-serve") String mod
         @DefaultValue("5s") Duration retryBackoff,
         @DefaultValue("10m") Duration syncTimeout,
         @DefaultValue("https://paper-api.alpaca.markets") String calendarBaseUrl,
-        @DefaultValue("scoring-service-v2") String canonicalConsumer) {
+        @DefaultValue("scoring-service-v2") String canonicalConsumer, LocalDate priceHistoryUniverseDate) {
+    public IngestionProperties(String mode, LocalDate startDate, LocalDate endDate, String requestId, String reason,
+            boolean schedulesEnabled, int itemsPerCycle, int maxAttempts, Duration jobLease, Duration retryBackoff,
+            Duration syncTimeout, String calendarBaseUrl, String canonicalConsumer) {
+        this(mode,startDate,endDate,requestId,reason,schedulesEnabled,itemsPerCycle,maxAttempts,jobLease,retryBackoff,
+            syncTimeout,calendarBaseUrl,canonicalConsumer,null);
+    }
+    @org.springframework.boot.context.properties.bind.ConstructorBinding
     public IngestionProperties {
+        if (priceHistoryUniverseDate != null && (!Set.of("backfill","force-refresh","catch-up-and-serve").contains(mode)
+                || startDate == null || endDate == null || priceHistoryUniverseDate.isBefore(endDate)))
+            throw new IllegalArgumentException("price history requires bounded collection and a universe date at or after its end");
         if (!Set.of("catch-up-and-serve", "sync-and-exit", "backfill", "force-refresh").contains(mode)
                 || itemsPerCycle < 1 || itemsPerCycle > 1000 || maxAttempts < 1 || maxAttempts > 100
                 || jobLease.compareTo(Duration.ofSeconds(30)) < 0 || retryBackoff.isNegative() || retryBackoff.isZero()

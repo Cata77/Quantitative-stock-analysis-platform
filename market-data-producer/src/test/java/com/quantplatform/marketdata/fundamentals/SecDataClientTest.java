@@ -80,6 +80,16 @@ class SecDataClientTest {
         assertThat(filings.getLast().amendsAccession()).isEqualTo(ACCESSION);
         assertThat(filings.getLast().facts()).isEmpty();
     }
+    @Test void versionTwoRetainsPreferredShareEvidenceWithoutChangingVersionOne() {
+        var raw=Map.of("cik",320193,"facts",Map.of("us-gaap",Map.of("PreferredStockSharesOutstanding",Map.of("units",Map.of("shares",List.of(
+            Map.of("accn",ACCESSION,"filed","2023-11-03","form","10-K","end","2023-09-30","val",0)))))));
+        var parser=new SecCompanyFactsParser();
+        assertThat(parser.parse(CIK,raw,List.of(catalog()),LocalDate.of(2023,1,1),LocalDate.of(2023,12,31),"3571",Set.of()).getFirst().facts()).isEmpty();
+        var v2=parser.parse(CIK,raw,List.of(catalog()),LocalDate.of(2023,1,1),LocalDate.of(2023,12,31),"3571",Set.of(),"sec-us-gaap-v2").getFirst();
+        assertThat(v2.mappingVersion()).isEqualTo("sec-us-gaap-v2");
+        assertThat(v2.facts()).hasSize(1);assertThat(v2.facts().getFirst().value()).isZero();
+    }
+
     @Test void enabledClientRequiresAnIdentifiableContact() {
         assertThatThrownBy(()->new FundamentalProperties(true,URI.create("https://data.sec.gov"),"",
             Duration.ofMillis(200),LocalDate.of(2010,1,1),40,Duration.ofSeconds(30),"",""))

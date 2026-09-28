@@ -1,0 +1,102 @@
+symbol,legal_name,cik,figi,exchange_mic,security_type,share_class,currency,domicile,sic,source_classification,mapped_sector,primary_liquid_class
+AAPL,Apple Inc.,0000320193,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ABNB,"Airbnb, Inc.",0001559720,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Consumer Discretionary,Consumer Discretionary,true
+ADBE,ADOBE INC.,0000796343,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ADI,ANALOG DEVICES INC,0000006281,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ADP,AUTOMATIC DATA PROCESSING INC,0000008670,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+ADSK,"Autodesk, Inc.",0000769397,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+AEP,AMERICAN ELECTRIC POWER CO INC,0000004904,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Utilities,Utilities,true
+ALAB,"Astera Labs, Inc.",0001736297,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+ALNY,"ALNYLAM PHARMACEUTICALS, INC.",0001178670,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Health Care,Health Care,true
+AMAT,APPLIED MATERIALS INC /DE,0000006951,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+AMD,ADVANCED MICRO DEVICES INC,0000002488,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+AMGN,AMGEN INC,0000318154,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+AMZN,AMAZON COM INC,0001018724,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+APP,AppLovin Corp,0001751008,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Communication Services,Communication Services,true
+ARM,ARM HOLDINGS PLC /UK,0001973239,,XNAS,DEPOSITARY_RECEIPT,UNSPECIFIED,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+ASML,ASML HOLDING NV,0000937966,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+AVGO,Broadcom Inc.,0001730168,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+AXON,"AXON ENTERPRISE, INC.",0001069183,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+BKNG,Booking Holdings Inc.,0001075531,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+BKR,Baker Hughes Co,0001701605,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Energy,Energy,true
+CCEP,COCA-COLA EUROPACIFIC PARTNERS plc,0001650107,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Consumer Staples,Consumer Staples,true
+CDNS,CADENCE DESIGN SYSTEMS INC,0000813672,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+CEG,Constellation Energy Corp,0001868275,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Utilities,Utilities,true
+CMCSA,COMCAST CORP,0001166691,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Communication Services,Communication Services,true
+COST,COSTCO WHOLESALE CORP /NEW,0000909832,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Staples,Consumer Staples,true
+CPRT,COPART INC,0000900075,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+CRWD,"CrowdStrike Holdings, Inc.",0001535527,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Information Technology,Information Technology,true
+CRWV,"CoreWeave, Inc.",0001769628,,XNAS,COMMON_STOCK,CLASS_A,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+CSCO,"CISCO SYSTEMS, INC.",0000858877,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+CSX,CSX CORP,0000277948,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+CTAS,CINTAS CORP,0000723254,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+DASH,"DoorDash, Inc.",0001792789,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Consumer Discretionary,Consumer Discretionary,true
+DDOG,"Datadog, Inc.",0001561550,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Information Technology,Information Technology,true
+DXCM,DEXCOM INC,0001093557,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+EXC,EXELON CORP,0001109357,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Utilities,Utilities,true
+FANG,"Diamondback Energy, Inc.",0001539838,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Energy,Energy,true
+FAST,FASTENAL CO,0000815556,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+FER,Ferrovial SE,0001468522,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Industrials,Industrials,true
+FTNT,"Fortinet, Inc.",0001262039,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+GEHC,GE HealthCare Technologies Inc.,0001932393,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+GILD,"GILEAD SCIENCES, INC.",0000882095,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+GOOG,Alphabet Inc.,0001652044,,XNAS,COMMON_STOCK,CLASS_C,USD,,,Communication Services,Communication Services,false
+GOOGL,Alphabet Inc.,0001652044,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Communication Services,Communication Services,true
+HON,HONEYWELL INTERNATIONAL INC,0000773840,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+HONA,Honeywell Aerospace,0002089271,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+IDXX,IDEXX LABORATORIES INC /DE,0000874716,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+INTC,INTEL CORP,0000050863,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+INTU,INTUIT INC.,0000896878,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ISRG,INTUITIVE SURGICAL INC,0001035267,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+KDP,Keurig Dr Pepper Inc.,0001418135,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Staples,Consumer Staples,true
+KLAC,KLA CORP,0000319201,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+LIN,LINDE PLC,0001707925,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Materials,Materials,true
+LITE,Lumentum Holdings Inc.,0001633978,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+LRCX,LAM RESEARCH CORP,0000707549,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+MAR,MARRIOTT INTERNATIONAL INC /MD/,0001048286,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Consumer Discretionary,Consumer Discretionary,true
+MCHP,MICROCHIP TECHNOLOGY INC,0000827054,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+MDLZ,"Mondelez International, Inc.",0001103982,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Consumer Staples,Consumer Staples,true
+MELI,MERCADOLIBRE INC,0001099590,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Consumer Discretionary,Consumer Discretionary,true
+META,"Meta Platforms, Inc.",0001326801,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Communication Services,Communication Services,true
+MNST,Monster Beverage Corp,0000865752,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Staples,Consumer Staples,true
+MPWR,MONOLITHIC POWER SYSTEMS INC,0001280452,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+MRVL,"Marvell Technology, Inc.",0001835632,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+MSFT,MICROSOFT CORP,0000789019,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+MSTR,MICROSTRATEGY Inc,0001050446,,XNAS,COMMON_STOCK,CLASS_A,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+MU,MICRON TECHNOLOGY INC,0000723125,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+NBIS,Nebius Group N.V.,0001513845,,XNAS,COMMON_STOCK,CLASS_A,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+NFLX,NETFLIX INC,0001065280,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Communication Services,Communication Services,true
+NVDA,NVIDIA CORP,0001045810,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+NXPI,NXP Semiconductors N.V.,0001413447,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ODFL,"OLD DOMINION FREIGHT LINE, INC.",0000878927,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+ORLY,O REILLY AUTOMOTIVE INC,0000898173,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+PANW,Palo Alto Networks Inc,0001327567,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+PAYX,PAYCHEX INC,0000723531,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+PCAR,PACCAR INC,0000075362,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Industrials,Industrials,true
+PDD,PDD Holdings Inc.,0001737806,,XNAS,DEPOSITARY_RECEIPT,UNSPECIFIED,USD,,,LOCAL_REVIEW:Consumer Discretionary,Consumer Discretionary,true
+PEP,PEPSICO INC,0000077476,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Staples,Consumer Staples,true
+PLTR,Palantir Technologies Inc.,0001321655,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Information Technology,Information Technology,true
+PYPL,"PayPal Holdings, Inc.",0001633917,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Financials,Financials,true
+QCOM,QUALCOMM INC/DE,0000804328,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+REGN,"REGENERON PHARMACEUTICALS, INC.",0000872589,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+RKLB,Rocket Lab Corp,0001819994,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Industrials,Industrials,true
+ROP,ROPER TECHNOLOGIES INC,0000882835,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+ROST,"ROSS STORES, INC.",0000745732,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+SBUX,STARBUCKS CORP,0000829224,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+SHOP,SHOPIFY INC.,0001594805,,XNAS,COMMON_STOCK,CLASS_A,USD,,,LOCAL_REVIEW:Information Technology,Information Technology,true
+SNDK,Sandisk Corp,0002023554,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+SNPS,SYNOPSYS INC,0000883241,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+SPCX,SPACE EXPLORATION TECHNOLOGIES CORP,0001181412,,XNAS,COMMON_STOCK,CLASS_A,USD,,,LOCAL_REVIEW:Industrials,Industrials,true
+STX,Seagate Technology Holdings plc,0001137789,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+TER,"TERADYNE, INC",0000097210,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+TMUS,"T-Mobile US, Inc.",0001283699,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Communication Services,Communication Services,true
+TRI,THOMSON REUTERS CORP /CAN/,0001075124,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,LOCAL_REVIEW:Industrials,Industrials,true
+TSLA,"Tesla, Inc.",0001318605,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Discretionary,Consumer Discretionary,true
+TTWO,TAKE TWO INTERACTIVE SOFTWARE INC,0000946581,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Communication Services,Communication Services,true
+TXN,TEXAS INSTRUMENTS INC,0000097476,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+VRTX,VERTEX PHARMACEUTICALS INC / MA,0000875320,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Health Care,Health Care,true
+WBD,"Warner Bros. Discovery, Inc.",0001437107,,XNAS,COMMON_STOCK,SERIES_A,USD,,,Communication Services,Communication Services,true
+WDAY,"Workday, Inc.",0001327811,,XNAS,COMMON_STOCK,CLASS_A,USD,,,Information Technology,Information Technology,true
+WDC,WESTERN DIGITAL CORP,0000106040,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Information Technology,Information Technology,true
+WMT,Walmart Inc.,0000104169,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Consumer Staples,Consumer Staples,true
+XEL,XCEL ENERGY INC,0000072903,,XNAS,COMMON_STOCK,UNSPECIFIED,USD,,,Utilities,Utilities,true

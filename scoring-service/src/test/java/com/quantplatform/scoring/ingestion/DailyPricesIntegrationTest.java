@@ -179,6 +179,29 @@ class DailyPricesIntegrationTest extends DurableDeliveryFixture {
                     ? Map.of("eventType","DAILY_PRICE","adjustment",adjustment)
                     : Map.of("eventType","DAILY_PRICE","adjustment",adjustment,"adjustmentAsOf",DAY.plusDays(1).toString()))).update();
     }
+    @Test void currentUniverseHistoryKeepsSnapshotAndSymbolDatesAndCanonicalDelivery() {
+        calendar(DAY,DAY);
+        dailyJob("RAW");
+        var membershipDate=DAY.plusDays(1);
+        jdbc.sql("UPDATE reference.universe_snapshots SET effective_date=:date").param("date",membershipDate).update();
+        jdbc.sql("UPDATE reference.instrument_symbols SET effective_from=:date").param("date",membershipDate).update();
+        jdbc.sql("UPDATE operations.job_definitions SET configuration=configuration || jsonb_build_object('symbolAsOf',:date)")
+            .param("date",membershipDate.toString()).update();
+        var client=mock(AlpacaDailyDataClient.class);
+        when(client.bars(anyList(),eq(DAY),eq("RAW"),isNull(),eq(""),eq(membershipDate)))
+            .thenReturn(page(Map.of("FIX",List.of(price(DAY,"100",null))),""));
+        var run=plan("current-universe-history");
+        collector(client).collect(jobs.claim(run,"history",100,Duration.ofMinutes(2)),"DAILY_PRICE",topic);
+        acceptStaged();
+        assertThat(count("market_data.daily_bar_observations")).isEqualTo(1);
+        assertThat(text("SELECT status FROM operations.ingestion_runs WHERE ingestion_run_id='"+run+"'")).isEqualTo("COMPLETE");
+        assertThat(jdbc.sql("SELECT min(effective_date) FROM reference.universe_snapshots").query(LocalDate.class).single()).isEqualTo(membershipDate);
+        assertThat(jdbc.sql("SELECT min(effective_from) FROM reference.instrument_symbols").query(LocalDate.class).single()).isEqualTo(membershipDate);
+        assertThat(jdbc.sql("SELECT observed_at > bar_time FROM market_data.daily_bar_observations").query(Boolean.class).single()).isTrue();
+        collector(client).collect(jobs.claim(run,"restart",100,Duration.ofMinutes(2)),"DAILY_PRICE",topic);
+        verify(client,times(1)).bars(anyList(),eq(DAY),eq("RAW"),isNull(),eq(""),eq(membershipDate));
+    }
+
     UUID plan(String request) { return jobs.plan(new IngestionPlan(job,sp500,nasdaq,DAY,DAY,"backfill",request,"test")); }
     void stageDaily(String request,String close,LocalDate vintage) {
         var lease=jobs.claim(plan(request),"fixture",1,Duration.ofMinutes(2)).getFirst();

@@ -10,7 +10,7 @@ public record FilingFacts(String cik, String accession, String form, LocalDate f
     public FilingFacts {
         if (cik == null || !cik.matches("[0-9]{10}") || accession == null || !accession.matches("[0-9]{10}-[0-9]{2}-[0-9]{6}")
                 || !Set.of("10-K","10-Q","10-K/A","10-Q/A").contains(form)
-                || !"sec-us-gaap-v1".equals(mappingVersion))
+                || !Set.of("sec-us-gaap-v1","sec-us-gaap-v2").contains(mappingVersion))
             throw new IllegalArgumentException("unsupported filing identity, form or mapping");
         Objects.requireNonNull(filedDate); Objects.requireNonNull(acceptedAt); Objects.requireNonNull(fiscalPeriodEnd);
         if (fiscalPeriodEnd.isAfter(filedDate) || primaryDocument == null || primaryDocument.isBlank()

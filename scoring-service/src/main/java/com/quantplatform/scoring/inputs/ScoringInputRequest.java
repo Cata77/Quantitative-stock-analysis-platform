@@ -26,7 +26,7 @@ public record ScoringInputRequest(LocalDate scoreDate, Instant marketCutoff, Ins
             ? knowledgeCutoff.atZone(ZoneId.of("America/New_York")).toLocalDate() : scoreDate;
         if (adjustmentBasis.isAfter(vintage) || (PRE_OPEN.equals(timingPolicy) && !adjustmentBasis.equals(vintage))
                 || !scoreDate.equals(marketCutoff.atZone(ZoneId.of("America/New_York")).toLocalDate())
-                || sp500Snapshot.equals(nasdaq100Snapshot) || !"sec-us-gaap-v1".equals(mappingVersion))
+                || sp500Snapshot.equals(nasdaq100Snapshot) || !Set.of("sec-us-gaap-v1","sec-us-gaap-v2").contains(mappingVersion))
             throw new IllegalArgumentException("Invalid scoring cutoff, snapshot pair or mapping version");
         requiredMetrics=Set.copyOf(requiredMetrics);
         if(requiredMetrics.isEmpty() || requiredMetrics.stream().anyMatch(m->!m.matches("[A-Z][A-Z0-9_]{0,79}")))

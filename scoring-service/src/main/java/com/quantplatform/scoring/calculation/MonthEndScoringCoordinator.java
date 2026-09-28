@@ -17,6 +17,8 @@ public class MonthEndScoringCoordinator {
     private final ScoringRunService runs;
     private final Clock clock;
     private final String rawDataset,adjustedDataset,classification;
+    @Value("${scoring.model.mapping-version:sec-us-gaap-v1}")
+    private String mappingVersion="sec-us-gaap-v1";
     public MonthEndScoringCoordinator(DataSource source,ScoringRunService runs,Clock clock,
             @Value("${scoring.model.raw-dataset:}") String rawDataset,
             @Value("${scoring.model.adjusted-dataset:}") String adjustedDataset,
@@ -59,7 +61,7 @@ public class MonthEndScoringCoordinator {
         if(clock.instant().isBefore(decision))return false;
         UUID sp=snapshot("SP500",date,decision),nq=snapshot("NASDAQ100",date,decision);if(sp==null||nq==null)return false;
         var request=new ScoringInputRequest(date,cutoff,decision,sp,nq,UUID.fromString(rawDataset),UUID.fromString(adjustedDataset),
-            decision.atZone(ZoneId.of("America/New_York")).toLocalDate(),UUID.fromString(classification),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
+            decision.atZone(ZoneId.of("America/New_York")).toLocalDate(),UUID.fromString(classification),mappingVersion,Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
         if(!runs.inputsReady(request))return false;
         runs.run(request,next.get(),Map.of());
         return true;

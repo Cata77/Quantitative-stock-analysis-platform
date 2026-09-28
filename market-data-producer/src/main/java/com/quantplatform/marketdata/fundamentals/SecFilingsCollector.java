@@ -17,6 +17,9 @@ public class SecFilingsCollector {
     private final IngestionProperties ingestion;
     private final IngestionRunStore store;
     private final Clock clock;
+    @org.springframework.beans.factory.annotation.Value("${fundamentals.mapping-version:sec-us-gaap-v1}")
+    private String mappingVersion="sec-us-gaap-v1";
+    private String parserVersion(){return mappingVersion.equals("sec-us-gaap-v2")?"sec-companyfacts-v2":"sec-companyfacts-v1";}
     public SecFilingsCollector(DataSource source,SecDataClient client,FundamentalProperties properties,
             IngestionProperties ingestion,IngestionRunStore store,Clock clock) {
         jdbc=JdbcClient.create(source);this.client=client;this.properties=properties;
@@ -24,9 +27,12 @@ public class SecFilingsCollector {
     }
     public boolean enabled(){return properties.enabled();}
     public Map<String,Object> configuration(){return Map.of("startDate",properties.startDate().toString(),
-        "parserVersion","sec-companyfacts-v1","mappingVersion","sec-us-gaap-v1","baseUrl",properties.secBaseUrl().toString());}
+        "parserVersion",parserVersion(),"mappingVersion",mappingVersion,"baseUrl",properties.secBaseUrl().toString());}
     public void collect(JobLease lease,String topic) {
         try {
+            String jobMapping=jdbc.sql("SELECT j.configuration->>'mappingVersion' FROM operations.ingestion_runs r JOIN operations.job_definitions j USING(job_definition_id) WHERE r.ingestion_run_id=:run")
+                .param("run",lease.runId()).query(String.class).optional().orElse("sec-us-gaap-v1");
+            if(!jobMapping.equals(mappingVersion)) throw new IllegalArgumentException("job mapping differs from collector configuration");
             var issuer=jdbc.sql("""
                 SELECT i.cik FROM reference.issuers i JOIN reference.instruments s USING (issuer_id)
                 WHERE s.instrument_id=:instrument
@@ -35,7 +41,7 @@ public class SecFilingsCollector {
                 .param("id",lease.runId()).query(LocalDate.class).single();
             if(issuer.isBlank()) {
                 stageStatus(lease,topic,through,"NO_CIK","",new SourceArtifact("no-cik:"+lease.instrumentId(),
-                    "internal://reference/instrument/"+lease.instrumentId(),clock.instant(),"sec-companyfacts-v1","{}"));return;
+                    "internal://reference/instrument/"+lease.instrumentId(),clock.instant(),parserVersion(),"{}"));return;
             }
             String request="sec:"+issuer+":"+lease.runId();
             // A persisted issuer response is shared by share classes and by retries of the same run.
@@ -43,10 +49,10 @@ public class SecFilingsCollector {
                 SELECT a.inline_content::text,a.retrieved_at FROM operations.source_artifacts a
                 JOIN operations.ingestion_runs r ON r.dataset_id=a.dataset_id
                 WHERE r.ingestion_run_id=:run AND a.request_key=:request
-                  AND a.parser_version='sec-companyfacts-v1' ORDER BY a.retrieved_at DESC LIMIT 1
-                """).param("run",lease.runId()).param("request",request)
+                  AND a.parser_version=:parser ORDER BY a.retrieved_at DESC LIMIT 1
+                """).param("run",lease.runId()).param("request",request).param("parser",parserVersion())
                 .query((rs,row)->new SourceArtifact(request,"sec://company/"+issuer,rs.getTimestamp(2).toInstant(),
-                    "sec-companyfacts-v1",rs.getString(1))).optional();
+                    parserVersion(),rs.getString(1))).optional();
             SourceArtifact artifact;
             SecDataClient.Bundle bundle;
             if(cached.isPresent()) {
@@ -55,15 +61,15 @@ public class SecFilingsCollector {
             } else {
                 store.renew(lease,Duration.ofMinutes(5));
                 bundle=client.fetch(issuer,properties.startDate(),through);
-                artifact=new SourceArtifact(request,"sec://company/"+issuer,bundle.retrievedAt(),"sec-companyfacts-v1",
+                artifact=new SourceArtifact(request,"sec://company/"+issuer,bundle.retrievedAt(),parserVersion(),
                     CanonicalJson.MAPPER.writeValueAsString(bundle));
             }
             var concepts=new HashSet<>(jdbc.sql("""
                 SELECT taxonomy||':'||source_concept FROM fundamentals.source_metric_mappings
-                WHERE mapping_version='sec-us-gaap-v1'
-                """).query(String.class).list());
+                WHERE mapping_version=:mapping
+                """).param("mapping",mappingVersion).query(String.class).list());
             var filings=new SecCompanyFactsParser().parse(issuer,bundle.companyFacts(),bundle.catalogs(),
-                properties.startDate(),through,bundle.sic(),concepts);
+                properties.startDate(),through,bundle.sic(),concepts,mappingVersion);
             var checkpoint=lease.checkpointJson()==null?Map.<String,Object>of():CanonicalJson.readObject(lease.checkpointJson());
             int start=((Number)checkpoint.getOrDefault("filingIndex",0)).intValue();
             for(int i=start;i<filings.size();i++) {

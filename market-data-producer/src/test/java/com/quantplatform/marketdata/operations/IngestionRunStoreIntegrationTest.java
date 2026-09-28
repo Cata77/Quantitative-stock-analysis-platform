@@ -300,6 +300,21 @@ class IngestionRunStoreIntegrationTest {
                 """).param("consumer", consumer).param("event", event).param("key", key).update();
     }
 
+    @Test
+    void sharedSourceIsReusedWithoutUpdatingItsOriginalRowOrRetrievalTime() {
+        var run=store.plan(plan("shared-source"));
+        var leases=store.claim(run,"worker",10,Duration.ofMinutes(1));
+        var response=source("shared-response");
+        store.stage(leases.getFirst(),response,List.of(observation("100")),"{}",true);
+        String firstVersion=jdbc.sql("SELECT xmin::text FROM operations.source_artifacts").query(String.class).single();
+        var repeated=new SourceArtifact(response.requestKey(),response.sourceUri(),response.retrievedAt().plusSeconds(60),response.parserVersion(),response.rawJson());
+        store.stage(leases.getLast(),repeated,List.of(observation("200")),"{}",true);
+        assertThat(count("source_artifacts")).isEqualTo(1);
+        assertThat(count("ingestion_item_artifacts")).isEqualTo(2);
+        assertThat(jdbc.sql("SELECT xmin::text FROM operations.source_artifacts").query(String.class).single()).isEqualTo(firstVersion);
+        assertThat(jdbc.sql("SELECT retrieved_at FROM operations.source_artifacts").query(java.time.OffsetDateTime.class).single().toInstant()).isEqualTo(response.retrievedAt());
+    }
+
     private IngestionRunStore newStore() {
         return new IngestionRunStore(dataSource, new DataSourceTransactionManager(dataSource), JsonMapper.builder().build());
     }

@@ -34,6 +34,12 @@ public class AlpacaDailyDataClient {
     }
 
     public Page bars(List<String> symbols, LocalDate date, String adjustment, LocalDate vintage, String token) {
+        return bars(symbols,date,adjustment,vintage,token,null);
+    }
+
+    public Page bars(List<String> symbols, LocalDate date, String adjustment, LocalDate vintage, String token, LocalDate symbolAsOf) {
+        if (symbolAsOf!=null && (symbolAsOf.isBefore(date) || symbolAsOf.isAfter(LocalDate.now(clock.withZone(ZoneId.of("America/New_York"))))))
+            throw new IllegalArgumentException("invalid symbol mapping date");
         validateSymbols(symbols);
         if (!Set.of("RAW","SPLIT_DIVIDEND").contains(adjustment)) throw new IllegalArgumentException("unsupported adjustment");
         var zone = ZoneId.of("America/New_York");
@@ -48,7 +54,7 @@ public class AlpacaDailyDataClient {
                 .queryParam("start", date.atStartOfDay(zone).toInstant()).queryParam("end", end)
                 .queryParam("adjustment", adjustment.equals("RAW") ? "raw" : "split,dividend")
                 .queryParam("feed", properties.feed()).queryParam("currency", "USD")
-                .queryParam("asof", "-").queryParam("sort", "asc").queryParam("limit", properties.pageLimit())
+                .queryParam("asof", symbolAsOf==null ? "-" : symbolAsOf.toString()).queryParam("sort", "asc").queryParam("limit", properties.pageLimit())
                 .queryParamIfPresent("page_token", Optional.ofNullable(token).filter(s -> !s.isBlank())).build().encode().toUri();
         String raw = get(uri);
         if (adjustment.equals("SPLIT_DIVIDEND") && !LocalDate.now(clock.withZone(zone)).equals(vintage))
@@ -62,9 +68,14 @@ public class AlpacaDailyDataClient {
             var values = new ArrayList<Map<String,Object>>();
             for (var row : (List<?>) rows) {
                 var value = CanonicalJson.readObject(CanonicalJson.write(row));
+                long volume=integer(value,"v"), trades=integer(value,"n");
+                BigDecimal vwap=decimal(value,"vw");
+                // A zero-trade, zero-volume provider bar has no defined volume-weighted average.
+                // Retain the original response; never relax OHLC or a traded bar's VWAP validation.
+                if(volume==0 && trades==0 && vwap!=null && vwap.signum()==0) vwap=null;
                 var price = new DailyPrice(Instant.parse(required(value,"t")), date, "USD", properties.feed(), vintage,
                         decimal(value,"o"), decimal(value,"h"), decimal(value,"l"), decimal(value,"c"),
-                        integer(value,"v"), decimal(value,"vw"), integer(value,"n"));
+                        volume, vwap, trades);
                 price.validateAdjustment(adjustment);
                 values.add(CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(price)));
             }
