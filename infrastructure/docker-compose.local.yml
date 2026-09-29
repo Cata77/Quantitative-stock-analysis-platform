@@ -13,6 +13,7 @@ services:
       DATABASE_MIGRATION_PASSWORD: local-quant_migrator-development-only
   elasticsearch:
     environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
       xpack.security.enabled: "false"
       xpack.security.http.ssl.enabled: "false"
       xpack.security.http.ssl.key: null
@@ -30,6 +31,7 @@ services:
       test: [CMD-SHELL, "kafka-broker-api-versions --bootstrap-server localhost:9092 >/dev/null 2>&1"]
   auth-service:
     environment:
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
       SPRING_PROFILES_ACTIVE: local
       JWT_ISSUER: quant-platform-local
       JWT_AUDIENCE: quant-platform
@@ -40,6 +42,7 @@ services:
     volumes: !override []
   portfolio-service:
     environment:
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
       SPRING_PROFILES_ACTIVE: local
       JWT_ISSUER: quant-platform-local
       JWT_AUDIENCE: quant-platform
@@ -48,6 +51,7 @@ services:
     volumes: !override []
   market-data-producer:
     environment:
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
       SPRING_PROFILES_ACTIVE: local
       JWT_ISSUER: quant-platform-local
       JWT_AUDIENCE: quant-platform
@@ -63,7 +67,7 @@ services:
       JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
       SCORING_DB_PASSWORD: local-quant_scoring-development-only
       ELASTICSEARCH_URL: http://elasticsearch:9200
-      JAVA_TOOL_OPTIONS: ""
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
     volumes: !override []
   screener-service:
     environment:
@@ -73,10 +77,11 @@ services:
       JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
       SCREENER_DB_PASSWORD: local-quant_screener-development-only
       ELASTICSEARCH_URL: http://elasticsearch:9200
-      JAVA_TOOL_OPTIONS: ""
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
     volumes: !override []
   gateway-service:
     environment:
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
       SPRING_PROFILES_ACTIVE: local
       JWT_ISSUER: quant-platform-local
       JWT_AUDIENCE: quant-platform
@@ -91,5 +96,5 @@ services:
       JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
       SCREENER_DB_PASSWORD: local-quant_search-development-only
       ELASTICSEARCH_URL: http://elasticsearch:9200
-      JAVA_TOOL_OPTIONS: ""
+      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
     volumes: !override []
