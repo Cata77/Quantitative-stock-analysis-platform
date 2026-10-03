@@ -138,12 +138,20 @@ class ScoringRunIntegrationTest extends DurableDeliveryFixture {
     @org.junit.jupiter.params.ParameterizedTest
     @org.junit.jupiter.params.provider.ValueSource(booleans={false,true})
     void realDelayedCanonicalInputsPublishAndRetryWithoutFutureLeakage(boolean tooLate) {
+        realTimedPublication(tooLate, false);
+    }
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(booleans={false,true})
+    void currentSnapshotPublishesAfterOldCutoffAndRejectsLateInputs(boolean tooLate) {
+        realTimedPublication(tooLate, true);
+    }
+    void realTimedPublication(boolean tooLate, boolean current) {
         jdbc.sql("""
             INSERT INTO reference.trading_sessions(exchange_mic,session_date,opens_at,closes_at,timezone,holiday,early_close,source,available_at,observed_at)
             SELECT 'XNYS',d::date,CASE WHEN extract(isodow FROM d)<6 THEN (d+interval '13 hours 30 minutes') AT TIME ZONE 'UTC' END,
                 CASE WHEN extract(isodow FROM d)<6 THEN (d+interval '20 hours') AT TIME ZONE 'UTC' END,
                 'America/New_York',extract(isodow FROM d)>5,false,'fixture','2025-01-01','2025-01-01'
-            FROM generate_series('2025-06-01'::timestamp,'2026-10-01',interval '1 day') d
+            FROM generate_series('2025-06-01'::timestamp,'2026-10-02',interval '1 day') d
             """).update();
         for(var row:section.inputs()) {
             jdbc.sql("INSERT INTO reference.instrument_symbols(instrument_id,symbol,exchange_mic,effective_from,source,available_at,observed_at) VALUES(:id,:symbol,'XNYS','2025-01-01','fixture','2025-01-01','2025-01-01')")
@@ -181,31 +189,50 @@ class ScoringRunIntegrationTest extends DurableDeliveryFixture {
             """).param("artifact",artifact).update();
         jdbc.sql("UPDATE operations.job_definitions SET configuration=jsonb_set(configuration,'{adjustmentAsOf}','\"2026-10-01\"') WHERE code='scoring-SPLIT_DIVIDEND'").update();
         repository=new ScoringInputRepository(source);
-        var coordinator=new MonthEndScoringCoordinator(source,service(),clock("2026-10-01T13:00:00Z"),dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        var coordinator=new MonthEndScoringCoordinator(source,service(),clock("2026-10-01T13:05:00Z"),dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        java.util.function.BooleanSupplier calculate=()->current ? coordinator.calculateCurrent(DAY,Instant.parse("2026-10-01T13:05:00Z")) : coordinator.calculate(DAY);
         jdbc.sql("UPDATE operations.data_coverage SET valid=false").update();
-        assertThat(coordinator.calculate(DAY)).isFalse();
+        assertThat(calculate.getAsBoolean()).isFalse();
         assertThat(count("research.scoring_runs")).isZero();
         jdbc.sql("UPDATE operations.data_coverage SET valid=true").update();
         if(tooLate) {
-            jdbc.sql("UPDATE market_data.daily_bar_observations SET observed_at='2026-10-01T13:01:00Z'").update();
-            assertThatThrownBy(()->coordinator.calculate(DAY)).hasMessageContaining("INSUFFICIENT_UNIVERSE");
+            jdbc.sql("UPDATE market_data.daily_bar_observations SET observed_at='2026-10-01T13:06:00Z'").update();
+            assertThatThrownBy(()->calculate.getAsBoolean()).hasMessageContaining("INSUFFICIENT_UNIVERSE");
             assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("FAILED");
             assertThat(count("research.stock_scores")).isZero();
             return;
         }
-        assertThat(coordinator.calculate(DAY)).isTrue();
+        assertThat(calculate.getAsBoolean()).isTrue();
         assertThat(jdbc.sql("SELECT scored_count FROM research.scoring_runs").query(Integer.class).single()).isEqualTo(12);
         assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("PUBLISHED");
-        assertThat(text("SELECT request->'inputs'->>'timingPolicy' FROM research.scoring_runs")).isEqualTo(ScoringInputRequest.PRE_OPEN);
+        assertThat(text("SELECT request->'inputs'->>'timingPolicy' FROM research.scoring_runs")).isEqualTo(current ? ScoringInputRequest.CURRENT : ScoringInputRequest.PRE_OPEN);
         assertThat(jdbc.sql("SELECT knowledge_cutoff<effective_from FROM research.scoring_runs").query(Boolean.class).single()).isTrue();
+        if(current) {
+            assertThat(jdbc.sql("SELECT effective_from FROM research.scoring_runs").query((rs,n)->rs.getTimestamp(1).toInstant()).single())
+                .isEqualTo(Instant.parse("2026-10-02T13:30:00Z"));
+        }
         String captured=text("SELECT input_sha256 FROM research.scoring_runs");
         // A later provider correction cannot change a captured run on restart.
-        jdbc.sql("UPDATE market_data.daily_bar_observations SET close=105,observed_at='2026-10-01T13:01:00Z'").update();
-        assertThat(coordinator.calculate(DAY)).isTrue();
+        jdbc.sql("UPDATE market_data.daily_bar_observations SET close=105,observed_at='2026-10-01T13:06:00Z'").update();
+        assertThat(calculate.getAsBoolean()).isTrue();
         assertThat(count("research.scoring_runs")).isEqualTo(1);
         assertThat(text("SELECT input_sha256 FROM research.scoring_runs")).isEqualTo(captured);
     }
 
+    @Test void currentSnapshotRejectsWrongOpeningLateCalendarAndFutureCutoff(){
+        calendar(LocalDate.parse("2026-09-01"),LocalDate.parse("2026-10-02"));
+        jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();
+        Instant cutoff=Instant.parse("2026-10-01T13:05:00Z");
+        var current=new ScoringInputRequest(DAY,CLOSE,cutoff,sp500,nasdaq,dataset,dataset,
+            DAY.plusDays(1),request.classificationVersion(),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.CURRENT);
+        assertThatThrownBy(()->service().run(current,OPEN,jurisdictions)).hasMessageContaining("Invalid current-snapshot");
+        jdbc.sql("UPDATE reference.trading_sessions SET observed_at='2026-10-01T13:06:00Z' WHERE session_date='2026-10-02'").update();
+        assertThatThrownBy(()->service().run(current,OPEN.plusSeconds(86400),jurisdictions)).hasMessageContaining("Invalid current-snapshot");
+        var coordinator=new MonthEndScoringCoordinator(source,service(),clock("2026-10-01T13:00:00Z"),dataset.toString(),dataset.toString(),request.classificationVersion().toString());
+        assertThatThrownBy(()->coordinator.calculateCurrent(DAY,cutoff)).hasMessageContaining("elapsed explicit");
+        assertThatThrownBy(()->coordinator.calculateCurrent(DAY.minusDays(1),cutoff.minusSeconds(600))).hasMessageContaining("latest completed");
+        assertThat(count("research.scoring_runs")).isZero();
+    }
     @Test void delayedDailyRunWaitsUntilTheFixedPreOpenDecision() {
         calendar(LocalDate.parse("2026-09-01"), LocalDate.parse("2026-10-01"));
         jdbc.sql("UPDATE reference.trading_sessions SET available_at='2026-01-01',observed_at='2026-01-01'").update();

@@ -155,3 +155,16 @@ def test_prior_balances_and_reit_payout_require_aligned_periods():
         "MISSING_RISK_INPUT:affo_payout"
         in _raw(row, timestamp("2026-09-30T20:00:00Z"), load_manifest())["reasons"]
     )
+
+
+@pytest.mark.parametrize("policy", ["NEXT_OPEN_MINUS_30M_V1", "CURRENT_SNAPSHOT_V1"])
+def test_delayed_policy_rejects_late_facts_and_excessive_delay(policy):
+    document = section()
+    document["request"]["timingPolicy"] = policy
+    document["request"]["knowledgeCutoff"] = "2026-10-01T13:05:00Z"
+    document["inputs"][0]["facts"][0]["observedAt"] = "2026-10-01T13:06:00Z"
+    _, rows = from_cross_section(document)
+    assert rows[0]["values"]["TOTAL_ASSETS"] == 18000  # Earlier known balance, not the late 20000.
+    document["request"]["knowledgeCutoff"] = "2026-10-10T13:05:00Z"
+    with pytest.raises(ValueError, match="cutoff"):
+        from_cross_section(document)

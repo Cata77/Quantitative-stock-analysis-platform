@@ -26,6 +26,8 @@ public class RankingQueryRepository {
                 'effectiveFrom',r.effective_from,'publishedAt',r.published_at,'candidate',r.candidate,'supersedes',r.supersedes,
                 'modelVersionId',r.model_version_id,'modelVersion',m.semantic_version,
                 'modelStatus',m.approval_state,'manifestSha256',m.manifest_sha256,
+                'timingPolicy',coalesce(r.request->'inputs'->>'timingPolicy','CLOSE_V1'),
+                'publicationType',CASE WHEN r.request->'inputs'->>'timingPolicy'='CURRENT_SNAPSHOT_V1' THEN 'CURRENT_RESEARCH_SNAPSHOT' ELSE 'MONTH_END_RESEARCH' END,
                 'inputVersion',r.input_version,'preprocessingVersion',r.preprocessing_version,
                 'classificationVersionId',r.request->'inputs'->'classificationVersion',
                 'sp500SnapshotId',r.sp500_snapshot_id,'nasdaq100SnapshotId',r.nasdaq100_snapshot_id,

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /** Calendar reconciliation for complete frozen-model runs. Dataset identities are explicit configuration. */
 @Service
 public class MonthEndScoringCoordinator {
-    public static final String MODEL="stock-value-quality-momentum:1.1.0";
+    public static final String MODEL="stock-value-quality-momentum:1.2.0";
     private final JdbcClient jdbc;
     private final ScoringRunService runs;
     private final Clock clock;
@@ -64,6 +64,36 @@ public class MonthEndScoringCoordinator {
             decision.atZone(ZoneId.of("America/New_York")).toLocalDate(),UUID.fromString(classification),mappingVersion,Set.of("TOTAL_ASSETS"),ScoringInputRequest.PRE_OPEN);
         if(!runs.inputsReady(request))return false;
         runs.run(request,next.get(),Map.of());
+        return true;
+    }
+    /** Explicit cutoff is part of the logical identity and must be reused on retry. */
+    public boolean calculateCurrent(LocalDate date, Instant decision) {
+        if (decision == null || decision.isAfter(clock.instant()))
+            throw new IllegalArgumentException("An elapsed explicit knowledge cutoff is required");
+        LocalDate latest=jdbc.sql("""
+            SELECT max(session_date) FROM reference.trading_sessions
+            WHERE exchange_mic='XNYS' AND NOT holiday AND closes_at<=:cutoff
+                AND available_at<=:cutoff AND observed_at<=:cutoff
+            """).param("cutoff",decision.atOffset(ZoneOffset.UTC)).query(LocalDate.class).single();
+        if(date==null || !date.equals(latest))
+            throw new IllegalArgumentException("Current snapshot requires the latest completed session at its cutoff");
+        if(rawDataset.isBlank()||adjustedDataset.isBlank()||classification.isBlank())return false;
+        Instant market=jdbc.sql("SELECT closes_at FROM reference.trading_sessions WHERE exchange_mic='XNYS' AND session_date=:date")
+            .param("date",date).query((rs,n)->rs.getTimestamp(1).toInstant()).single();
+        var opening=jdbc.sql("""
+            SELECT opens_at FROM reference.trading_sessions WHERE exchange_mic='XNYS' AND NOT holiday
+                AND opens_at>=:earliest AND available_at<=:cutoff AND observed_at<=:cutoff
+            ORDER BY opens_at LIMIT 1
+            """).param("earliest",decision.plusSeconds(1800).atOffset(ZoneOffset.UTC))
+            .param("cutoff",decision.atOffset(ZoneOffset.UTC)).query((rs,n)->rs.getTimestamp(1).toInstant()).optional();
+        if(opening.isEmpty())return false;
+        UUID sp=snapshot("SP500",date,decision),nq=snapshot("NASDAQ100",date,decision);
+        if(sp==null||nq==null)return false;
+        var current=new ScoringInputRequest(date,market,decision,sp,nq,UUID.fromString(rawDataset),UUID.fromString(adjustedDataset),
+            decision.atZone(ZoneId.of("America/New_York")).toLocalDate(),UUID.fromString(classification),mappingVersion,
+            Set.of("TOTAL_ASSETS"),ScoringInputRequest.CURRENT);
+        if(!runs.inputsReady(current))return false;
+        runs.run(current,opening.get(),Map.of());
         return true;
     }
     private UUID snapshot(String code,LocalDate date,Instant cutoff){

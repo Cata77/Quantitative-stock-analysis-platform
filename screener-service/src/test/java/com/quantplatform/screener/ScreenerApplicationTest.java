@@ -64,6 +64,8 @@ class ScreenerApplicationTest {
     @Test void latestPublicationRejectsPendingAndFailedRunsAndKeepsOriginalTieRanks() throws Exception {
         mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("asOf","2026-08-31").param("size","1"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.run.id").value(RUN))
+            .andExpect(jsonPath("$.run.timingPolicy").value("CLOSE_V1"))
+            .andExpect(jsonPath("$.run.publicationType").value("MONTH_END_RESEARCH"))
             .andExpect(jsonPath("$.run.complete").value(true)).andExpect(jsonPath("$.run.expectedCount").value(3))
             .andExpect(jsonPath("$.run.profileCoverage.GENERAL.scored").value(2))
             .andExpect(jsonPath("$.run.classificationVersionId").value("60000000-0000-0000-0000-000000000001"))

@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 
 /** Manual binary64 implementation of the frozen v1 contract. No executable manifest expressions. */
 public final class FrozenModel {
-    public static final String SHA = "716f99aefbb24798dfdd1deca1a08e5615e7b41c99f963e74be52f98889f1b65";
+    public static final String SHA = "b3b36a0a46e97f953652c63a774f34c64b1f4f66076d95e4362f4d4ca0183839";
     public final Map<String,Object> manifest;
     public FrozenModel() {
         try {
@@ -256,7 +256,7 @@ public final class FrozenModel {
             row.put("rank",i+1);row.put("percentile",100*(eligible.size()-sum/count)/(eligible.size()-1));
         }
         for(var row:results)for(String k:List.of("warnings","reasons"))row.put(k,list(row.get(k)).stream().map(FrozenModel::str).distinct().sorted().toList());
-        return obj("model_version","1.1.0","manifest_sha256",SHA,"candidate",candidate,"as_of",asOf,"expected_count",results.size(),"eligible_count",eligible.size(),"excluded_count",results.size()-eligible.size(),"status",enough?"COMPLETE":"FAILED","reasons",enough?List.of():List.of("INSUFFICIENT_UNIVERSE"),"rows",results);
+        return obj("model_version","1.2.0","manifest_sha256",SHA,"candidate",candidate,"as_of",asOf,"expected_count",results.size(),"eligible_count",eligible.size(),"excluded_count",results.size()-eligible.size(),"status",enough?"COMPLETE":"FAILED","reasons",enough?List.of():List.of("INSUFFICIENT_UNIVERSE"),"rows",results);
     }
     public static Object serialize(Object value){
         if(value instanceof BigDecimal b)return b.setScale(6,RoundingMode.HALF_EVEN);

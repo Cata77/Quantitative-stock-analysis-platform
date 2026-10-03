@@ -110,7 +110,8 @@ def from_cross_section(
     market = timestamp(request["marketCutoff"])
     policy = request.get("timingPolicy", "CLOSE_V1")
     valid = (policy == "CLOSE_V1" and cutoff <= market) or (
-        policy == "NEXT_OPEN_MINUS_30M_V1" and 0 < (cutoff - market).total_seconds() <= 7 * 86400
+        policy in {"NEXT_OPEN_MINUS_30M_V1", "CURRENT_SNAPSHOT_V1"}
+        and 0 < (cutoff - market).total_seconds() <= 7 * 86400
     )
     if not valid:
         raise ValueError("Invalid knowledge cutoff for timing policy")

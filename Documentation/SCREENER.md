@@ -172,3 +172,13 @@ Verified on 2026-09-21: 16 screener, 70 scoring and 3 migration tests passed wit
 failures/errors/skips; all 85 Python tests and Ruff passed. Screener/migration bootJars,
 Compose validation and diff checks passed. Verification used isolated fixtures and did not
 migrate the live application database or rebuild its Elasticsearch index.
+
+### Current-snapshot metadata (model 1.2.0)
+
+Ranking run metadata includes timingPolicy and publicationType. A run with
+CURRENT_SNAPSHOT_V1 / CURRENT_RESEARCH_SNAPSHOT uses its explicit knowledgeCutoff
+and the latest completed economic session asOfDate. It is not a retrospective
+month-end decision. Inspect effectiveFrom and publishedAt separately; publication
+at or after the intended opening cannot be treated as executable at that opening.
+The API continues to expose only complete PUBLISHED runs with exact score/exclusion
+accounting. See SCORING-RUNS.md for collection, cutoff and retry instructions.

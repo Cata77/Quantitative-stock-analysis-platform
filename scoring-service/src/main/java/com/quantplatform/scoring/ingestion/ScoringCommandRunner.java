@@ -22,6 +22,7 @@ public class ScoringCommandRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         switch (properties.operation()) {
             case "serve" -> { }
+            case "current-score-and-exit" -> exitCode = scores.calculateCurrent(properties.scoreDate(), properties.knowledgeCutoff()) ? 0 : 2;
             case "score-and-exit" -> exitCode = scores.calculate(properties.scoreDate()) ? 0 : 2;
             case "dlq-inspect" -> System.out.println(CanonicalJson.MAPPER.writeValueAsString(deadLetters.inspect(properties.limit())));
             case "dlq-replay" -> exitCode = deadLetters.replay(properties.deadLetterId(), properties.replayId(), properties.operator(), properties.reason()) ? 0 : 2;

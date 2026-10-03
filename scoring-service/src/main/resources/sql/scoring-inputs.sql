@@ -30,6 +30,13 @@ sessions AS MATERIALIZED (
 ),
 validation AS (
     SELECT ARRAY_REMOVE(ARRAY[
+        CASE WHEN :timingPolicy='CURRENT_SNAPSHOT_V1' AND (
+            (SELECT max(s.session_date) FROM reference.trading_sessions s CROSS JOIN p
+             WHERE s.exchange_mic='XNYS' AND NOT s.holiday AND s.closes_at<=p.knowledge_cutoff
+               AND s.available_at<=p.knowledge_cutoff AND s.observed_at<=p.knowledge_cutoff)
+                IS DISTINCT FROM (SELECT score_date FROM p)
+            OR (SELECT knowledge_cutoff FROM p)>statement_timestamp()
+        ) THEN 'INVALID_CURRENT_SNAPSHOT_CUTOFF' END,
         CASE WHEN :timingPolicy='NEXT_OPEN_MINUS_30M_V1' AND NOT EXISTS (
             SELECT 1 FROM reference.trading_sessions n CROSS JOIN p
             WHERE n.exchange_mic='XNYS' AND n.session_date=(SELECT min(session_date)
