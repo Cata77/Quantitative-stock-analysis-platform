@@ -1,6 +1,7 @@
 package com.quantplatform.migrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +9,8 @@ import java.util.UUID;
 
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -33,7 +36,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(22);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(23);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
@@ -62,7 +65,7 @@ class DatabaseMigrationIntegrationTest {
                         'identity', 'portfolio', 'reference', 'operations',
                         'market_data', 'fundamentals', 'research'
                     )
-                    """)).isEqualTo(7);
+                    """)).isEqualTo(5);
             assertThat(queryInt(connection, """
                     SELECT COUNT(*)
                     FROM timescaledb_information.hypertables
@@ -70,7 +73,8 @@ class DatabaseMigrationIntegrationTest {
                       AND hypertable_name IN (
                           'tick_data', 'market_bars', 'fundamental_snapshots', 'factor_scores'
                       )
-                    """)).isEqualTo(4);
+                    """)).isEqualTo(3);
+            assertCleanupObjectsAbsent(connection);
             assertThat(queryInt(connection, """
                     SELECT COUNT(*)
                     FROM information_schema.tables
@@ -110,7 +114,7 @@ class DatabaseMigrationIntegrationTest {
         }
 
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(8);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(9);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
             assertThat(queryInt(connection, "SELECT count(*) FROM research.model_versions WHERE semantic_version IN ('1.0.0','1.1.0') AND approval_state='FROZEN_RESEARCH_HYPOTHESIS'"))
@@ -118,6 +122,108 @@ class DatabaseMigrationIntegrationTest {
             assertThat(queryInt(connection, "SELECT COUNT(*) FROM reference.issuers WHERE cik = '0000000001'"))
                     .isEqualTo(1);
         }
+    }
+
+    @Test
+    void cleanupUpgradesV018WithoutChangingRetainedData() throws SQLException {
+        var database = createDatabase();
+        flyway(database, "018").migrate();
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
+                var statement = connection.createStatement()) {
+            statement.execute("INSERT INTO public.users(username,password_hash) VALUES('cleanup-preserved','hash')");
+            statement.execute("""
+                    INSERT INTO public.market_bars(time,symbol,provider,open_price,high_price,
+                        low_price,close_price,volume,trade_count)
+                    VALUES('2026-01-02T15:00Z','KEEP','fixture',100,101,99,100,10,1)
+                    """);
+        }
+        var upgraded = flyway(database, null);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(5);
+        assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
+        assertThat(upgraded.migrate().migrationsExecuted).isZero();
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertCleanupObjectsAbsent(connection);
+            assertThat(queryInt(connection, "SELECT count(*) FROM public.users WHERE username='cleanup-preserved'"))
+                    .isEqualTo(1);
+            assertThat(queryInt(connection, "SELECT count(*) FROM public.market_bars WHERE symbol='KEEP' AND close_price=100"))
+                    .isEqualTo(1);
+            assertThat(queryInt(connection, "SELECT count(*) FROM research.model_versions"))
+                    .isEqualTo(3);
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"tick_data", "month_end_score_jobs", "identity", "portfolio", "dependent_view"})
+    void cleanupRefusesDataOrUnexpectedDependenciesAndRollsBack(String obstruction) throws SQLException {
+        var database = createDatabase();
+        flyway(database, "018").migrate();
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres");
+                var statement = connection.createStatement()) {
+            switch (obstruction) {
+                case "tick_data" -> statement.execute("""
+                        INSERT INTO public.tick_data(time,symbol,bid,ask)
+                        VALUES('2026-01-02T15:00Z','KEEP',100,101)
+                        """);
+                case "month_end_score_jobs" -> {
+                    statement.execute("""
+                            INSERT INTO reference.universe_snapshots(universe_id,effective_date,observed_at,
+                                source,source_checksum,import_mode,completeness_status,
+                                expected_member_count,imported_member_count)
+                            SELECT universe_id,'2026-01-01','2026-01-01T00:00Z','cleanup-fixture',repeat('a',64),
+                                'CURRENT_SNAPSHOT_FORWARD','COMPLETE',0,0 FROM reference.universes
+                            """);
+                    statement.execute("""
+                            INSERT INTO operations.month_end_score_jobs(as_of_date,cutoff,model_code,
+                                sp500_snapshot_id,nasdaq100_snapshot_id)
+                            SELECT '2026-01-31','2026-01-31T21:00Z','preserved-legacy-job',
+                                a.universe_snapshot_id,b.universe_snapshot_id
+                            FROM reference.universe_snapshots a JOIN reference.universes ua USING(universe_id),
+                                 reference.universe_snapshots b JOIN reference.universes ub USING(universe_id)
+                            WHERE ua.code='SP500' AND ub.code='NASDAQ100'
+                            """);
+                }
+                case "identity", "portfolio" -> {
+                    statement.execute("CREATE TABLE " + obstruction + ".keep_me(id integer)");
+                    statement.execute("INSERT INTO " + obstruction + ".keep_me VALUES(1)");
+                }
+                case "dependent_view" -> statement.execute(
+                        "CREATE VIEW public.keep_ticks AS SELECT * FROM public.tick_data");
+                default -> throw new IllegalArgumentException(obstruction);
+            }
+        }
+        assertThatThrownBy(() -> flyway(database, null).migrate())
+                .isInstanceOf(org.flywaydb.core.api.FlywayException.class);
+        try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
+            assertThat(queryInt(connection, "SELECT count(*) FROM pg_namespace WHERE nspname IN ('identity','portfolio')"))
+                    .isEqualTo(2);
+            assertThat(queryInt(connection, "SELECT count(*) FROM public.tick_data"))
+                    .isEqualTo(obstruction.equals("tick_data") ? 1 : 0);
+            assertThat(queryInt(connection, "SELECT count(*) FROM operations.month_end_score_jobs"))
+                    .isEqualTo(obstruction.equals("month_end_score_jobs") ? 1 : 0);
+            assertThat(queryInt(connection, "SELECT count(*) FROM operations.flyway_schema_history WHERE version='019'"))
+                    .isZero();
+            assertThat(queryInt(connection, """
+                    SELECT count(*) FROM timescaledb_information.hypertables
+                    WHERE hypertable_schema='public' AND hypertable_name='tick_data'
+                    """)).isEqualTo(1);
+            if (obstruction.equals("identity") || obstruction.equals("portfolio")) {
+                assertThat(queryInt(connection, "SELECT count(*) FROM " + obstruction + ".keep_me"))
+                        .isEqualTo(1);
+            }
+            if (obstruction.equals("dependent_view")) {
+                assertThat(queryInt(connection, "SELECT count(*) FROM public.keep_ticks")).isZero();
+            }
+        }
+    }
+
+    private void assertCleanupObjectsAbsent(java.sql.Connection connection) throws SQLException {
+        assertThat(queryInt(connection, "SELECT count(*) FROM pg_namespace WHERE nspname IN ('identity','portfolio')"))
+                .isZero();
+        assertThat(queryInt(connection, """
+                SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                WHERE (n.nspname='public' AND c.relname='tick_data')
+                   OR (n.nspname='operations' AND c.relname='month_end_score_jobs')
+                """)).isZero();
     }
 
     @Test

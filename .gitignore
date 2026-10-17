@@ -1,26 +1,3 @@
-# Design Documents
-Plan Design/Implementation_plan.md
-Plan Design/STATUS.md
-Plan Design/SKILLS.md
-Plan Design/Stock_Scoring_Redesign_Plan.md
-Plan Design/LOCAL_RUN_CHECKLIST.md
-
-#Documentation
-Documentation/GATEWAY-SERVICE.md
-Documentation/AUTH-SERVICE.md
-Documentation/MARKET-DATA-PRODUCER.md
-Documentation/PORTFOLIO-SERVICE.md
-Documentation/SCORING-SERVICE.md
-Documentation/SCREENER-SERVICE.md
-Documentation/RESEARCH-ENGINE.md
-Documentation/MODEL.md
-Documentation/SCORING-INPUTS.md
-Documentation/INGESTION-STATE.md
-Documentation/FUNDAMENTALS.md
-Documentation/DAILY-PRICES.md
-Documentation/SCORING-RUNS.md
-
-
 # Infrastructure & Secrets
 .env
 infrastructure/.env

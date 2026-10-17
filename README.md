@@ -1,1 +1,0 @@
-# Quantitative-stock-analysis-platform

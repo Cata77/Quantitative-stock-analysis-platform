@@ -43,8 +43,48 @@ class DatabaseRoleIntegrationTest {
         }
         var flyway=Flyway.configure().dataSource(url,"quant_migrator","isolated-test-migration-password")
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(22);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(23);
         assertThat(flyway.migrate().migrationsExecuted).isZero();
+    }
+    @Test void administratorOwnedRepeatablesCanBeRepairedForRestrictedMigrations() throws Exception {
+        try(var c=connection();var statement=c.createStatement()) {
+            statement.execute("CREATE DATABASE repeatable_ownership_upgrade");
+        }
+        String url=DB.getJdbcUrl().replace("/"+DB.getDatabaseName(),"/repeatable_ownership_upgrade");
+        try(var c=DriverManager.getConnection(url,DB.getUsername(),DB.getPassword());var statement=c.createStatement()) {
+            statement.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE");
+        }
+        Flyway.configure().dataSource(url,DB.getUsername(),DB.getPassword())
+            .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load().migrate();
+        String grants=java.nio.file.Files.readString(java.nio.file.Path.of("src/main/resources/db/migration/R__security_grants.sql"));
+        String repair=java.nio.file.Files.readString(java.nio.file.Path.of("../infrastructure/repair-migration-ownership.sql"));
+        try(var c=DriverManager.getConnection(url,DB.getUsername(),DB.getPassword());var statement=c.createStatement()) {
+            statement.execute("SET ROLE quant_migrator");
+            assertThatThrownBy(()->statement.execute(grants)).isInstanceOf(SQLException.class)
+                .satisfies(e->assertThat(((SQLException)e).getSQLState()).isEqualTo("42501"));
+            statement.execute("RESET ROLE");
+            statement.execute(repair);
+            statement.execute(repair); // Safe to repeat after an uncertain operator outcome.
+            try(var rows=statement.executeQuery("""
+                SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                WHERE c.relkind='v' AND n.nspname IN ('market_data','fundamentals')
+                  AND c.relowner='quant_migrator'::regrole
+                """)) { rows.next();assertThat(rows.getInt(1)).isEqualTo(4); }
+            try(var rows=statement.executeQuery("""
+                SELECT count(*) FROM pg_proc p WHERE p.proowner='quant_migrator'::regrole
+                  AND p.oid IN ('market_data.daily_bars_as_of(uuid,text,date,timestamptz)'::regprocedure,
+                    'fundamentals.facts_as_of(uuid,timestamptz,text)'::regprocedure,
+                    'fundamentals.regulatory_facts_as_of(uuid,timestamptz)'::regprocedure,
+                    'operations.reconcile_ingestion_coverage(text)'::regprocedure)
+                """)) { rows.next();assertThat(rows.getInt(1)).isEqualTo(4); }
+            statement.execute("SET ROLE quant_migrator");
+            statement.execute(grants);
+            statement.execute("SELECT operations.reconcile_ingestion_coverage('ownership-repair')");
+        }
+        var restricted=Flyway.configure().dataSource(url,DB.getUsername(),DB.getPassword())
+            .initSql("SET ROLE quant_migrator").defaultSchema("operations").schemas("operations")
+            .locations("classpath:db/migration").load();
+        restricted.validate();assertThat(restricted.migrate().migrationsExecuted).isZero();
     }
     @Test void everyApplicationRoleIsNonAdministrativeAndCannotAssumeTheMigrator() throws Exception {
         for(String role:List.of("quant_auth","quant_portfolio","quant_ingestion","quant_scoring","quant_screener","quant_search","quant_research")) {

@@ -1,12 +1,12 @@
 -- New tables/functions are denied until deliberately added here; no broad future write grants.
-REVOKE ALL ON SCHEMA identity,portfolio,reference,operations,market_data,fundamentals,research FROM PUBLIC;
-REVOKE ALL ON ALL TABLES IN SCHEMA identity,portfolio,reference,operations,market_data,fundamentals,research FROM PUBLIC;
+REVOKE ALL ON SCHEMA reference,operations,market_data,fundamentals,research FROM PUBLIC;
+REVOKE ALL ON ALL TABLES IN SCHEMA reference,operations,market_data,fundamentals,research FROM PUBLIC;
 REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA reference,operations,market_data,fundamentals,research FROM PUBLIC;
-REVOKE ALL ON public.users,public.portfolios,public.tick_data,public.market_bars,public.fundamental_snapshots,public.factor_scores FROM PUBLIC;
+REVOKE ALL ON public.users,public.portfolios,public.market_bars,public.fundamental_snapshots,public.factor_scores FROM PUBLIC;
 GRANT USAGE ON SCHEMA public TO quant_auth,quant_portfolio,quant_scoring,quant_research;
 GRANT SELECT,INSERT,UPDATE ON public.users TO quant_auth;
 GRANT SELECT,INSERT,UPDATE,DELETE ON public.portfolios TO quant_portfolio;
-GRANT SELECT,INSERT,UPDATE ON public.tick_data,public.market_bars,public.fundamental_snapshots,public.factor_scores TO quant_scoring;
+GRANT SELECT,INSERT,UPDATE ON public.market_bars,public.fundamental_snapshots,public.factor_scores TO quant_scoring;
 GRANT SELECT ON public.market_bars,public.fundamental_snapshots,public.factor_scores TO quant_research;
 GRANT USAGE ON SCHEMA reference,operations,market_data,fundamentals,research TO quant_ingestion,quant_scoring;
 GRANT USAGE ON SCHEMA reference,research,operations TO quant_screener,quant_search;

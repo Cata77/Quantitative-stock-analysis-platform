@@ -19,7 +19,7 @@ class BackupRestoreIntegrationTest {
         var flyway=Flyway.configure().dataSource(DB.getJdbcUrl(),DB.getUsername(),DB.getPassword()).defaultSchema("operations").schemas("operations").load();
         flyway.migrate();
         try(var c=DriverManager.getConnection(DB.getJdbcUrl(),DB.getUsername(),DB.getPassword());var s=c.createStatement()) {
-            s.execute("INSERT INTO public.tick_data(time,symbol,bid,ask) VALUES('2026-01-02T15:00Z','RESTORE',100,101)");
+            s.execute("INSERT INTO public.market_bars(time,symbol,provider,open_price,high_price,low_price,close_price,volume,trade_count) VALUES('2026-01-02T15:00Z','RESTORE','fixture',100,101,99,100,10,1)");
             s.execute("INSERT INTO reference.issuers(legal_name) VALUES('Restore lineage fixture')");
         }
         for(String script:new String[]{"backup.sh","restore.sh","provision-role.sql"})
@@ -38,9 +38,9 @@ class BackupRestoreIntegrationTest {
         var restored=Flyway.configure().dataSource(url,DB.getUsername(),DB.getPassword()).defaultSchema("operations").schemas("operations").load();
         restored.validate();assertThat(restored.migrate().migrationsExecuted).isZero();
         try(var c=DriverManager.getConnection(url,DB.getUsername(),DB.getPassword());var s=c.createStatement()) {
-            try(var rows=s.executeQuery("SELECT count(*) FROM public.tick_data WHERE symbol='RESTORE'")) { rows.next();assertThat(rows.getInt(1)).isEqualTo(1); }
+            try(var rows=s.executeQuery("SELECT count(*) FROM public.market_bars WHERE symbol='RESTORE'")) { rows.next();assertThat(rows.getInt(1)).isEqualTo(1); }
             try(var rows=s.executeQuery("SELECT count(*) FROM reference.issuers WHERE legal_name='Restore lineage fixture'")) { rows.next();assertThat(rows.getInt(1)).isEqualTo(1); }
-            try(var rows=s.executeQuery("SELECT count(*) FROM timescaledb_information.hypertables")) { rows.next();assertThat(rows.getInt(1)).isEqualTo(5); }
+            try(var rows=s.executeQuery("SELECT count(*) FROM timescaledb_information.hypertables")) { rows.next();assertThat(rows.getInt(1)).isEqualTo(4); }
             s.execute("SET ROLE quant_research");
             assertThatThrownBy(()->s.execute("SELECT * FROM public.users")).isInstanceOf(SQLException.class);
             s.execute("SELECT * FROM research.model_versions");
