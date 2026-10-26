@@ -20,6 +20,13 @@ instruments AS MATERIALIZED (
     FROM members m JOIN reference.instruments i USING(instrument_id)
 ),
 issuers AS MATERIALIZED (SELECT DISTINCT issuer_id FROM instruments),
+reviews_ranked AS MATERIALIZED (
+    SELECT r.*,row_number() OVER (PARTITION BY r.kind,r.instrument_id,r.fact_id,r.issue_id
+        ORDER BY r.recorded_at DESC,r.review_id DESC) review_rank
+    FROM operations.input_reviews r JOIN members USING(instrument_id) CROSS JOIN p
+    WHERE r.recorded_at<=p.knowledge_cutoff
+),
+reviews AS MATERIALIZED (SELECT * FROM reviews_ranked WHERE review_rank=1 AND decision='ACCEPT'),
 sessions AS MATERIALIZED (
     SELECT s.session_date, row_number() OVER (ORDER BY s.session_date DESC) n
     FROM reference.trading_sessions s CROSS JOIN p
@@ -111,7 +118,7 @@ filing_versions AS MATERIALIZED (
 ),
 fact_revisions AS (
     SELECT f.*, l.filed_date, l.accepted_at, l.parser_version, l.accession, d.unit canonical_unit,
-        dense_rank() OVER (PARTITION BY f.issuer_id,f.metric_code,f.period_start,f.period_end
+        dense_rank() OVER (PARTITION BY f.issuer_id,f.metric_code,f.period_start,f.period_end,f.unit
             ORDER BY l.accepted_at DESC,f.available_at DESC) revision_rank
     FROM fundamentals.fundamental_facts f JOIN filing_versions l USING(filing_id)
     JOIN fundamentals.metric_definitions d USING(metric_code) CROSS JOIN p
@@ -120,7 +127,7 @@ fact_revisions AS (
 ),
 preferred_facts AS (
     SELECT *, min(priority) OVER (PARTITION BY issuer_id,metric_code,period_start,period_end) best
-    FROM fact_revisions WHERE revision_rank=1
+    FROM fact_revisions WHERE revision_rank=1 AND unit=canonical_unit
 ),
 fact_groups AS (
     SELECT f.*,
@@ -135,6 +142,22 @@ facts AS MATERIALIZED (
     FROM fact_groups WHERE minimum_value=maximum_value AND all_valid
     ORDER BY issuer_id,metric_code,period_start,period_end,fact_id
 ),
+reviewed_equity AS (
+    SELECT DISTINCT ON (f.issuer_id,f.period_end) f.issuer_id,f.fact_id,f.filing_id,'COMMON_EQUITY'::varchar metric_code,
+        f.period_start,f.period_end,f.numeric_value,f.canonical_unit,
+        greatest(f.available_at,r.recorded_at) available_at,greatest(f.observed_at,r.recorded_at) observed_at,f.filed_date,
+        f.source_artifact_id,f.mapping_version,('review-common-equity-v1:'||r.review_id)::varchar parser_version
+    FROM facts f JOIN reviews r ON r.fact_id=f.fact_id AND r.kind='COMMON_EQUITY'
+    WHERE f.metric_code='STOCKHOLDERS_EQUITY'
+        AND NOT EXISTS (SELECT 1 FROM fact_revisions d WHERE d.issuer_id=f.issuer_id
+            AND d.metric_code='COMMON_EQUITY' AND d.period_end=f.period_end AND d.period_start IS NULL)
+    ORDER BY f.issuer_id,f.period_end,r.recorded_at DESC,r.review_id
+),
+input_facts AS (
+    SELECT issuer_id,fact_id,filing_id,metric_code,period_start,period_end,numeric_value,canonical_unit,
+        available_at,observed_at,filed_date,source_artifact_id,mapping_version,parser_version FROM facts
+    UNION ALL SELECT * FROM reviewed_equity
+),
 fact_bundles AS (
     SELECT issuer_id,
         array_agg(DISTINCT metric_code) FILTER (WHERE filed_date>=p.score_date-180) recent_metrics,
@@ -143,16 +166,21 @@ fact_bundles AS (
         'value',numeric_value,'unit',canonical_unit,'availableAt',available_at,'observedAt',observed_at,'filedDate',filed_date,
         'sourceArtifactId',source_artifact_id,'mappingVersion',mapping_version,'parserVersion',parser_version)
         ORDER BY metric_code,period_end DESC,period_start) facts
-    FROM facts CROSS JOIN p GROUP BY issuer_id
+    FROM input_facts CROSS JOIN p GROUP BY issuer_id
 ),
 filing_recency AS (
     SELECT issuer_id,bool_or(filed_date>=p.score_date-180) recent
     FROM filing_versions CROSS JOIN p WHERE vintage=1 GROUP BY issuer_id
 ),
+share_links AS (
+    SELECT instrument_id,fact_id,available_at FROM fundamentals.instrument_share_facts
+    UNION
+    SELECT instrument_id,fact_id,recorded_at FROM reviews WHERE kind='SHARE_CLASS'
+),
 shares_ranked AS (
     SELECT s.instrument_id,f.fact_id,f.numeric_value,f.period_end,f.available_at,
         row_number() OVER (PARTITION BY s.instrument_id ORDER BY f.period_end DESC,f.available_at DESC,f.fact_id) r
-    FROM fundamentals.instrument_share_facts s JOIN facts f USING(fact_id) CROSS JOIN p
+    FROM share_links s JOIN facts f USING(fact_id) CROSS JOIN p
     WHERE f.metric_code='SHARES_OUTSTANDING' AND s.available_at<=p.knowledge_cutoff
 ),
 bars_ranked AS MATERIALIZED (
@@ -196,6 +224,9 @@ quality AS (
     CROSS JOIN p
     WHERE q.severity='BLOCKING' AND q.detected_at<=p.knowledge_cutoff
       AND (q.resolved_at IS NULL OR q.resolved_at>p.knowledge_cutoff)
+      AND NOT EXISTS (SELECT 1 FROM reviews r WHERE r.kind='QUALITY_ISSUE'
+          AND r.issue_id=q.data_quality_issue_id AND r.instrument_id=i.instrument_id
+          AND r.evidence->>'issueEvidence'=q.evidence::text)
       AND (q.instrument_id IS NOT NULL OR q.dataset_id IN (p.raw_dataset,p.adjusted_dataset))
     GROUP BY i.instrument_id
 ),
@@ -218,7 +249,9 @@ rows AS (
                 (CASE WHEN NOT i.primary_class OR i.primary_conflict OR i.primary_ambiguous THEN 'NON_PRIMARY_SHARE_CLASS' END,NULL),
                 (CASE WHEN s.symbol IS NULL THEN 'MISSING_EFFECTIVE_SYMBOL' END,NULL),
                 (CASE WHEN c.mapped_sector IS NULL THEN 'MISSING_SECTOR' END,NULL),
-                (CASE WHEN pr.profile IS DISTINCT FROM 'GENERAL' OR pr.status IS DISTINCT FROM 'FACTS_AVAILABLE'
+                (CASE WHEN pr.profile IS DISTINCT FROM 'GENERAL' OR
+                    (pr.status IS DISTINCT FROM 'FACTS_AVAILABLE' AND NOT
+                        (pr.reason='NO_MAPPED_FACTS' AND coalesce('TOTAL_ASSETS'=ANY(f.recent_metrics),false)))
                     THEN 'MODEL_NOT_SUPPORTED' END,pr.reason),
                 (CASE WHEN v.raw_close IS NULL OR v.adjusted_close IS NULL THEN 'MISSING_SCORE_DATE_PRICE' END,NULL),
                 (CASE WHEN v.adjusted_close<5 THEN 'PRICE_BELOW_MINIMUM' END,NULL),

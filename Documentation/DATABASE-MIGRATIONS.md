@@ -10,8 +10,8 @@ Procesul central Flyway deține schema comună a aplicației. Aplică migrările
 3. Aplică versiunile SQL noi și migrările repetabile modificate.
 4. Se oprește cu succes; serviciile dependente pot porni.
 
-Schema sursă ajunge la **V019**, care elimină obiectele nefolosite după introducerea
-modelului 1.2.0 în V018. Migrarea centrală folosește rolul `quant_migrator`;
+Schema sursă ajunge la **V020**, care introduce revizuiri imuabile ale inputurilor
+pentru [P2](P2-DATA-PREPARATION.md). Migrarea centrală folosește rolul `quant_migrator`;
 serviciile obișnuite au permisiuni limitate pe domeniul lor.
 Tabelele sunt rezumate în [Application.md](Application.md).
 
@@ -36,8 +36,9 @@ Schema și funcțiile sunt în [db/migration](../database-migrations/src/main/re
 Dacă view-urile/funcțiile repetabile dintr-o instalare veche au rămas deținute de
 administrator, acesta aplică o singură dată
 [repair-migration-ownership.sql](../infrastructure/repair-migration-ownership.sql).
-Scriptul transferă exact cele patru view-uri și patru funcții către `quant_migrator`;
-apoi se reia Flyway cu rolul normal. Istoricul Flyway își păstrează ownerul.
+Scriptul transferă cele patru view-uri și patru funcții, plus tabelul și funcția
+de revizuire V020 dacă există, către `quant_migrator`; apoi se reia Flyway cu
+rolul normal. Istoricul Flyway își păstrează ownerul.
 
 ## Backup și restaurare
 

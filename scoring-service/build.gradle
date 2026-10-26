@@ -34,3 +34,10 @@ dependencies {
 }
 
 sourceSets.test.resources.srcDir project(':database-migrations').file('src/main/resources')
+
+// The retained full-universe canonical capture is much larger than the synthetic fixtures.
+tasks.named('test') {
+    if (System.getenv('P2_COMPARISON_DIR')) {
+        maxHeapSize = '2g'
+    }
+}

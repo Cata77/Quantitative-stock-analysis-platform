@@ -1,0 +1,135 @@
+{
+  "as_of": "2026-09-30T20:00:00Z",
+  "description": "Synthetic research contract fixture. Each profile has 10 identical independent issuers; all factor dispersions are zero, composites are zero, average percentile is 50.",
+  "common": {
+    "RAW_CLOSE": 100,
+    "ADJUSTED_CLOSE": 100,
+    "MEDIAN_DOLLAR_VOLUME": 10000000,
+    "MOMENTUM_RECENT": 110,
+    "MOMENTUM_OLD": 100,
+    "SHARES_OUTSTANDING": 100,
+    "TOTAL_ASSETS": 20000,
+    "TOTAL_ASSETS_PRIOR": 18000,
+    "COMMON_EQUITY": 10000,
+    "COMMON_EQUITY_PRIOR": 9000,
+    "DEBT_CURRENT": 1000,
+    "DEBT_CURRENT_PRIOR": 900,
+    "DEBT_NONCURRENT": 2000,
+    "DEBT_NONCURRENT_PRIOR": 1800,
+    "PREFERRED_EQUITY": 0,
+    "PREFERRED_EQUITY_PRIOR": 0,
+    "MINORITY_INTEREST": 0,
+    "MINORITY_INTEREST_PRIOR": 0,
+    "CASH": 500,
+    "CASH_PRIOR": 450,
+    "PRETAX_INCOME_TTM": 800,
+    "INTEREST_EXPENSE_TTM": 200,
+    "NET_INCOME_TTM": 600,
+    "NET_INCOME_COMMON_TTM": 600,
+    "REVENUE_TTM": 5000,
+    "COST_OF_REVENUE_TTM": 2000,
+    "OPERATING_CASH_FLOW_TTM": 1000,
+    "CAPEX_TTM": 300,
+    "GOODWILL": 500,
+    "INTANGIBLES": 500,
+    "GOODWILL_PRIOR": 400,
+    "INTANGIBLES_PRIOR": 400,
+    "COMMON_DIVIDENDS_TTM": 200,
+    "COMMON_REPURCHASES_TTM": 100,
+    "STOCK_ISSUANCE_TTM": 50
+  },
+  "profiles": {
+    "GENERAL": {},
+    "BANK": {
+      "CET1_CAPITAL": 1200,
+      "RISK_WEIGHTED_ASSETS": 10000,
+      "NONACCRUAL_LOANS": 100,
+      "PAST_DUE_90_LOANS": 50,
+      "GROSS_LOANS": 5000,
+      "CET1_REQUIREMENT_BASE": 0.045,
+      "CET1_REQUIREMENT_BUFFER": 0.025
+    },
+    "PC_INSURER": {
+      "OPERATING_INCOME_COMMON_TTM": 700,
+      "OPERATING_INCOME_TTM": 750,
+      "LOSSES_LAE_TTM": 500,
+      "UNDERWRITING_EXPENSE_TTM": 300,
+      "NET_PREMIUMS_TTM": 1000,
+      "TOTAL_ADJUSTED_CAPITAL": 400,
+      "AUTHORIZED_CONTROL_LEVEL_RBC": 100
+    },
+    "LIFE_INSURER": {
+      "OPERATING_INCOME_COMMON_TTM": 700,
+      "OPERATING_INCOME_TTM": 750,
+      "TOTAL_ADJUSTED_CAPITAL": 400,
+      "AUTHORIZED_CONTROL_LEVEL_RBC": 100
+    },
+    "EQUITY_REIT": {
+      "REAL_ESTATE_DA_TTM": 300,
+      "REAL_ESTATE_GAINS_TTM": 100,
+      "REAL_ESTATE_LOSSES_TTM": 20,
+      "REAL_ESTATE_IMPAIRMENTS_TTM": 30,
+      "FFO_JV_NCI_TTM": 50,
+      "MAINTENANCE_CAPEX_TTM": 100,
+      "TENANT_IMPROVEMENTS_TTM": 50,
+      "LEASING_COMMISSIONS_TTM": 30,
+      "NONCASH_RENT_TTM": 20,
+      "DA_TTM": 350,
+      "TAX_EXPENSE_TTM": 100,
+      "PROPERTY_GAINS_TTM": 100,
+      "PROPERTY_LOSSES_TTM": 20,
+      "EBITDARE_AFFILIATES_TTM": 50,
+      "CASH_INTEREST_TTM": 200,
+      "SAME_STORE_NOI_TTM": 1100,
+      "SAME_STORE_NOI_PRIOR_TTM": 1000,
+      "DIVIDENDS_DECLARED_TTM": 500,
+      "DIVIDENDS_DECLARED_PRIOR_TTM": 450,
+      "AFFO_PRIOR_TTM": 650,
+      "OCCUPIED_AREA": 90,
+      "AVAILABLE_AREA": 100
+    }
+  },
+  "expected_derived": {
+    "GENERAL": {
+      "market_cap": 10000,
+      "ev": 12500,
+      "ebit": 1000,
+      "fcf": 700,
+      "gross_profit": 3000,
+      "avg_assets": 19000,
+      "avg_invested": 11875,
+      "normalized_tax_rate": 0.21,
+      "nopat": 790
+    },
+    "BANK": {
+      "tce": 9000,
+      "avg_tce": 8600,
+      "roa": 0.031578947368421054,
+      "cet1": 0.12,
+      "cet1_requirement": 0.07,
+      "cet1_surplus": 0.05,
+      "credit_quality": -0.03
+    },
+    "PC_INSURER": {
+      "combined_ratio": 0.8,
+      "underwriting_margin": 0.2,
+      "operating_roe": 0.08139534883720931,
+      "rbc": 4,
+      "earnings_stability": 0
+    },
+    "LIFE_INSURER": {
+      "operating_roa": 0.039473684210526314,
+      "rbc": 4,
+      "earnings_stability": 0
+    },
+    "EQUITY_REIT": {
+      "ffo": 900,
+      "affo": 700,
+      "ebitdare": 1250,
+      "interest_coverage": 6.25,
+      "leverage": 2,
+      "noi_growth": 0.1,
+      "occupancy": 0.9
+    }
+  }
+}

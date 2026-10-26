@@ -98,13 +98,20 @@ def ttm(facts: list[dict], metric: str, end: str) -> dict | None:
 
 
 def from_cross_section(
-    section: dict, *, jurisdictions: dict[str, str] | None = None
+    section: dict,
+    *,
+    jurisdictions: dict[str, str] | None = None,
+    preprocessing_version: str = "profiles-v1",
 ) -> tuple[str, list[dict]]:
     """Consume the immutable Phase 6 CrossSection JSON contract.
 
     The SQL already ranks source revisions before this boundary. No profile unsupported
     by that query is enabled here. Jurisdiction must be supplied explicitly by issuer ID.
     """
+    from .preparation import CURRENT_VERSION, enrich
+
+    if preprocessing_version not in ("profiles-v1", CURRENT_VERSION):
+        raise ValueError("Unknown preprocessing version")
     request = section["request"]
     cutoff = timestamp(request["knowledgeCutoff"])
     market = timestamp(request["marketCutoff"])
@@ -227,4 +234,7 @@ def from_cross_section(
                 ],
             }
         )
+    if preprocessing_version == CURRENT_VERSION:
+        for row, item in zip(rows, section["inputs"], strict=True):
+            enrich(row, item, request["knowledgeCutoff"])
     return request["knowledgeCutoff"], rows

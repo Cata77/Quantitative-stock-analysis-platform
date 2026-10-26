@@ -9,6 +9,7 @@ import java.util.*;
 
 /** Canonical Phase 6 adapter; never enables an unsupported supplemental profile. */
 public final class CanonicalModelInputs {
+    public static final String CURRENT_VERSION="canonical-preparation-v3";
     static final Set<String> ADDITIVE=new TreeSet<>(Set.of("REVENUE","NET_INCOME","NET_INCOME_COMMON","OPERATING_INCOME","PRETAX_INCOME","INTEREST_EXPENSE","TAX_EXPENSE","GROSS_PROFIT","COST_OF_REVENUE","OPERATING_CASH_FLOW","CAPEX","COMMON_DIVIDENDS","COMMON_REPURCHASES","STOCK_ISSUANCE"));
     static final Set<String> BALANCES=new TreeSet<>(Set.of("TOTAL_ASSETS","COMMON_EQUITY","CASH","DEBT_CURRENT","DEBT_NONCURRENT","PREFERRED_EQUITY","MINORITY_INTEREST","GOODWILL","INTANGIBLES"));
     private CanonicalModelInputs(){}
@@ -48,6 +49,18 @@ public final class CanonicalModelInputs {
     }
     public static Map<String,Object> prepare(CrossSection section,Map<String,String> jurisdictions){
         return prepare(CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(section)),jurisdictions);
+    }
+    public static Map<String,Object> prepare(CrossSection section,Map<String,String> jurisdictions,String version){
+        return prepare(CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(section)),jurisdictions,version);
+    }
+    public static Map<String,Object> prepare(Map<String,Object> section,Map<String,String> jurisdictions,String version){
+        var prepared=prepare(section,jurisdictions);
+        if("profiles-v1".equals(version))return prepared;
+        if(!CURRENT_VERSION.equals(version))throw new IllegalArgumentException("Unknown preprocessing version");
+        var inputs=list(section.get("inputs"));var rows=list(prepared.get("rows"));
+        for(int i=0;i<rows.size();i++)PreparationV3.enrich(map(rows.get(i)),map(inputs.get(i)),str(prepared.get("as_of")));
+        prepared.put("preprocessing_version",version);
+        return prepared;
     }
     public static Map<String,Object> prepare(Map<String,Object> section,Map<String,String> jurisdictions){
         var request=map(section.get("request"));var cutoff=time(request.get("knowledgeCutoff"));var scoreDate=date(request.get("scoreDate"));

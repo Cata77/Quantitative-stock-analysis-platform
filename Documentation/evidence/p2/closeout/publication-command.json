@@ -1,0 +1,15 @@
+{
+  "cutoff": "2026-10-24T23:59:59Z",
+  "jar_sha256": "366afbb20f2578452a5672792dfa316c8757e2ea2d0e54861ad5d03636a1acbf",
+  "command": [
+    "C:\\Java\\Proiecte personale\\Quantitative pltform\\scoring-service\\build\\libs\\scoring-service-0.0.1-SNAPSHOT.jar",
+    "--scoring.command.operation=current-score-and-exit",
+    "--scoring.command.score-date=2026-10-23",
+    "--scoring.command.knowledge-cutoff=2026-10-24T23:59:59Z",
+    "--scoring.month-end-enabled=false",
+    "--spring.datasource.hikari.connection-init-sql=SET max_parallel_workers_per_gather=0"
+  ],
+  "started_at": "2026-10-25T16:31:45.560822+00:00",
+  "exit_code": 0,
+  "finished_at": "2026-10-25T16:32:56.490472+00:00"
+}

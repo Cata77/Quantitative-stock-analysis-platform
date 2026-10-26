@@ -1,0 +1,14 @@
+[
+  {
+    "symbol": "FISV",
+    "reviewId": "795ecdd1-ce38-569d-a1c1-5371d1e7d691",
+    "recordedAt": "2026-10-24T10:06:39.932779+00:00",
+    "idempotent": true
+  },
+  {
+    "symbol": "MRSH",
+    "reviewId": "b3bf089d-dd7a-58bd-a1e5-ebed1cda6fa7",
+    "recordedAt": "2026-10-24T10:06:40.278163+00:00",
+    "idempotent": true
+  }
+]

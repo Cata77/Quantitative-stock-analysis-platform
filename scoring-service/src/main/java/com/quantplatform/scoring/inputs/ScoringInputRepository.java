@@ -14,11 +14,21 @@ import org.springframework.stereotype.Repository;
 public class ScoringInputRepository {
     private final JdbcClient jdbc;
     private final String sql;
+    @org.springframework.beans.factory.annotation.Autowired
     public ScoringInputRepository(DataSource source) {
+        this(source, "canonical-preparation-v3");
+    }
+    /** Explicit legacy policy supports audits; new publications use the current policy. */
+    public ScoringInputRepository(DataSource source, String preprocessingVersion) {
         var template=new org.springframework.jdbc.core.JdbcTemplate(source);
         template.setQueryTimeout(60);
         jdbc=JdbcClient.create(template);
-        try { sql=new ClassPathResource("sql/scoring-inputs.sql").getContentAsString(StandardCharsets.UTF_8); }
+        String resource=switch(preprocessingVersion) {
+            case "profiles-v1" -> "sql/scoring-inputs-profiles-v1.sql";
+            case "canonical-preparation-v3" -> "sql/scoring-inputs.sql";
+            default -> throw new IllegalArgumentException("Unknown preprocessing version");
+        };
+        try { sql=new ClassPathResource(resource).getContentAsString(StandardCharsets.UTF_8); }
         catch(IOException failure) { throw new IllegalStateException("Missing scoring input query",failure); }
     }
     public CrossSection load(ScoringInputRequest request) {

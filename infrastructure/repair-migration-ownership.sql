@@ -16,4 +16,16 @@ ALTER FUNCTION fundamentals.facts_as_of(UUID,TIMESTAMPTZ,TEXT) OWNER TO quant_mi
 ALTER FUNCTION fundamentals.regulatory_facts_as_of(UUID,TIMESTAMPTZ) OWNER TO quant_migrator;
 ALTER FUNCTION operations.reconcile_ingestion_coverage(TEXT) OWNER TO quant_migrator;
 
+-- V020 may also have been applied by the administrator. Keep this repair
+-- compatible with older installations that do not yet have audited reviews.
+DO $$
+BEGIN
+    IF to_regclass('operations.input_reviews') IS NOT NULL THEN
+        ALTER TABLE operations.input_reviews OWNER TO quant_migrator;
+    END IF;
+    IF to_regprocedure('operations.validate_input_review()') IS NOT NULL THEN
+        ALTER FUNCTION operations.validate_input_review() OWNER TO quant_migrator;
+    END IF;
+END $$;
+
 COMMIT;

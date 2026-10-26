@@ -1,0 +1,46 @@
+{
+  "reviewId": "2c5dc5d9-a583-577d-9b24-d8382f957eac",
+  "kind": "COMMON_EQUITY",
+  "instrumentId": "85ca0ea2-4a0a-422a-8475-3c1eca7d2ace",
+  "factId": "fdd8827c-ecf1-4c8f-8c1c-3791fc93ae4a",
+  "issueId": null,
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-source-review-20261023",
+  "evidence": {
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm",
+    "sourceSha256": "799aa781b4758a40c9d3ed2abd591cb2d11becdc53e94f1ca421c7120f1f7979",
+    "sourceRetrievedAt": "2026-10-23T11:47:54.867627+00:00",
+    "scope": "TOTAL_EQUITY_IS_COMMON_ONLY",
+    "periodEnd": "2025-06-28",
+    "unit": "USD",
+    "accession": "0000320193-26-000020",
+    "rationale": "Reviewed complete Apple Q3 2026 filing, balance sheet and shareholder equity statement (pages 3-4). Common stock/APIC, retained earnings and OCI reconcile exactly to total equity for this period; no preferred or minority zero is inferred.",
+    "reconciliation": [
+      {
+        "inlineFactId": "f-251",
+        "contextRef": "c-35",
+        "member": "us-gaap:CommonStockIncludingAdditionalPaidInCapitalMember",
+        "valueUSD": 89806000000
+      },
+      {
+        "inlineFactId": "f-275",
+        "contextRef": "c-45",
+        "member": "us-gaap:RetainedEarningsMember",
+        "valueUSD": -17607000000
+      },
+      {
+        "inlineFactId": "f-287",
+        "contextRef": "c-55",
+        "member": "us-gaap:AccumulatedOtherComprehensiveIncomeMember",
+        "valueUSD": -6369000000
+      },
+      {
+        "inlineFactId": "f-291",
+        "contextRef": "c-56",
+        "member": null,
+        "valueUSD": 65830000000
+      }
+    ],
+    "derivation": "COMMON_APIC_PLUS_RETAINED_EARNINGS_PLUS_OCI"
+  }
+}

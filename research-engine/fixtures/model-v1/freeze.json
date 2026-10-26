@@ -1,5 +1,6 @@
 {
   "files": {
+    "database-migrations/src/main/resources/db/migration/V020__audited_input_reviews.sql": "8a7b6ca6b81804eda0071aa155e9f56cbffbcd470f3a43d00a92fd72dfec5858",
     "research-engine/fixtures/model-v1/edge-cases.json": "73e8903c2890bb47e87b8f919fd6faacf4ad5d72960e680215690338ab0a48c7",
     "research-engine/fixtures/model-v1/expected.json": "85193ab6f18fe1a85ba30c0ff8de82f1f34ec889ba8dd5f0ec801cb503123b66",
     "research-engine/fixtures/model-v1/inputs.json": "64a53c4bb007247276bc8515f66c0e4fa31ce97110c1262bafcfadb8514998e4",
@@ -7,23 +8,31 @@
     "research-engine/fixtures/model-v1/varied-expected.json": "3774d9af85ad5e25c7cbd456796c8623975328f6b48af84077dff2bdb853ce0a",
     "research-engine/fixtures/model-v1/varied-prepared.json": "abf7fdd4ca529698735e4d4dda917f945577c4cd0d981103d2d6f296e461e038",
     "research-engine/src/quant_research/model/__init__.py": "4fe769c31ece5ca1e52bc8ff6fd7e5440c2700a9fa1f3d770ed3396c0a656631",
-    "research-engine/src/quant_research/model/cli.py": "b81629baa759ea572228fe8480729ea71d64281d932e30eae581090837b07f6f",
+    "research-engine/src/quant_research/model/cli.py": "f50fd5b8244d0696f5c70936686a38ec46f24f10c847c4d73f76ac0af3fd8fbb",
     "research-engine/src/quant_research/model/engine.py": "5d731b6b4e2cd7ba02dd0e437f7eef828a5409aca14ed668bdac3511b4b82a60",
     "research-engine/src/quant_research/model/freeze.py": "a456678cb56e3acef7a6a7a60712ffc3a57f57db4cb9ae6049f2473e1ae9eedc",
     "research-engine/src/quant_research/model/manifest.json": "b70c96e6535c1458d51127f95e1f64a7940d4e5c3329dceb3b2afeba6131ba1c",
     "research-engine/src/quant_research/model/manifest.py": "78a59672d633a354bdf36b62e4f331b4355503926a0cc96677475c878978d3af",
     "research-engine/src/quant_research/model/manifest.schema.json": "2f9f3cec2e848be8562716c290332de23f7f598f5d2126e0ae0da11e3964875a",
     "research-engine/src/quant_research/model/manifest.sha256": "6a2745d84f017e395abb1c1be65746085c32099c8b24dc95a76ecb4c64d0ecdd",
-    "research-engine/src/quant_research/model/periods.py": "f1e88df5bace1bc2bfcaa009f49cd3a4c9c0db6cb4104e2a036c9237a225cf9f",
+    "research-engine/src/quant_research/model/periods.py": "1e0e76517f7ec2c6fce84e96f22cc2b88fcdee94376680cffd477c1806f05d31",
+    "research-engine/src/quant_research/model/preparation.py": "a347b9fac6a7a21f4d1176a23e8ea3f5b2e082ae4bff2488543bacf1487789b4",
     "research-engine/tests/model_fixtures.py": "8e10f66cee97e9b4eb7dbf491d2e961df7805306be504be7bea6221f0695cd0f",
     "research-engine/tests/test_model.py": "b58eec8b619cee722cdb436482aabf2200e8c521284bd4dfcb491d277fbec2c1",
     "research-engine/tests/test_model_periods.py": "ab3d9a39f7c55441b3cb087617b9a98572e47e4ebb0fd7f4d5493293dcfd6ed9",
+    "research-engine/tests/test_preparation.py": "4acf13df65b332c62f3f018f4c40539e41f7abf28ed40d962eba4d82ce81ae05",
     "scoring-service/src/main/java/com/quantplatform/scoring/calculation/MonthEndScoringCoordinator.java": "b96ad3d9124cced33ad63bcce456b84948561ad85443f4914524e8abe083a78f",
     "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInput.java": "ecadb33a75e8e5e6c75fdc20499407b45933b7d43d7584b1635419d0493575d8",
+    "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInputRepository.java": "ef8b82462cce5477200881a33eda3430ad0973c9c060c5abadc64a437ef5ae6f",
     "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInputRequest.java": "6d6da382c2e6a459d13a4cc4361dd81a80d9ddaa0ee434e50188921b954ce72c",
-    "scoring-service/src/main/java/com/quantplatform/scoring/model/CanonicalModelInputs.java": "e366bd167b8d7020e36af44e54c5df114d53eca31e7c2c8978179e0e3375a089",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/CanonicalModelInputs.java": "7bf57863dff40534da71f3d1e145a60bef7b827f2443593166e0e566a05f10a4",
     "scoring-service/src/main/java/com/quantplatform/scoring/model/FrozenModel.java": "3de7223c423e1aeb1b3e723d17099c038663f86a09f5a88252bea74bcec6a7cf",
-    "scoring-service/src/main/resources/sql/scoring-inputs.sql": "93282cdffe9380febf1eb95649e038fb669f63ee45d584593ec32b64fde663ad"
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/GoldenParity.java": "693c69556f7ce740c6a8f7c736dc67ef16f14233cd6ccedb02fc724f37268efa",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV3.java": "f483215059b7a3af8c2903b1728e70c4f3055bf7bc79c733113a653970826725",
+    "scoring-service/src/main/java/com/quantplatform/scoring/runs/ScoringRunService.java": "bcd9bfa1050e9c392387619c6d177f416aac45bbc66c9604ffc2a75d02d6deaa",
+    "scoring-service/src/main/resources/sql/current-collection-outcomes.sql": "a1d0a0ca771b6828e48ee442aefa6f8bb61952246bb514d5eae4e62ea7481727",
+    "scoring-service/src/main/resources/sql/scoring-inputs-profiles-v1.sql": "93282cdffe9380febf1eb95649e038fb669f63ee45d584593ec32b64fde663ad",
+    "scoring-service/src/main/resources/sql/scoring-inputs.sql": "615d138c7044cdc56948ee91afc3c75040425214be5d554b880e4efd0a201a86"
   },
   "final_historical_test_opened": false,
   "frozen_at": "2026-10-01T13:25:00Z",
@@ -32,11 +41,12 @@
   "manifest_sha256": "b3b36a0a46e97f953652c63a774f34c64b1f4f66076d95e4362f4d4ca0183839",
   "model_version": "1.2.0",
   "source_base_commit": "45e410955b7483d0f05bab1617692f3413630671",
-  "source_commit_note": "Explicit user-authorized current snapshot timing extension. Prior 1.1 files preserved in model-v1.1-archive; formulas unchanged; runtime bytecode certification and live parity required.",
-  "source_tree_sha256": "d78383a498d9b5c9ee6d39b41f1a3162df8a9a7ef4252d70702e63633dcc0283",
+  "source_commit_note": "P2 preparation revision; legacy source files preserved relative to model-v1.2-profiles-v1-archive. Historical test remains closed.",
+  "source_tree_sha256": "68a58f018a31fd83bb070464341ebe2504c1682717c50b0cc46cb5721373f118",
   "implementation_revision": {
-    "date": "2026-10-01",
-    "reason": "Version 1.2.0 current snapshot timing policy; preserve monthly cutoffs and no-lookahead guards",
-    "previous_freeze": "../model-v1.1-archive/freeze.json"
-  }
+    "date": "2026-10-25",
+    "reason": "P2 preparation and versioned current collection outcomes; unchanged 1.2.0 formulas",
+    "previous_freeze": "../model-v1.2-profiles-v1-archive/freeze.json"
+  },
+  "preprocessing_version": "canonical-preparation-v3"
 }

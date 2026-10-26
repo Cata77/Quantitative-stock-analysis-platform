@@ -3,6 +3,10 @@
 Modul Python pentru formule, reproducerea scorurilor Java și diagnosticarea
 modelului. Rulează prin CLI; nu are server HTTP sau container permanent.
 
+`python -m quant_research.universe_export` oferă [lista și exportul P1](UNIVERSE-EXPORT.md)
+prin Gateway: univers complet, CSV, HTML local și verificări de integritate.
+Nu calculează scoruri și nu necesită acces DB.
+
 ## Flow
 
 1. Primește inputuri pregătite sau exportul canonic al inputurilor Scoring.
@@ -14,7 +18,31 @@ modelului. Rulează prin CLI; nu are server HTTP sau container permanent.
 `quant-validation` generează diagnostice istorice din CSV și dovezi de proveniență.
 Comenzile vechi `quant-research` rămân exploratorii și folosesc modelul demonstrativ.
 
+`python -m quant_research.exclusion_audit` generează diagnosticul offline al unei
+publicații arhivate, cu reconciliere, proveniență și suprapunerea excluderilor.
+Comanda și limitele auditului sunt în [diagnosticul P0](P0-EXCLUSION-AUDIT.md).
+
+`quant_research.p0_sources` capturează inventarul SEC numai-citire pentru run;
+`quant_research.p0_report` produce explicațiile complete și experimentele offline
+cu recuperări măsurate. Studiile AAPL/PEP sunt specifice publicației auditate;
+nu sunt reguli noi ale modelului de producție.
+
 ## Model și verificare
+
+Pregătirea P2, utilitarul de revizuire și comparația cu publicația păstrată sunt
+descrise în [P2-DATA-PREPARATION.md](P2-DATA-PREPARATION.md).
+`quant_research.input_review_audit` verifică selecția capitalurilor revizuite
+înainte/după înregistrare, reutilizând SQL-ul Scoring; nu generează scoruri și
+păstrează erorile pentru cutoffuri incompatibile.
+
+`quant_research.publication_audit --run-id <UUID> --output <director-nou>`
+verifică o publicație explicită: hash, reproducerea pregătirii și scorurilor în
+Python, numerele reconciliate, sursele păstrate și cutofful provenienței prețurilor.
+`quant_research.p2_snapshot_comparison --before <arhivă> --after <arhivă> --output <json>`
+descrie toate schimbările dintre două publicații verificate, separat de efectul
+cauzal al pregătirii. `quant_research.p2_period_audit` inventariază construcțiile
+TTM și bilanțurile selectate, cu fapte și perioade. Comenzile complete și dovezile
+sunt în raportul P2; comparațiile între date diferite nu înlocuiesc experimentul controlat.
 
 Candidatul principal are ponderi **50/30/20** pentru Value/Quality/Momentum.
 Candidații de cercetare sunt `primary`, `pure_value`, `value_quality`, `balanced`.

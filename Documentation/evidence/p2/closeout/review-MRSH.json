@@ -1,0 +1,26 @@
+{
+  "reviewId": "b3bf089d-dd7a-58bd-a1e5-ebed1cda6fa7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "9e81a001-0c2b-4f87-b6ea-822874eaa456",
+  "factId": null,
+  "issueId": "d466ad43-f225-4a7b-b729-7143e5ff2951",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-source-review-20261024",
+  "evidence": {
+    "sourceUri": "https://www.marsh.com/en/corp/about/news/marsh-mclennan-to-change-nyse-symbol-to-mrsh.html",
+    "sourceSha256": "8156b04f8f48e900225ea5bcc4e65f949049401add19703e5ddec2d8a4a09fc7",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"291206b12878e003a9d3d68afad192b132a9281c8683c012808033b38e7ba2bc\"}",
+    "providerAction": {
+      "id": "9a57f85c-2359-41c2-8ec8-35634f5b3f1e",
+      "type": "name_changes",
+      "new_cusip": "571748102",
+      "old_cusip": "571748102",
+      "new_symbol": "MRSH",
+      "old_symbol": "MMC",
+      "process_date": "2026-01-14"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "rationale": "Issuer source confirms continuity of the same common stock through the dated ticker change. The retained provider action has an unchanged CUSIP and matches the current issuer CIK and ticker. Accept only this rename issue; do not accept other actions or rewrite historical symbols.",
+    "sourceObservedAt": "2026-10-24T10:02:54.074709+00:00"
+  }
+}

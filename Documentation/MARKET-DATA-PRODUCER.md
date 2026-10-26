@@ -22,6 +22,12 @@ fișier și manifest verificat, dar nu completează toate profilurile financiare
 
 Colectarea este activată prin `MARKET_DATA_ENABLED`; prețurile folosesc
 `ALPACA_API_KEY_ID`, `ALPACA_API_SECRET_KEY` și feedul `sip`.
+`DAILY_PRICE_RAW_ENABLED` și `DAILY_PRICE_ADJUSTED_ENABLED` selectează independent
+seriile brute și ajustate; ambele sunt implicit `true`. Pentru recuperarea numai
+a istoricului Momentum se setează prima la `false`, a doua la `true`.
+Dacă se cere colectarea prețurilor, dezactivarea ambelor este respinsă înainte
+de accesul la DB/furnizor. Pentru a opri colectarea prețurilor se folosesc
+`MARKET_DATA_LATEST_BARS_ENABLED=false` și `MARKET_DATA_BACKFILL_ENABLED=false`.
 SEC folosește `SEC_FUNDAMENTALS_ENABLED` și un `SEC_USER_AGENT` cu identitate/contact real.
 Versiunea `SEC_MAPPING_VERSION` trebuie aliniată cu `SCORING_MODEL_MAPPING_VERSION`;
 publicația locală din octombrie folosește `sec-us-gaap-v2`.
@@ -47,6 +53,12 @@ Importul folosește setările `REFERENCE_DATA_IMPORT_*` din
 Argumentele se dau JAR-ului producerului; `INGESTION_MODE` este alternativa din mediu.
 Consumatorul Scoring trebuie să ruleze pentru finalizarea livrării. Retry-ul reutilizează
 identitatea lucrării; nu se resetează manual starea ca să pară completă.
+
+Epuizarea încercărilor unui element nu abandonează sesiunile încă recuperabile:
+runtime-ul continuă până la terminarea acestora sau până la timeout. La final,
+erorile persistente produc în continuare eșec. `MISSING_SESSION` păstrează
+răspunsurile furnizorului și checkpointul final; nu echivalează cu o eroare HTTP
+sau cu o pagină neterminată și nu dovedește singur cauza economică a absenței.
 
 `GET /internal/ingestion/status` raportează progresul, problemele și ultima sesiune
 acoperită. Cere `operations:read` și se accesează direct pe portul producerului.

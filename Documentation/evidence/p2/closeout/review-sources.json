@@ -1,0 +1,20 @@
+{
+  "fiserv": {
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/798354/000079835426000009/fi-20251231.htm",
+    "sourceSha256": "5e0da3da8a76d705e278cad3dd246b7aaaa183be54c599c67efc4130abe9623a",
+    "observedAt": "2026-10-24T10:02:53.697298+00:00",
+    "bytes": 2704543
+  },
+  "marsh": {
+    "sourceUri": "https://www.marsh.com/en/corp/about/news/marsh-mclennan-to-change-nyse-symbol-to-mrsh.html",
+    "sourceSha256": "8156b04f8f48e900225ea5bcc4e65f949049401add19703e5ddec2d8a4a09fc7",
+    "observedAt": "2026-10-24T10:02:54.074709+00:00",
+    "bytes": 45593
+  },
+  "skydance": {
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2041610/000110465926113913/tm2626659d7_8k.htm",
+    "sourceSha256": "390e51c668e8ead14c20a6435633ebd369cd95aa492295e497a70cab0f9de134",
+    "observedAt": "2026-10-24T10:02:54.307125+00:00",
+    "bytes": 121065
+  }
+}

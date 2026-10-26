@@ -1,0 +1,26 @@
+{
+  "reviewId": "795ecdd1-ce38-569d-a1c1-5371d1e7d691",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "78164122-d6b1-4765-8f11-59e7ec7fb73b",
+  "factId": null,
+  "issueId": "898401c1-ac9d-45eb-a293-c5f76532db05",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-source-review-20261024",
+  "evidence": {
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/798354/000079835426000009/fi-20251231.htm",
+    "sourceSha256": "5e0da3da8a76d705e278cad3dd246b7aaaa183be54c599c67efc4130abe9623a",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"e4fbdb4f5440c283bb6919128366deebdaa371439563537659c0e6c7965f0e8d\"}",
+    "providerAction": {
+      "id": "d97e780d-a698-46f5-8089-8c3fbe83d343",
+      "type": "name_changes",
+      "new_cusip": "337738108",
+      "old_cusip": "337738108",
+      "new_symbol": "FISV",
+      "old_symbol": "FI",
+      "process_date": "2025-11-11"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "rationale": "Issuer source confirms continuity of the same common stock through the dated ticker change. The retained provider action has an unchanged CUSIP and matches the current issuer CIK and ticker. Accept only this rename issue; do not accept other actions or rewrite historical symbols.",
+    "sourceObservedAt": "2026-10-24T10:02:53.697298+00:00"
+  }
+}

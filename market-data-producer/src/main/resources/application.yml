@@ -97,6 +97,7 @@ ingestion:
     page-limit: ${DAILY_PRICE_PAGE_LIMIT:10000}
     request-spacing: ${DAILY_PRICE_REQUEST_SPACING:350ms}
     publication-delay: ${DAILY_PRICE_PUBLICATION_DELAY:16m}
+    raw-enabled: ${DAILY_PRICE_RAW_ENABLED:true}
     adjusted-enabled: ${DAILY_PRICE_ADJUSTED_ENABLED:true}
     corporate-actions-enabled: ${DAILY_PRICE_CORPORATE_ACTIONS_ENABLED:true}
     actions-refresh-days: ${DAILY_PRICE_ACTIONS_REFRESH_DAYS:14}

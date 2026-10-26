@@ -1,0 +1,1545 @@
+{
+  "run_id": "c2cf1551-a8fb-47ff-95eb-c4cb186778c9",
+  "input_sha256": "9922dc9a0ee622343b7d972da9c0e06b78e86825bc60fe4dc28423e9dad36ce2",
+  "source_manifest_sha256": "feed31e4fc2a9accd9e4f7bc82574ec8c36ada494e65a239939f37e430970fd4",
+  "expected": 518,
+  "eligible": 49,
+  "excluded": 469,
+  "source_anchors": 515,
+  "excluded_with_explanations": 469,
+  "missing_input_causes": {
+    "MAPPED_CONCEPT_ABSENT_FROM_SOURCE": 1326,
+    "SOURCE_CONTEXT_NOT_USABLE": 585,
+    "PROFILE_SUPPLEMENT_NOT_IMPLEMENTED": 568,
+    "COMMON_EQUITY_RECONCILIATION_EVIDENCE": 525,
+    "MAPPED_FACTS_OTHER_PERIOD": 467,
+    "UNMAPPED_CONCEPT_SCOPE_REVIEW": 320,
+    "ANNUAL_TAX_HISTORY_OR_ALIGNMENT": 292,
+    "NO_COMPARABLE_BALANCE_PERIOD": 84,
+    "TTM_NO_COMPATIBLE_COMBINATION": 59,
+    "SOURCE_SHARES_UNAVAILABLE": 48,
+    "INSTRUMENT_SHARE_LINK_OR_IDENTITY": 11,
+    "PRICE_HISTORY_GAP": 7,
+    "MIXED_UNIT_PERIOD_REJECTION": 1
+  },
+  "instruments_by_cause": {
+    "MAPPED_CONCEPT_ABSENT_FROM_SOURCE": 397,
+    "COMMON_EQUITY_RECONCILIATION_EVIDENCE": 267,
+    "UNMAPPED_CONCEPT_SCOPE_REVIEW": 250,
+    "SOURCE_CONTEXT_NOT_USABLE": 238,
+    "MAPPED_FACTS_OTHER_PERIOD": 221,
+    "ANNUAL_TAX_HISTORY_OR_ALIGNMENT": 49,
+    "SOURCE_SHARES_UNAVAILABLE": 48,
+    "TTM_NO_COMPATIBLE_COMBINATION": 34,
+    "PROFILE_SUPPLEMENT_NOT_IMPLEMENTED": 27,
+    "NO_COMPARABLE_BALANCE_PERIOD": 12,
+    "INSTRUMENT_SHARE_LINK_OR_IDENTITY": 11,
+    "PRICE_HISTORY_GAP": 7,
+    "MIXED_UNIT_PERIOD_REJECTION": 1
+  },
+  "overlap": {
+    "reasons": [
+      {
+        "reason": "INSUFFICIENT_VALUE_COVERAGE",
+        "instruments": 363,
+        "sole_recorded_blocker": 126
+      },
+      {
+        "reason": "INSUFFICIENT_QUALITY_COVERAGE",
+        "instruments": 200,
+        "sole_recorded_blocker": 14
+      },
+      {
+        "reason": "MODEL_NOT_SUPPORTED",
+        "instruments": 156,
+        "sole_recorded_blocker": 57
+      },
+      {
+        "reason": "CORPORATE_ACTION_REVIEW",
+        "instruments": 69,
+        "sole_recorded_blocker": 6
+      },
+      {
+        "reason": "INVALID_MARKET_CAP",
+        "instruments": 59,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_INSTRUMENT_SHARES",
+        "instruments": 59,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_PROFILE_ANCHOR",
+        "instruments": 27,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_RISK_INPUT",
+        "instruments": 27,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "NON_POSITIVE_EBITDARE",
+        "instruments": 27,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "STALE_SHARES",
+        "instruments": 19,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "INSUFFICIENT_HISTORY",
+        "instruments": 8,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "INSUFFICIENT_PRICE_HISTORY",
+        "instruments": 8,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_MOMENTUM_BOUNDARY",
+        "instruments": 8,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_REQUIRED_METRIC",
+        "instruments": 8,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "STALE",
+        "instruments": 8,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "STALE_OR_MISSING_FILING",
+        "instruments": 7,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "MISSING_SESSION",
+        "instruments": 4,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "NON_PRIMARY_SHARE_CLASS",
+        "instruments": 3,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "INACTIVE_OR_UNSUPPORTED_SECURITY",
+        "instruments": 2,
+        "sole_recorded_blocker": 0
+      },
+      {
+        "reason": "SECURITY_IDENTITY_REVIEW",
+        "instruments": 1,
+        "sole_recorded_blocker": 0
+      }
+    ],
+    "pairs": [
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "instruments": 182
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 72
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 59
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 54
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "instruments": 51
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 45
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 45
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "INSUFFICIENT_QUALITY_COVERAGE"
+        ],
+        "instruments": 31
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MISSING_PROFILE_ANCHOR",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MISSING_PROFILE_ANCHOR",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MISSING_PROFILE_ANCHOR",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MISSING_RISK_INPUT",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MISSING_RISK_INPUT",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "MODEL_NOT_SUPPORTED",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 27
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 26
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 26
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 18
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 18
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 18
+      },
+      {
+        "reasons": [
+          "MODEL_NOT_SUPPORTED",
+          "STALE_SHARES"
+        ],
+        "instruments": 17
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 14
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 14
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "instruments": 14
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "instruments": 10
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_PRICE_HISTORY"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "MISSING_REQUIRED_METRIC",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "MISSING_REQUIRED_METRIC",
+          "STALE"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "MODEL_NOT_SUPPORTED",
+          "STALE"
+        ],
+        "instruments": 8
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_QUALITY_COVERAGE"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "INSUFFICIENT_QUALITY_COVERAGE"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_REQUIRED_METRIC"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "STALE"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MISSING_REQUIRED_METRIC"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "STALE"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MISSING_REQUIRED_METRIC",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "MODEL_NOT_SUPPORTED",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "STALE",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 7
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "INSUFFICIENT_HISTORY"
+        ],
+        "instruments": 6
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "INSUFFICIENT_PRICE_HISTORY"
+        ],
+        "instruments": 6
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_MOMENTUM_BOUNDARY"
+        ],
+        "instruments": 6
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "MISSING_SESSION"
+        ],
+        "instruments": 4
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MISSING_SESSION"
+        ],
+        "instruments": 4
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "NON_PRIMARY_SHARE_CLASS"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "NON_PRIMARY_SHARE_CLASS"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "NON_PRIMARY_SHARE_CLASS"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "STALE_SHARES"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MISSING_SESSION"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MISSING_SESSION"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "MISSING_SESSION"
+        ],
+        "instruments": 3
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_REQUIRED_METRIC"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "STALE"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "NON_PRIMARY_SHARE_CLASS"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "INVALID_MARKET_CAP"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "MISSING_REQUIRED_METRIC"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "STALE"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INACTIVE_OR_UNSUPPORTED_SECURITY",
+          "STALE_OR_MISSING_FILING"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_SESSION"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MISSING_SESSION"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_SESSION"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "CORPORATE_ACTION_REVIEW",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 2
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INVALID_MARKET_CAP",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_INSTRUMENT_SHARES",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "SECURITY_IDENTITY_REVIEW"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_REQUIRED_METRIC",
+          "STALE_SHARES"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "STALE",
+          "STALE_SHARES"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_SESSION",
+          "STALE_SHARES"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_HISTORY",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "INSUFFICIENT_PRICE_HISTORY",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "MISSING_PROFILE_ANCHOR"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "MISSING_RISK_INPUT"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "MODEL_NOT_SUPPORTED"
+        ],
+        "instruments": 1
+      },
+      {
+        "reasons": [
+          "MISSING_MOMENTUM_BOUNDARY",
+          "NON_POSITIVE_EBITDARE"
+        ],
+        "instruments": 1
+      }
+    ],
+    "interpretation": "Sole recorded blocker is not verified recoverability. Repairs require source evidence and full-cohort rescoring including normalization.",
+    "verified_recovered_instruments": null
+  },
+  "scenarios": {
+    "gross_profit": {
+      "scope": "OFFLINE_DIAGNOSTIC_NOT_PUBLISHED",
+      "eligible": 49,
+      "recovered": [],
+      "lost": [],
+      "patched": [
+        "DRI",
+        "GEHC",
+        "LITE",
+        "MTD",
+        "SOLV"
+      ],
+      "remaining_blockers": {
+        "MTD": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SOLV": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DRI": [
+          "CORPORATE_ACTION_REVIEW:81d8adf4-6889-4be9-bce0-db1b97d2f8ee",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GEHC": [
+          "CORPORATE_ACTION_REVIEW:3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "MODEL_NOT_SUPPORTED:NO_MAPPED_FACTS"
+        ],
+        "LITE": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ]
+      }
+    },
+    "profile_status": {
+      "scope": "OFFLINE_DIAGNOSTIC_NOT_PUBLISHED",
+      "eligible": 51,
+      "recovered": [
+        "LII",
+        "VLTO"
+      ],
+      "lost": [],
+      "patched": [
+        "ABT",
+        "AEP",
+        "BE",
+        "BG",
+        "BIIB",
+        "CARR",
+        "CDNS",
+        "CLX",
+        "CNP",
+        "CTSH",
+        "D",
+        "DOW",
+        "DTE",
+        "DUK",
+        "ED",
+        "EIX",
+        "ETR",
+        "EVRG",
+        "EXC",
+        "F",
+        "FE",
+        "FTV",
+        "GD",
+        "GEHC",
+        "GRMN",
+        "HCA",
+        "HUBB",
+        "INCY",
+        "IQV",
+        "JCI",
+        "KO",
+        "LII",
+        "LNT",
+        "MAS",
+        "MDLZ",
+        "NEE",
+        "NXPI",
+        "OMC",
+        "PNR",
+        "PPG",
+        "PPL",
+        "PYPL",
+        "SO",
+        "SPGI",
+        "SRE",
+        "URI",
+        "V",
+        "VLTO",
+        "VMC",
+        "VRSK"
+      ],
+      "remaining_blockers": {
+        "KO": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "ED": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PNR": [
+          "CORPORATE_ACTION_REVIEW:d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "URI": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "LII": [],
+        "CLX": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EVRG": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BIIB": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SRE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "F": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "INVALID_MARKET_CAP",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "ETR": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "D": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "VMC": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SO": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "V": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "INVALID_MARKET_CAP",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "LNT": [
+          "CORPORATE_ACTION_REVIEW:6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "NXPI": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "INCY": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "CTSH": [
+          "INSUFFICIENT_QUALITY_COVERAGE"
+        ],
+        "HUBB": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DTE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "VLTO": [],
+        "FTV": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "MDLZ": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "VRSK": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GD": [
+          "CORPORATE_ACTION_REVIEW:61beb352-d49a-43ca-88e4-cdc13893575e",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "ABT": [
+          "CORPORATE_ACTION_REVIEW:bb41a184-0a79-4017-80cd-9937db80e0b9",
+          "STALE_SHARES"
+        ],
+        "CNP": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GEHC": [
+          "CORPORATE_ACTION_REVIEW:3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EXC": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "PYPL": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "FE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "NEE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "HCA": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DOW": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "CARR": [
+          "CORPORATE_ACTION_REVIEW:4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "JCI": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "OMC": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EIX": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "CDNS": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "DUK": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PPL": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PPG": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "MAS": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "AEP": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SPGI": [
+          "CORPORATE_ACTION_REVIEW:d4f8cb93-e10f-4ee9-8484-3ed67053b281",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "IQV": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BG": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GRMN": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ]
+      }
+    },
+    "aapl_equity_review": {
+      "scope": "OFFLINE_DIAGNOSTIC_NOT_PUBLISHED",
+      "eligible": 50,
+      "recovered": [
+        "AAPL"
+      ],
+      "lost": [],
+      "patched": [
+        "AAPL"
+      ],
+      "remaining_blockers": {
+        "AAPL": []
+      }
+    },
+    "unit_selection": {
+      "scope": "OFFLINE_DIAGNOSTIC_NOT_PUBLISHED",
+      "eligible": 49,
+      "recovered": [],
+      "lost": [],
+      "patched": [
+        "PEP"
+      ],
+      "remaining_blockers": {
+        "PEP": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ]
+      }
+    },
+    "combined": {
+      "scope": "OFFLINE_DIAGNOSTIC_NOT_PUBLISHED",
+      "eligible": 52,
+      "recovered": [
+        "AAPL",
+        "LII",
+        "VLTO"
+      ],
+      "lost": [],
+      "patched": [
+        "AAPL",
+        "ABT",
+        "AEP",
+        "BE",
+        "BG",
+        "BIIB",
+        "CARR",
+        "CDNS",
+        "CLX",
+        "CNP",
+        "CTSH",
+        "D",
+        "DOW",
+        "DRI",
+        "DTE",
+        "DUK",
+        "ED",
+        "EIX",
+        "ETR",
+        "EVRG",
+        "EXC",
+        "F",
+        "FE",
+        "FTV",
+        "GD",
+        "GEHC",
+        "GRMN",
+        "HCA",
+        "HUBB",
+        "INCY",
+        "IQV",
+        "JCI",
+        "KO",
+        "LII",
+        "LITE",
+        "LNT",
+        "MAS",
+        "MDLZ",
+        "MTD",
+        "NEE",
+        "NXPI",
+        "OMC",
+        "PEP",
+        "PNR",
+        "PPG",
+        "PPL",
+        "PYPL",
+        "SO",
+        "SOLV",
+        "SPGI",
+        "SRE",
+        "URI",
+        "V",
+        "VLTO",
+        "VMC",
+        "VRSK"
+      ],
+      "remaining_blockers": {
+        "MTD": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SOLV": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DRI": [
+          "CORPORATE_ACTION_REVIEW:81d8adf4-6889-4be9-bce0-db1b97d2f8ee",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GEHC": [
+          "CORPORATE_ACTION_REVIEW:3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "LITE": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "KO": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "ED": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PNR": [
+          "CORPORATE_ACTION_REVIEW:d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "URI": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "LII": [],
+        "CLX": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EVRG": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BIIB": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SRE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "F": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "INVALID_MARKET_CAP",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "ETR": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "D": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "VMC": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SO": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "V": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "INVALID_MARKET_CAP",
+          "MISSING_INSTRUMENT_SHARES"
+        ],
+        "LNT": [
+          "CORPORATE_ACTION_REVIEW:6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "NXPI": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "INCY": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "CTSH": [
+          "INSUFFICIENT_QUALITY_COVERAGE"
+        ],
+        "HUBB": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DTE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "VLTO": [],
+        "FTV": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "MDLZ": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "VRSK": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GD": [
+          "CORPORATE_ACTION_REVIEW:61beb352-d49a-43ca-88e4-cdc13893575e",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "ABT": [
+          "CORPORATE_ACTION_REVIEW:bb41a184-0a79-4017-80cd-9937db80e0b9",
+          "STALE_SHARES"
+        ],
+        "CNP": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EXC": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "PYPL": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "FE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "NEE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "HCA": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "DOW": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "CARR": [
+          "CORPORATE_ACTION_REVIEW:4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece",
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "JCI": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "OMC": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "EIX": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "CDNS": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "DUK": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PPL": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "PPG": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "MAS": [
+          "INSUFFICIENT_VALUE_COVERAGE",
+          "STALE_SHARES"
+        ],
+        "AEP": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BE": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "SPGI": [
+          "CORPORATE_ACTION_REVIEW:d4f8cb93-e10f-4ee9-8484-3ed67053b281",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "IQV": [
+          "INSUFFICIENT_QUALITY_COVERAGE",
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "BG": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "GRMN": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ],
+        "AAPL": [],
+        "PEP": [
+          "INSUFFICIENT_VALUE_COVERAGE"
+        ]
+      }
+    }
+  }
+}

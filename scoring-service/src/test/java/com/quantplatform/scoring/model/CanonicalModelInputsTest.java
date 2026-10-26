@@ -16,7 +16,7 @@ class CanonicalModelInputsTest {
             from test_model_periods import section, fact
             from quant_research.model.periods import from_cross_section, ttm
             documents=[]
-            for scenario in range(8):
+            for scenario in range(12):
                 d=section()
                 if scenario==1:
                     d['inputs'][0]['profile']='BANK'
@@ -30,8 +30,19 @@ class CanonicalModelInputsTest {
                 if scenario>=6:
                     d['request']['timingPolicy']='CURRENT_SNAPSHOT_V1'
                     if scenario==7: d['inputs'][0]['facts'][0]['observedAt']='2026-10-01T13:01:00Z'
-                a,r=from_cross_section(d)
-                documents.append({'input':d,'expected':{'as_of':a,'rows':r}})
+                version='profiles-v1'
+                if scenario>=8:
+                    version='canonical-preparation-v3'
+                    for f in d['inputs'][0]['facts']: f['filingId']='filing-1'
+                    gross=fact('2025-07-01','2026-06-30',400,'GROSS_PROFIT')
+                    gross['filingId']='filing-2' if scenario==9 else 'filing-1'
+                    if scenario==10: gross['observedAt']='2026-10-02T00:00:00Z'
+                    d['inputs'][0]['facts'].append(gross)
+                    if scenario==11: d['inputs'][0]['profile']='EQUITY_REIT'
+                a,r=from_cross_section(d,preprocessing_version=version)
+                expected={'as_of':a,'rows':r}
+                if version!='profiles-v1': expected['preprocessing_version']=version
+                documents.append({'input':d,'version':version,'expected':expected})
             quarters=[fact('2025-07-01','2025-09-30',10),fact('2025-10-01','2025-12-31',20),fact('2026-01-01','2026-03-31',30),fact('2026-04-01','2026-06-30',40)]
             annual=[fact('2025-07-01','2026-06-30',123)]
             ytd=[fact('2025-01-01','2025-12-31',100),fact('2026-01-01','2026-06-30',70),fact('2025-01-01','2025-06-30',40)]
@@ -43,7 +54,7 @@ class CanonicalModelInputsTest {
         var process=builder.redirectError(ProcessBuilder.Redirect.INHERIT).start();
         var payload=CanonicalJson.readObject(new String(process.getInputStream().readAllBytes(),java.nio.charset.StandardCharsets.UTF_8));
         assertThat(process.waitFor()).isZero();
-        for(Object item:list(payload.get("documents"))){var c=map(item);GoldenParity.compare(c.get("expected"),CanonicalModelInputs.prepare(map(c.get("input")),Map.of()),"$adapter",1e-9);}
+        for(Object item:list(payload.get("documents"))){var c=map(item);GoldenParity.compare(c.get("expected"),CanonicalModelInputs.prepare(map(c.get("input")),Map.of(),str(c.get("version"))),"$adapter",1e-9);}
         for(Object item:list(payload.get("periods"))){var c=map(item);GoldenParity.compare(c.get("expected"),CanonicalModelInputs.ttm(list(c.get("facts")).stream().map(FrozenModel::map).toList(),"REVENUE","2026-06-30"),"$ttm",1e-9);}
         var document=map(map(list(payload.get("documents")).getFirst()).get("input"));var input=map(list(document.get("inputs")).getFirst());
         list(input.get("facts")).add(list(input.get("facts")).getFirst());

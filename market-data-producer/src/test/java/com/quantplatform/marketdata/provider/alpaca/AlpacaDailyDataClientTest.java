@@ -103,12 +103,44 @@ class AlpacaDailyDataClientTest {
         verify(gate).postpone(Duration.ofSeconds(120));
     }
 
+    @Test void adjustedRecoveryKeepsSessionSymbolDateAndRetrievalVintageDistinct() {
+        var client = client("2026-09-03T12:00:00Z", request -> json("""
+            {"bars":{"AAPL":[{"t":"2026-09-01T04:00:00Z","o":100,"h":110,"l":90,"c":105,"v":1000,"n":10}]}}
+            """));
+        var page = client.bars(List.of("AAPL"), DATE, "SPLIT_DIVIDEND", VINTAGE.plusDays(1), "", VINTAGE);
+        assertThat(page.observations().get("AAPL").getFirst())
+                .containsEntry("sessionDate", "2026-09-01")
+                .containsEntry("adjustmentAsOf", "2026-09-03");
+        assertThat(page.retrievedAt()).isEqualTo(Instant.parse("2026-09-03T12:00:00Z"));
+        assertThat(requests.getFirst().url().getQuery())
+                .contains("asof=2026-09-02", "adjustment=split,dividend");
+    }
+
+    @Test void rejectsAdjustedResponseWhenRetrievalCrossesNewYorkMidnight() {
+        var now = new java.util.concurrent.atomic.AtomicReference<>(Instant.parse("2026-09-03T03:59:59Z"));
+        var clock = mock(Clock.class);
+        when(clock.instant()).thenAnswer(ignored -> now.get());
+        when(clock.getZone()).thenReturn(ZoneId.of("America/New_York"));
+        when(clock.withZone(any())).thenReturn(clock);
+        var client = client(clock, request -> {
+            now.set(Instant.parse("2026-09-03T04:00:01Z"));
+            return json("{\"bars\":{}}");
+        });
+        assertThatThrownBy(() -> client.bars(List.of("AAPL"), DATE, "SPLIT_DIVIDEND", VINTAGE, ""))
+                .hasMessageContaining("crossed the vintage boundary");
+        assertThat(requests).hasSize(1);
+    }
+
     private AlpacaDailyDataClient client(String now, ExchangeFunction response) {
+        return client(Clock.fixed(Instant.parse(now), ZoneOffset.UTC), response);
+    }
+
+    private AlpacaDailyDataClient client(Clock clock, ExchangeFunction response) {
         return new AlpacaDailyDataClient(WebClient.builder().exchangeFunction(request -> {
             requests.add(request); return response.exchange(request);
         }), new AlpacaProperties(URI.create("https://data.alpaca.test"),"test-key","test-secret","iex"),
             TestProperties.disabled(),new DailyPriceProperties("sip",100,10000,Duration.ofMillis(350),
-                Duration.ofMinutes(16),true,true,14),gate,Clock.fixed(Instant.parse(now),ZoneOffset.UTC));
+                Duration.ofMinutes(16),true,true,true,14),gate,clock);
     }
     private Mono<ClientResponse> json(String body) {
         return Mono.just(ClientResponse.create(HttpStatus.OK).header("Content-Type","application/json").body(body).build());

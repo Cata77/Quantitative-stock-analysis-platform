@@ -1,6 +1,6 @@
 # Plan de îmbunătățire a platformei
 
-Actualizat: 2026-10-17. Document de lucru, reordonat pe măsură ce discutăm cerințele.
+Actualizat: 2026-10-25. Document de lucru, reordonat pe măsură ce discutăm cerințele.
 Taskurile de mai jos sunt planificate; acest document nu reprezintă implementarea lor.
 
 ## Obiective
@@ -56,15 +56,23 @@ remediere. `MODEL_NOT_SUPPORTED` trebuie investigat pe profil și pe ramura care
 
 ### P0 — Diagnostic reproductibil al excluderilor
 
-- [ ] Generare raport pe instrument: profil, sector, date brute necesare,
+Încheiat la 2026-10-22: [raport final, dovezi și reproducere](P0-EXCLUSION-AUDIT.md).
+518 instrumente reconciliate cu DB, 469 de excluderi explicate și 515 legături
+către surse păstrate. Cazurile reprezentative includ raportările complete AAPL
+și LULU, sursele JPM/O, filingurile goale LII/VLTO și conflictul de unități PEP.
+Recalculările diagnostice recuperează LII și VLTO prin politica de profil și
+AAPL prin reconcilierea revizuită a capitalurilor: 52 eligibile, fără pierderi.
+Publicația reală rămâne la 49; remediile de producție și republicarea sunt P2.
+
+- [x] Generare raport pe instrument: profil, sector, date brute necesare,
   metrici disponibile/lipsă, surse, perioade și toate blocajele.
-- [ ] Separare între lipsa sursei, mapare incompletă, perioade TTM incompatibile,
+- [x] Separare între lipsa sursei, mapare incompletă, perioade TTM incompatibile,
   date vechi, profil nesuportat și filtre economice/de identitate.
-- [ ] Verificare a unor cazuri reprezentative, inclusiv AAPL, până la raportarea
+- [x] Verificare a unor cazuri reprezentative, inclusiv AAPL, până la raportarea
   sursă; audit al mapărilor SEC, capitalurilor proprii, EBIT/EV și ROIC.
-- [ ] Analiză a suprapunerii motivelor și a companiilor recuperabile integral
+- [x] Analiză a suprapunerii motivelor și a companiilor recuperabile integral
   prin fiecare remediere; prioritizare după impact verificat.
-- [ ] Verificare a integrității exportului: CSV-ul inspectat conține `GE/NERAL`
+- [x] Verificare a integrității exportului: CSV-ul inspectat conține `GE/NERAL`
   la LULU. Comparare cu publicația înainte de a atribui problema modelului.
 
 Criteriu de finalizare: toate cele 469 de excluderi au explicații trasabile;
@@ -72,16 +80,22 @@ raportul reconciliază 518 = 49 + 469 și identifică intervențiile cu impact m
 
 ### P1 — Vizibilitatea întregului univers în listă și export
 
-- [ ] Folosire explicită a `eligibility=ALL` pentru vizualizarea universului,
+Încheiat la 2026-10-22: [utilitar, utilizare și dovezi](UNIVERSE-EXPORT.md).
+Lista HTML locală și CSV-ul au 518 instrumente unice, 49 cu rang și 469 cu
+motive explicite; verificare prin Gateway cu pagini de 100 și 137 de rânduri,
+comparată cu publicația păstrată și rezultatele DB. Formula și publicația rămân
+neschimbate. Interfața web integrată cu login rămâne P2c.
+
+- [x] Folosire explicită a `eligibility=ALL` pentru vizualizarea universului,
   păstrând opțiunea de a vedea numai clasamentul eligibil.
-- [ ] Export complet, paginat cu același `runId`, cu un rând per instrument:
+- [x] Export complet, paginat cu același `runId`, cu un rând per instrument:
   simbol, profil, sector, eligibilitate, scor/rang dacă există, motive, acoperire,
   data scorului și versiunea modelului.
-- [ ] Pentru instrumentele excluse, scorul compozit și rangul rămân neatribuite;
+- [x] Pentru instrumentele excluse, scorul compozit și rangul rămân neatribuite;
   valorile parțiale se afișează numai dacă sunt disponibile și identificabile.
-- [ ] Afișare a totalului universului, eligibililor, exclușilor și acoperirii;
+- [x] Afișare a totalului universului, eligibililor, exclușilor și acoperirii;
   explicarea populației față de care sunt calculate rangul și percentila.
-- [ ] Mutare a exportului într-un utilitar întreținut în repo, cu verificarea
+- [x] Mutare a exportului într-un utilitar întreținut în repo, cu verificarea
   duplicatelor, numărului de rânduri și concordanței cu publicația.
 
 Criteriu de finalizare: pentru publicația existentă, lista/exportul complet are
@@ -90,17 +104,35 @@ de prezentare nu necesită modificarea formulei.
 
 ### P2 — Refactorizarea colectării și pregătirii datelor
 
-Ordinea intervențiilor din această etapă va urma raportul P0.
+Încheiat la 2026-10-25: [raport final, dovezi și reproducere](P2-DATA-PREPARATION.md).
+Pregătirea `canonical-preparation-v3` recuperează LII/VLTO în comparația
+controlată pe datele originale: **49 → 51**, fără pierderi. Publicația nouă
+`76e93093-54e7-4fa8-9b44-760857d69ae1`, cu data economică 2026-10-23 și cutofful
+2026-10-24T23:59:59Z, are **518 = 49 eligibili + 469 excluși**. Compararea celor
+două date nu măsoară izolat efectul pregătirii: LII/VLTO au acum acțiuni vechi,
+iar filingul AAPL recolectat nu moștenește automat revizuirile faptelor anterioare.
 
-- [ ] Îmbunătățire mapări SEC și derivări contabile justificate, cu proveniență.
-- [ ] Audit al selecției perioadelor, TTM, bilanțurilor comparabile și faptelor
+Sunt verificate 130.706 prețuri ajustate și 8.778 prețuri brute din octombrie,
+67 de valori actualizate ale numărului de acțiuni și recuperarea lipsei CCL.
+Revizuirile individuale FISV/MRSH păstrează celelalte blocaje. Absențele de
+sesiune confirmate prin răspunsuri păstrate pot produce excluderi explicite într-un
+snapshot curent; colectările neterminate și erorile tehnice rămân blocante.
+Publicația originală și toate cele 518 rezultate ale ei sunt neschimbate.
+
+Lipsurile rămase sunt inventariate în raport, fără țintă artificială de 100%.
+Activarea profilurilor și tagurile candidate dependente de acestea continuă în
+P3; istoricul mai lung, componențele și succesorii instrumentelor continuă în P4.
+P2b și P2c sunt etape distincte, încă neimplementate.
+
+- [x] Îmbunătățire mapări SEC și derivări contabile justificate, cu proveniență.
+- [x] Audit al selecției perioadelor, TTM, bilanțurilor comparabile și faptelor
   ambigue în adaptoarele Java/Python; păstrarea echivalenței dintre implementări.
-- [ ] Remediere a datelor lipsă/vechi despre numărul de acțiuni și capitalizare,
+- [x] Remediere a datelor lipsă/vechi despre numărul de acțiuni și capitalizare,
   ținând cont de clase, splituri și data disponibilității informației.
-- [ ] Flux explicit de verificare și rezolvare pentru acțiuni corporative și
+- [x] Flux explicit de verificare și rezolvare pentru acțiuni corporative și
   identitatea instrumentelor, fără eliminarea globală a blocajelor.
-- [ ] Recuperare a sesiunilor/prețurilor lipsă, unde istoricul există efectiv.
-- [ ] Motive de eroare suficient de precise pentru a distinge lipsurile reale
+- [x] Recuperare a sesiunilor/prețurilor lipsă, unde istoricul există efectiv.
+- [x] Motive de eroare suficient de precise pentru a distinge lipsurile reale
   de problemele de colectare, mapare sau calcul.
 
 Criteriu de finalizare: comparație înainte/după pe date controlate, cu numărul

@@ -1,0 +1,18 @@
+{
+  "scope": "SELECTED_PERIODS_AND_PROVENANCE_NOT_SOURCE_COMPLETENESS",
+  "preprocessingVersion": "canonical-preparation-v3",
+  "knowledgeCutoff": "2026-10-24T23:59:59Z",
+  "scoreDate": "2026-10-23",
+  "instrumentCount": 518,
+  "assemblyCounts": {
+    "ANNUAL_PLUS_YTD_MINUS_PRIOR_YTD": 4055,
+    "COMPARABLE_BALANCE": 2587,
+    "CURRENT_BALANCE": 2599,
+    "DIRECT_ANNUAL": 309,
+    "FOUR_QUARTERS": 87,
+    "REVENUE_MINUS_GROSS_PROFIT_SAME_FILING_PERIOD_V1": 6
+  },
+  "canonicalSha256": "b73e76fa019605e93318d659d81349673efe8ec2beecf56890120813b0bc4650",
+  "fullReportSha256": "1e4f103356e762ebc02c92da66eaf3acc68c1f122a49dfaf4c74c065ef04b722",
+  "fullReport": "build/p2-close-20261025/period-audit.json"
+}

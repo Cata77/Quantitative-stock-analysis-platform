@@ -1,0 +1,223 @@
+{
+  "scope": "DATA_SELECTION_ONLY_NOT_A_SCORING_RUN",
+  "published": false,
+  "symbol": "AAPL",
+  "instrumentId": "85ca0ea2-4a0a-422a-8475-3c1eca7d2ace",
+  "economicDate": "2026-09-30",
+  "auditedAt": "2026-10-23T11:55:18.033776+00:00",
+  "inputDocumentSha256": "9922dc9a0ee622343b7d972da9c0e06b78e86825bc60fe4dc28423e9dad36ce2",
+  "productionSqlSha256": "615d138c7044cdc56948ee91afc3c75040425214be5d554b880e4efd0a201a86",
+  "reviews": [
+    {
+      "kind": "COMMON_EQUITY",
+      "fact_id": "fdd8827c-ecf1-4c8f-8c1c-3791fc93ae4a",
+      "decision": "ACCEPT",
+      "evidence": {
+        "unit": "USD",
+        "scope": "TOTAL_EQUITY_IS_COMMON_ONLY",
+        "accession": "0000320193-26-000020",
+        "periodEnd": "2025-06-28",
+        "rationale": "Reviewed complete Apple Q3 2026 filing, balance sheet and shareholder equity statement (pages 3-4). Common stock/APIC, retained earnings and OCI reconcile exactly to total equity for this period; no preferred or minority zero is inferred.",
+        "sourceUri": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm",
+        "derivation": "COMMON_APIC_PLUS_RETAINED_EARNINGS_PLUS_OCI",
+        "sourceSha256": "799aa781b4758a40c9d3ed2abd591cb2d11becdc53e94f1ca421c7120f1f7979",
+        "reconciliation": [
+          {
+            "member": "us-gaap:CommonStockIncludingAdditionalPaidInCapitalMember",
+            "valueUSD": 89806000000,
+            "contextRef": "c-35",
+            "inlineFactId": "f-251"
+          },
+          {
+            "member": "us-gaap:RetainedEarningsMember",
+            "valueUSD": -17607000000,
+            "contextRef": "c-45",
+            "inlineFactId": "f-275"
+          },
+          {
+            "member": "us-gaap:AccumulatedOtherComprehensiveIncomeMember",
+            "valueUSD": -6369000000,
+            "contextRef": "c-55",
+            "inlineFactId": "f-287"
+          },
+          {
+            "member": null,
+            "valueUSD": 65830000000,
+            "contextRef": "c-56",
+            "inlineFactId": "f-291"
+          }
+        ],
+        "sourceRetrievedAt": "2026-10-23T11:47:54.867627+00:00"
+      },
+      "issue_id": null,
+      "reviewer": "codex-p2-source-review-20261023",
+      "review_id": "2c5dc5d9-a583-577d-9b24-d8382f957eac",
+      "recorded_at": "2026-10-23T11:55:17.08922+00:00",
+      "instrument_id": "85ca0ea2-4a0a-422a-8475-3c1eca7d2ace"
+    },
+    {
+      "kind": "COMMON_EQUITY",
+      "fact_id": "abcb7cbd-ce9f-4ae1-813a-d3b9f5b61d71",
+      "decision": "ACCEPT",
+      "evidence": {
+        "unit": "USD",
+        "scope": "TOTAL_EQUITY_IS_COMMON_ONLY",
+        "accession": "0000320193-26-000020",
+        "periodEnd": "2026-06-27",
+        "rationale": "Reviewed complete Apple Q3 2026 filing, balance sheet and shareholder equity statement (pages 3-4). Common stock/APIC, retained earnings and OCI reconcile exactly to total equity for this period; no preferred or minority zero is inferred.",
+        "sourceUri": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm",
+        "derivation": "COMMON_APIC_PLUS_RETAINED_EARNINGS_PLUS_OCI",
+        "sourceSha256": "799aa781b4758a40c9d3ed2abd591cb2d11becdc53e94f1ca421c7120f1f7979",
+        "reconciliation": [
+          {
+            "member": "us-gaap:CommonStockIncludingAdditionalPaidInCapitalMember",
+            "valueUSD": 100702000000,
+            "contextRef": "c-34",
+            "inlineFactId": "f-250"
+          },
+          {
+            "member": "us-gaap:RetainedEarningsMember",
+            "valueUSD": 11326000000,
+            "contextRef": "c-44",
+            "inlineFactId": "f-274"
+          },
+          {
+            "member": "us-gaap:AccumulatedOtherComprehensiveIncomeMember",
+            "valueUSD": -4508000000,
+            "contextRef": "c-54",
+            "inlineFactId": "f-286"
+          },
+          {
+            "member": null,
+            "valueUSD": 107520000000,
+            "contextRef": "c-21",
+            "inlineFactId": "f-290"
+          }
+        ],
+        "sourceRetrievedAt": "2026-10-23T11:47:54.867627+00:00"
+      },
+      "issue_id": null,
+      "reviewer": "codex-p2-source-review-20261023",
+      "review_id": "8d683bc6-11e6-5ae6-afd9-93b732061706",
+      "recorded_at": "2026-10-23T11:55:17.115742+00:00",
+      "instrument_id": "85ca0ea2-4a0a-422a-8475-3c1eca7d2ace"
+    }
+  ],
+  "selections": {
+    "publicationCutoff": {
+      "knowledgeCutoff": "2026-10-01T19:07:09Z",
+      "facts": [
+        {
+          "fact_id": "fdd8827c-ecf1-4c8f-8c1c-3791fc93ae4a",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2025-06-28",
+          "metric_code": "STOCKHOLDERS_EQUITY",
+          "observed_at": "2026-09-28T07:02:12.518379+00:00",
+          "available_at": "2026-09-28T07:02:12.518379+00:00",
+          "period_start": null,
+          "numeric_value": 65830000000,
+          "canonical_unit": "USD",
+          "parser_version": "sec-companyfacts-v2",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        },
+        {
+          "fact_id": "abcb7cbd-ce9f-4ae1-813a-d3b9f5b61d71",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2026-06-27",
+          "metric_code": "STOCKHOLDERS_EQUITY",
+          "observed_at": "2026-09-28T07:02:12.518379+00:00",
+          "available_at": "2026-09-28T07:02:12.518379+00:00",
+          "period_start": null,
+          "numeric_value": 107520000000,
+          "canonical_unit": "USD",
+          "parser_version": "sec-companyfacts-v2",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        }
+      ],
+      "validationErrors": []
+    },
+    "reviewCutoff": {
+      "knowledgeCutoff": "2026-10-23T11:55:18.033776+00:00",
+      "facts": [
+        {
+          "fact_id": "fdd8827c-ecf1-4c8f-8c1c-3791fc93ae4a",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2025-06-28",
+          "metric_code": "COMMON_EQUITY",
+          "observed_at": "2026-10-23T11:55:17.08922+00:00",
+          "available_at": "2026-10-23T11:55:17.08922+00:00",
+          "period_start": null,
+          "numeric_value": 65830000000,
+          "canonical_unit": "USD",
+          "parser_version": "review-common-equity-v1:2c5dc5d9-a583-577d-9b24-d8382f957eac",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        },
+        {
+          "fact_id": "fdd8827c-ecf1-4c8f-8c1c-3791fc93ae4a",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2025-06-28",
+          "metric_code": "STOCKHOLDERS_EQUITY",
+          "observed_at": "2026-09-28T07:02:12.518379+00:00",
+          "available_at": "2026-09-28T07:02:12.518379+00:00",
+          "period_start": null,
+          "numeric_value": 65830000000,
+          "canonical_unit": "USD",
+          "parser_version": "sec-companyfacts-v2",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        },
+        {
+          "fact_id": "abcb7cbd-ce9f-4ae1-813a-d3b9f5b61d71",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2026-06-27",
+          "metric_code": "COMMON_EQUITY",
+          "observed_at": "2026-10-23T11:55:17.115742+00:00",
+          "available_at": "2026-10-23T11:55:17.115742+00:00",
+          "period_start": null,
+          "numeric_value": 107520000000,
+          "canonical_unit": "USD",
+          "parser_version": "review-common-equity-v1:8d683bc6-11e6-5ae6-afd9-93b732061706",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        },
+        {
+          "fact_id": "abcb7cbd-ce9f-4ae1-813a-d3b9f5b61d71",
+          "filing_id": "e64861cc-3dba-4530-ac49-c93cab7a671b",
+          "issuer_id": "8fb4ebc1-7276-49c2-936f-68b1acb8cc61",
+          "filed_date": "2026-07-31",
+          "period_end": "2026-06-27",
+          "metric_code": "STOCKHOLDERS_EQUITY",
+          "observed_at": "2026-09-28T07:02:12.518379+00:00",
+          "available_at": "2026-09-28T07:02:12.518379+00:00",
+          "period_start": null,
+          "numeric_value": 107520000000,
+          "canonical_unit": "USD",
+          "parser_version": "sec-companyfacts-v2",
+          "mapping_version": "sec-us-gaap-v2",
+          "source_artifact_id": "f26ea0a4-22c9-4b84-a7de-3fa877f8a0f2"
+        }
+      ],
+      "validationErrors": [
+        "INVALID_CURRENT_SNAPSHOT_CUTOFF"
+      ]
+    }
+  },
+  "latestRetainedPrices": {
+    "RAW": "2026-09-30",
+    "SPLIT_DIVIDEND": "2026-09-30"
+  },
+  "limitation": "Review-time selection of historical financial facts does not authorize a score using an expired market cutoff. Validation errors are preserved."
+}

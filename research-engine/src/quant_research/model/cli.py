@@ -16,6 +16,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--format", choices=("prepared", "phase6"), default="prepared")
     parser.add_argument("--jurisdictions", type=Path)
+    parser.add_argument(
+        "--preprocessing-version",
+        default="profiles-v1",
+        choices=("profiles-v1", "canonical-preparation-v3"),
+    )
     parser.add_argument("--candidate", default="primary")
     parser.add_argument(
         "--research-stage", choices=("development", "validation", "final"), default="development"
@@ -28,7 +33,9 @@ def main(argv: list[str] | None = None) -> int:
         jurisdictions = (
             json.loads(args.jurisdictions.read_text(encoding="utf-8")) if args.jurisdictions else {}
         )
-        as_of, rows = from_cross_section(document, jurisdictions=jurisdictions)
+        as_of, rows = from_cross_section(
+            document, jurisdictions=jurisdictions, preprocessing_version=args.preprocessing_version
+        )
     else:
         as_of, rows = document["as_of"], document["rows"]
     report = score(rows, as_of=as_of, candidate=args.candidate)

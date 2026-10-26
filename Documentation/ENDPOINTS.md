@@ -66,11 +66,25 @@ Exemple de rute, toate cu Bearer token:
 
 ```text
 /screener/rankings?universe=SP500&size=20
+/screener/rankings?eligibility=ALL&universe=UNION&size=200
 /screener/rankings?eligibility=EXCLUDED&size=100
 /screener/rankings?sort=CONTRIBUTION&metric=ebit_ev
 /screener/search?q=AAPL&page=0&size=20
 /screener/rankings?instrumentId=<UUID-din-search>&eligibility=ALL
 ```
+
+Lista/exportul complet folosește explicit `eligibility=ALL`; toate paginile după
+prima trimit `runId` primit. [Utilitarul P1](UNIVERSE-EXPORT.md) implementează acest
+flux și verifică exportul fără un endpoint nou. `run.expectedCount`,
+`run.scoredCount`, `run.excludedCount` și `run.coverage` sunt totalurile întregii
+publicații UNION; `totalElements` și `totalPages` se referă la filtrele cererii.
+Scorul compozit, rangul și percentila exclușilor sunt `null`, nu zero. Valorile
+parțiale disponibile rămân în `valueScore`, `qualityScore`, `momentumScore` și
+`factors`; `exclusions` păstrează stadiul, codul și metrica afectată.
+
+Rangul și percentila nu se recalculează la filtrare: populația lor este formată
+din eligibilii publicației UNION. La egalități, rangul ordinal este departajat
+prin UUID, iar percentila folosește rangul mediu înainte de rotunjirea scorurilor.
 
 ## Portfolio — token cu portfolio:write
 

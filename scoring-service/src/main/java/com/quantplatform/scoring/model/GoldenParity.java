@@ -23,7 +23,13 @@ public final class GoldenParity {
             identities.add(CanonicalJson.sha256(input));identities.add(CanonicalJson.sha256(expected));
         }catch(java.io.IOException e){throw new IllegalStateException("Missing parity artifacts",e);}
         try {
-            for(Class<?> type:List.of(FrozenModel.class,FrozenModel.Calc.class,CanonicalModelInputs.class,GoldenParity.class))
+            identities.add(CanonicalJson.sha256(new ClassPathResource("sql/current-collection-outcomes.sql")
+                .getContentAsString(StandardCharsets.UTF_8).replace("\r\n","\n")));
+            identities.add(CanonicalJson.sha256(new ClassPathResource("sql/scoring-inputs.sql")
+                .getContentAsString(StandardCharsets.UTF_8).replace("\r\n","\n")));
+        }catch(java.io.IOException e){throw new IllegalStateException("Missing preparation query",e);}
+        try {
+            for(Class<?> type:List.of(FrozenModel.class,FrozenModel.Calc.class,CanonicalModelInputs.class,PreparationV3.class,GoldenParity.class))
                 try(var stream=type.getResourceAsStream(type.getSimpleName().equals("Calc")?"FrozenModel$Calc.class":type.getSimpleName()+".class")){
                     identities.add(java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(java.util.Objects.requireNonNull(stream).readAllBytes())));
                 }

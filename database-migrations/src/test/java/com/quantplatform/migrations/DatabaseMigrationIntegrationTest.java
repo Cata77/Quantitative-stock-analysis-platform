@@ -36,7 +36,7 @@ class DatabaseMigrationIntegrationTest {
 
         var firstRun = flyway.migrate();
 
-        assertThat(firstRun.migrationsExecuted).isEqualTo(23);
+        assertThat(firstRun.migrationsExecuted).isEqualTo(24);
         assertThat(flyway.validateWithResult().validationSuccessful).isTrue();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
@@ -114,7 +114,7 @@ class DatabaseMigrationIntegrationTest {
         }
 
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(9);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(10);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {
             assertThat(queryInt(connection, "SELECT count(*) FROM research.model_versions WHERE semantic_version IN ('1.0.0','1.1.0') AND approval_state='FROZEN_RESEARCH_HYPOTHESIS'"))
@@ -138,7 +138,7 @@ class DatabaseMigrationIntegrationTest {
                     """);
         }
         var upgraded = flyway(database, null);
-        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(5);
+        assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(6);
         assertThat(upgraded.validateWithResult().validationSuccessful).isTrue();
         assertThat(upgraded.migrate().migrationsExecuted).isZero();
         try (var connection = DriverManager.getConnection(jdbcUrl(database), "postgres", "postgres")) {

@@ -1,0 +1,83 @@
+{
+  "verifiedAt": "2026-10-22T13:20:53.969664+00:00",
+  "run": {
+    "id": "c2cf1551-a8fb-47ff-95eb-c4cb186778c9",
+    "asOfDate": "2026-09-30",
+    "complete": true,
+    "coverage": "0.09459459459459459459",
+    "candidate": "primary",
+    "sp500Bias": null,
+    "sp500Mode": "CURRENT_SNAPSHOT_FORWARD",
+    "supersedes": null,
+    "modelStatus": "FROZEN_RESEARCH_HYPOTHESIS",
+    "publishedAt": "2026-10-01T19:09:33.903669+00:00",
+    "scoredCount": 49,
+    "inputVersion": "prepared-canonical-v2",
+    "marketCutoff": "2026-09-30T20:00:00+00:00",
+    "modelVersion": "1.2.0",
+    "timingPolicy": "CURRENT_SNAPSHOT_V1",
+    "effectiveFrom": "2026-10-02T13:30:00+00:00",
+    "excludedCount": 469,
+    "expectedCount": 518,
+    "nasdaq100Bias": null,
+    "nasdaq100Mode": "CURRENT_SNAPSHOT_FORWARD",
+    "manifestSha256": "b3b36a0a46e97f953652c63a774f34c64b1f4f66076d95e4362f4d4ca0183839",
+    "modelVersionId": "62b429cc-dfbe-4652-884e-3195bdd9d8cb",
+    "knowledgeCutoff": "2026-10-01T19:07:09+00:00",
+    "profileCoverage": {
+      "GENERAL": {
+        "scored": 49,
+        "excluded": 363,
+        "expected": 412
+      },
+      "INSURER": {
+        "scored": 0,
+        "excluded": 23,
+        "expected": 23
+      },
+      "UNKNOWN": {
+        "scored": 0,
+        "excluded": 7,
+        "expected": 7
+      },
+      "FINANCIAL": {
+        "scored": 0,
+        "excluded": 49,
+        "expected": 49
+      },
+      "EQUITY_REIT": {
+        "scored": 0,
+        "excluded": 27,
+        "expected": 27
+      }
+    },
+    "publicationType": "CURRENT_RESEARCH_SNAPSHOT",
+    "sp500SnapshotId": "e6d6670f-f45f-467a-8eb2-9bab9add9074",
+    "nasdaq100SnapshotId": "d444039a-db92-4c0a-9491-2a5579dfb09f",
+    "preprocessingVersion": "profiles-v1",
+    "classificationVersionId": "e53b26e0-7e40-4ea1-b6b4-6d2867d8ae24"
+  },
+  "selection": "ALL",
+  "exportedRows": 518,
+  "uniqueInstruments": 518,
+  "eligible": 49,
+  "excluded": 469,
+  "coverage": "0.09459459459459459459459459459",
+  "pagesFetched": 6,
+  "rankingPopulation": "Rangul și percentila compară toate instrumentele eligibile din reuniunea indicilor aceleiași publicații. Filtrarea nu recalculează rangul. Rangul folosește scorul nerotunjit, cu UUID pentru egalități; percentila folosește rangul mediu al egalităților: 100 × (N − rang mediu) / (N − 1). Valorile afișate sunt rotunjite.",
+  "numericEncoding": "Decimal API values are lossless strings in JSON; CSV nulls are empty",
+  "checks": [
+    "publication pinned",
+    "unique instruments",
+    "counts reconciled",
+    "complete rank sequence",
+    "excluded scores null",
+    "explicit exclusion reasons",
+    "CSV round-trip matches API"
+  ],
+  "sha256": {
+    "universe.csv": "8c114c3aae368dad4dba6b938487f65a59507f4efd2da33ca6d01fde5bbcd12f",
+    "universe.html": "2fb64118626a46d2476c3ce6276a250f66d7a3fa0321292a4bfe09fec5cc4349",
+    "pages.json": "2335bee5ef58b832315721073ed264c2164883bb21afe74e181fdc2a9cad8ce8"
+  }
+}

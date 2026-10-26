@@ -76,6 +76,8 @@ public class IngestionCoordinator {
                 || (secFilings!=null && secFilings.enabled()) || (ffiec!=null && ffiec.enabled()) || market.fundamentalsEnabled()))
             throw new IllegalArgumentException("current-universe price history must run separately from filings and corporate actions");
         boolean collectPrices=market.latestBarsEnabled()||market.historicalBackfillEnabled();
+        if (collectPrices && prices.adjustmentModes().isEmpty())
+            throw new IllegalArgumentException("daily price collection requires raw-enabled or adjusted-enabled");
         LocalDate latestCompleteDay = collectPrices?today.minusDays(1):today;
         LocalDate start = properties.startDate() == null ? firstSupportedDate() : properties.startDate();
         LocalDate through = properties.endDate() == null ? latestCompleteDay : properties.endDate();
@@ -105,7 +107,7 @@ public class IngestionCoordinator {
             UUID run=plan(job,through);runIds.add(run);work.put(run,"REGULATORY_FACTS");
         }
         if (collectPrices) {
-            for (String adjustment : prices.adjustedEnabled() ? List.of("RAW","SPLIT_DIVIDEND") : List.of("RAW")) {
+            for (String adjustment : prices.adjustmentModes()) {
                 var configuration = new LinkedHashMap<String,Object>();
                 configuration.put("feed",prices.feed());
                 configuration.put("adjustment",adjustment);
@@ -164,9 +166,14 @@ public class IngestionCoordinator {
         var progress = jdbc.sql("""
                 SELECT COUNT(*) FILTER (WHERE status <> 'COMPLETE') pending,
                     COUNT(*) FILTER (WHERE status = 'FAILED') failed,
-                    COUNT(*) FILTER (WHERE status = 'WAITING_RETRY') retrying
-                FROM operations.ingestion_run_items WHERE ingestion_run_id IN (:runs)
-                """).param("runs", runIds).query((rs, row) -> new int[] {rs.getInt(1), rs.getInt(2), rs.getInt(3)}).single();
+                    COUNT(*) FILTER (WHERE status = 'WAITING_RETRY') retrying,
+                    COUNT(*) FILTER (WHERE status IN ('PLANNED','RUNNING','WAITING_RETRY','STAGED')
+                        AND NOT EXISTS (SELECT 1 FROM operations.ingestion_item_events e
+                            JOIN operations.outbox_events o USING(event_id)
+                            WHERE e.ingestion_run_item_id=i.ingestion_run_item_id
+                                AND o.status='FAILED_TERMINAL')) recoverable
+                FROM operations.ingestion_run_items i WHERE ingestion_run_id IN (:runs)
+                """).param("runs", runIds).query((rs, row) -> new int[] {rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4)}).single();
         long failedDelivery = jdbc.sql("""
                 SELECT COUNT(*) FROM operations.outbox_events o JOIN operations.ingestion_item_events e USING (event_id)
                 JOIN operations.ingestion_run_items i USING (ingestion_run_item_id)
@@ -192,7 +199,7 @@ public class IngestionCoordinator {
         String state = progress[1] > 0 || failedDelivery > 0 ? "FAILED"
                 : progress[2] > 0 || blockingCoverage > 0 ? "DEGRADED" : progress[0] > 0 ? "SYNCING" : "READY";
         return status = new Status(state, state.equals("READY") ? "Required observations are durably accepted"
-                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough, collectPrices?sessions.getLast():null, prices.feed(), collectPrices&&prices.feed().equals("sip"));
+                : "Inspect persisted ingestion attempts and delivery state", progress[0], progress[1] + failedDelivery, completeThrough, collectPrices?sessions.getLast():null, prices.feed(), collectPrices&&prices.feed().equals("sip"), progress[3]);
     }
 
     private void process(JobLease lease, String type) {
@@ -320,9 +327,10 @@ public class IngestionCoordinator {
     }
 
     public record Status(String state, String detail, long pendingItems, long failedItems, LocalDate completeThrough,
-                         LocalDate latestEligibleSession, String feed, boolean consolidatedLiquidityEligible) {
+                         LocalDate latestEligibleSession, String feed, boolean consolidatedLiquidityEligible,
+                         long recoverableItems) {
         public Status(String state, String detail, long pendingItems, long failedItems, LocalDate completeThrough) {
-            this(state,detail,pendingItems,failedItems,completeThrough,null,null,false);
+            this(state,detail,pendingItems,failedItems,completeThrough,null,null,false,0);
         }
     }
     private record Request(LocalDate date, String symbol) { }

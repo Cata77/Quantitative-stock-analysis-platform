@@ -1,0 +1,54 @@
+{
+  "basis": "2026-10-24",
+  "reviews": [
+    {
+      "kind": "COMMON_EQUITY",
+      "reviewId": "2c5dc5d9-a583-577d-9b24-d8382f957eac",
+      "recordedAt": "2026-10-23T11:55:17.08922+00:00"
+    },
+    {
+      "kind": "COMMON_EQUITY",
+      "reviewId": "8d683bc6-11e6-5ae6-afd9-93b732061706",
+      "recordedAt": "2026-10-23T11:55:17.115742+00:00"
+    },
+    {
+      "kind": "QUALITY_ISSUE",
+      "reviewId": "795ecdd1-ce38-569d-a1c1-5371d1e7d691",
+      "recordedAt": "2026-10-24T10:06:39.932779+00:00"
+    },
+    {
+      "kind": "QUALITY_ISSUE",
+      "reviewId": "b3bf089d-dd7a-58bd-a1e5-ebed1cda6fa7",
+      "recordedAt": "2026-10-24T10:06:40.278163+00:00"
+    }
+  ],
+  "scoreDate": "2026-10-23",
+  "duplicates": 0,
+  "octoberRaw": 8778,
+  "retrodated": 0,
+  "lastIngested": "2026-10-24T11:53:50.167448+00:00",
+  "lastObserved": "2026-10-24T11:53:42.488214+00:00",
+  "adjustedCount": 130706,
+  "adjustedMissing": [
+    {
+      "symbol": "FDXF",
+      "sessions": 102
+    },
+    {
+      "symbol": "HONA",
+      "sessions": 92
+    },
+    {
+      "symbol": "PSKY",
+      "sessions": 239
+    },
+    {
+      "symbol": "Q",
+      "sessions": 245
+    },
+    {
+      "symbol": "WBD",
+      "sessions": 239
+    }
+  ]
+}

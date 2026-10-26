@@ -216,6 +216,120 @@ class ScoringInputIntegrationTest extends DurableDeliveryFixture {
             .contains("MISSING_MOMENTUM_BOUNDARY","INSUFFICIENT_PRICE_HISTORY","INCOMPLETE_LIQUIDITY_WINDOW");
     }
 
+    @Test void emptyLatestFilingDoesNotEraseKnownGeneralCoverage() {
+        jdbc.sql("UPDATE fundamentals.profile_observations SET status='MODEL_NOT_SUPPORTED',reason='NO_MAPPED_FACTS'").update();
+        assertThat(repository.load(request()).inputs().getFirst().reasons())
+            .extracting(ScoringInput.Reason::code).doesNotContain("MODEL_NOT_SUPPORTED");
+        assertThat(new ScoringInputRepository(source,"profiles-v1").load(request()).inputs().getFirst().reasons())
+            .extracting(ScoringInput.Reason::code).contains("MODEL_NOT_SUPPORTED");
+        jdbc.sql("UPDATE fundamentals.profile_observations SET profile='FINANCIAL'").update();
+        assertThat(repository.load(request()).inputs().getFirst().reasons())
+            .extracting(ScoringInput.Reason::code).contains("MODEL_NOT_SUPPORTED");
+    }
+
+    @Test void foreignUnitCannotPoisonValidCanonicalUnitButInvalidUsdStillBlocks() {
+        jdbc.sql("""
+            INSERT INTO fundamentals.fundamental_facts(issuer_id,filing_id,metric_code,mapping_version,taxonomy,
+                source_concept,period_end,source_value,numeric_value,unit,dimensions,source_context,source_fact_hash,
+                priority,quality_state,available_at,observed_at,source_artifact_id)
+            SELECT issuer_id,filing_id,metric_code,mapping_version,taxonomy,source_concept,period_end,
+                50,NULL,'EUR',dimensions,source_context,repeat('e',64),priority,'INVALID_UNIT',
+                available_at,observed_at,source_artifact_id
+            FROM fundamentals.fundamental_facts WHERE metric_code='TOTAL_ASSETS'
+            """).update();
+        assertThat(repository.load(request()).inputs().getFirst().facts())
+            .anySatisfy(f->assertThat(f.metric()).isEqualTo("TOTAL_ASSETS"));
+        assertThat(new ScoringInputRepository(source,"profiles-v1").load(request()).inputs().getFirst().facts())
+            .noneSatisfy(f->assertThat(f.metric()).isEqualTo("TOTAL_ASSETS"));
+        jdbc.sql("UPDATE fundamentals.fundamental_facts SET unit='USD',quality_state='INVALID_PERIOD' WHERE unit='EUR'").update();
+        assertThat(repository.load(request()).inputs().getFirst().facts())
+            .noneSatisfy(f->assertThat(f.metric()).isEqualTo("TOTAL_ASSETS"));
+    }
+
+    @Test void reviewIsImmutableAndCannotBeBackdatedOrUseAnotherMetric() {
+        UUID shares=jdbc.sql("SELECT fact_id FROM fundamentals.fundamental_facts WHERE metric_code='SHARES_OUTSTANDING'")
+            .query(UUID.class).single();
+        UUID review=UUID.randomUUID();
+        String evidence="{\"rationale\":\"Explicit single common share class verified\",\"sourceUri\":\"https://example.org/filing\","
+            +"\"sourceSha256\":\""+"a".repeat(64)+"\",\"scope\":\"EXACT_INSTRUMENT_SHARES\",\"shareClass\":\"Common\"}";
+        jdbc.sql("""
+            INSERT INTO operations.input_reviews(review_id,kind,instrument_id,fact_id,decision,reviewer,evidence,recorded_at)
+            VALUES(:id,'SHARE_CLASS',:instrument,:fact,'ACCEPT','test-reviewer',CAST(:evidence AS jsonb),'2000-01-01')
+            """).param("id",review).param("instrument",instrument).param("fact",shares).param("evidence",evidence).update();
+        assertThat(jdbc.sql("SELECT recorded_at > '2000-01-02'::timestamptz FROM operations.input_reviews WHERE review_id=:id")
+            .param("id",review).query(Boolean.class).single()).isTrue();
+        assertThatThrownBy(()->jdbc.sql("UPDATE operations.input_reviews SET decision='REVOKE' WHERE review_id=:id")
+            .param("id",review).update()).hasMessageContaining("immutable");
+        assertThatThrownBy(()->jdbc.sql("""
+            INSERT INTO operations.input_reviews(review_id,kind,instrument_id,fact_id,decision,reviewer,evidence)
+            VALUES(:id,'COMMON_EQUITY',:instrument,:fact,'ACCEPT','test-reviewer',CAST(:evidence AS jsonb))
+            """).param("id",UUID.randomUUID()).param("instrument",instrument).param("fact",shares)
+            .param("evidence",evidence).update()).hasMessageContaining("common-only");
+        // Historic query cannot see today's review and still returns the original known share fact.
+        assertThat(repository.load(request()).inputs().getFirst().sharesOutstanding()).isEqualByComparingTo("1000");
+    }
+
+    @Test void commonEquityReviewLifecyclePreservesCutoffAndDirectFacts() throws Exception {
+        UUID fact=jdbc.sql("""
+            INSERT INTO fundamentals.fundamental_facts(issuer_id,filing_id,metric_code,mapping_version,taxonomy,
+                source_concept,period_end,source_value,numeric_value,unit,dimensions,source_context,source_fact_hash,
+                priority,quality_state,available_at,observed_at,source_artifact_id)
+            SELECT issuer_id,filing_id,'STOCKHOLDERS_EQUITY',mapping_version,taxonomy,'StockholdersEquity',
+                period_end,700,700,unit,dimensions,source_context,repeat('7',64),priority,quality_state,
+                available_at,observed_at,source_artifact_id
+            FROM fundamentals.fundamental_facts WHERE metric_code='TOTAL_ASSETS' RETURNING fact_id
+            """).query(UUID.class).single();
+        String evidence="{\"rationale\":\"Verified full statement common-only equity reconciliation\","
+            +"\"sourceUri\":\"https://example.org/filing\",\"sourceSha256\":\""+"b".repeat(64)
+            +"\",\"scope\":\"TOTAL_EQUITY_IS_COMMON_ONLY\"}";
+        Instant accepted=appendEquityReview(fact,evidence,"ACCEPT");
+        assertThat(equitySelectionAt(CLOSE)).isEmpty();
+        assertThat(equitySelectionAt(accepted.minusNanos(1000))).isEmpty();
+        assertThat(equitySelectionAt(accepted)).containsExactly(new java.math.BigDecimal("700"));
+        Instant revoked=appendEquityReview(fact,evidence,"REVOKE");
+        assertThat(equitySelectionAt(revoked)).isEmpty();
+        assertThat(equitySelectionAt(accepted)).containsExactly(new java.math.BigDecimal("700"));
+        Instant restored=appendEquityReview(fact,evidence,"ACCEPT");
+        jdbc.sql("""
+            INSERT INTO fundamentals.fundamental_facts(issuer_id,filing_id,metric_code,mapping_version,taxonomy,
+                source_concept,period_end,source_value,numeric_value,unit,dimensions,source_context,source_fact_hash,
+                priority,quality_state,available_at,observed_at,source_artifact_id)
+            SELECT issuer_id,filing_id,'COMMON_EQUITY',mapping_version,taxonomy,'CommonStockholdersEquity',
+                period_end,650,650,unit,dimensions,source_context,repeat('6',64),priority,quality_state,
+                available_at,observed_at,source_artifact_id
+            FROM fundamentals.fundamental_facts WHERE fact_id=:fact
+            """).param("fact",fact).update();
+        assertThat(equitySelectionAt(restored)).containsExactly(new java.math.BigDecimal("650"));
+        assertThat(jdbc.sql("SELECT numeric_value FROM fundamentals.fundamental_facts WHERE fact_id=:fact")
+            .param("fact",fact).query(java.math.BigDecimal.class).single()).isEqualByComparingTo("700");
+    }
+
+    private Instant appendEquityReview(UUID fact,String evidence,String decision) {
+        return jdbc.sql("""
+            INSERT INTO operations.input_reviews(review_id,kind,instrument_id,fact_id,decision,reviewer,evidence)
+            VALUES(:id,'COMMON_EQUITY',:instrument,:fact,:decision,'test-reviewer',CAST(:evidence AS jsonb))
+            RETURNING recorded_at
+            """).param("id",UUID.randomUUID()).param("instrument",instrument).param("fact",fact)
+            .param("decision",decision).param("evidence",evidence).query(java.time.OffsetDateTime.class)
+            .single().toInstant();
+    }
+
+    /** Financial-selection diagnostic only: no score is constructed at the later review cutoff. */
+    private List<java.math.BigDecimal> equitySelectionAt(Instant cutoff) throws Exception {
+        String sql=new org.springframework.core.io.ClassPathResource("sql/scoring-inputs.sql")
+            .getContentAsString(java.nio.charset.StandardCharsets.UTF_8).replace("\r\n","\n");
+        String prefix=sql.substring(0,sql.indexOf(",\nfact_bundles AS ("));
+        var r=request();
+        return jdbc.sql(prefix+" SELECT numeric_value FROM input_facts WHERE metric_code='COMMON_EQUITY'")
+            .param("scoreDate",r.scoreDate()).param("marketCutoff",r.marketCutoff().atOffset(ZoneOffset.UTC))
+            .param("knowledgeCutoff",cutoff.atOffset(ZoneOffset.UTC)).param("basis",r.adjustmentBasis())
+            .param("rawDataset",r.rawDataset()).param("adjustedDataset",r.adjustedDataset())
+            .param("sp500",r.sp500Snapshot()).param("nasdaq",r.nasdaq100Snapshot())
+            .param("classification",r.classificationVersion()).param("mapping",r.mappingVersion())
+            .param("timingPolicy",r.timingPolicy()).param("requiredMetrics","{TOTAL_ASSETS}")
+            .query(java.math.BigDecimal.class).list();
+    }
+
     @Test void invalidSnapshotPairFailsTheWholeRequest() {
         jdbc.sql("UPDATE reference.universe_snapshots SET observed_at='2026-09-02' WHERE universe_snapshot_id=:id")
             .param("id",nasdaq).update();

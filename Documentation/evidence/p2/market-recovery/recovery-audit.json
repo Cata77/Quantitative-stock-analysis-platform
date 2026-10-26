@@ -1,0 +1,679 @@
+{
+  "runs": [
+    {
+      "date": "2026-10-01",
+      "runId": "edbf638a-68c2-4bfd-9868-20026c1036ba",
+      "status": "COMPLETE",
+      "accepted": 518,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "runId": "24da6b03-cb83-4767-82bb-99f481ace509",
+      "status": "COMPLETE",
+      "accepted": 518,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "runId": "01b63ee4-ad5f-47f8-851e-4a1b4038959d",
+      "status": "COMPLETE",
+      "accepted": 518,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "runId": "8af619f8-e662-40cb-b341-362f7b50580d",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "runId": "f3d7bf92-fbff-4862-a0ff-98d588aca521",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "runId": "5b41a0d6-c20c-4897-a3f4-571e71c01682",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "runId": "6c4f4927-3c6f-473f-b57e-3f9fdcaea732",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "runId": "a136b5ec-4288-4cc0-a998-2cd765aa4f73",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "runId": "70adb817-c2fd-458f-a61c-2c39a219e6cb",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "runId": "c02f1c8f-72d4-4067-8382-d019d41202f2",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "runId": "4b08c347-10b8-4366-8a37-950408ecda42",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "runId": "72deb450-9c0c-48d8-924e-68f5e6bcfd22",
+      "status": "FAILED",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "runId": "a99a5598-11c8-4315-bdde-1b9ff176f7b0",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "runId": "9767d6b2-f6c7-4ddc-883e-7e6be89e36ec",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "runId": "5c871426-86b9-4f7b-985c-355a39c05831",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "runId": "8514ecda-3730-4f1c-8b97-f82fb838c647",
+      "status": "WAITING_RETRY",
+      "accepted": 516,
+      "expected": 518,
+      "configuration": {
+        "feed": "sip",
+        "topic": "market-data-observations-v2",
+        "baseUrl": "https://data.alpaca.markets",
+        "eventType": "DAILY_PRICE",
+        "timeframe": "1Day",
+        "adjustment": "RAW",
+        "symbolAsOf": "2026-10-23",
+        "maxAttempts": 5,
+        "collectionScope": "CURRENT_UNIVERSE_PRICE_HISTORY"
+      }
+    }
+  ],
+  "scope": "RAW_GAP_RECOVERY_NOT_A_SCORING_RUN",
+  "failures": [
+    {
+      "date": "2026-10-06",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-06",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-07",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-07",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-08",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-08",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-09",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-09",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-12",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-12",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-13",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-13",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-14",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-14",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-15",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-15",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-16",
+      "status": "FAILED",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 5,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-16",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-19",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-19",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-20",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-20",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 3,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-21",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 2,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-21",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 2,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    },
+    {
+      "date": "2026-10-22",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 2,
+      "instrumentId": "77f24b58-a12d-4483-b86f-9d695eb4324a"
+    },
+    {
+      "date": "2026-10-22",
+      "status": "WAITING_RETRY",
+      "failure": {
+        "code": "MISSING_SESSION",
+        "detail": "Expected daily bar was absent from all provider pages"
+      },
+      "attempts": 4,
+      "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e"
+    }
+  ],
+  "itemStates": {
+    "FAILED": 10,
+    "COMPLETE": 8262,
+    "WAITING_RETRY": 16
+  },
+  "observedAt": "2026-10-23T12:24:24.480766+00:00",
+  "barsBySession": [
+    {
+      "instruments": 518,
+      "observations": 518,
+      "session_date": "2026-10-01",
+      "last_observed": "2026-10-23T12:17:20.990122+00:00",
+      "first_observed": "2026-10-23T12:17:04.471141+00:00"
+    },
+    {
+      "instruments": 518,
+      "observations": 518,
+      "session_date": "2026-10-02",
+      "last_observed": "2026-10-23T12:18:03.193518+00:00",
+      "first_observed": "2026-10-23T12:17:26.887778+00:00"
+    },
+    {
+      "instruments": 518,
+      "observations": 518,
+      "session_date": "2026-10-05",
+      "last_observed": "2026-10-23T12:18:23.363207+00:00",
+      "first_observed": "2026-10-23T12:18:09.287667+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-06",
+      "last_observed": "2026-10-23T12:19:03.078734+00:00",
+      "first_observed": "2026-10-23T12:18:29.607104+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-07",
+      "last_observed": "2026-10-23T12:19:09.157689+00:00",
+      "first_observed": "2026-10-23T12:19:02.098179+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-08",
+      "last_observed": "2026-10-23T12:19:25.493388+00:00",
+      "first_observed": "2026-10-23T12:19:16.900393+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-09",
+      "last_observed": "2026-10-23T12:19:37.282282+00:00",
+      "first_observed": "2026-10-23T12:19:28.816098+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-12",
+      "last_observed": "2026-10-23T12:20:16.195247+00:00",
+      "first_observed": "2026-10-23T12:19:39.319506+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-13",
+      "last_observed": "2026-10-23T12:20:24.377999+00:00",
+      "first_observed": "2026-10-23T12:20:17.100025+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-14",
+      "last_observed": "2026-10-23T12:20:39.182921+00:00",
+      "first_observed": "2026-10-23T12:20:31.222468+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-15",
+      "last_observed": "2026-10-23T12:20:48.304604+00:00",
+      "first_observed": "2026-10-23T12:20:41.07698+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-16",
+      "last_observed": "2026-10-23T12:21:33.862825+00:00",
+      "first_observed": "2026-10-23T12:20:53.458225+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-19",
+      "last_observed": "2026-10-23T12:21:41.360164+00:00",
+      "first_observed": "2026-10-23T12:21:34.256944+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-20",
+      "last_observed": "2026-10-23T12:21:55.207465+00:00",
+      "first_observed": "2026-10-23T12:21:48.828005+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-21",
+      "last_observed": "2026-10-23T12:22:11.734868+00:00",
+      "first_observed": "2026-10-23T12:22:03.644555+00:00"
+    },
+    {
+      "instruments": 516,
+      "observations": 516,
+      "session_date": "2026-10-22",
+      "last_observed": "2026-10-23T12:24:03.454415+00:00",
+      "first_observed": "2026-10-23T12:22:12.61252+00:00"
+    }
+  ],
+  "missingCanonicalItems": 26,
+  "retrodatedObservations": 0,
+  "duplicateInstrumentSessions": 0,
+  "adjustedHistoryCurrentVintage": 0
+}

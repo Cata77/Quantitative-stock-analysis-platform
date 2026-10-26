@@ -29,9 +29,12 @@ public class IngestionRuntime implements ApplicationRunner {
         Instant deadline = Instant.now().plus(properties.syncTimeout());
         do {
             cycle();
-            String state = coordinator.status().state();
+            var progress = coordinator.status();
+            String state = progress.state();
             if (state.equals("READY")) { exitCode = 0; return; }
-            if (state.equals("FAILED")) { exitCode = 1; return; }
+            // An exhausted item must not abandon unrelated planned sessions.
+            // Failures remain visible; a reconciliation exception clears recoverableItems.
+            if (state.equals("FAILED") && progress.recoverableItems() == 0) { exitCode = 1; return; }
             LockSupport.parkNanos(500_000_000);
         } while (Instant.now().isBefore(deadline) && !Thread.currentThread().isInterrupted());
     }

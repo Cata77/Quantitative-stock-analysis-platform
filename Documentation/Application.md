@@ -112,8 +112,10 @@ Overlay-ul `local` folosește configurări exclusiv pentru dezvoltare.
 
 ## Stadiu și următorii pași
 
-Modelul actual este **1.2.0**, iar schema sursă ajunge la **V019**. Există un snapshot
-de cercetare publicat local la 1 octombrie 2026; detalii în [Scoring](SCORING-SERVICE.md).
+Modelul actual este **1.2.0**, iar schema sursă ajunge la **V020**. Există un snapshot
+de cercetare publicat local la 25 octombrie 2026, cu data economică 23 octombrie;
+publicația de la 1 octombrie este păstrată. P2 este încheiat cu comparații și
+dovezi în [raportul P2](P2-DATA-PREPARATION.md); detalii în [Scoring](SCORING-SERVICE.md).
 Modelul este `FROZEN_RESEARCH_HYPOTHESIS`, cu acceptarea istorică `NOT_EVALUATED`.
 
 Pașii rămași sunt extinderea datelor pentru profiluri financiare/REIT, istoricul

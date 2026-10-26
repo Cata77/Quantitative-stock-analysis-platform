@@ -28,6 +28,21 @@ public class ScoringRunService {
         tx.setTimeout(180);
     }
     public boolean inputsReady(ScoringInputRequest request){
+        return completeCoverage(request) || collectionOutcomes(request)!=null;
+    }
+    private String collectionOutcomes(ScoringInputRequest request){
+        if(!ScoringInputRequest.CURRENT.equals(request.timingPolicy()))return null;
+        try {
+            String sql=new org.springframework.core.io.ClassPathResource("sql/current-collection-outcomes.sql")
+                .getContentAsString(java.nio.charset.StandardCharsets.UTF_8);
+            return jdbc.sql(sql).param("raw",request.rawDataset()).param("adjusted",request.adjustedDataset())
+                .param("date",request.scoreDate()).param("basis",request.adjustmentBasis().toString())
+                .param("sp",request.sp500Snapshot()).param("nq",request.nasdaq100Snapshot())
+                .param("cutoff",request.knowledgeCutoff().atOffset(ZoneOffset.UTC))
+                .query(String.class).optional().orElse(null);
+        }catch(java.io.IOException failure){throw new IllegalStateException("Missing collection outcome query",failure);}
+    }
+    private boolean completeCoverage(ScoringInputRequest request){
         return jdbc.sql("""
             SELECT NOT EXISTS (
                 SELECT 1 FROM (VALUES(CAST(:raw AS uuid),'RAW'),(CAST(:adjusted AS uuid),'SPLIT_DIVIDEND')) required(dataset,mode)
@@ -51,7 +66,9 @@ public class ScoringRunService {
         var requestMap=CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(request));
         requestMap.put("requiredMetrics",request.requiredMetrics().stream().sorted().toList());
         String requestJson=CanonicalJson.write(obj("inputs",requestMap,
-            "jurisdictions",new TreeMap<>(jurisdictions),"candidate","primary","effective_from",effectiveFrom.toString()));
+            "jurisdictions",new TreeMap<>(jurisdictions),"candidate","primary","effective_from",effectiveFrom.toString(),
+            "preprocessingVersion",CanonicalModelInputs.CURRENT_VERSION,
+            "collectionPolicy","CURRENT_COLLECTION_OUTCOMES_V1"));
         String key=CanonicalJson.hash(FrozenModel.SHA,requestJson);
         UUID id=tx.execute(status->{
             UUID modelId=jdbc.sql("SELECT model_version_id FROM research.model_versions WHERE manifest_sha256=:hash AND approval_state <> 'RETIRED'")
@@ -62,13 +79,14 @@ public class ScoringRunService {
                 """).param("cert",certification).param("model",modelId).param("sha",FrozenModel.SHA).update();
             jdbc.sql("""
                 INSERT INTO research.scoring_runs(logical_key,as_of_date,market_cutoff,knowledge_cutoff,effective_from,
-                    sp500_snapshot_id,nasdaq100_snapshot_id,model_version_id,certification_id,candidate,input_version,request,supersedes)
-                VALUES(:key,:date,:market,:knowledge,:effective,:sp,:nq,:model,:cert,'primary','prepared-canonical-v2',CAST(:request AS jsonb),
+                    sp500_snapshot_id,nasdaq100_snapshot_id,model_version_id,certification_id,candidate,input_version,preprocessing_version,request,supersedes)
+                VALUES(:key,:date,:market,:knowledge,:effective,:sp,:nq,:model,:cert,'primary','prepared-canonical-v2',:preprocessing,CAST(:request AS jsonb),
                     (SELECT score_run_id FROM research.scoring_runs WHERE as_of_date=:date AND model_version_id=:model AND candidate='primary' AND state='PUBLISHED' ORDER BY published_at DESC,score_run_id LIMIT 1))
                 ON CONFLICT(logical_key) DO NOTHING
                 """).param("key",key).param("date",request.scoreDate()).param("market",request.marketCutoff().atOffset(ZoneOffset.UTC))
                 .param("knowledge",request.knowledgeCutoff().atOffset(ZoneOffset.UTC)).param("effective",effectiveFrom.atOffset(ZoneOffset.UTC))
-                .param("sp",request.sp500Snapshot()).param("nq",request.nasdaq100Snapshot()).param("model",modelId).param("cert",certification).param("request",requestJson).update();
+                .param("sp",request.sp500Snapshot()).param("nq",request.nasdaq100Snapshot()).param("model",modelId).param("cert",certification)
+                .param("preprocessing",CanonicalModelInputs.CURRENT_VERSION).param("request",requestJson).update();
             return jdbc.sql("SELECT score_run_id FROM research.scoring_runs WHERE logical_key=:key").param("key",key).query(UUID.class).single();
         });
         try {
@@ -80,10 +98,14 @@ public class ScoringRunService {
             });
             tx.executeWithoutResult(status->{
                 var run=lock(id);if("PUBLISHED".equals(run.get("state"))||run.get("input_document")!=null)return;
-                if(!inputsReady(request))throw new IllegalStateException("WAITING_FOR_DAILY_COVERAGE");
+                boolean complete=completeCoverage(request);
+                String outcomes=complete?null:collectionOutcomes(request);
+                if(!complete && outcomes==null)throw new IllegalStateException("WAITING_FOR_DAILY_COVERAGE");
                 var section=inputs.load(request);
-                var prepared=CanonicalModelInputs.prepare(section,jurisdictions);
-                String document=CanonicalJson.write(obj("canonical",CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(section)),"prepared",prepared));
+                var prepared=CanonicalModelInputs.prepare(section,jurisdictions,CanonicalModelInputs.CURRENT_VERSION);
+                String document=CanonicalJson.write(obj("canonical",CanonicalJson.readObject(CanonicalJson.MAPPER.writeValueAsString(section)),"prepared",prepared,
+                    "collectionCoverage",complete?obj("policy","COMPLETE_DAILY_COVERAGE"):
+                        CanonicalJson.readObject(outcomes)));
                 jdbc.sql("UPDATE research.scoring_runs SET input_document=:document,input_sha256=:hash,expected_count=:count WHERE score_run_id=:id")
                     .param("document",document).param("hash",CanonicalJson.sha256(document)).param("count",section.inputs().size()).param("id",id).update();
             });

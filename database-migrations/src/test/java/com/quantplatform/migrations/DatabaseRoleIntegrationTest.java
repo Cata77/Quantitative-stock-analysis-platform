@@ -43,7 +43,7 @@ class DatabaseRoleIntegrationTest {
         }
         var flyway=Flyway.configure().dataSource(url,"quant_migrator","isolated-test-migration-password")
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(23);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(24);
         assertThat(flyway.migrate().migrationsExecuted).isZero();
     }
     @Test void administratorOwnedRepeatablesCanBeRepairedForRestrictedMigrations() throws Exception {
@@ -65,6 +65,12 @@ class DatabaseRoleIntegrationTest {
             statement.execute("RESET ROLE");
             statement.execute(repair);
             statement.execute(repair); // Safe to repeat after an uncertain operator outcome.
+            try(var rows=statement.executeQuery("""
+                SELECT c.relowner='quant_migrator'::regrole AND p.proowner='quant_migrator'::regrole
+                FROM pg_class c CROSS JOIN pg_proc p
+                WHERE c.oid='operations.input_reviews'::regclass
+                    AND p.oid='operations.validate_input_review()'::regprocedure
+                """)) { rows.next();assertThat(rows.getBoolean(1)).isTrue(); }
             try(var rows=statement.executeQuery("""
                 SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
                 WHERE c.relkind='v' AND n.nspname IN ('market_data','fundamentals')

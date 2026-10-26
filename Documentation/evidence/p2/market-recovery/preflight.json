@@ -1,0 +1,233 @@
+{
+  "observed_at": "2026-10-23T12:19:57.884308+00:00",
+  "requests": {
+    "calendar": {
+      "url": "https://paper-api.alpaca.markets/v2/calendar?start=2026-10-01&end=2026-10-22",
+      "status": 200,
+      "body": [
+        {
+          "close": "16:00",
+          "date": "2026-10-01",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-02"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-02",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-05"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-05",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-06"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-06",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-07"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-07",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-08"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-08",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-09"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-09",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-13"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-12",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-13"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-13",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-14"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-14",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-15"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-15",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-16"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-16",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-19"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-19",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-20"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-20",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-21"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-21",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-22"
+        },
+        {
+          "close": "16:00",
+          "date": "2026-10-22",
+          "open": "09:30",
+          "session_close": "2000",
+          "session_open": "0400",
+          "settlement_date": "2026-10-23"
+        }
+      ]
+    },
+    "raw": {
+      "url": "https://data.alpaca.markets/v2/stocks/bars?symbols=AAPL&timeframe=1Day&start=2026-10-22T04:00:00Z&end=2026-10-23T03:59:59Z&feed=sip&adjustment=raw",
+      "status": 200,
+      "body": {
+        "bars": {
+          "AAPL": [
+            {
+              "c": 348.22,
+              "h": 348.36,
+              "l": 342.28,
+              "n": 758607,
+              "o": 344.94,
+              "t": "2026-10-22T04:00:00Z",
+              "v": 47047124,
+              "vw": 346.542778
+            }
+          ]
+        },
+        "next_page_token": null
+      }
+    },
+    "missing_symbols": {
+      "url": "https://data.alpaca.markets/v2/stocks/bars?symbols=PSKY,WBD&timeframe=1Day&start=2026-10-01T04:00:00Z&end=2026-10-23T03:59:59Z&feed=sip&adjustment=raw",
+      "status": 200,
+      "body": {
+        "bars": {
+          "PSKY": [
+            {
+              "c": 9.34,
+              "h": 10.26,
+              "l": 9.325,
+              "n": 144268,
+              "o": 10.11,
+              "t": "2026-10-01T04:00:00Z",
+              "v": 44268412,
+              "vw": 9.626024
+            },
+            {
+              "c": 9.5,
+              "h": 9.67,
+              "l": 8.97,
+              "n": 117996,
+              "o": 9.35,
+              "t": "2026-10-02T04:00:00Z",
+              "v": 37389114,
+              "vw": 9.352279
+            },
+            {
+              "c": 9.775,
+              "h": 9.87,
+              "l": 9.16,
+              "n": 106527,
+              "o": 9.26,
+              "t": "2026-10-05T04:00:00Z",
+              "v": 31683227,
+              "vw": 9.678878
+            }
+          ],
+          "WBD": [
+            {
+              "c": 30.95,
+              "h": 30.96,
+              "l": 30.93,
+              "n": 71880,
+              "o": 30.95,
+              "t": "2026-10-01T04:00:00Z",
+              "v": 44286254,
+              "vw": 30.944147
+            },
+            {
+              "c": 30.94,
+              "h": 30.96,
+              "l": 30.93,
+              "n": 56322,
+              "o": 30.95,
+              "t": "2026-10-02T04:00:00Z",
+              "v": 59656147,
+              "vw": 30.943034
+            },
+            {
+              "c": 30.95,
+              "h": 30.99,
+              "l": 30.94,
+              "n": 151063,
+              "o": 30.95,
+              "t": "2026-10-05T04:00:00Z",
+              "v": 435638198,
+              "vw": 30.956787
+            }
+          ]
+        },
+        "next_page_token": null
+      }
+    }
+  }
+}

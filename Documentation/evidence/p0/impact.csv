@@ -1,0 +1,6 @@
+scenario,patched,eligible,recovered,lost,recovered_symbols
+gross_profit,5,49,0,0,
+profile_status,50,51,2,0,LII|VLTO
+aapl_equity_review,1,50,1,0,AAPL
+unit_selection,1,49,0,0,
+combined,56,52,3,0,AAPL|LII|VLTO

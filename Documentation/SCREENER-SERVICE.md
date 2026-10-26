@@ -17,6 +17,14 @@ Până la 35 de zile, eticheta este `CURRENT`; după aceea, `STALE`.
 Această etichetă de actualitate nu reprezintă aprobarea modelului.
 
 Pentru pagini consistente se reutilizează `runId` din prima pagină.
+Pentru întregul univers se cere explicit `eligibility=ALL`; clasamentul eligibil
+rămâne disponibil cu `eligibility=ELIGIBLE`. [Utilitarul P1](UNIVERSE-EXPORT.md)
+generează o listă HTML locală și un export CSV verificat, cu toate paginile fixate
+pe aceeași publicație. Totalurile `run.expectedCount`, `scoredCount`,
+`excludedCount` și `coverage` descriu reuniunea completă; `totalElements` descrie
+rezultatul filtrelor. Rangul și percentila rămân raportate la eligibilii întregii
+publicații, inclusiv când se filtrează pe indice, sector sau eligibilitate.
+
 `asOf` filtrează după data scorului; răspunsul păstrează separat momentul real
 al publicării. Snapshoturile curente sunt identificate prin `timingPolicy` și
 `publicationType`.

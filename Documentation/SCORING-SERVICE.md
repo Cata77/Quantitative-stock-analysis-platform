@@ -34,6 +34,17 @@ după colectare. Descărcările târzii nu repară retroactiv un cutoff lunar ra
 
 ## Operare
 
+Codul curent folosește pregătirea `canonical-preparation-v3` pentru runuri noi,
+cu schema V020. Vezi [regulile P2 și comparația controlată](P2-DATA-PREPARATION.md).
+Reproducerile istorice păstrează `profiles-v1`; formula rămâne 1.2.0.
+
+Snapshoturile curente folosesc `CURRENT_COLLECTION_OUTCOMES_V1`: acceptă și
+absența unei sesiuni confirmată prin tentativa, checkpointul și răspunsul
+furnizorului păstrate înainte de cutoff, cu excluderea explicită a instrumentului.
+Aceste dovezi sunt înghețate în `input_document.collectionCoverage`. Erorile
+tehnice și colectările neterminate rămân blocante. Publicarea lunară cere în
+continuare acoperirea completă; joburile cu lipsuri nu sunt marcate artificial complete.
+
 Se configurează `SCORING_MODEL_RAW_DATASET`, `SCORING_MODEL_ADJUSTED_DATASET`,
 `SCORING_MODEL_CLASSIFICATION_VERSION` și `SCORING_MODEL_MAPPING_VERSION`.
 UUID-urile provin din importurile bazei respective. `SCORING_MONTH_END_ENABLED`
@@ -53,6 +64,13 @@ Pentru universul local complet, calculul manual a necesitat
 `JAVA_TOOL_OPTIONS=-Xms64m -Xmx2g`.
 
 ## Rezultatul local păstrat
+
+La **2026-10-25** s-a publicat și verificat runul P2
+`76e93093-54e7-4fa8-9b44-760857d69ae1`: data economică **2026-10-23**, cutoff
+**2026-10-24T23:59:59Z**, pregătire `canonical-preparation-v3`, **518** instrumente,
+**49** eligibile și **469** excluse. Dovezile sunt în
+[raportul P2](P2-DATA-PREPARATION.md) și `build/p2-close-20261025/publication/`.
+Publicația anterioară de mai jos rămâne imuabilă și accesibilă prin `runId`.
 
 La **2026-10-01** s-a publicat runul `c2cf1551-a8fb-47ff-95eb-c4cb186778c9`:
 data economică **2026-09-30**, cutoff **2026-10-01T19:07:09Z**,

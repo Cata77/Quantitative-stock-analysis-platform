@@ -77,6 +77,8 @@ class ScoringRunIntegrationTest extends DurableDeliveryFixture {
     @Test void publishesExactUnionWithFactorsExclusionsAndSourceLineage(){
         UUID id=service().run(request,OPEN,jurisdictions);
         assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("PUBLISHED");
+        assertThat(text("SELECT preprocessing_version FROM research.scoring_runs"))
+            .isEqualTo(CanonicalModelInputs.CURRENT_VERSION);
         assertThat(count("research.stock_scores")).isEqualTo(12);
         assertThat(jdbc.sql("SELECT scored_count FROM research.scoring_runs").query(Integer.class).single()).isEqualTo(10);
         assertThat(jdbc.sql("SELECT excluded_count FROM research.scoring_runs").query(Integer.class).single()).isEqualTo(2);
@@ -322,4 +324,38 @@ class ScoringRunIntegrationTest extends DurableDeliveryFixture {
         service.run(request,OPEN,jurisdictions);
         assertThat(text("SELECT state FROM research.scoring_runs")).isEqualTo("PUBLISHED");
     }
+    @Test void currentSnapshotRequiresDurableMissingSessionEvidenceForEveryMember() {
+        var current=new ScoringInputRequest(DAY,CLOSE,CLOSE.plusSeconds(60),sp500,nasdaq,
+            dataset,dataset,DAY,request.classificationVersion(),"sec-us-gaap-v1",Set.of("TOTAL_ASSETS"),ScoringInputRequest.CURRENT);
+        jdbc.sql("DELETE FROM operations.data_coverage").update();
+        jdbc.sql("UPDATE operations.ingestion_runs SET status='FAILED'").update();
+        jdbc.sql("UPDATE operations.ingestion_run_items SET status='COMPLETE'").update();
+        UUID item=jdbc.sql("SELECT ingestion_run_item_id FROM operations.ingestion_run_items LIMIT 1").query(UUID.class).single();
+        jdbc.sql("UPDATE operations.ingestion_run_items SET status='FAILED',failure='{\"code\":\"MISSING_SESSION\"}',updated_at=:cutoff WHERE ingestion_run_item_id=:item")
+            .param("item",item).param("cutoff",CLOSE.atOffset(ZoneOffset.UTC)).update();
+        var service=service();
+        assertThat(service.inputsReady(current)).isFalse();
+        UUID attempt=UUID.randomUUID();
+        jdbc.sql("INSERT INTO operations.ingestion_attempts(attempt_id,ingestion_run_item_id,attempt_number,worker_id,status,finished_at,failure) VALUES(:attempt,:item,1,'fixture','FAILED',:cutoff,'{\"code\":\"MISSING_SESSION\"}')")
+            .param("attempt",attempt).param("item",item).param("cutoff",CLOSE.atOffset(ZoneOffset.UTC)).update();
+        jdbc.sql("INSERT INTO operations.ingestion_checkpoints(ingestion_run_item_id,attempt_id,checkpoint,updated_at) VALUES(:item,:attempt,'{\"nextPageToken\":\"\",\"barsSeen\":0}',:cutoff)")
+            .param("attempt",attempt).param("item",item).param("cutoff",CLOSE.atOffset(ZoneOffset.UTC)).update();
+        jdbc.sql("INSERT INTO operations.data_quality_issues(dataset_id,ingestion_run_id,instrument_id,severity,issue_type,affected_key,evidence) SELECT :dataset,ingestion_run_id,instrument_id,'BLOCKING','MISSING_SESSION','2026-09-30','{}' FROM operations.ingestion_run_items WHERE ingestion_run_item_id=:item")
+            .param("dataset",dataset).param("item",item).update();
+        assertThat(service.inputsReady(current)).isFalse();
+        jdbc.sql("UPDATE operations.source_artifacts SET parser_version='alpaca-daily-v2' WHERE source_artifact_id=:id").param("id",artifact).update();
+        jdbc.sql("INSERT INTO operations.ingestion_item_artifacts VALUES(:item,:artifact)").param("item",item).param("artifact",artifact).update();
+        assertThat(service.inputsReady(current)).isTrue();
+        assertThat(service.inputsReady(request)).isFalse(); // Monthly/legacy policy stays strict.
+        jdbc.sql("UPDATE operations.ingestion_checkpoints SET checkpoint='{\"nextPageToken\":\"more\",\"barsSeen\":0}' WHERE ingestion_run_item_id=:item").param("item",item).update();
+        assertThat(service.inputsReady(current)).isFalse();
+        jdbc.sql("UPDATE operations.ingestion_checkpoints SET checkpoint='{\"nextPageToken\":\"\",\"barsSeen\":0}',updated_at=:late WHERE ingestion_run_item_id=:item")
+            .param("item",item).param("late",CLOSE.plusSeconds(61).atOffset(ZoneOffset.UTC)).update();
+        assertThat(service.inputsReady(current)).isFalse();
+        jdbc.sql("UPDATE operations.ingestion_checkpoints SET updated_at=:cutoff WHERE ingestion_run_item_id=:item")
+            .param("item",item).param("cutoff",CLOSE.atOffset(ZoneOffset.UTC)).update();
+        jdbc.sql("UPDATE operations.ingestion_run_items SET failure='{\"code\":\"HTTP_ERROR\"}' WHERE ingestion_run_item_id=:item").param("item",item).update();
+        assertThat(service.inputsReady(current)).isFalse();
+    }
+
 }
