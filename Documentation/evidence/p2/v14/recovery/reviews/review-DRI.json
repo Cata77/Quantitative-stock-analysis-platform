@@ -1,0 +1,33 @@
+{
+  "reviewId": "5cd94d0e-a032-5e00-ab24-c4dc6f81c2a4",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "923b9d9f-0e2c-4ed6-a9ec-06463bacbd61",
+  "factId": null,
+  "issueId": "76d53bd7-6dd6-41fa-8fb0-761d5838ce7c",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investor.darden.com/news/news-details/2025/Darden-Restaurants-Reports-Fiscal-2025-Fourth-Quarter-and-Full-Year-Results-Increases-Quarterly-Dividend-Authorizes-New-1-Billion-Share-Repurchase-Program-And-Provides-Fiscal-2026-Outlook/",
+    "sourceSha256": "830590df851cf288976b09b4d998213e10bd84b7a4a31f4e024e125b91a421d0",
+    "sourceObservedAt": "2026-10-27T14:23:09.153517+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"20032503b0d7c8bd9e508a677840e2bca095c7723053a6a985d54070be5570ab\"}",
+    "providerAction": {
+      "id": "81d8adf4-6889-4be9-bce0-db1b97d2f8ee",
+      "rate": 1.5,
+      "type": "cash_dividends",
+      "cusip": "237194105",
+      "symbol": "DRI",
+      "ex_date": "2025-07-10",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-10",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "DARDEN RESTAURANTS INC",
+    "issuerCik": "0000940944",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms DRI, USD 1.5 per share, record date 2025-07-10, payment date 2025-08-01. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

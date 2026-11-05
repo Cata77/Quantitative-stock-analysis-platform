@@ -38,7 +38,9 @@ def verify(run_id: UUID, output: Path, container: str):
         raise ValueError("Output already exists")
     records = query(container, f"""
         SELECT score_run_id,state,as_of_date,knowledge_cutoff,preprocessing_version,
-            expected_count,scored_count,excluded_count,input_sha256,input_document,request
+            expected_count,scored_count,excluded_count,input_sha256,input_document,request,
+            (SELECT semantic_version FROM research.model_versions m
+             WHERE m.model_version_id=scoring_runs.model_version_id) model_version
         FROM research.scoring_runs WHERE score_run_id='{run_id}'
     """)
     if len(records) != 1 or records[0]["state"] != "PUBLISHED":
@@ -57,7 +59,17 @@ def verify(run_id: UUID, output: Path, container: str):
     if "preprocessing_version" in doc["prepared"]:
         prepared["preprocessing_version"] = version
     equivalent(prepared, doc["prepared"])
-    model = serialize(score(rows, as_of=cutoff, candidate=run["request"]["candidate"]))
+    version = run.get("model_version", "1.2.0")
+    if version in {"1.3.0", "1.4.0", "1.5.0"}:
+        from functools import partial
+
+        from .model.flexible import score as flexible_score
+        selected_score = partial(flexible_score, version=version)
+    elif version == "1.2.0":
+        selected_score = score
+    else:
+        raise ValueError("Unsupported publication model version")
+    model = serialize(selected_score(rows, as_of=cutoff, candidate=run["request"]["candidate"]))
     stored = query(container, f"""
         SELECT instrument_id,output FROM research.stock_scores WHERE score_run_id='{run_id}'
     """)

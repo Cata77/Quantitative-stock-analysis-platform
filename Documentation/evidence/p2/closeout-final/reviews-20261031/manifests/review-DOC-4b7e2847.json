@@ -1,0 +1,37 @@
+{
+  "reviewId": "f99e2f61-8d3c-509c-8a8a-80618aaf7e04",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "c7311e9d-497f-42c6-b5d8-a1acd3baad43",
+  "factId": null,
+  "issueId": "4b7e2847-8a09-4dcf-a01d-b68d26bc0160",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/765880/000162828026052608/ex99106302026.htm",
+    "sourceSha256": "84b108043b431277a9d6e14b61b6e1afb47d217a157cf624b51fe165401f2009",
+    "sourceObservedAt": "2026-10-31T11:27:33.932152+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "August 17, 2026 August 28, 2026 $0.10167",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"7828549da6841a20e98d4f930bc7f440ba227829b68015e0a0094c947640be6b\"}",
+    "providerAction": {
+      "id": "8d929a0c-f6dc-4312-8345-ff76739a8f7f",
+      "rate": 0.10167,
+      "type": "cash_dividends",
+      "cusip": "42250P103",
+      "symbol": "DOC",
+      "ex_date": "2026-08-17",
+      "foreign": false,
+      "special": false,
+      "record_date": "2026-08-17",
+      "payable_date": "2026-08-28",
+      "process_date": "2026-08-28"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "HEALTHPEAK PROPERTIES, INC.",
+    "issuerCik": "0000765880",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Healthpeak monthly common dividend; ex-date equals record date under T+1."
+  }
+}

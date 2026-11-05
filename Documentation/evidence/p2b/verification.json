@@ -1,0 +1,122 @@
+{
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "instruments": {
+    "SPCX": {
+      "eligible": false,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 37.1164,
+      "rsiIndependent": 37.1164,
+      "rsiSessions": 46,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": null
+    },
+    "MSFT": {
+      "eligible": true,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 49.0309,
+      "rsiIndependent": 49.0309,
+      "rsiSessions": 253,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 3875466447207.8096
+    },
+    "JPM": {
+      "eligible": true,
+      "inputs": 44,
+      "derived": 4,
+      "metrics": 1,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 49.5854,
+      "rsiIndependent": 49.5854,
+      "rsiSessions": 253,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 895915075162.8
+    },
+    "WBD": {
+      "eligible": false,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": null,
+      "rsiIndependent": null,
+      "rsiSessions": 0,
+      "rsiReason": "MISSING_SCORE_DATE_PRICE",
+      "rsiAgrees": true,
+      "marketCap": null
+    },
+    "AAPL": {
+      "eligible": true,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 55.3535,
+      "rsiIndependent": 55.3535,
+      "rsiSessions": 253,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 5029592253400
+    },
+    "SKYD": {
+      "eligible": true,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 43.5379,
+      "rsiIndependent": 43.5379,
+      "rsiSessions": 253,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 8519752467.150001
+    },
+    "O": {
+      "eligible": true,
+      "inputs": 65,
+      "derived": 18,
+      "metrics": 1,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 56.2335,
+      "rsiIndependent": 56.2335,
+      "rsiSessions": 253,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 53868192618.69
+    },
+    "HONA": {
+      "eligible": false,
+      "inputs": 44,
+      "derived": 13,
+      "metrics": 7,
+      "inputValueMismatches": [],
+      "adjustedCloseMatchesRsiLastClose": true,
+      "rsi": 43.3386,
+      "rsiIndependent": 43.3386,
+      "rsiSessions": 46,
+      "rsiReason": null,
+      "rsiAgrees": true,
+      "marketCap": 48858262558.75
+    }
+  },
+  "errors": {
+    "unknownInstrument": 404,
+    "missingRunId": 400
+  },
+  "passed": true
+}

@@ -1,0 +1,33 @@
+{
+  "reviewId": "42e388cd-166d-5877-9c4d-43a5b78fa58a",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "88873835-cbb0-4542-8e98-f1f9228b6a27",
+  "factId": null,
+  "issueId": "8b3e4605-cbad-4c5b-b10f-7d6b316f5838",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/0002115436/000119312526292576/d159056ds8pos.htm",
+    "sourceSha256": "f6c866d901e516a0b32bfd658b7dc9946fea5b9f86fc7818be7ee2b306b25dad",
+    "sourceObservedAt": "2026-10-31T11:25:42.103482+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "Upon effectiveness of the Redomiciliation, the Registrant’s CUSIP number relating to its common stock changed to 30233Q 108",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"3015ed2aaef56f33fd59e132a492c7ed46e25467d8f633895b077c66e01ab70e\"}",
+    "providerAction": {
+      "id": "71daae23-2985-4549-870e-a6d678474b6b",
+      "type": "name_changes",
+      "new_cusip": "30233Q108",
+      "old_cusip": "30231G102",
+      "new_symbol": "XOM",
+      "old_symbol": "XOM",
+      "process_date": "2026-07-02"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "EXXON MOBIL CORP",
+    "issuerCik": "0002115436",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Redomiciliation New Jersey -> Texas through a new holding company (ExxonMobil Holdings Corp, CIK 2115436); each share exchanged one-for-one and continues to trade on NYSE as XOM. Filings after the redomiciliation are made under the successor CIK; this review does not merge issuer filing histories."
+  }
+}

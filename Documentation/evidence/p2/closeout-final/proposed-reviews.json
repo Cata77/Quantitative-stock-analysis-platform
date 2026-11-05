@@ -1,0 +1,40 @@
+[
+  {
+    "symbol": "ECHO",
+    "instrumentId": "2cb41e4f-7353-4c4c-8eec-05b59690ac96",
+    "issueId": "d0e76aa3-44cf-4005-8037-64215757d4e8",
+    "providerAction": {
+      "id": "e434836c-344d-4e24-a40c-bc24987c0d73",
+      "type": "name_changes",
+      "new_cusip": "278768106",
+      "old_cusip": "278768106",
+      "new_symbol": "ECHO",
+      "old_symbol": "SATS",
+      "process_date": "2026-06-24"
+    },
+    "proposedDecision": "ACCEPT",
+    "scope": "EXACT_RENAME_ISSUE_ONLY",
+    "applied": false,
+    "evidenceFile": "identity-sources.json",
+    "sourceSha256": "db98e5f24a24dbdf163cd40b9edf05e44667ea28bffebed80a4fb69d763eec10"
+  },
+  {
+    "symbol": "P",
+    "instrumentId": "b6df52a6-1a23-4998-8435-99eeffa494ac",
+    "issueId": "778f991c-02d0-4eec-bef8-835c1f38383a",
+    "providerAction": {
+      "id": "0824a8ad-1531-415e-96ee-6e9e1dcd1b8f",
+      "type": "name_changes",
+      "new_cusip": "74624M102",
+      "old_cusip": "74624M102",
+      "new_symbol": "P",
+      "old_symbol": "PSTG",
+      "process_date": "2026-04-17"
+    },
+    "proposedDecision": "ACCEPT",
+    "scope": "EXACT_RENAME_ISSUE_ONLY",
+    "applied": false,
+    "evidenceFile": "identity-sources.json",
+    "sourceSha256": "db98e5f24a24dbdf163cd40b9edf05e44667ea28bffebed80a4fb69d763eec10"
+  }
+]

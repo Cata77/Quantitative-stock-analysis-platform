@@ -19,6 +19,11 @@ public class RankingQueryRepository {
         catch (java.io.IOException e) { throw new IllegalStateException("Invalid stored read model", e); }
     }
 
+    public static String toJson(Object value) {
+        try { return JSON.writeValueAsString(value); }
+        catch (java.io.IOException e) { throw new IllegalStateException("Unserializable query parameter", e); }
+    }
+
     public Optional<Map<String,Object>> latest(LocalDate asOf, UUID model, UUID runId) {
         return jdbc.sql("""
             SELECT jsonb_build_object('id',r.score_run_id,'asOfDate',r.as_of_date,
@@ -91,6 +96,8 @@ public class RankingQueryRepository {
                 'valueScore',s.value_score,'qualityScore',s.quality_score,'momentumScore',s.momentum_score,
                 'valueContribution',s.value_contribution,'qualityContribution',s.quality_contribution,
                 'momentumContribution',s.momentum_contribution,'eligible',s.eligible,
+                'scoreStatus',s.output->>'score_status','scoreCoverage',s.output->'coverage',
+                'effectiveWeights',s.output->'effective_weights',
                 'profile',s.scoring_profile,'sector',l.canonical_input->>'sector','peerGroup',s.peer_group,
                 'inSp500',l.canonical_input->'inSp500','inNasdaq100',l.canonical_input->'inNasdaq100',
                 'availableMetricCount',s.available_metric_count,'missingMetricCount',s.missing_metric_count,

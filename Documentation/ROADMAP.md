@@ -1,6 +1,6 @@
 # Plan de îmbunătățire a platformei
 
-Actualizat: 2026-10-25. Document de lucru, reordonat pe măsură ce discutăm cerințele.
+Actualizat: 2026-11-05. Document de lucru, reordonat pe măsură ce discutăm cerințele.
 Taskurile de mai jos sunt planificate; acest document nu reprezintă implementarea lor.
 
 ## Obiective
@@ -14,43 +14,23 @@ Taskurile de mai jos sunt planificate; acest document nu reprezintă implementar
 
 ## Situația verificată
 
-Surse locale: `build/local-step5/current-20261001/rankings.csv`,
-`exclusions.json`, `publication-verification.json`; manifestul modelului și codul
-adaptorului canonic. Acestea descriu publicația din 2026-10-01, cu data economică
-2026-09-30, nu o verificare live a bazei de date la data acestui document.
+Ultima publicație verificată, din 2026-11-02: run `bead056b-eb58-4e18-aa5b-6e7815d6f8e9`,
+model 1.5.0, pregătire `canonical-preparation-v4`, data economică 2026-10-30,
+cutoff `2026-11-01T20:00:00Z`
+([dovezi](evidence/p2/closeout-final/publication-20261102/README.md)). Valorile de mai
+jos descriu această publicație, nu o verificare live ulterioară.
 
 - Univers: reuniunea S&P 500 și Nasdaq-100, 518 instrumente unice.
-- Rezultate: 49 eligibile și 469 excluse; acoperire de aproximativ 9,46%.
-- Model: 1.2.0, ponderi Value/Quality/Momentum de 50/30/20.
-- GENERAL are trei metrici Value, trei Quality și una Momentum. Cere minimum
-  două metrici valide în fiecare dintre primele două familii și Momentum valid,
-  inclusiv verificările de normalizare și celelalte condiții de eligibilitate.
-- 48 de rânduri din CSV au două metrici lipsă, iar unul are o metrică lipsă.
-  Prin urmare, formula nu cere toate cele șapte metrici.
-- După îndeplinirea acoperirii minime, componenta normalizată lipsă contribuie cu
-  zero, păstrând numitorul familiei la trei. Asta nu înseamnă că datele financiare
-  brute lipsă sunt considerate zero.
-- API-ul suportă deja `eligibility=ALL`, `EXCLUDED`, `ELIGIBLE`; implicit este
-  `ELIGIBLE`. Filtrele se aplică publicației selectate, fără recalcularea rangului.
+- Rezultate: 515 scoruri complete sau parțiale și 3 excluderi documentate: WBD,
+  instrument dispărut; HONA și SPCX, listări recente fără 10-K.
+- Modelul 1.5.0 are statut de cercetare; validarea predictivă rămâne în P5.
+- API-ul suportă `eligibility=ALL`, `EXCLUDED`, `ELIGIBLE` (implicit `ELIGIBLE`).
+  Filtrele se aplică publicației selectate, fără recalcularea rangului. Endpointul
+  financiar (P2b) adaugă RSI și EBITDA informative, care nu intră în scor.
 
-Principalele motive din `exclusions.json`, numărând instrumente distincte la
-stadiul ELIGIBILITY și grupând codurile cu detalii după prefix:
-
-| Motiv | Instrumente afectate |
-|---|---:|
-| INSUFFICIENT_VALUE_COVERAGE | 363 |
-| INSUFFICIENT_QUALITY_COVERAGE | 200 |
-| MODEL_NOT_SUPPORTED | 156 |
-| CORPORATE_ACTION_REVIEW | 69 |
-| MISSING_INSTRUMENT_SHARES | 59 |
-| INVALID_MARKET_CAP | 59 |
-| STALE_SHARES | 19 |
-
-Motivele se suprapun: același instrument poate avea mai multe blocaje. Numerele
-nu se adună și nu reprezintă câte companii ar deveni eligibile printr-o singură
-remediere. `MODEL_NOT_SUPPORTED` trebuie investigat pe profil și pe ramura care
-îl produce; nu echivalează automat cu numărul companiilor financiare. Similar,
-`NOT_REPORTED` nu dovedește singur că informația lipsește din raportarea originală.
+Punctul de plecare a fost publicația din 2026-10-01 (model 1.2.0): 49 eligibile și
+469 excluse, acoperire de 9,46%. Motivele, care se suprapun pe același instrument,
+sunt analizate în [raportul P0](P0-EXCLUSION-AUDIT.md).
 
 ## Ordinea de lucru
 
@@ -104,25 +84,42 @@ de prezentare nu necesită modificarea formulei.
 
 ### P2 — Refactorizarea colectării și pregătirii datelor
 
-Încheiat la 2026-10-25: [raport final, dovezi și reproducere](P2-DATA-PREPARATION.md).
-Pregătirea `canonical-preparation-v3` recuperează LII/VLTO în comparația
-controlată pe datele originale: **49 → 51**, fără pierderi. Publicația nouă
-`76e93093-54e7-4fa8-9b44-760857d69ae1`, cu data economică 2026-10-23 și cutofful
-2026-10-24T23:59:59Z, are **518 = 49 eligibili + 469 excluși**. Compararea celor
-două date nu măsoară izolat efectul pregătirii: LII/VLTO au acum acțiuni vechi,
-iar filingul AAPL recolectat nu moștenește automat revizuirile faptelor anterioare.
+Încheiat la 2026-11-02: [publicația de închidere și excluderile documentate](evidence/p2/closeout-final/publication-20261102/README.md).
+Run `bead056b-eb58-4e18-aa5b-6e7815d6f8e9`, model 1.5.0, data economică
+2026-10-30, cutoff `2026-11-01T20:00:00Z`: **518 = 515 scoruri + 3 excluderi
+documentate**. SKYD (fost PSKY) este recuperat, fără pierderi față de 4e60be7c
+(514/4). Paritatea Java/Python este 1e-9, nu există prețuri ulterioare cutoffului,
+iar Gateway a fost verificat cu pagini de 100/137. Suita Java Scoring (103 teste,
+2 omise) și 240 de teste Python cu Ruff au trecut. Validarea predictivă rămâne în P5.
 
-Sunt verificate 130.706 prețuri ajustate și 8.778 prețuri brute din octombrie,
-67 de valori actualizate ale numărului de acțiuni și recuperarea lipsei CCL.
-Revizuirile individuale FISV/MRSH păstrează celelalte blocaje. Absențele de
-sesiune confirmate prin răspunsuri păstrate pot produce excluderi explicite într-un
-snapshot curent; colectările neterminate și erorile tehnice rămân blocante.
-Publicația originală și toate cele 518 rezultate ale ei sunt neschimbate.
+Etapele intermediare, cu dovezile lor:
 
-Lipsurile rămase sunt inventariate în raport, fără țintă artificială de 100%.
-Activarea profilurilor și tagurile candidate dependente de acestea continuă în
-P3; istoricul mai lung, componențele și succesorii instrumentelor continuă în P4.
-P2b și P2c sunt etape distincte, încă neimplementate.
+| Etapă | Rezultat | Raport |
+|---|---|---|
+| `canonical-preparation-v3` (2026-10-25) | LII/VLTO recuperate în comparația controlată: 49 → 51 | [P2-DATA-PREPARATION](P2-DATA-PREPARATION.md) |
+| Model flexibil 1.3.0 (2026-10-26) | 49 → 438 instrumente calculabile, cu scoruri parțiale | [P2-FLEXIBLE-MODEL](P2-FLEXIBLE-MODEL.md) |
+| Model 1.4.0 (2026-10-27) | 438 → 442 pe aceleași inputuri; publicația din 27 octombrie: 487/31 | [P2-MODEL-1.4](P2-MODEL-1.4.md) |
+| Revizuiri individuale și recolectări (2026-10-29…31) | publicația `f41d3a8d` (29 octombrie): 497/21 | [closeout-final](evidence/p2/closeout-final/README.md) |
+| Model 1.5.0, politica titlurilor (2026-10-31) | clase secundare și certificate de depozit, versionate | [P2-MODEL-1.5](P2-MODEL-1.5.md) |
+| Publicația de închidere (2026-11-02) | 515/3 | [publication-20261102](evidence/p2/closeout-final/publication-20261102/README.md) |
+
+Decizii acceptate de utilizator:
+
+- 2026-10-31: sunt permise **excluderi economice documentate pentru instrumentele
+  dispărute de la tranzacționare** (WBD). Instrumentele active cu probleme de
+  colectare, mapare, identitate sau suport rămân de remediat. Universul și
+  publicațiile istorice se păstrează.
+- 2026-10-31: clasele secundare GOOG, FOX și NWS primesc scor din raportările
+  comune ale emitentului, cu prețul și lichiditatea proprii clasei și capitalizarea
+  pe toate clasele, într-o politică versionată. Certificatele de depozit ARM/PDD cer
+  suport versionat, cu raportul ADR/acțiune, moneda raportării și conversia valutară
+  explicite. Credentialul Scoring se folosește numai în memorie, pentru revizuiri
+  individuale susținute de surse, recolectare și o publicație nouă.
+- 2026-11-02: HONA și SPCX sunt excluse ca listări recente (numai 10-Q, sub 252 de
+  ședințe proprii). Se reevaluează la primul raport anual.
+
+Activarea profilurilor continuă în P3; istoricul mai lung, componențele și
+succesorii instrumentelor continuă în P4.
 
 - [x] Îmbunătățire mapări SEC și derivări contabile justificate, cu proveniență.
 - [x] Audit al selecției perioadelor, TTM, bilanțurilor comparabile și faptelor
@@ -134,50 +131,105 @@ P2b și P2c sunt etape distincte, încă neimplementate.
 - [x] Recuperare a sesiunilor/prețurilor lipsă, unde istoricul există efectiv.
 - [x] Motive de eroare suficient de precise pentru a distinge lipsurile reale
   de problemele de colectare, mapare sau calcul.
+- [x] Implementarea unei formule mai flexibile, cu obiectivul de a obține
+  scoruri pentru instrumentele calculabile și excluderi economice documentate
+  pentru instrumentele dispărute, reconciliind întregul univers (518 instrumente
+  în publicația de referință). Evaluarea redistribuirii ponderilor
+  între metricile disponibile și a alternativelor justificate pe profil; definirea
+  acoperirii minime și distingerea scorurilor parțiale de cele complete.
+  Remedierea separată a lipsei totale de date și a blocajelor de identitate,
+  fără valori inventate sau înlocuirea datelor lipsă cu zero. Versiune nouă de
+  model, manifest și fixture-uri, paritate Java/Python, comparație pe întregul
+  univers și publicație nouă; publicațiile existente rămân imuabile.
+  Implementarea acestei cerințe este adusă în P2; validarea istorică din P5
+  rămâne necesară înainte de a afirma performanța predictivă a formulei.
 
 Criteriu de finalizare: comparație înainte/după pe date controlate, cu numărul
-de instrumente recuperate și explicația fiecărei schimbări. Nu se fixează acum
-o țintă arbitrară de eligibilitate de 100%. Publicațiile vechi rămân reproductibile;
-corecțiile se publică în execuții noi, cu versiunile relevante actualizate.
+de instrumente recuperate și explicația fiecărei schimbări. Pentru cerința nouă,
+raportul trebuie să reconcilieze întregul univers cu scorurile complete/parțiale
+și excluderile economice documentate pentru instrumentele dispărute. Fiecare
+asemenea excludere identifică instrumentul exact, evenimentul, data efectivă și
+sursele păstrate; nu folosește zero sau prețul succesorului în locul datelor lipsă.
+Problemele încă nerezolvate ale instrumentelor active țin P2 deschis. Referințele
+corectate și rezultatele trebuie verificate într-o publicație nouă, inclusiv
+paritatea Java/Python și reconcilierea Gateway. Publicațiile vechi rămân
+reproductibile; corecțiile se publică în execuții noi, cu versiunile relevante actualizate.
 
 ### P2b — Endpoint pentru date financiare și explicarea scorului
 
-Funcționalitate nouă planificată în Screener, după stabilizarea mapărilor și
-pregătirii datelor din P2. Contractul poate fi definit în timpul diagnosticului.
+Încheiat la 2026-11-02: [verificarea live și prin Gateway](evidence/p2b/README.md).
+Ruta `GET /screener/instruments/{instrumentId}/financials?runId={runId}` este
+documentată în [ENDPOINTS.md](ENDPOINTS.md). Răspunsul are inputuri raportate sau
+TTM cu proveniență, derivările modelului, metricile normalizate, scorul și
+excluderile aceleiași publicații. Accesul folosește `research:read`. Cerința
+utilizatorului din 2026-11-02 a adăugat RSI: `RSI_14_WILDER_V1`, informativ,
+neinclus în scor. Se calculează din închiderile ajustate ale datasetului și
+vintage-ului publicației, cu aceleași cutoffuri ca scoringul. Pe publicația
+`bead056b`, RSI coincide cu un calcul independent pentru 8 instrumente, iar
+valorile coincid cu lineage-ul păstrat. Rolul `quant_screener` primește numai
+`SELECT` pe `market_data.daily_bar_observations` (migrare repetabilă, după backup).
+Testele Screener (24, dintre care 4 RSI și 3 noi de integrare) și cele de migrare
+(19) au trecut. Continuarea din 2026-11-05 adaugă D&A/EBITDA din sursa păstrată a
+publicației; toate punctele P2b sunt bifate (33 de teste Screener, 19 de migrare).
 
-Rută propusă, încă neimplementată:
-`GET /screener/instruments/{instrumentId}/financials?runId={runId}`.
-Identificatorul și runId provin din rankings; accesul folosește `research:read`.
-
-- [ ] Definirea unui DTO explicit și documentarea contractului în ENDPOINTS.md
+- [x] Definirea unui DTO explicit și documentarea contractului în ENDPOINTS.md
   odată cu implementarea. Prima versiune cere `runId` pentru a lega datele de
   publicația consultată; nu combină implicit date curente cu un scor istoric.
-- [ ] Expunerea datelor disponibile relevante pentru scor: venituri, profit net,
+- [x] Expunerea datelor disponibile relevante pentru scor: venituri, profit net,
   profit operațional, active, capitaluri proprii, datorii, numerar, flux de numerar
   operațional, CAPEX, număr de acțiuni și capitalizare.
-- [ ] Expunerea indicatorilor derivați disponibili, precum FCF, EBIT/EV,
+- [x] Expunerea indicatorilor derivați disponibili, precum FCF, EBIT/EV,
   FCF yield, book/market și ROIC, cu unitate, formulă/versiune și proveniență.
   Separarea valorilor contabile raportate, derivărilor și scorurilor normalizate.
-- [ ] Pentru fiecare valoare: monedă/unitate, început/sfârșit de perioadă sau
+- [x] Pentru fiecare valoare: monedă/unitate, început/sfârșit de perioadă sau
   dată de bilanț, tipul perioadei (trimestrial/anual/TTM), data publicării,
   sursele și starea disponibilității. Returnarea numai a perioadelor efectiv
   existente sau derivabile justificat, fără a promite situații financiare complete.
-- [ ] Citirea inputurilor/provenienței păstrate pentru runul publicat și
+  Limită: începutul perioadei TTM nu este păstrat separat în lineage; TTM înseamnă
+  12 luni care se încheie la `periodEnd`.
+- [x] Citirea inputurilor/provenienței păstrate pentru runul publicat și
   reutilizarea derivărilor versionate din scoring; evitarea unei formule paralele
   în Screener. Audit al permisiunilor DB și migrare dacă sunt necesare drepturi noi.
-- [ ] Suport pentru instrumentele excluse: datele disponibile rămân accesibile,
+- [x] Suport pentru instrumentele excluse: datele disponibile rămân accesibile,
   iar lipsurile sunt `null` cu motiv explicit, inclusiv când scorul nu există.
-- [ ] Contract de erori: 400 pentru parametri invalizi; 404 pentru instrument,
+- [x] Contract de erori: 400 pentru parametri invalizi; 404 pentru instrument,
   publicație sau apartenență la run inexistente; 200 cu lipsuri explicite pentru
   un instrument prezent în publicație, dar fără toate datele financiare.
-- [ ] Teste de integrare pentru concordanța cu runul, unități/perioade, absența
+- [x] Teste de integrare pentru concordanța cu runul, unități/perioade, absența
   informațiilor ulterioare cutoffului, instrument exclus și controlul accesului.
+- [x] RSI(14) Wilder pentru instrument, legat de aceeași publicație, cu fereastra,
+  datasetul, vintage-ul și motivele de lipsă explicite; nu modifică scorul.
+- [x] Vedere implicită pentru utilizator (`view=SUMMARY`, `DISPLAY_METRICS_V1`):
+  P/E, P/S, P/B, P/FCF, EV/EBIT, randamente FCF/dividend, marje, ROA/ROE, datorie
+  netă, preț, RSI, randament pe 1 an, maxim/minim pe 52 de săptămâni și
+  volatilitate, fără câmpuri goale. Dosarul complet rămâne disponibil prin `view=FULL`.
+- [x] **Continuare de date, încheiată la 2026-11-05:** D&A și EBITDA informative
+  (`EBITDA_FROM_SOURCE_V1`, `DISPLAY_METRICS_V2`), fără efect pe scor. Decizia
+  utilizatorului: fără maparea `sec-us-gaap-v3`, recolectare sau publicație nouă.
+  Acestea ar fi cerut un vintage nou de prețuri ajustate (~131.000 de itemi Alpaca),
+  reaplicarea revizuirilor legate de faptele v2 (inclusiv GOOG/FOX/NWS) și pregătirea
+  v5. D&A se citește din răspunsul SEC păstrat în spatele faptelor
+  `OPERATING_INCOME_TTM`, pe aceleași filinguri și perioade. Pe `bead056b`: 288 de
+  instrumente cu EBITDA, 0 diferențe față de un calcul independent;
+  [dovezi](evidence/p2b/README.md). Limite: 101 instrumente nu au un concept
+  standard acceptat pe aceleași perioade (de ex. MSFT raportează numai componente
+  separate). Sumele de componente și conceptele cu acrețiune cer o regulă nouă,
+  versionată. Constatări AAPL din 2026-11-05: `InterestExpense` apare numai până la
+  exercițiul 2023. Lipsa este reală la sursă și rămâne documentată (decizia
+  utilizatorului). `PaymentsOfDividendsCommonStock` nu există, iar conceptul general
+  `PaymentsOfDividends` nu este mapat. `COMMON_EQUITY` nu se derivă, deoarece regula
+  v2 cere o raportare explicită zero a acțiunilor preferențiale. Ambele rămân lipsuri
+  documentate. Orice mapare nouă ar schimba inputurile modelului și cere versionare.
 
 Criteriu de finalizare: pornind de la un rând din rankings, clientul poate obține
 datele financiare disponibile și indicatorii aferenți aceleiași publicații,
 inclusiv explicațiile lipsurilor. Nu sunt declanșate descărcări de la furnizori
-în timpul cererii. Istoricul paginat al raportărilor și vizualizarea celor mai
-recente date independent de run rămân extensii de discutat.
+în timpul cererii. Istoricul paginat al raportărilor, vizualizarea celor mai
+recente date independent de run și seria istorică a RSI rămân extensii de discutat.
+RSI nu a fost evaluat ca semnal; orice utilizare în model ar cere versionare și P5.
+Din 2026-11-05, [exportul universului](UNIVERSE-EXPORT.md) afișează RSI 14 ca
+coloană sortabilă în `universe.html` și în CSV, preluat prin endpointul financiar
+al aceleiași publicații (o cerere per instrument, fără endpoint nou).
 
 ### P2b.1 — Verificarea comparațiilor pe sector și industrie
 
@@ -209,10 +261,121 @@ Criteriu de finalizare: comparația pe sector este explicabilă și reconciliat�
 publicația. Nivelul de industrie rămâne o alternativă de evaluat, fără a fi
 presupus superior sau înlocuit automat. Implementarea API/UI se coordonează cu P2b/P2c.
 
+### P2s — Simplificarea arhitecturii, înaintea interfeței web
+
+Adăugat la 2026-11-05, la cererea utilizatorului; în lucru (vezi bifele de mai jos).
+Constatare din analiza proiectului din aceeași zi: pentru un singur utilizator,
+~518 instrumente și un scor lunar, aplicația rulează 17 servicii Docker. Sunt 7
+servicii Spring, Kafka, Zookeeper, Elasticsearch, TimescaleDB și un indexer. Modelul
+este implementat de două ori (Java și Python), cu certificare de paritate. Codul
+de producție are ~16.000 de linii; testele (~370) sunt proporționale cu codul, dar
+multe verifică infrastructura (roluri, Kafka, rate limiting, autentificarea între
+servicii, paritate), nu regulile de date. Costul s-a văzut concret în P2b: limita
+Gateway de 100 de cereri/minut, JWT-ul de 15 minute care a forțat paralelizarea
+exportului, granturi DB per tabel. O mapare SEC nouă ar fi cerut pregătirea v5 în
+ambele limbaje.
+
+Se păstrează, ca reguli de date și nu ca infrastructură: `available_at`/`observed_at`,
+cutoffurile, proveniența, publicațiile imuabile cu `runId`, excluderile cu motiv
+explicit (nu zero), PostgreSQL/Timescale și migrările versionate. Fără rescriere
+completă: aplicația funcționează și fiecare pas se face separat, cu verificare.
+Simplificarea vine înaintea P2c, ca interfața să nu fie construită peste serviciile
+care urmează să fie comasate.
+
+- [x] **Decizia utilizatorului din 2026-11-05: Python** calculează și publică
+  modelul; Java păstrează colectarea (`market-data-producer`) și servirea datelor
+  (backend-ul web). Motive: backtestingul și variantele de formulă din P4/P5 cer
+  formula, nu numai rezultatele; pregătirea, modelele 1.4/1.5, reproducerea și
+  backtestul există deja în Python; modelul se schimbă des; performanța nu
+  contează la ~518 instrumente. Condiție: publicația `bead056b` este reprodusă
+  identic de publicarea Python înainte de eliminarea formulei Java. Publicațiile
+  existente rămân reproductibile din arhivele lor (`research-engine/fixtures/*-archive`),
+  care nu se rescriu.
+- [x] Reproducerea ultimei publicații Java în Python (2026-11-05,
+  [dovezi](evidence/p2s/README.md)). Pachetul `quant_research.publication` reface,
+  numai prin citire, cererea, secțiunea canonică, acoperirea și pregătirea pentru
+  `bead056b`. Documentul de input (127 MB) e identic octet cu octet, cu același
+  SHA-256 și aceeași cheie logică. Toate tabelele de rezultate coincid exact.
+- [x] Publicarea din Python: crearea runului, stările, certificarea, inserarea în
+  loturi și publicarea atomică, cu aceleași reguli de imutabilitate (2026-11-05,
+  [dovezi](evidence/p2s/README.md)). Verificarea s-a făcut pe o copie izolată,
+  restaurată din backup. Runul Python `26f3c95a` pe aceleași inputuri ca `bead056b`
+  are aceleași scoruri, factori, excluderi și surse. Singura diferență sunt
+  timestamp-urile derivate din cutoff. Prima publicație Python pe baza principală
+  rămâne pentru următoarea dată cu date colectate.
+- [x] Testele de integrare ale regulilor de date portate în Python (2026-11-05):
+  18 teste pentru interogarea de input (cutoffuri, revizuiri, calendar, clase de
+  acțiuni, snapshoturi) și 21 pentru publicare (ciclul de viață, concurență, reluare,
+  triggerele DB, politicile `CURRENT`/`PRE_OPEN`, acoperirea colectării). Rulează pe
+  un container TimescaleDB temporar (`QUANT_DB_TESTS=1`). S-a portat și coordonatorul
+  lunar (`month_end_request`). Nu s-au portat testele specifice modelelor Java
+  1.2–1.4, aserțiunile pe interogarea veche `profiles-v1` și testul de plan de execuție
+  la 600 de instrumente.
+- [x] Eliminarea formulei Java și a parității ca etapă de publicare (2026-11-05).
+  Au fost eliminate modelele 1.2–1.5, pregătirea, `ScoringRunService`,
+  `ScoringInputRepository`, coordonatorul lunar, comenzile `score-and-exit`/
+  `current-score-and-exit` și testele lor. Sursele (inclusiv cele niciodată comise)
+  sunt arhivate în `research-engine/fixtures/model-v1.5-java-final-archive/`, cu
+  manifest SHA-256. Interogările SQL au fost mutate în
+  `research-engine/src/quant_research/publication/sql/`. Freeze-ul modelului are o
+  revizie `relocation`: căi mutate, hash-uri de fișiere neschimbate. `scoring-service`
+  păstrează ingestia Kafka, datele canonice și DLQ. Publicarea lunară automată nu mai
+  există; era dezactivată în Java și rămâne pentru P7.
+- [x] **Etapa A, 2026-11-05: fără Kafka/Zookeeper.** Outbox-ul se livrează direct din
+  PostgreSQL de `OutboxDeliveryWorker` (Scoring). Livrarea folosește lease,
+  `SKIP LOCKED`, ordinea pe instrument, același inbox și același nume de consumator,
+  retry cu backoff, DLQ în DB și replay auditat. Înainte de eliminare, toate cele
+  1.294.435 de evenimente erau livrate, fără pierderi. Au fost eliminate relay-ul,
+  configurațiile Kafka, publisher-ul legacy (`MarketDataIngestionJob`,
+  `HistoricalBackfillRunner`), serviciile `kafka`/`zookeeper` și certificatele lor din
+  compose. Lockfile-urile sunt actualizate. Teste: Scoring 52 și producer 47 (doar
+  PostgreSQL), migrări 19. Rulează 5 containere.
+- [ ] **Etapa B:** procesarea canonică se mută în colector (aceeași tranzacție ca
+  staging-ul), fără outbox/inbox între procese, și `scoring-service` dispare. Se
+  păstrează idempotența, checkpointurile, retry-urile auditate și artefactele sursă.
+  Verificarea: reluarea unei colectări întrerupte, fără duplicate sau pierderi.
+- [x] Căutarea companiilor în PostgreSQL, fără Elasticsearch și `search-indexer`
+  (2026-11-05). Cuvintele se potrivesc toate, fără diferență de majuscule, cu
+  relevanță după vechile boost-uri (simbol > nume > sector/SIC). `GET /screener/search`
+  păstrează forma răspunsului. `/screener/search/status` răspunde `LIVE`/`POSTGRESQL`.
+  Diferență: fără potrivire aproximativă. Rulează 7 containere în loc de 9.
+  Curățat ulterior, tot la 2026-11-05: V025 elimină tabelul
+  `operations.search_rebuild_checkpoints`, rolul `quant_search` nu mai are drepturi și
+  a fost șters local, iar indexarea dezactivată din Scoring (`CompanyMetadataIndexer`,
+  `ElasticsearchConfiguration`, `scoring.elasticsearch.*`) a fost eliminată. Volumul
+  `quant-platform_elasticsearch-data` rămâne de șters manual. Constatare: întârzierea constantă de ~2 s a clienților Python venea din
+  `localhost` → IPv6 pe Windows, nu de la servicii; exportul folosește acum `127.0.0.1`.
+- [ ] Un singur backend web în locul auth, portfolio, screener și gateway, cu
+  modulele păstrate ca pachete. Autentificarea rămâne obligatorie. Se elimină
+  rate limitingul și tokenurile dintre servicii, inutile pentru un singur utilizator
+  local; expunerea publică rămâne în P7. Contractele din ENDPOINTS.md se păstrează
+  sau se documentează schimbările.
+- [x] Scripturile de audit de o singură folosință sunt arhivate (2026-11-05) în
+  `research-engine/archive/p0_p2_audits/`: 9 module și 8 fișiere de test (51 de teste,
+  rulate separat, inclusiv în CI). `quant_research.source_audit` păstrează numai
+  `query`, folosit de `publication_audit` (din freeze). Dovezile nu au fost
+  modificate; rapoartele P0/P2 au o notă cu noile comenzi.
+- [ ] Rolurile DB și granturile se reduc la ce mai folosesc procesele rămase, prin
+  migrare nouă, după backup verificat.
+- [ ] Testele infrastructurii eliminate dispar odată cu ea. Se păstrează și, unde
+  lipsesc, se completează testele pentru formulă, perioadele TTM, cutoffuri,
+  excluderi, idempotența colectării și exportul.
+
+Riscuri: pierderea garanțiilor de idempotență la eliminarea outboxului, rescrierea
+accidentală a publicațiilor vechi, schimbarea contractelor API. Fiecare pas are
+backup verificat, comparație înainte/după pe ultima publicație și actualizarea
+documentației. Nu se amestecă schimbări de formulă cu restructurarea.
+
+Criteriu de finalizare: aproximativ 5 containere (PostgreSQL/Timescale, migrări,
+colector, backend web, eventual job de scoring) în loc de 17; ultima publicație
+reprodusă identic cu implementarea păstrată; exportul universului și endpointul
+financiar returnează aceleași valori ca înainte; build și teste mai rapide, cu
+timpii măsurați înainte și după.
+
 ### P2c — Interfață web: prima versiune utilizabilă
 
-Planificată după lista completă P1 și endpointul financiar P2b, înaintea
-deploymentului. Designul și integrarea API-urilor existente pot începe mai devreme;
+Planificată după lista completă P1, endpointul financiar P2b și simplificarea
+P2s, înaintea deploymentului. Designul și integrarea API-urilor existente pot începe mai devreme;
 prima versiune nu depinde de finalizarea pilotului european sau a backtestingului.
 Alegerea frameworkului și a stilului vizual se stabilește la începutul etapei.
 
@@ -313,8 +476,10 @@ supraviețuitorilor: [QuantConnect Research Guide](https://www.quantconnect.com/
 
 ### P5 — Evaluarea unei politici mai flexibile pentru metricile lipsă
 
-Decizie deschisă: formula nu se relaxează automat pentru a obține 518 scoruri.
-Propunerile se compară după corectarea principalelor probleme de date.
+Actualizare 2026-10-26: implementarea unei formule flexibile cu obiectivul
+scorurilor pentru întregul univers a fost cerută explicit și adăugată în P2.
+P5 păstrează evaluarea istorică și compararea variantelor; creșterea acoperirii
+nu demonstrează singură performanța predictivă.
 
 - [ ] Comparare model actual cu variante explicite: ponderi redistribuite între
   metricile disponibile, metrici alternative justificate pe profil și scoruri
@@ -400,6 +565,10 @@ Găzduirea continuă reduce întreruperile, dar nu rezolvă singură lipsurile d
 
 ## Pas extra — Refactorizare și simplificarea codului
 
+Notă 2026-11-05: comasarea serviciilor și eliminarea Kafka/Elasticsearch sunt în
+P2s. Punctele de mai jos care privesc cod eliminat acolo (de ex. outboxul din
+`IngestionCoordinator` sau paritatea din adaptoare) se reevaluează după P2s.
+
 Etapă transversală, executată incremental împreună cu taskurile funcționale
 relevante. Constatările provin din inspecția codului; câștigurile de performanță
 nu sunt încă măsurate. Refactorizările păstrează comportamentul, contractele și
@@ -445,7 +614,8 @@ de produs și nu se creează servicii noi doar pentru separarea unor clase.
 
 ## Reguli pentru actualizarea planului
 
-P0 și P1 au prioritate imediată. Verificarea resurselor, alegerea serverului și deploymentul rămân la final, în P7, după rezolvarea problemelor prioritare.
+P0, P1, P2 și P2b sunt încheiate; urmează P2s (după decizia privind implementarea
+unică a modelului), apoi P2c; P2b.1 se poate face în paralel. Verificarea resurselor, alegerea serverului și deploymentul rămân la final, în P7, după rezolvarea problemelor prioritare.
 P2b expune datele financiare, iar P2c construiește UI-ul pe contractele P1/P2b;
 UI-ul inițial poate fi folosit local înaintea validării istorice complete.
 P2 și P3 pot fi reordonate după numărul de

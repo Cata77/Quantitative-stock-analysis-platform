@@ -1,0 +1,33 @@
+{
+  "reviewId": "53da29e5-9f9e-59c9-989d-07be9964c8e0",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "4c68bf02-f089-4813-8311-af47c7d6b3e4",
+  "factId": null,
+  "issueId": "d1555bd7-a4e7-4115-9876-b874877c2ec2",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://ir.kindermorgan.com/news/news-details/2025/Kinder-Morgan-Reports-Second-Quarter-2025-Financial-Results/default.aspx",
+    "sourceSha256": "8f6fd8a25924e54408d77e3ffcd9f12073b213112c44e3cea141704804e316e5",
+    "sourceObservedAt": "2026-10-27T14:26:32.501018+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"eb5b69bf68421be5ade4aebfc6c6aa39a13afe8d6d473eccf9460d2ccc6bec9e\"}",
+    "providerAction": {
+      "id": "e0950398-fc3e-4fc9-ab46-8c3199464d5e",
+      "rate": 0.2925,
+      "type": "cash_dividends",
+      "cusip": "49456B101",
+      "symbol": "KMI",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "KINDER MORGAN, INC.",
+    "issuerCik": "0001506307",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms KMI, USD 0.2925 per share, record date 2025-07-31, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

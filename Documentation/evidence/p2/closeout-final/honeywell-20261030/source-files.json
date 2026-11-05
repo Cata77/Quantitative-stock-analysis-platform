@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "HONA-exchange",
+    "sourceUri": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-399",
+    "file": "HONA-exchange.html",
+    "sourceSha256": "3ac886cf378ba3567c5f15c4158a760cc69ab2449f54b746744a53d80e3476e4",
+    "observedAt": "2026-10-30T13:39:44.487140+00:00"
+  },
+  {
+    "symbol": "HON-completion",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/773840/000077384026000084/hon-20260625.htm",
+    "file": "HON-completion.html",
+    "sourceSha256": "721f7620a1db0ad594879201b0548eb3f9294d766bcc9698602e5aa7198972a0",
+    "observedAt": "2026-10-30T13:39:44.727344+00:00"
+  }
+]

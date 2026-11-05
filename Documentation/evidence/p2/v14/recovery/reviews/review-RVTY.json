@@ -1,0 +1,33 @@
+{
+  "reviewId": "6bb3fe78-c92c-5fd3-bef7-0089863287f9",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "48915c2c-741c-4387-ac72-24fb43eebb63",
+  "factId": null,
+  "issueId": "a4c56b7d-31f7-494f-ab43-6ad934f3af0f",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.stocktitan.net/news/PKI/revvity-board-declares-quarterly-thykxmtpa5ve.html",
+    "sourceSha256": "888a8c3125cada15655d9d053ff8ca8a36a63805bfbee8da2e3d98428d39a58d",
+    "sourceObservedAt": "2026-10-27T14:26:32.654187+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"7cd2ccada9704901b71e06ebd63fbda9d06be3477918039ff928f7ac66ab1334\"}",
+    "providerAction": {
+      "id": "f3e18fe8-6c28-49bf-b1e7-02f3127843b3",
+      "rate": 0.07,
+      "type": "cash_dividends",
+      "cusip": "714046109",
+      "symbol": "RVTY",
+      "ex_date": "2025-07-18",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "REVVITY, INC.",
+    "issuerCik": "0000031791",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms RVTY, USD 0.07 per share, record date 2025-07-18, payment date 2025-08-08. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "reviewId": "2b408923-8ee3-5dd6-9078-01f2dc8a0cc9",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "d6522320-a1fc-4269-9f7b-40f79645913b",
+  "factId": null,
+  "issueId": "d3c9df1d-729b-4ece-b517-5cd231159e4d",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/0001075124/000119312526201824/d139216dex991.htm",
+    "sourceSha256": "da16cbd8869d523cbd96847bd91464a6ccec2c39e019957f391c049d5ec9a8d9",
+    "sourceObservedAt": "2026-10-31T11:25:44.669752+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "The new CUSIP number for the post-consolidated common shares is 884903881",
+    "issueEvidence": "{\"type\": \"stock_and_cash_mergers\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"64817e944b407c122650bb4ca7210e040de653314ce2f94c9d46222999ab3e8c\"}",
+    "providerAction": {
+      "id": "65657e53-ac83-4b93-9dea-47b93c4a4267",
+      "type": "stock_and_cash_mergers",
+      "cash_rate": 1.435518,
+      "payable_date": "2026-05-05",
+      "process_date": "2026-05-05",
+      "acquiree_rate": 1,
+      "acquirer_rate": 0.98456,
+      "acquiree_cusip": "884903808",
+      "acquirer_cusip": "884903881",
+      "effective_date": "2026-05-04",
+      "acquiree_symbol": "TRI",
+      "acquirer_symbol": "TRI"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "THOMSON REUTERS CORP /CAN/",
+    "issuerCik": "0001075124",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Thomson Reuters return of capital (USD 1.435518 per share) and share consolidation (1 -> 0.984560) effective May 4, 2026, trading TSX/Nasdaq: TRI post-consolidation from the open of May 4 (6-K of May 1, 2026). Cash, ratio, CUSIP and effective date match the provider. The payment-on-presentation date is not confirmed by this source and is not used by any adjusted-price input."
+  }
+}

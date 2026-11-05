@@ -11,12 +11,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.quantplatform.screener.search.SearchUnavailableException;
+import com.quantplatform.screener.financials.FinancialsNotFoundException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -51,7 +52,24 @@ public class ApiExceptionHandler {
         return problem(HttpStatus.BAD_REQUEST, "Query parameter is invalid", request);
     }
 
-    @ExceptionHandler({SearchUnavailableException.class, DataAccessException.class})
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    ResponseEntity<ProblemDetail> handleMissingParameter(
+            MissingServletRequestParameterException exception,
+            HttpServletRequest request
+    ) {
+        return problem(HttpStatus.BAD_REQUEST,
+                "Query parameter is required: " + exception.getParameterName(), request);
+    }
+
+    @ExceptionHandler(FinancialsNotFoundException.class)
+    ResponseEntity<ProblemDetail> handleNotFound(
+            FinancialsNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        return problem(HttpStatus.NOT_FOUND, exception.getMessage(), request);
+    }
+
+    @ExceptionHandler(DataAccessException.class)
     ResponseEntity<ProblemDetail> handleDependencyUnavailable(HttpServletRequest request) {
         return problem(
                 HttpStatus.SERVICE_UNAVAILABLE,

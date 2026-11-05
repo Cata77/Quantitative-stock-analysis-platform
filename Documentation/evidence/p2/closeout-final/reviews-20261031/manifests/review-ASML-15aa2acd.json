@@ -1,0 +1,37 @@
+{
+  "reviewId": "5763fdd0-7660-5d87-afbd-be3c3540b575",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "081e9e79-3fe9-4f0e-adec-01b062e9bd82",
+  "factId": null,
+  "issueId": "15aa2acd-022e-410d-8eef-24ecbea0b1fa",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/937966/000162828025034992/pressreleasequarterlyresul.htm",
+    "sourceSha256": "1e5e2636bd4988795ad34dc34c54c690d449a0e320b737b13679eef41fff4281",
+    "sourceObservedAt": "2026-10-31T11:28:37.755113+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "An interim dividend of €1.60 per ordinary share will be made payable on August 6, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"e1395e3cca057527a333f6812653c9a0ecb717c7318bf008a3d4809218325d07\"}",
+    "providerAction": {
+      "id": "d6df31b6-64f8-4526-991d-428f0e1c2bd6",
+      "rate": 1.569767,
+      "type": "cash_dividends",
+      "cusip": "N07059210",
+      "symbol": "ASML",
+      "ex_date": "2025-07-29",
+      "foreign": true,
+      "special": false,
+      "record_date": "2025-07-29",
+      "payable_date": "2025-08-06",
+      "process_date": "2025-08-06"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ASML HOLDING NV",
+    "issuerCik": "0000937966",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Provider rate is a USD amount derived from the EUR 1.60 interim dividend after foreign withholding; currency conversion is not re-derived here. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

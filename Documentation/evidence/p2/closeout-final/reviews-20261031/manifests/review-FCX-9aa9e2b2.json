@@ -1,0 +1,37 @@
+{
+  "reviewId": "620dd654-1576-5aec-bbed-0c63d1758c75",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "74f04780-1ce2-445f-b3fb-f3252a2bcf0f",
+  "factId": null,
+  "issueId": "9aa9e2b2-abae-43a7-91ac-4718b39aeab5",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000028/a2q2025exhibit991.htm",
+    "sourceSha256": "94fe0688a3e9b6484dd2236c2150c6cfb478d7b3ba16843feca4708f9834437e",
+    "sourceObservedAt": "2026-10-31T11:28:39.264989+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "declared cash dividends totaling $0.15 per share on its common stock (including a $0.075 per share quarterly base cash dividend and a $0.075 per share quarterly variable, performance-based cash dividend), which will be paid on August 1, 2025, to shareholders of record as of July 15, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"94b30cdf028d6578088b2655b8bc81760a2aff716852614bf2e44c403039c309\"}",
+    "providerAction": {
+      "id": "9190a42f-b673-4361-aa29-a306825d1814",
+      "rate": 0.075,
+      "type": "cash_dividends",
+      "cusip": "35671D857",
+      "symbol": "FCX",
+      "ex_date": "2025-07-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-15",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "FREEPORT-MCMORAN INC",
+    "issuerCik": "0000831259",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "One declaration of USD 0.15 = 0.075 base + 0.075 variable; the provider carries both the total and a USD 0.075 component on the same dates. Neither row is re-dated or rescaled. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "reviewId": "e734d5ff-f139-558a-934c-9770d79729ba",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "046b5b93-72b4-4ac7-a91c-8f61a1036998",
+  "factId": null,
+  "issueId": "39384995-9f05-4b18-ae77-a606c1a204f1",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://nucor.com/news/?article=nucor-announces-209th-consecutive-cash-dividend-122972",
+    "sourceSha256": "bcccd1f42f199401a20a1d449d503cb176bc207b22f25a671444c8c2c8ec268b",
+    "sourceObservedAt": "2026-10-26T14:07:58.158427+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"3c3175fad1bc69af3e8023f76f81f722ed4db480f99ba6ce18f305683835bb60\"}",
+    "providerAction": {
+      "id": "3717fd66-ea93-4373-ab0a-53ee04f9bb77",
+      "rate": 0.55,
+      "type": "cash_dividends",
+      "cusip": "670346105",
+      "symbol": "NUE",
+      "ex_date": "2025-06-30",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-06-30",
+      "payable_date": "2025-08-11",
+      "process_date": "2025-08-11"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "NUCOR CORP",
+    "issuerCik": "0000073309",
+    "rationale": "Issuer common-stock dividend source confirms NUE, USD 0.55 per share, record date 2025-06-30, payment date 2025-08-11. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

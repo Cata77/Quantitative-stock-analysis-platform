@@ -1,0 +1,32 @@
+{
+  "reviewId": "d2fe83fc-4252-597b-bda4-3474b0b918d7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "697b6688-2d36-40f1-913d-0f4944f5df61",
+  "factId": null,
+  "issueId": "9e0d7846-1bf5-4a98-a2b4-3e417eb5e698",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://www.pginvestor.com/news/news-details/2025/PG-Declares-Quarterly-Dividend-for-July-2025/default.aspx",
+    "sourceSha256": "7c293f03c01d35ecc372c917a3f7a5bf69d55bdbce450d413eee15479e1066d2",
+    "sourceObservedAt": "2026-10-26T14:04:52.219442+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"b663007143391bd9c7fb53b8967e7bf63a578a9c4875129acd8f94863307ded4\"}",
+    "providerAction": {
+      "id": "979158b1-1ba4-4ed8-a2e1-4dc059fd3669",
+      "rate": 1.0568,
+      "type": "cash_dividends",
+      "cusip": "742718109",
+      "symbol": "PG",
+      "ex_date": "2025-07-18",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "PROCTER & GAMBLE Co",
+    "issuerCik": "0000080424",
+    "rationale": "Issuer common-stock dividend source confirms PG, USD 1.0568 per share, record date 2025-07-18, payment date 2025-08-15. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

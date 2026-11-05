@@ -1,0 +1,37 @@
+{
+  "reviewId": "ed12d8cd-81ec-5e43-9a6f-007a77859516",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+  "factId": null,
+  "issueId": "0ba03896-c39c-4bdc-b3b2-4317eb0d6d32",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://ir.oneok.com/news-and-events/press-releases/2026/07-15-2026-211614952",
+    "sourceSha256": "5a515ebd2df8bccdc1435ec33c717c6571955c81b81b9f86e3992146d5f33eda",
+    "sourceObservedAt": "2026-10-31T11:33:11.093104+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "The dividend is payable Aug. 14, 2026 , to shareholders of record at the close of business Aug. 3, 2026",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"665317aa588989174c8c7fae70cd3fc114b90c71116ad3acbf95af56fc85d9d5\"}",
+    "providerAction": {
+      "id": "c47e1181-eab1-463c-b9de-5a06650faced",
+      "rate": 1.07,
+      "type": "cash_dividends",
+      "cusip": "682680103",
+      "symbol": "OKE",
+      "ex_date": "2026-08-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2026-08-03",
+      "payable_date": "2026-08-14",
+      "process_date": "2026-08-14"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ONEOK INC /NEW/",
+    "issuerCik": "0001039684",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "ONEOK quarterly dividend; ex-date equals record date under T+1."
+  }
+}

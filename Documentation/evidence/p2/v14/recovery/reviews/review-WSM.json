@@ -1,0 +1,33 @@
+{
+  "reviewId": "0dec2dd2-9ebf-5729-affe-61a8401b2bd7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "eeaa240e-e01a-479b-b160-73d46ac92a4c",
+  "factId": null,
+  "issueId": "116eab92-ffbb-4a4f-89fe-d09f6ece22f6",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://ir.williams-sonomainc.com/investor-information/news-releases/news-release-details/2025/Williams-Sonoma-Inc--declares-quarterly-cash-dividend/default.aspx",
+    "sourceSha256": "43aa2a6a4965896fdd1a1565a8a0693ee3f6f29fb1c647eab9807cd7ab44dd73",
+    "sourceObservedAt": "2026-10-27T14:26:32.718144+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"b7b75dbb1abf71e7595686fa5a2c613027a73a4eed5e9c69405d85206e742fe9\"}",
+    "providerAction": {
+      "id": "199e3afd-0772-48b4-84e3-27bbf68356f3",
+      "rate": 0.66,
+      "type": "cash_dividends",
+      "cusip": "969904101",
+      "symbol": "WSM",
+      "ex_date": "2025-07-18",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-08-22",
+      "process_date": "2025-08-22"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "WILLIAMS SONOMA INC",
+    "issuerCik": "0000719955",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms WSM, USD 0.66 per share, record date 2025-07-18, payment date 2025-08-22. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

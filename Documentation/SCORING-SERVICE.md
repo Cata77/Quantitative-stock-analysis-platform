@@ -1,69 +1,82 @@
 # Scoring Service
 
-Transformă evenimentele Kafka în date canonice și calculează clasamente reproductibile.
-Port local **18085** (8085 în container), folosit pentru health și metrici.
+Transformă evenimentele din outbox-ul colectorului în date canonice: prețuri zilnice, raportări SEC,
+profiluri, acoperirea colectării și DLQ. Port local **18085** (8085 în container),
+folosit pentru health și metrici.
+
+**Scorurile nu se mai calculează în Java** (P2s, decizia utilizatorului din
+2026-11-05). Modelul, pregătirea, certificarea și publicarea sunt numai în Python,
+în [`quant_research.publication`](../research-engine/src/quant_research/publication).
+Vezi [Research Engine](RESEARCH-ENGINE.md) și [dovezile P2s](evidence/p2s/README.md).
+Codul Java eliminat (modelele 1.2–1.5, `CanonicalModelInputs`, `ScoringRunService`,
+`MonthEndScoringCoordinator`, testele de paritate) este păstrat în
+[arhiva finală](../research-engine/fixtures/model-v1.5-java-final-archive/archive.json).
+JAR-ul care a publicat `bead056b` este păstrat local în
+`build/p2-psky-20261101/current-3/scoring.jar`.
 
 ## Flow
 
-1. Consumă `market-data-observations-v2` și validează schema, cheia și sursa.
-2. Salvează inbox-ul și datele canonice în aceeași tranzacție; duplicatele nu repetă efectele.
-3. Mesajele invalide sunt auditate și trimise în `market-data-observations-v2-dlq`.
-4. La calcul verifică universul, calendarul, acoperirea și momentul-limită al informațiilor.
-5. Capturează și hashuiește inputurile, apoi calculează întregul univers.
-6. Publică atomic scorurile, factorii, excluderile și proveniența; Screener le poate citi.
+1. `OutboxDeliveryWorker` preia evenimentele din `operations.outbox_events`
+   (canalul `market-data-observations-v2`) direct din PostgreSQL, cu lease și
+   `FOR UPDATE SKIP LOCKED`, și validează hash-ul, cheia și sursa. Kafka a fost
+   eliminat (P2s, 2026-11-05).
+2. Salvează inbox-ul și datele canonice în aceeași tranzacție, apoi confirmă
+   evenimentul (`PUBLISHED`). Un crash între cele două produce doar o relivrare după
+   expirarea lease-ului; inbox-ul (`scoring-service-v2`) o face fără efect.
+3. Evenimentele aceluiași instrument se livrează în ordinea creării: un instrument cu
+   un eveniment anterior încă în retry așteaptă, ca partiția Kafka de altădată.
+4. Mesajele invalide ajung direct în `operations.dead_letter_records`, cu octeții exacți,
+   hash-ul și motivul. Erorile tranzitorii se reiau cu backoff exponențial
+   (`scoring.retry-attempts`), apoi ajung tot acolo. Evenimentul rămâne `FAILED_TERMINAL`.
+   `dlq-replay` îl readuce la `PENDING`, auditat în `dead_letter_replays`.
+5. Reconciliază acoperirea colectării (`operations.data_coverage`), folosită de
+   publicarea Python ca precondiție.
 
-Un run trece prin `PENDING → RUNNING → PUBLISHED` sau `FAILED`.
-Reluările folosesc inputurile deja capturate. O publicație completă este imuabilă:
-numărul așteptat trebuie să fie egal cu eligibili + excluși, cu minimum doi eligibili.
+## Publicarea scorurilor (Python)
 
-## Modelul curent
+Un run trece prin `PENDING → RUNNING → PUBLISHED` sau `FAILED`. Reluările folosesc
+inputurile deja capturate. O publicație completă este imuabilă: numărul așteptat
+trebuie să fie egal cu eligibili + excluși, cu minimum doi eligibili. Triggerele DB
+(V012–V023) verifică lineage-ul, cutoffurile, contribuțiile și certificarea.
 
-Modelul **1.2.0** combină **50% Value + 30% Quality + 20% Momentum**.
-GENERAL folosește EBIT/EV, FCF/market cap, book/market, gross profitability, ROIC,
-cash earnings și momentum între sesiunile t-252 și t-21.
+```powershell
+$env:QUANT_DB_DSN = '<dsn quant_scoring>'   # numai în mediul procesului
+.esearch-engine\.venv\Scripts\python.exe -m quant_research.publication.cli current --score-date 2026-10-30 --cutoff 2026-11-01T20:00:00Z --raw-dataset <uuid> --adjusted-dataset <uuid> --classification <uuid> --mapping-version sec-us-gaap-v2
+```
 
-Valorile sunt normalizate în grupuri comparabile, cu limitarea extremelor și a
-z-score-urilor. Sunt necesare minimum două componente Value, două Quality și Momentum.
-Lipsurile, acoperirea slabă și profilurile nesuportate sunt raportate explicit.
-Adaptorul canonic activează GENERAL; celelalte profiluri necesită date suplimentare.
+UUID-urile sunt cele din `infrastructure/.env` (`SCORING_MODEL_RAW_DATASET`,
+`SCORING_MODEL_ADJUSTED_DATASET`, `SCORING_MODEL_CLASSIFICATION_VERSION`,
+`SCORING_MODEL_MAPPING_VERSION`). Python publică modelul **1.5.0**
+([politica titlurilor](P2-MODEL-1.5.md)) peste `canonical-preparation-v4`.
+Publicațiile 1.2–1.4 rămân reproductibile din documentele stocate
+(`quant_research.publication_audit`).
 
-Politica lunară `NEXT_OPEN_MINUS_30M_V1` fixează decizia cu 30 de minute înaintea
-următoarei deschideri, folosind prețurile până la închiderea de final de lună.
-`CURRENT_SNAPSHOT_V1` permite separat un snapshot curent, cu un cutoff explicit
-după colectare. Descărcările târzii nu repară retroactiv un cutoff lunar ratat.
+`CURRENT_SNAPSHOT_V1` cere ultima sesiune închisă la cutoff și aceeași dată New York
+pentru întreaga istorie ajustată; cutofful este reutilizat la retry. Acceptă absența
+unei sesiuni confirmată prin tentativa, checkpointul și răspunsul furnizorului păstrate
+înainte de cutoff (`CURRENT_COLLECTION_OUTCOMES_V1`), înghețată în
+`input_document.collectionCoverage`. Politica lunară `NEXT_OPEN_MINUS_30M_V1`
+(`month_end_request`) fixează decizia cu 30 de minute înaintea următoarei deschideri și
+cere acoperire completă. Nu există încă un scheduler: publicarea lunară automată
+aparține P7. Java avea programarea lunară dezactivată (`SCORING_MONTH_END_ENABLED=false`).
 
 ## Operare
 
-Codul curent folosește pregătirea `canonical-preparation-v3` pentru runuri noi,
-cu schema V020. Vezi [regulile P2 și comparația controlată](P2-DATA-PREPARATION.md).
-Reproducerile istorice păstrează `profiles-v1`; formula rămâne 1.2.0.
-
-Snapshoturile curente folosesc `CURRENT_COLLECTION_OUTCOMES_V1`: acceptă și
-absența unei sesiuni confirmată prin tentativa, checkpointul și răspunsul
-furnizorului păstrate înainte de cutoff, cu excluderea explicită a instrumentului.
-Aceste dovezi sunt înghețate în `input_document.collectionCoverage`. Erorile
-tehnice și colectările neterminate rămân blocante. Publicarea lunară cere în
-continuare acoperirea completă; joburile cu lipsuri nu sunt marcate artificial complete.
-
-Se configurează `SCORING_MODEL_RAW_DATASET`, `SCORING_MODEL_ADJUSTED_DATASET`,
-`SCORING_MODEL_CLASSIFICATION_VERSION` și `SCORING_MODEL_MAPPING_VERSION`.
-UUID-urile provin din importurile bazei respective. `SCORING_MONTH_END_ENABLED`
-controlează calculul lunar automat.
-
 | Argument `--scoring.command.operation=` | Input suplimentar |
 |---|---|
-| `score-and-exit` | `--scoring.command.score-date=YYYY-MM-DD` (final de lună) |
-| `current-score-and-exit` | `--scoring.command.score-date` și `--scoring.command.knowledge-cutoff` UTC |
+| `serve` (implicit) | — |
 | `dlq-inspect` | `--scoring.command.limit=20` |
 | `dlq-replay` | `--scoring.command.dead-letter-id`, `--scoring.command.replay-id` (UUID), `--scoring.command.operator`, `--scoring.command.reason` |
 
 Comenzile rulează prin JAR/Compose, fără endpoint HTTP de declanșare.
-Snapshotul curent trebuie să folosească ultima sesiune închisă la cutoff și aceeași
-dată New York pentru întreaga istorie ajustată. Cutofful este reutilizat la retry.
-Pentru universul local complet, calculul manual a necesitat
-`JAVA_TOOL_OPTIONS=-Xms64m -Xmx2g`.
 
 ## Rezultatul local păstrat
+
+La **2026-11-02** s-a publicat și verificat runul de închidere P2
+`bead056b-eb58-4e18-aa5b-6e7815d6f8e9`: model **1.5.0**, data economică
+**2026-10-30**, cutoff explicit **2026-11-01T20:00:00Z**, vintage ajustat
+2026-11-01, **518** instrumente, **515** scoruri și **3** excluderi documentate.
+Dovezile sunt în [publicația de închidere](evidence/p2/closeout-final/publication-20261102/README.md).
 
 La **2026-10-25** s-a publicat și verificat runul P2
 `76e93093-54e7-4fa8-9b44-760857d69ae1`: data economică **2026-10-23**, cutoff
@@ -82,5 +95,6 @@ Evidențele locale sunt în `build/local-step5/current-20261001/`.
 Tabelele `research.scoring_runs`, `stock_scores`, `factor_observations`,
 `score_exclusions` și `score_lineage` păstrează rezultatul și explicațiile.
 [Manifestul](../research-engine/src/quant_research/model/manifest.json) definește formulele;
-[testele de paritate](../.github/workflows/scoring-parity.yml) compară Java cu Python.
+[validarea platformei](../.github/workflows/scoring-parity.yml) rulează testele Python,
+inclusiv cele DB (`QUANT_DB_TESTS=1`).
 Vezi [Research Engine](RESEARCH-ENGINE.md) și [flow-ul general](Application.md).

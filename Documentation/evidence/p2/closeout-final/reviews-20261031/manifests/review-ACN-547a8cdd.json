@@ -1,0 +1,37 @@
+{
+  "reviewId": "dce84113-9cf6-5f11-906b-492874f05287",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "d6d66c8c-26d5-496a-8e01-d4463ba72098",
+  "factId": null,
+  "issueId": "547a8cdd-7ab9-4601-a8e4-774b9f653bee",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1467373/000146737325000168/q3fy25earnings8-kexhibit.htm",
+    "sourceSha256": "e6e0638283f15a2c9b389d176c678654c22ee3a93daae649e296b1dde564aec3",
+    "sourceObservedAt": "2026-10-31T11:28:37.206450+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "quarterly cash dividend of $1.48 per share for shareholders of record at the close of business on July 10, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"2bf79335f08dbcc0bd20b422f0ef46df812657689cb5d5bdc32c4e83ff5cc1bd\"}",
+    "providerAction": {
+      "id": "642bd24e-5bde-4941-b2f4-bac3c2827163",
+      "rate": 1.11,
+      "type": "cash_dividends",
+      "cusip": "G1151C101",
+      "symbol": "ACN",
+      "ex_date": "2025-07-10",
+      "foreign": true,
+      "special": false,
+      "record_date": "2025-07-10",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Accenture plc",
+    "issuerCik": "0001467373",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Provider rate 1.11 equals the declared USD 1.48 net of the 25% Irish dividend withholding tax (1.48 x 0.75); the gross amount is not rewritten. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

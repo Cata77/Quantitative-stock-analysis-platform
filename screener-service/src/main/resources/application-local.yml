@@ -1,6 +1,3 @@
 spring:
   datasource:
     password: ${SCREENER_DB_PASSWORD:local-quant_screener-development-only}
-screener:
-  elasticsearch:
-    url: ${ELASTICSEARCH_URL:http://localhost:9200}

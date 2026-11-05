@@ -1,0 +1,23 @@
+[
+  {
+    "symbol": "Q-completion",
+    "sourceUri": "https://ir.qnityelectronics.com/sec-filings/all-sec-filings/content/0001193125-25-261603/d65598d8k.htm",
+    "file": "Q-completion.html",
+    "sourceSha256": "b0d42966d86ac6f48529684c246d5b6b872fbd5f28dd0ec7c1715dc4465a39e2",
+    "observedAt": "2026-10-30T07:32:31.471757+00:00"
+  },
+  {
+    "symbol": "Q-when-issued",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2058873/000119312525240313/d21160d8k.htm",
+    "file": "Q-when-issued.html",
+    "sourceSha256": "5e8f2a08ad186b6176b073c9f5f47e276b0ea0daead534ec18946ab3df71a41c",
+    "observedAt": "2026-10-30T07:32:31.830056+00:00"
+  },
+  {
+    "symbol": "VMRK-filing",
+    "sourceUri": "https://investors.avalonbay.com/sec-filings/all-sec-filings/content/0001104659-26-097833/tm2623381d1_8k.htm",
+    "file": "VMRK-filing.html",
+    "sourceSha256": "8c676fa092fd48d3e787889c7a0d29d7a4572a82bd6da9618db95b548e4e57ec",
+    "observedAt": "2026-10-30T07:32:32.579729+00:00"
+  }
+]

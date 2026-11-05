@@ -1,0 +1,23 @@
+[
+  {
+    "symbol": "APTV",
+    "reviewId": "1483e5d4-4d4c-5ebd-80d6-2e9a3a4270eb",
+    "recordedAt": "2026-10-29T14:00:34.933853+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "CMCSA",
+    "reviewId": "a491e019-8c3d-52bb-b41a-368d59b7cd9d",
+    "recordedAt": "2026-10-29T14:00:34.967077+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "DD",
+    "reviewId": "ba75beef-2fdc-560a-8d60-85ad41560df5",
+    "recordedAt": "2026-10-29T14:00:35.059233+00:00",
+    "applied": true,
+    "idempotent": true
+  }
+]

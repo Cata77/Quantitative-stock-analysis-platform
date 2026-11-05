@@ -19,13 +19,12 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
 public class IngestionCoordinator {
     private static final ZoneId NEW_YORK = ZoneId.of("America/New_York");
     private final JdbcClient jdbc;
-    private final TransactionTemplate transactions;
+    private final IngestionJobRegistry registry;
     private final IngestionRunStore store;
     private final TradingCalendarLoader calendar;
     private final AlpacaStockMarketClient alpaca;
@@ -50,7 +49,7 @@ public class IngestionCoordinator {
             TradingCalendarLoader calendar, AlpacaStockMarketClient alpaca, AlphaVantageFundamentalClient fundamentals,
             MarketDataProperties market, AlpacaProperties alpacaConfig, IngestionProperties properties, Clock clock, BulkDailyCollector bulk, DailyPriceProperties prices) {
         jdbc = JdbcClient.create(source);
-        transactions = new TransactionTemplate(manager);
+        registry = new IngestionJobRegistry(source, manager);
         this.store = store;
         this.calendar = calendar;
         this.alpaca = alpaca;
@@ -295,30 +294,8 @@ public class IngestionCoordinator {
     }
 
     private UUID register(String providerCode, String datasetCode, String eventType, Map<String, Object> configuration) {
-        return transactions.execute(status -> {
-            UUID provider = jdbc.sql("""
-                    INSERT INTO operations.data_providers (code, name, license_notes) VALUES (:code, :code,
-                        'Development adapter; account permissions and provider terms govern use')
-                    ON CONFLICT (code) DO UPDATE SET code = EXCLUDED.code RETURNING provider_id
-                    """).param("code", providerCode).query(UUID.class).single();
-            UUID dataset = jdbc.sql("""
-                    INSERT INTO operations.datasets (provider_id, code, version, license_notes)
-                    VALUES (:provider, :code, '1', 'Raw development observations; not a licensed historical research dataset')
-                    ON CONFLICT (provider_id, code, version) DO UPDATE SET code = EXCLUDED.code RETURNING dataset_id
-                    """).param("provider", provider).param("code", datasetCode).query(UUID.class).single();
-            var config = new LinkedHashMap<>(configuration);
-            config.put("eventType", eventType);
-            config.put("topic", market.topic());
-            config.put("maxAttempts", properties.maxAttempts());
-            String json = CanonicalJson.write(config);
-            return jdbc.sql("""
-                    INSERT INTO operations.job_definitions (dataset_id, code, version, configuration, max_attempts)
-                    VALUES (:dataset, :code, :version, CAST(:config AS jsonb), :max)
-                    ON CONFLICT (code, version) DO UPDATE SET code = EXCLUDED.code RETURNING job_definition_id
-                    """).param("dataset", dataset).param("code", providerCode + ":" + datasetCode)
-                    .param("version", CanonicalJson.sha256(json).substring(0, 40)).param("config", json)
-                    .param("max", properties.maxAttempts()).query(UUID.class).single();
-        });
+        return registry.register(providerCode, datasetCode, eventType, configuration,
+                market.topic(), properties.maxAttempts());
     }
 
     private void reconcileCanonicalCoverage() {

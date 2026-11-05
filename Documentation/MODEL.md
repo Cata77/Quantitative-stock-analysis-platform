@@ -1,5 +1,22 @@
 # Cum se calculează clasamentul
 
+Revizia **1.5.0** ([politica titlurilor](P2-MODEL-1.5.md)) păstrează formulele 1.4.0
+și permite scorul claselor secundare și al certificatelor de depozit din prețul propriu.
+Statisticile cohortei folosesc un singur rând per emitent, iar capitalizarea există
+numai la nivel de emitent. Delistările și alte tipuri de titluri rămân blocante.
+
+Revizia opțională [1.4.0](P2-MODEL-1.4.md) izolează lipsa filingurilor de Momentum
+și normalizează randamentul t−252/t−21 în același grup sectorial (minimum 10),
+apoi în universul de preț eligibil (minimum 20), independent de profilul contabil.
+Cohortele Value/Quality rămân în același profil. Blocajele de identitate rămân
+obligatorii; schimbarea cohortelor poate modifica scorurile și rangurile existente
+în noua publicație. Publicațiile anterioare nu sunt recalculate în loc.
+
+Versiunea flexibilă **1.3.0** este disponibilă prin selecție explicită și este
+descrisă în [P2-FLEXIBLE-MODEL.md](P2-FLEXIBLE-MODEL.md). Ea redistribuie ponderile
+între componentele valide și identifică scorurile parțiale. Textul de mai jos
+descrie versiunea **1.2.0**, păstrată pentru reproducerea publicațiilor existente.
+
 Modelul actual este **1.2.0**. Pentru fiecare acțiune eligibilă, calculează un scor
 din trei perspective: cât de ieftină pare compania (**Value**), cât de solidă este
 activitatea ei (**Quality**) și cum a evoluat prețul (**Momentum**).
@@ -51,5 +68,5 @@ care nu sunt încă suficiente pentru publicația curentă. Scorul este o ipotez
 cercetare, cu acceptarea performanței istorice încă nefinalizată.
 
 Formulele exacte și pragurile sunt în [manifestul modelului](../research-engine/src/quant_research/model/manifest.json).
-Pentru execuția Java vezi [Scoring Service](SCORING-SERVICE.md), iar pentru
+Pentru publicare (numai Python, P2s) vezi [Research Engine](RESEARCH-ENGINE.md), iar pentru
 rezultat și filtre vezi [endpointurile](ENDPOINTS.md).

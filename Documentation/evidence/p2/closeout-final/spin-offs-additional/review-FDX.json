@@ -1,0 +1,36 @@
+{
+  "reviewId": "158b408c-dc36-57f2-9521-8e7aa4b0f3b6",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "40688838-9db7-49ec-a074-33fdc11c5658",
+  "factId": null,
+  "issueId": "37786ddd-16ca-4ecf-91be-7ac5e6eba965",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1048911/000110465926068519/tm2616055d1_8k.htm",
+    "sourceSha256": "0d79a205eb4491226c2dc5c5a0c44c571fe9d778b90b8a551f21229aa2115720",
+    "sourceObservedAt": "2026-10-29T14:06:42.480215+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"bbee1a7056dedb4163e62eeec349feae4aea359e9eb4848249b3cb280aafb907\"}",
+    "providerAction": {
+      "id": "ec9ece1b-bd85-49db-9234-a431ac703c5e",
+      "type": "spin_offs",
+      "ex_date": "2026-06-01",
+      "new_rate": 0.5,
+      "new_cusip": "314352105",
+      "new_symbol": "FDXF",
+      "record_date": "2026-05-15",
+      "source_rate": 1,
+      "payable_date": "2026-06-01",
+      "process_date": "2026-06-01",
+      "source_cusip": "31428X106",
+      "source_symbol": "FDX",
+      "due_bill_redemption_date": "2026-06-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "FEDEX CORP",
+    "issuerCik": "0001048911",
+    "rationale": "Individual issuer source confirms parent identity, separate child, distribution ratio, record date and distribution date. The ex-date is the first regular-way trading session of the separated child; a weekend or after-close distribution is distinct from that trading date. Source and provider terms agree for this individually reviewed distribution. Accept only this parent corporate-action issue. Do not merge parent and child price histories, alter provider prices, or approve other issues."
+  }
+}

@@ -35,8 +35,9 @@ deployment. Do not create subagents unless the user explicitly requests delegati
 | Database schema and permissions | `database-migrations` | [Database](Documentation/DATABASE-MIGRATIONS.md) |
 | Public contracts | Controllers and DTOs | [Endpoints](Documentation/ENDPOINTS.md) |
 
-PostgreSQL is the source of truth; Elasticsearch is a rebuildable index.
-Kafka transports events. `ingestion-contract`, `security-common`, and
+PostgreSQL is the source of truth and also carries the collector's events: the
+outbox is delivered to canonical data directly from PostgreSQL (P2s; Kafka and
+Elasticsearch were removed). `ingestion-contract`, `security-common`, and
 `observability-common` are shared libraries. Do not introduce dependencies between
 services that bypass existing contracts and roles without justification.
 
@@ -60,8 +61,10 @@ services that bypass existing contracts and roles without justification.
 - Preserve ingestion idempotency, inbox/outbox, checkpoints, and audited retries.
   Do not delete state to make a failed collection appear complete.
 - Formula changes require versioning and intentional updates to the manifest,
-  fixtures, and evidence. Verify Java/Python parity; do not rewrite archives of
-  older versions. Parity does not demonstrate predictive performance.
+  fixtures, and evidence. The model exists only in Python (P2s); verify that
+  published runs reproduce (`quant_research.publication.reproduce`/`compare`) and
+  do not rewrite archives of older versions. Reproduction does not demonstrate
+  predictive performance.
 - For backtesting, use universe membership at each date, information available
   at that time, corporate actions, and delistings. Preserve chronological partitions
   and the final test according to Research Engine rules. Synthetic data or the
@@ -115,7 +118,8 @@ docker compose -f infrastructure/docker-compose.yml -f infrastructure/docker-com
 
 For changes spanning multiple components or affecting the model, consult the
 [validation workflow](.github/workflows/scoring-parity.yml); run the relevant
-checks, including parity. Some integration tests require Docker.
+checks, including the Python database tests (`QUANT_DB_TESTS=1`, Docker).
+Some Java integration tests also require Docker.
 For documentation, check files, links, and consistency; running the entire
 application is unnecessary. Report precisely which checks ran and which were blocked.
 

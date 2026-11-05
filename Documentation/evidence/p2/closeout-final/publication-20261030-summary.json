@@ -1,0 +1,100 @@
+{
+  "run": {
+    "state": "PUBLISHED",
+    "request": {
+      "inputs": {
+        "scoreDate": "2026-10-29",
+        "rawDataset": "482ffe35-ab2a-40a7-b300-9197c2066e42",
+        "marketCutoff": "2026-10-29T20:00:00Z",
+        "timingPolicy": "CURRENT_SNAPSHOT_V1",
+        "sp500Snapshot": "e6d6670f-f45f-467a-8eb2-9bab9add9074",
+        "mappingVersion": "sec-us-gaap-v2",
+        "adjustedDataset": "9f5e4667-6b14-46da-a8f6-3088c95d9409",
+        "adjustmentBasis": "2026-10-30",
+        "knowledgeCutoff": "2026-10-30T13:44:35Z",
+        "requiredMetrics": [
+          "TOTAL_ASSETS"
+        ],
+        "nasdaq100Snapshot": "d444039a-db92-4c0a-9491-2a5579dfb09f",
+        "classificationVersion": "e53b26e0-7e40-4ea1-b6b4-6d2867d8ae24"
+      },
+      "candidate": "primary",
+      "jurisdictions": {},
+      "effective_from": "2026-11-02T14:30:00Z",
+      "collectionPolicy": "CURRENT_COLLECTION_OUTCOMES_V1",
+      "preprocessingVersion": "canonical-preparation-v3"
+    },
+    "as_of_date": "2026-10-29",
+    "input_sha256": "c7ee2d153b98ab7ecd4a284e4d15784fdb3e15c57cc33f646253cbb01a07803a",
+    "score_run_id": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+    "scored_count": 497,
+    "model_version": "1.4.0",
+    "excluded_count": 21,
+    "expected_count": 518,
+    "knowledge_cutoff": "2026-10-30T13:44:35+00:00",
+    "preprocessing_version": "canonical-preparation-v3"
+  },
+  "pythonJavaPreparedParity": true,
+  "pythonJavaScoreParity": true,
+  "absoluteTolerance": 1e-09,
+  "latePriceLineageRows": 0,
+  "allLineageRetained": true,
+  "gateway": {
+    "runId": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+    "pages": [
+      100,
+      137
+    ],
+    "instruments": 518,
+    "passed": true
+  },
+  "comparison": {
+    "scope": "LONGITUDINAL_SNAPSHOT_COMPARISON_NOT_CAUSAL_PREPARATION_IMPACT",
+    "beforeRun": "b05e813d-d0e0-4993-8777-f05e90fa7fee",
+    "afterRun": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+    "instrumentCount": 518,
+    "beforeEligible": 487,
+    "afterEligible": 497,
+    "recovered": [
+      "APTV",
+      "BNY",
+      "CMCSA",
+      "DD",
+      "ECHO",
+      "FDX",
+      "HON",
+      "P",
+      "SPGI",
+      "VMRK"
+    ],
+    "lost": []
+  },
+  "scoreStatuses": {
+    "PARTIAL": 497,
+    "UNAVAILABLE": 21
+  },
+  "collection": {
+    "sessions": 253,
+    "complete": 130710,
+    "providerAbsent": 344,
+    "expected": 131054
+  },
+  "remainingActions": {
+    "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS": 5,
+    "VERIFY_ACTIVE_STATUS_AND_VERSION_SECURITY_POLICY": 2,
+    "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS": 6,
+    "VERSION_INSTRUMENT_SHARE_CLASS_POLICY": 3,
+    "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION": 2,
+    "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION": 2,
+    "VERIFY_SECURITY_IDENTITY": 1
+  },
+  "allInstrumentsScored": false,
+  "artifacts": {
+    "build\\p2-final-20261030\\current-recovery-2\\publication\\published-input-document.json": "c7ee2d153b98ab7ecd4a284e4d15784fdb3e15c57cc33f646253cbb01a07803a",
+    "build\\p2-final-20261030\\current-recovery-2\\publication\\published-model-evidence.json": "e9bd291835ea5381b85ee88dc2d6e17ae6a59730d37efaa33eecaf9bdb06fee5",
+    "build\\p2-final-20261030\\current-recovery-2\\publication\\publication-verification.json": "35271d073308a2c70695e53e1106bc954be2ec313dbd7c4ce3d14f4407fae64d",
+    "build\\p2-final-20261030\\current-recovery-2\\comparison.json": "9bd9930e757833fb708c86aabbaf1f08092b4168f405cb916a33376258e8d00d",
+    "build\\p2-final-20261030\\current-recovery-2\\gateway-cross-check.json": "cf4f2bad274b462e25627052263f5729f9a265586cbf5d99cd79bd78273c2b3a",
+    "build\\p2-final-20261030\\current-recovery-2\\collection-ready.json": "eada27938d131b5a27cc1d292c4b9803c83cb349bf38d57f42e4f297746d858c"
+  }
+}

@@ -12,30 +12,6 @@ spring:
   threads:
     virtual:
       enabled: true
-  kafka:
-    properties:
-      security.protocol: ${KAFKA_SECURITY_PROTOCOL:SSL}
-      ssl.keystore.location: ${KAFKA_SSL_KEYSTORE_LOCATION:}
-      ssl.keystore.password: ${KAFKA_SSL_KEYSTORE_PASSWORD:}
-      ssl.key.password: ${KAFKA_SSL_KEY_PASSWORD:}
-      ssl.truststore.location: ${KAFKA_SSL_TRUSTSTORE_LOCATION:}
-      ssl.truststore.password: ${KAFKA_SSL_TRUSTSTORE_PASSWORD:}
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    client-id: ${KAFKA_CLIENT_ID:market-data-producer}
-    admin:
-      fail-fast: false
-    producer:
-      acks: all
-      retries: 2147483647
-      compression-type: zstd
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
-      properties:
-        enable.idempotence: true
-        max.in.flight.requests.per.connection: 5
-        delivery.timeout.ms: 120000
-        request.timeout.ms: 30000
-        spring.json.add.type.headers: false
 
 management:
   endpoints:

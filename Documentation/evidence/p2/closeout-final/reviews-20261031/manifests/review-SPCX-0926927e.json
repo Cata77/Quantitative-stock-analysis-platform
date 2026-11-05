@@ -1,0 +1,30 @@
+{
+  "reviewId": "c38fb0dd-2e7d-5a53-80e0-46398e016c50",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "0485b5ed-85a6-4e40-a978-65919a0f89bd",
+  "factId": null,
+  "issueId": "0926927e-ac9f-4687-bb09-4cd0ac67973d",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_SECURITY_IDENTITY_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026045763/spcx-closing8xkjune2026.htm",
+    "sourceSha256": "21c91136b9c315de47145d98564b31edee9501f711f5e40c31571051546d24f4",
+    "sourceObservedAt": "2026-10-31T11:27:35.573635+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "Class A common stock, par value $0.001 per share SPCX The Nasdaq Stock Market LLC",
+    "supportingSources": [
+      {
+        "key": "SPCK-fund-497",
+        "sourceUri": "https://www.sec.gov/Archives/edgar/data/1719812/000199937126007611/cist-497_040226.htm",
+        "sourceSha256": "a4d86b084dd74074f7477381d2f1ecb5e5fa346e1ccfddbbf336cc1c774f4f86",
+        "passage": "Effective April 7, 2026, the ticker symbol for The SPAC and New Issue ETF (the “Fund”) will change from SPCX to SPCK."
+      }
+    ],
+    "issueEvidence": "{\"reason\": \"Ticker reused: current SpaceX asset and historical SPCX-to-SPCK fund rename; do not attribute old actions or history until reviewed\", \"providerAssetId\": \"60a100bd-3aaa-4b32-956e-6f873462633d\", \"retainedActionCount\": 3}",
+    "issuerName": "SPACE EXPLORATION TECHNOLOGIES CORP",
+    "issuerCik": "0001181412",
+    "instrumentValidFrom": "2026-08-27",
+    "rationale": "The SPAC and New Issue ETF changed its ticker from SPCX to SPCK effective April 7, 2026 (Collaborative Investment Series Trust 497). Space Exploration Technologies Corp (CIK 1181412) registers its Class A common stock as SPCX on Nasdaq (8-K, June 2026). The instrument is valid from 2026-08-27, after both events, so preparation already excludes every fund-era bar; fund history and fund corporate actions are not attributed to SpaceX. Momentum history requirements are not waived."
+  }
+}

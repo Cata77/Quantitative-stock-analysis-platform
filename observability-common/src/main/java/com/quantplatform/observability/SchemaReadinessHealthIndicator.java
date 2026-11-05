@@ -15,7 +15,7 @@ public final class SchemaReadinessHealthIndicator implements HealthIndicator {
             case "portfolio-service" -> "public.portfolios";
             case "market-data-producer" -> "operations.outbox_events";
             case "scoring-service" -> "research.scoring_runs";
-            case "screener-service" -> "operations.search_rebuild_checkpoints";
+            case "screener-service" -> "research.stock_scores";
             default -> throw new IllegalArgumentException("Unknown database application");
         };
     }

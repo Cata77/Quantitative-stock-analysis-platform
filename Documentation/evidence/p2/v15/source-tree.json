@@ -1,0 +1,20 @@
+{
+  "source_tree_sha256": "ebb7add315a203c49010295f5b6454cd1a915084089277252f9e3d7101d087ef",
+  "base_commit": "8112502a9e68fd8b2416ea8ca5773a20dd641e34",
+  "hash_convention": "UTF-8 text with LF newlines; object hash is sorted compact JSON",
+  "files": {
+    "research-engine/src/quant_research/model/flexible.py": "75ccf1e86365b0ba7f3bf08c1de9a5b49b2270460a59ecc1a819508009efd5c8",
+    "research-engine/src/quant_research/model/preparation.py": "5fe266c5c8b979acf4e58e10928421c0d1c990447aa9b5dae414d9c7ba2cfb11",
+    "research-engine/src/quant_research/model/periods.py": "e546d388f5dfe56c9d5fefdaf554c65ee829ec2012f3bb373dac2fb4e38704e2",
+    "research-engine/src/quant_research/model/engine.py": "5d731b6b4e2cd7ba02dd0e437f7eef828a5409aca14ed668bdac3511b4b82a60",
+    "research-engine/src/quant_research/model/flexible_v15/manifest.json": "7c6fc8b57d203d37580715d68e9874f4903615eb177f653e724358afa93ecffb",
+    "research-engine/fixtures/model-v1.5/prepared.json": "aad68ca0ac131e708d1e784c992d0d1194061ec8faac5b64c193f12994534f38",
+    "research-engine/fixtures/model-v1.5/expected.json": "680d6f2cfc6e21fe2ba9cef8b5026b0dcc061f46a507b24037c9ce26a2628f56",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/FlexibleModel.java": "032fc2ce83942cadd44ad9fe2a959ce06a129537258caa4498de455c7518e830",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/FrozenModel.java": "3de7223c423e1aeb1b3e723d17099c038663f86a09f5a88252bea74bcec6a7cf",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/CanonicalModelInputs.java": "d25ca50250f9b2e133fac0c7f082cc677e4f637b61a87ff2e6ccab924cecca49",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV3.java": "f483215059b7a3af8c2903b1728e70c4f3055bf7bc79c733113a653970826725",
+    "scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV4.java": "6ccbe8e60ec9e0b8a2df40ccf48768f3e47193ef1de61b8486b4ffbcd25378d3",
+    "scoring-service/src/main/resources/sql/scoring-inputs.sql": "f831e007f7f55366746a334fba37335f571c07f8f399270553e2e99efc2d8c39"
+  }
+}

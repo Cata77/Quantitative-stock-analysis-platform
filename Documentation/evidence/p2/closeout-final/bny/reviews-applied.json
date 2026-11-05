@@ -1,0 +1,92 @@
+[
+  {
+    "symbol": "BNY",
+    "issueId": "099881ba-b501-4d67-92e8-c69c38e1ec52",
+    "scope": "EXACT_BANK_SYMBOL_CHANGE",
+    "reviewId": "ec3f6d2d-49ee-5407-a36d-e9f9fc9e6a9c",
+    "recordedAt": "2026-10-30T07:35:55.862292+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "4241e68a-9f67-46f4-9c2e-0f1b13598400",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "661509c6-0840-5527-9f1c-2974b20e8318",
+    "recordedAt": "2026-10-30T07:35:55.893604+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "4ddebd40-e42b-4d6f-b81c-c757691d958c",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "d0fad82a-43b3-50ca-9eed-cf523b3b236a",
+    "recordedAt": "2026-10-30T07:35:55.920876+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "59b9431f-4027-4d38-b6c7-a0b9fde64dad",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "e1611e4f-aec5-57b6-b845-924d2c2b74e8",
+    "recordedAt": "2026-10-30T07:35:55.950978+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "6eb295ba-2500-4489-b702-9cc99b4f4ff5",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "34406b81-eb6d-54e1-b220-869f90751f4c",
+    "recordedAt": "2026-10-30T07:35:55.977649+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "808b8f7a-614b-41a2-923e-666002762f91",
+    "scope": "EXACT_BANK_COMMON_CASH_DIVIDEND",
+    "reviewId": "b1e5b62d-5932-5ff7-a9ba-4d0655b0ae96",
+    "recordedAt": "2026-10-30T07:35:56.006829+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "94baa9c2-bbf1-4f2b-9863-601fa3e669d1",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "966c7104-f8fb-5f7b-b20f-36e833f80f34",
+    "recordedAt": "2026-10-30T07:35:56.030607+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "c7c939b3-bd26-41f6-8155-b1a1e1a53158",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "18a70767-064b-54fa-a218-7cc296cac996",
+    "recordedAt": "2026-10-30T07:35:56.051193+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "f36705f8-3da9-4d16-8bdb-0f8cdc25673c",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "f30dd760-eff8-58fe-af36-7701f6f609df",
+    "recordedAt": "2026-10-30T07:35:56.074536+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "BNY",
+    "issueId": "fd280e82-cf6a-43bd-a72b-c87d48834805",
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "reviewId": "a95e175e-1058-5ab0-9887-4a0b22840278",
+    "recordedAt": "2026-10-30T07:35:56.096674+00:00",
+    "applied": true,
+    "idempotent": true
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "symbol": "SOLS",
+    "sourceUri": "https://classic.nasdaqtrader.com/TraderNews.aspx?id=ECA2025-559",
+    "file": "SOLS.html",
+    "sourceSha256": "54555f2300b807f4fa9858879ca9e6c51f033ae86417112d7caae0618381da3e",
+    "observedAt": "2026-10-30T13:41:52.671688+00:00"
+  },
+  {
+    "symbol": "HONA",
+    "sourceUri": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-399",
+    "file": "HONA.html",
+    "sourceSha256": "22debc5fcf8fcdd73898a6d5d37d473f54ae27480d6eb4ec738ce139da16374b",
+    "observedAt": "2026-10-30T13:41:53.724831+00:00"
+  },
+  {
+    "symbol": "HONA-completion",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/773840/000077384026000084/hon-20260625.htm",
+    "file": "HONA-completion.html",
+    "sourceSha256": "721f7620a1db0ad594879201b0548eb3f9294d766bcc9698602e5aa7198972a0",
+    "observedAt": "2026-10-30T13:41:53.908391+00:00"
+  }
+]

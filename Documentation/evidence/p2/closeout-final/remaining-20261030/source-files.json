@@ -1,0 +1,23 @@
+[
+  {
+    "symbol": "HONA-10Q",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2089271/000208927126000021/hona-20260627.htm",
+    "file": "HONA-10Q.html",
+    "sourceSha256": "5949a09bdbff9c373fec3b2a602873af6239d25120053ec8774bac04badbd58a",
+    "observedAt": "2026-10-30T14:18:19.623903+00:00"
+  },
+  {
+    "symbol": "HONA-capital",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2089271/000162828026045348/hona-20260624.htm",
+    "file": "HONA-capital.html",
+    "sourceSha256": "0555f3ec9864d0fb8ea2472937d6b5980230fa75cbfcaf6347c5346086bc879c",
+    "observedAt": "2026-10-30T14:18:19.741253+00:00"
+  },
+  {
+    "symbol": "Q-10Q",
+    "sourceUri": "https://ir.qnityelectronics.com/sec-filings/all-sec-filings/content/0002058873-26-000030/q-20260630.htm",
+    "file": "Q-10Q.html",
+    "sourceSha256": "6ec3a6fbf4949b18b350533fd0e9420b458c38e2f856e837403658493c598d81",
+    "observedAt": "2026-10-30T14:18:20.050502+00:00"
+  }
+]

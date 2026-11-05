@@ -1,0 +1,167 @@
+{
+  "reviews": [
+    {
+      "symbol": "ABBV",
+      "reviewId": "3b6185d4-7863-5e1e-9bf1-a10c2600ed6c",
+      "recordedAt": "2026-10-26T14:06:26.391458+00:00",
+      "instrumentId": "bdac8cb3-47cd-4fa7-a627-8a84e2994e87",
+      "issueId": "aff16ffb-76b4-43da-a090-43f1692591f1",
+      "idempotent": true
+    },
+    {
+      "symbol": "ABT",
+      "reviewId": "90abba3d-5b6a-5421-931f-843427aa0dc6",
+      "recordedAt": "2026-10-26T14:06:26.904844+00:00",
+      "instrumentId": "96b47483-6564-4e46-804f-a6451dc85b72",
+      "issueId": "142db766-0d2e-4f4a-94d6-4b266e5d84fb",
+      "idempotent": true
+    },
+    {
+      "symbol": "APD",
+      "reviewId": "8f1dc3c7-e0db-533f-8ca6-c7ee07ce099a",
+      "recordedAt": "2026-10-26T14:10:33.832966+00:00",
+      "instrumentId": "4cc4d713-a513-472d-b677-06903cb30b6e",
+      "issueId": "0f88acd8-d6ab-498a-baba-b4e9e9db5446",
+      "idempotent": true
+    },
+    {
+      "symbol": "BMY",
+      "reviewId": "854b8cc6-2ad8-563f-bc27-9a601771fe68",
+      "recordedAt": "2026-10-26T14:10:33.851003+00:00",
+      "instrumentId": "8abb6725-6d33-47f7-9b32-f14abce11de2",
+      "issueId": "681ee0a2-e484-47f0-9bb0-cc0237c8973a",
+      "idempotent": true
+    },
+    {
+      "symbol": "CARR",
+      "reviewId": "9dbc0e64-b19d-509a-8794-2fb59c825f95",
+      "recordedAt": "2026-10-26T14:10:33.866880+00:00",
+      "instrumentId": "b4831000-17bb-475e-b94b-ba42cc544f10",
+      "issueId": "9c42c36f-3b12-4eca-b790-f00b45db681b",
+      "idempotent": true
+    },
+    {
+      "symbol": "CAT",
+      "reviewId": "c1c5a641-0317-5da8-b3b5-5a24934aba2a",
+      "recordedAt": "2026-10-26T14:10:33.890322+00:00",
+      "instrumentId": "66f1802d-04f4-4bf9-a9a6-bea6de0c1a3b",
+      "issueId": "d6ccdaea-2e25-46de-b73f-470a9e6b2e18",
+      "idempotent": true
+    },
+    {
+      "symbol": "CFG",
+      "reviewId": "7e6e2b7c-9627-5807-84de-498eb375119e",
+      "recordedAt": "2026-10-26T14:10:33.924683+00:00",
+      "instrumentId": "78ace1ab-bcaa-40e2-abc9-029d2d0d24ad",
+      "issueId": "05908e8e-8d75-4206-92ed-718f69e584c2",
+      "idempotent": true
+    },
+    {
+      "symbol": "DAL",
+      "reviewId": "7a2901b5-9ec9-5fc6-b0d8-c6faa5a65636",
+      "recordedAt": "2026-10-26T14:06:27.041251+00:00",
+      "instrumentId": "5af7c583-b89a-4d93-9e1b-cfb444cddd5a",
+      "issueId": "01cf5c1a-b2cc-4d15-909e-59b69cdc18a0",
+      "idempotent": true
+    },
+    {
+      "symbol": "DELL",
+      "reviewId": "43f646fd-2af8-5886-aeff-ed70f647ba32",
+      "recordedAt": "2026-10-26T14:10:34.029528+00:00",
+      "instrumentId": "2a77c162-8a53-4be7-b4f9-3dd729560c6c",
+      "issueId": "c9f3c3af-d893-41de-9960-0841742fa7c8",
+      "idempotent": true
+    },
+    {
+      "symbol": "FAST",
+      "reviewId": "8e27490d-a4ff-54df-8659-5f98bf368d65",
+      "recordedAt": "2026-10-26T14:10:34.047473+00:00",
+      "instrumentId": "4683e587-1998-41bf-b4db-58b8a162601f",
+      "issueId": "1ff8dd75-62ee-4467-8922-302813414aae",
+      "idempotent": true
+    },
+    {
+      "symbol": "GD",
+      "reviewId": "fa4145b1-0235-5f6d-a504-7c41ade4e6c6",
+      "recordedAt": "2026-10-26T14:10:34.062191+00:00",
+      "instrumentId": "9648c912-68c3-4ec4-ab62-4a1cab9e5c2a",
+      "issueId": "6df316ea-2d6a-4d91-ba78-0e7d08283fc5",
+      "idempotent": true
+    },
+    {
+      "symbol": "GEHC",
+      "reviewId": "b2927293-0515-504f-842f-996bdd1dc9f2",
+      "recordedAt": "2026-10-26T14:10:34.078053+00:00",
+      "instrumentId": "a1c9ce73-34a5-411f-b089-5521181ffc56",
+      "issueId": "99690adc-779a-403e-b519-62cf00d9b656",
+      "idempotent": true
+    },
+    {
+      "symbol": "MA",
+      "reviewId": "2746dbe6-bbf4-5d58-80c9-392c35fdfeef",
+      "recordedAt": "2026-10-26T14:06:27.072288+00:00",
+      "instrumentId": "e5dab1a6-e646-4904-a51b-9cc2cc7a529a",
+      "issueId": "b38f94a4-3869-448d-b447-e10db0872884",
+      "idempotent": true
+    },
+    {
+      "symbol": "NUE",
+      "reviewId": "e734d5ff-f139-558a-934c-9770d79729ba",
+      "recordedAt": "2026-10-26T14:10:34.367290+00:00",
+      "instrumentId": "046b5b93-72b4-4ac7-a91c-8f61a1036998",
+      "issueId": "39384995-9f05-4b18-ae77-a606c1a204f1",
+      "idempotent": true
+    },
+    {
+      "symbol": "PFE",
+      "reviewId": "ca707481-a104-57c4-82a7-1c1de6840f1f",
+      "recordedAt": "2026-10-26T14:06:27.099748+00:00",
+      "instrumentId": "78cd0682-a30c-4c31-933e-5ba611c5bf2a",
+      "issueId": "4a95253f-4d88-4aab-b7a7-17f4309a5138",
+      "idempotent": true
+    },
+    {
+      "symbol": "PG",
+      "reviewId": "d2fe83fc-4252-597b-bda4-3474b0b918d7",
+      "recordedAt": "2026-10-26T14:06:27.357834+00:00",
+      "instrumentId": "697b6688-2d36-40f1-913d-0f4944f5df61",
+      "issueId": "9e0d7846-1bf5-4a98-a2b4-3e417eb5e698",
+      "idempotent": true
+    },
+    {
+      "symbol": "PNC",
+      "reviewId": "d36f67d4-63f9-568e-bb73-dd8651aa9e59",
+      "recordedAt": "2026-10-26T14:06:27.473995+00:00",
+      "instrumentId": "bb6d41f2-468b-4fad-8ae2-6cee129aa4c8",
+      "issueId": "eed27ef5-d54c-4d4b-b121-b14db3f50121",
+      "idempotent": true
+    },
+    {
+      "symbol": "T",
+      "reviewId": "daddfc4b-0317-5441-8a4f-149f4f156f6b",
+      "recordedAt": "2026-10-26T14:06:27.622949+00:00",
+      "instrumentId": "0211c50f-a073-426d-b6da-2d74e66ce9e0",
+      "issueId": "8e68f10c-c3a0-4d76-bcf0-91a083083a65",
+      "idempotent": true
+    },
+    {
+      "symbol": "TXN",
+      "reviewId": "40c5fde8-c147-5ef1-8483-fe2d999293b8",
+      "recordedAt": "2026-10-26T14:10:34.454185+00:00",
+      "instrumentId": "dd600ad2-def8-40e0-82f4-d0bf696efb8f",
+      "issueId": "5866c988-ed41-4c7a-8d73-785128f6d9c1",
+      "idempotent": true
+    },
+    {
+      "symbol": "VZ",
+      "reviewId": "2981e053-54a4-5f59-b276-d9d46552f9d0",
+      "recordedAt": "2026-10-26T14:06:28.100898+00:00",
+      "instrumentId": "c5c1f69a-c8e5-47ba-ac1e-cfce118bcae3",
+      "issueId": "c6315923-fd7c-4bb1-a3d4-1fb572537d81",
+      "idempotent": true
+    }
+  ],
+  "count": 20,
+  "published": false,
+  "policy": "INDIVIDUAL_ISSUER_EVIDENCE; SERVER_RECORDED_AT; EXISTING_PUBLICATIONS_UNCHANGED"
+}

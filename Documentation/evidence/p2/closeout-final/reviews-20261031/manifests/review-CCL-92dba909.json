@@ -1,0 +1,37 @@
+{
+  "reviewId": "66b8f4f5-2434-5062-b965-0dce8f35d568",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "afca0986-9479-4431-8da5-d94010011514",
+  "factId": null,
+  "issueId": "92dba909-90d7-49c4-8f61-b1b6257e649b",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.prnewswire.com/news-releases/carnival-corporation-declares-dividend-302821508.html",
+    "sourceSha256": "c6245765ffc710b1104e110164b839edd036dab73c5faabefd958dcdcd1a0b12",
+    "sourceObservedAt": "2026-10-31T11:35:00.992806+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "record date for the quarterly dividend of August 7, 2026, and a payment date of August 28, 2026",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"6a1578bb7eb02ecf2aa1014fae98c533abef7739fb2c254a4c397e630547c9bc\"}",
+    "providerAction": {
+      "id": "dcc7bfaa-f0f4-4d85-a16b-33bf173e1f40",
+      "rate": 0.15,
+      "type": "cash_dividends",
+      "cusip": "G2004J103",
+      "symbol": "CCL",
+      "ex_date": "2026-08-07",
+      "foreign": true,
+      "special": false,
+      "record_date": "2026-08-07",
+      "payable_date": "2026-08-28",
+      "process_date": "2026-08-28"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CARNIVAL CORP",
+    "issuerCik": "0000815097",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Carnival quarterly dividend of USD 0.15; ex-date equals record date under T+1."
+  }
+}

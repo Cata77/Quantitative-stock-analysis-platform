@@ -16,7 +16,7 @@ Din rădăcina repo-ului, cu serviciile locale pornite și un cont existent:
 Parola se introduce la prompt, fără afișare. Pentru automatizare se poate folosi
 variabila `QUANT_ACCESS_TOKEN` sau `--username` împreună cu `QUANT_PASSWORD`.
 Credențialele nu se pun în argumentele comenzii sau în fișierele exportate.
-Utilitarul nu creează conturi. `--gateway` are implicit `http://localhost:18080`;
+Utilitarul nu creează conturi. `--gateway` are implicit `http://127.0.0.1:18080`;
 în afara localhost este obligatoriu HTTPS. Redirecturile HTTP sunt respinse.
 
 Selectarea publicației auditate în P0/P1:
@@ -43,14 +43,41 @@ eșuează, directorul poate conține fișiere parțiale fără acest certificat.
   Căutarea filtrează simbolul. Totalurile publicației rămân vizibile, distinct de
   numărul rândurilor afișate. Detaliile fiecărui instrument conțin factorii,
   excluderile și avertismentele primite de la API. Nu face cereri de rețea.
+  Coloana **RSI 14** se sortează din antet: descrescător, crescător, apoi înapoi
+  la ordinea clasamentului; instrumentele fără RSI rămân la final, cu motivul afișat.
+  Sortarea nu schimbă rangul și se combină cu filtrele.
 - `universe.csv`: un rând per instrument, implicit întregul univers. Conține
   identitatea, simbolul, profilul, sectorul, grupul de comparație, apartenența la
   indici, eligibilitatea, rangul, percentila, scorul compozit, scorurile și
-  contribuțiile familiilor, numărul metricilor disponibile/lipsă, fracția de
-  acoperire, motivele, factorii și metadatele publicației.
+  contribuțiile familiilor, `rsi14` și `rsi14Reason`, numărul metricilor
+  disponibile/lipsă, fracția de acoperire, motivele, factorii și metadatele publicației.
 - `pages.json`: toate paginile API din univers, în ordinea recepționării.
-- `verification.json`: runul, numerele reconciliate, selecția CSV, verificările
-  efectuate și SHA-256 pentru CSV, HTML și paginile păstrate.
+- `rsi.json`: pentru fiecare `instrumentId`, `value`, `reason` și `period` din
+  `market.rsi14` al publicației.
+- `verification.json`: runul, numerele reconciliate, selecția CSV, numărul
+  instrumentelor cu RSI, verificările efectuate și SHA-256 pentru CSV, HTML,
+  pagini și `rsi.json`.
+
+### RSI
+
+RSI nu face parte din răspunsul `rankings`. După colectarea universului,
+utilitarul cere `GET /screener/instruments/{instrumentId}/financials?runId=<run>`
+(vederea `SUMMARY`) pentru fiecare instrument, cu `runId` fixat la publicația
+exportată, și preia `market.rsi14` (`RSI_14_WILDER_V1`, vezi
+[ENDPOINTS.md](ENDPOINTS.md)). Exportul eșuează dacă un răspuns aparține altui
+run sau instrument, lipsește `rsi14`, are simultan sau niciuna dintre valoare și
+motiv, ori valoarea este în afara intervalului 0–100. Un RSI lipsă rămâne gol în
+CSV și „—” cu motivul în HTML, nu zero. RSI este informativ: nu intră în scor sau
+în rang și nu a fost evaluat ca semnal.
+
+Colectarea face o cerere per instrument. Ritmul e limitat de Gateway (100 de
+cereri/minut per client): cererile sunt eșalonate (`--rsi-per-minute`, implicit 90;
+`--rsi-workers`, implicit 4), deci pentru circa 500 de instrumente exportul
+durează aproximativ 6 minute. Un 429 sau un token expirat oprește exportul fără
+fișiere. Adresa implicită este `127.0.0.1`, nu `localhost`. Pe Windows, clientul
+Python încearcă întâi IPv6 (`::1`), iar fiecare cerere pierde ~2 s. Durata de ~2 s
+măsurată inițial la 2026-11-05 venea din această cauză, nu de la server (0,02 s
+pe `127.0.0.1`).
 
 `--eligibility ELIGIBLE` sau `--eligibility EXCLUDED` restrânge numai CSV-ul.
 Colectarea și validarea folosesc întotdeauna explicit `eligibility=ALL` și
@@ -84,6 +111,8 @@ Scorurile afișate sunt rotunjite; egalitatea vizibilă nu implică egalitate î
 de rotunjire. Rangul și percentila nu reprezintă randamente estimate.
 
 ## Verificări
+
+Exporturile anterioare acestei modificări nu conțin coloana RSI.
 
 Utilitarul respinge duplicatele de `instrumentId`, schimbarea publicației sau
 metadatelor între pagini, paginile lipsă/incomplete, totalurile inconsistente,

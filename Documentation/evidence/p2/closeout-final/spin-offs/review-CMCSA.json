@@ -1,0 +1,36 @@
+{
+  "reviewId": "a491e019-8c3d-52bb-b41a-368d59b7cd9d",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "f788e0b4-c4a3-457e-a3dd-fe4b30fd8ba2",
+  "factId": null,
+  "issueId": "a16f4fe4-38a6-4103-b79c-75c21f71ddee",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1166691/000095010326000079/dp239108_ex9901.htm",
+    "sourceSha256": "3ce8d63f9927cea048dba44a68c1bc556fdfba4bed5d306a6e0670845736d978",
+    "sourceObservedAt": "2026-10-29T13:58:42.211299+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"c4a22c7308337c560a771f656c0e2a24e0b19ae60d7b7b23e87dec33b8c4a1a1\"}",
+    "providerAction": {
+      "id": "e4131f80-c756-442d-b278-32a15401f42b",
+      "type": "spin_offs",
+      "ex_date": "2026-01-05",
+      "new_rate": 0.04,
+      "new_cusip": "925283103",
+      "new_symbol": "VSNT",
+      "record_date": "2025-12-16",
+      "source_rate": 1,
+      "payable_date": "2026-01-02",
+      "process_date": "2026-01-05",
+      "source_cusip": "20030N101",
+      "source_symbol": "CMCSA",
+      "due_bill_redemption_date": "2026-01-05"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "COMCAST CORP",
+    "issuerCik": "0001166691",
+    "rationale": "Individual issuer source confirms parent identity, separate child, distribution ratio, record date and distribution date. The ex-date is the first regular-way trading session of the separated child; a weekend or after-close distribution is distinct from that trading date. Source and provider terms agree, including the rounded one-third ratio for Aptiv. Accept only this parent corporate-action issue. Do not merge parent and child price histories, alter provider prices, or approve other issues."
+  }
+}

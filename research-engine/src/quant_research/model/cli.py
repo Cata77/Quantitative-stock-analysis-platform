@@ -19,7 +19,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--preprocessing-version",
         default="profiles-v1",
-        choices=("profiles-v1", "canonical-preparation-v3"),
+        choices=("profiles-v1", "canonical-preparation-v3", "canonical-preparation-v4"),
     )
     parser.add_argument("--candidate", default="primary")
     parser.add_argument(

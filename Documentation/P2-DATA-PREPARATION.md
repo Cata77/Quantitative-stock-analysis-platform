@@ -1,5 +1,14 @@
 # P2 — Pregătire canonică versionată
 
+> Notă 2026-11-05 (P2s): uneltele `exclusion_audit`, `source_audit`, `p0_*`, `p2_*` și
+> `input_review_audit` sunt arhivate în `research-engine/archive/p0_p2_audits/`. Comenzile
+> `python -m quant_research.<modul>` de mai jos devin `python -m quant_research_audits.<modul>`,
+> cu `PYTHONPATH=research-engine/archive/p0_p2_audits` ([README](../research-engine/archive/p0_p2_audits/README.md)).
+
+Actualizare 2026-10-26: etapa de pregătire descrisă aici rămâne încheiată.
+P2 a fost redeschis pentru [formula flexibilă 1.3.0](P2-FLEXIBLE-MODEL.md),
+care produce 438 scoruri parțiale; obiectivul tuturor scorurilor rămâne deschis.
+
 P2 încheiat la 2026-10-25. Raportul de închidere este la finalul documentului;
 secțiunile datate păstrează istoricul intervențiilor prioritare din [P0](P0-EXCLUSION-AUDIT.md).
 
@@ -43,7 +52,7 @@ Tipuri disponibile:
 |---|---|
 | `COMMON_EQUITY` | Fapt instant `STOCKHOLDERS_EQUITY`, USD, același emitent și scope `TOTAL_EQUITY_IS_COMMON_ONLY`; nu înlocuiește un fapt direct COMMON_EQUITY existent |
 | `SHARE_CLASS` | Fapt instant `SHARES_OUTSTANDING`, unitate `shares`, scope `EXACT_INSTRUMENT_SHARES` și clasa explicită; respinge alocarea aceluiași fapt altui instrument |
-| `QUALITY_ISSUE` | Problemă de identitate/acțiune corporativă a instrumentului, cu copia exactă a dovezii problemei; nu elimină global blocajele |
+| `QUALITY_ISSUE` | Problemă de identitate/acțiune corporativă a instrumentului, cu copia exactă a dovezii problemei; nu elimină global blocajele. Din V024 și `MISSING_SESSION`, numai pentru simbol retras cu bar recuperat sau sesiune anterioară listării |
 
 Manifestul cere `reviewId`, `kind`, `instrumentId`, `factId`, `issueId`,
 `decision`, `reviewer`, `evidence`. Identificatorul neaplicabil este `null`.

@@ -1,0 +1,32 @@
+{
+  "reviewId": "90abba3d-5b6a-5421-931f-843427aa0dc6",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "96b47483-6564-4e46-804f-a6451dc85b72",
+  "factId": null,
+  "issueId": "142db766-0d2e-4f4a-94d6-4b266e5d84fb",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://abbott.mediaroom.com/2025-06-13-Abbott-Declares-406th-Consecutive-Quarterly-Dividend",
+    "sourceSha256": "baf68b6bb460d5710eb0084985774021d9b1093bbbf756667d7889dd7097b892",
+    "sourceObservedAt": "2026-10-26T14:03:57.537157+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"bfd7dbd2349fd44cf953c269c7ce1c7c03667cf3b1c058199ce676578c25d47e\"}",
+    "providerAction": {
+      "id": "bb41a184-0a79-4017-80cd-9937db80e0b9",
+      "rate": 0.59,
+      "type": "cash_dividends",
+      "cusip": "002824100",
+      "symbol": "ABT",
+      "ex_date": "2025-07-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-15",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ABBOTT LABORATORIES",
+    "issuerCik": "0000001800",
+    "rationale": "Issuer common-stock dividend source confirms ABT, USD 0.59 per share, record date 2025-07-15, payment date 2025-08-15. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

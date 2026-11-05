@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
-      PARITY_PYTHON: python
       PYTHONPATH: research-engine/src
+      # Python publication and input-query tests against a disposable TimescaleDB container.
+      QUANT_DB_TESTS: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -25,6 +26,8 @@ jobs:
       - run: uv sync --project research-engine --extra dev --locked
       - run: echo "$GITHUB_WORKSPACE/research-engine/.venv/bin" >> "$GITHUB_PATH"
       - run: python -m pytest research-engine/tests
+      # Archived P0/P2 audit tools stay reproducible (P2s).
+      - run: python -m pytest research-engine/archive/p0_p2_audits/tests
       - run: python -m ruff check research-engine
       - run: bash gradlew test bootJar
       - run: docker compose -f infrastructure/docker-compose.yml config --quiet
@@ -48,5 +51,4 @@ jobs:
           path: |
             **/build/reports/tests/
             **/build/test-results/
-            scoring-service/build/reports/scoring-inputs/
             scoring-service/build/reports/*.jfr

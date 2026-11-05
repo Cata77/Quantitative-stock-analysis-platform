@@ -1,0 +1,37 @@
+{
+  "reviewId": "74b6afde-8093-5bd7-9586-a66bc37caaa7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+  "factId": null,
+  "issueId": "0c0d2397-7f38-434c-93be-6bd2812706db",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://ir.oneok.com/~/media/Files/O/ONEOK-IR-V3/events-presentation/10-15-25-oke-dividend.pdf",
+    "sourceSha256": "d458bba4202e66c0da67ebe6a897be7e6927eee758c49428c6443f01716e4f0c",
+    "sourceObservedAt": "2026-10-31T11:33:07.808259+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "The dividend is payable Nov. 14, 2025, to shareholders of record at the close of business Nov. 3, 2025.",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"db6b66657a71d8ceaaef66ad6b8077df63d07d60b412258292641af1a9f8ecb5\"}",
+    "providerAction": {
+      "id": "88d7a547-f07c-4659-8688-06f9fcca4a80",
+      "rate": 1.03,
+      "type": "cash_dividends",
+      "cusip": "682680103",
+      "symbol": "OKE",
+      "ex_date": "2025-11-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-11-03",
+      "payable_date": "2025-11-14",
+      "process_date": "2025-11-14"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ONEOK INC /NEW/",
+    "issuerCik": "0001039684",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "ONEOK quarterly dividend; ex-date equals record date under T+1."
+  }
+}

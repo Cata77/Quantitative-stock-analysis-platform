@@ -1,0 +1,35 @@
+{
+  "reviewId": "63488a82-0fc0-52e3-b2d5-2abfa23f9a53",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "9e81a001-0c2b-4f87-b6ea-822874eaa456",
+  "factId": null,
+  "issueId": "84a1b4d2-2d96-4bf2-b34a-0d5a3ef30318",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.nasdaq.com/press-release/marsh-mclennan-increases-quarterly-cash-dividend-2025-07-09",
+    "sourceSha256": "888a8c3125cada15655d9d053ff8ca8a36a63805bfbee8da2e3d98428d39a58d",
+    "sourceObservedAt": "2026-10-27T14:26:32.552724+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"439c590e0dcf8d0bed4bc366014867efa18eb1039a3386bde0e5045f8b4b656d\"}",
+    "providerAction": {
+      "id": "d6776958-2e3b-42b2-a611-cffe5d29f29d",
+      "rate": 0.9,
+      "type": "cash_dividends",
+      "cusip": "571748102",
+      "symbol": "MMC",
+      "ex_date": "2025-07-24",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-24",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "MARSH & MCLENNAN COMPANIES, INC.",
+    "issuerCik": "0000062709",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms MMC, USD 0.9 per share, record date 2025-07-24, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues.",
+    "identityContinuityReviewId": "b3bf089d-dd7a-58bd-a1e5-ebed1cda6fa7",
+    "identityContinuityEvidenceSha256": "39f18b2f5f785179ff6da4a24a1dc3df7c86cc992628473fd3a55540f3ce7ec2"
+  }
+}

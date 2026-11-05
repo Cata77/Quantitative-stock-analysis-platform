@@ -1,0 +1,37 @@
+{
+  "reviewId": "10a6d06f-322e-5f4a-b672-0fdd3012f399",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "14adb876-3511-45d4-9475-a1d8b63e5e6f",
+  "factId": null,
+  "issueId": "7cb9fa67-abda-4a00-a895-8ba6f288212b",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://investors.nisource.com/financial-news/news-details/2025/NiSource-Declares-Common-Stock-Dividend-b5775f9dc/default.aspx",
+    "sourceSha256": "3739433a8014427ab9a49eca982bf06f0fc9a06da9ff5830d80e124676eb38e1",
+    "sourceObservedAt": "2026-10-31T11:28:41.840924+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "payable August 20, 2025, to stockholders of record at the close of business on July 31, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"f2aba24e87b8480d1040fbc1a3b47b4e7d55a108972a768c2d2d5ae5b4dee0ac\"}",
+    "providerAction": {
+      "id": "2e263b6f-5f90-4ddf-a884-d0681c1b060a",
+      "rate": 0.28,
+      "type": "cash_dividends",
+      "cusip": "65473P105",
+      "symbol": "NI",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-20",
+      "process_date": "2025-08-20"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "NISOURCE INC.",
+    "issuerCik": "0001111711",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Under T+1 settlement the ex-date equals the record date; an older history table showing one day earlier does not change any input. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

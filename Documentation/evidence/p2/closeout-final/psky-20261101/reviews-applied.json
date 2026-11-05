@@ -1,0 +1,514 @@
+{
+  "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+  "issues": 72,
+  "byScope": {
+    "SESSION_BEFORE_INSTRUMENT_LISTING": 4,
+    "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL": 68
+  },
+  "applied": [
+    {
+      "reviewId": "2b9b2d8c-c8a5-57bc-9e21-bca05d4076d0",
+      "issueId": "1f9361c6-2d89-42fa-88a2-ad61588d58ca",
+      "session": "2025-08-01",
+      "scope": "SESSION_BEFORE_INSTRUMENT_LISTING",
+      "recordedAt": "2026-11-01T17:56:03.484600+00:00"
+    },
+    {
+      "reviewId": "5c7181a9-70e4-5f18-a461-3e1193c41005",
+      "issueId": "54702f01-d632-4e16-b419-71d595dd547d",
+      "session": "2025-08-04",
+      "scope": "SESSION_BEFORE_INSTRUMENT_LISTING",
+      "recordedAt": "2026-11-01T17:56:03.546873+00:00"
+    },
+    {
+      "reviewId": "0643d166-64a4-5393-be97-8c6a94bc4b7b",
+      "issueId": "403e9b39-edb7-40af-a499-69a8d4851053",
+      "session": "2025-08-05",
+      "scope": "SESSION_BEFORE_INSTRUMENT_LISTING",
+      "recordedAt": "2026-11-01T17:56:03.586302+00:00"
+    },
+    {
+      "reviewId": "4c0e15f5-fdd3-53eb-b741-98742f513bcd",
+      "issueId": "4473fd8d-ea76-4986-8487-8efece937d6c",
+      "session": "2025-08-06",
+      "scope": "SESSION_BEFORE_INSTRUMENT_LISTING",
+      "recordedAt": "2026-11-01T17:56:03.621682+00:00"
+    },
+    {
+      "reviewId": "f689a15f-19fa-5aa3-a93f-85e9692c2020",
+      "issueId": "02cd47cb-ff01-4472-b4ef-5fbc83f3a3b4",
+      "session": "2026-10-06",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.653159+00:00"
+    },
+    {
+      "reviewId": "ce85d646-1744-5f05-be52-7e94900ac3d5",
+      "issueId": "0b7ef38e-bc95-4641-9f9c-56c4d60d0115",
+      "session": "2026-10-06",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.691802+00:00"
+    },
+    {
+      "reviewId": "37b73e45-28a8-565b-b6e3-2adecc7a2a0e",
+      "issueId": "5430237a-3122-4cd0-a819-819c950eb042",
+      "session": "2026-10-06",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.725253+00:00"
+    },
+    {
+      "reviewId": "81d36cec-dded-5eec-9c92-4c079ebbd8bf",
+      "issueId": "99d81f42-a285-40e4-9606-f8cb5ace59a0",
+      "session": "2026-10-06",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.756407+00:00"
+    },
+    {
+      "reviewId": "38c35395-ba15-5777-a351-943cead180fe",
+      "issueId": "490bd8d4-cea6-4cd8-ad6a-3a23a6cb01b5",
+      "session": "2026-10-07",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.783753+00:00"
+    },
+    {
+      "reviewId": "b788e1e7-08df-552b-8973-682d24b3c181",
+      "issueId": "7281b3b0-0bb7-42ec-b44a-f65ece487fe3",
+      "session": "2026-10-07",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.814817+00:00"
+    },
+    {
+      "reviewId": "538e5d76-617c-5ef2-92d3-19317b73e003",
+      "issueId": "c008f37e-4e64-4976-9186-83c62cb1934a",
+      "session": "2026-10-07",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.849491+00:00"
+    },
+    {
+      "reviewId": "0c5f18cc-4120-5af2-a900-14b3f0d0ce2b",
+      "issueId": "c30c8864-d885-4b6a-949c-6ab5b24f237c",
+      "session": "2026-10-07",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.876411+00:00"
+    },
+    {
+      "reviewId": "00f9d052-1cfa-53b9-bab0-cce3d371728a",
+      "issueId": "01ebb183-7602-4eb0-b3d9-4628695111f8",
+      "session": "2026-10-08",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.913258+00:00"
+    },
+    {
+      "reviewId": "39772d1c-369a-5f73-88cd-18d056a03cdc",
+      "issueId": "091bd58f-cdba-4379-9279-01d7c39a1fb4",
+      "session": "2026-10-08",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.946763+00:00"
+    },
+    {
+      "reviewId": "e5e35fb6-f567-541f-92bb-f60917ec2d34",
+      "issueId": "193c9cfa-5c06-45c4-8a0d-a45a2bb25bbc",
+      "session": "2026-10-08",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.972525+00:00"
+    },
+    {
+      "reviewId": "ddb53eed-79e7-5b70-a127-445d6ab8925e",
+      "issueId": "a6e061c8-e0bf-4e36-bef3-85b29957a04e",
+      "session": "2026-10-08",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:03.993828+00:00"
+    },
+    {
+      "reviewId": "31d48043-5a90-5b9b-b541-9432e87d8281",
+      "issueId": "0313dbf9-61d3-4e05-9238-6299708e16b4",
+      "session": "2026-10-09",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.019179+00:00"
+    },
+    {
+      "reviewId": "23593629-e50e-599e-8cd8-eb1d47f4b34b",
+      "issueId": "104f3a68-889e-4cd1-8be0-ff752a3b98c7",
+      "session": "2026-10-09",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.044931+00:00"
+    },
+    {
+      "reviewId": "85726bd0-c2fa-545e-a38d-e21c32636cdd",
+      "issueId": "1b665a1a-e5e9-4f59-bb62-e5dfed7b2fc3",
+      "session": "2026-10-09",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.070672+00:00"
+    },
+    {
+      "reviewId": "4d694e3a-0b42-5093-9ecc-22ce087d63e2",
+      "issueId": "614449c2-4862-44d2-8c1a-b978ca7d0d72",
+      "session": "2026-10-09",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.098582+00:00"
+    },
+    {
+      "reviewId": "abeab384-1e61-5370-8d6f-41cd074318d9",
+      "issueId": "1aa50642-e7f9-4b93-a1b8-28ce3291e40c",
+      "session": "2026-10-12",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.126536+00:00"
+    },
+    {
+      "reviewId": "fbc06e4c-aacf-5b6a-b447-e5b3e1703a46",
+      "issueId": "267a1d89-9017-4620-9016-4e59976a3af6",
+      "session": "2026-10-12",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.154253+00:00"
+    },
+    {
+      "reviewId": "266ecc6b-2c0c-5f30-be5a-122f13bee972",
+      "issueId": "3d27f441-af22-4f9a-bfe8-6564db9b93f0",
+      "session": "2026-10-12",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.181949+00:00"
+    },
+    {
+      "reviewId": "70b291c5-12c6-5384-9a5c-9bb3459fd0e6",
+      "issueId": "9866c761-6ffa-43c3-b82f-12d270eff01b",
+      "session": "2026-10-12",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.223069+00:00"
+    },
+    {
+      "reviewId": "9ca3efad-f2c7-5454-9eb2-61de4dc22fb5",
+      "issueId": "1bc92a0e-64be-4287-bcb4-e5338d468ddc",
+      "session": "2026-10-13",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.255649+00:00"
+    },
+    {
+      "reviewId": "eb812f85-6db0-5d5c-9b2a-d302a2aac61e",
+      "issueId": "5be4ad01-8e72-4218-bc72-240af05d6549",
+      "session": "2026-10-13",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.285552+00:00"
+    },
+    {
+      "reviewId": "efb76c93-a834-5ab2-b1b7-0b4acc231723",
+      "issueId": "5d1e4d76-41cd-4ac5-9a98-a23c339e4703",
+      "session": "2026-10-13",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.314801+00:00"
+    },
+    {
+      "reviewId": "02e2e89c-79d5-5a94-959c-13bcafd7c227",
+      "issueId": "b40ca67c-0460-43c4-86cd-034fe8d85fb2",
+      "session": "2026-10-13",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.340156+00:00"
+    },
+    {
+      "reviewId": "40f7db41-df3b-5b16-8366-15361ff4b06f",
+      "issueId": "4a577511-9118-4721-96b0-4d03d8a6ab9f",
+      "session": "2026-10-14",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.378682+00:00"
+    },
+    {
+      "reviewId": "23fbd5f5-162d-503a-834b-02f39f3c48d0",
+      "issueId": "89fc9f3e-9f61-4616-a955-783989c5b048",
+      "session": "2026-10-14",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.412415+00:00"
+    },
+    {
+      "reviewId": "0f6c42b7-9d4a-51f9-8b93-3cc25565b503",
+      "issueId": "91cf549c-3c51-436d-9166-e6bfb3c3774b",
+      "session": "2026-10-14",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.437034+00:00"
+    },
+    {
+      "reviewId": "15c7ea3d-0f12-5bf9-b036-bcf70ad641eb",
+      "issueId": "d2a5ffe1-1183-4103-96cc-095ceb5cbcf5",
+      "session": "2026-10-14",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.466817+00:00"
+    },
+    {
+      "reviewId": "c2a38ef4-52e6-5860-9fa9-8fe373683940",
+      "issueId": "7d48c935-2b30-4822-b67b-1eabcfc11507",
+      "session": "2026-10-15",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.490346+00:00"
+    },
+    {
+      "reviewId": "e9e44544-b1cf-5a31-a95c-901a725a731a",
+      "issueId": "b491d697-7910-4277-bd24-62fe111f0e58",
+      "session": "2026-10-15",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.518807+00:00"
+    },
+    {
+      "reviewId": "addd69bb-0c7f-56f5-b315-c65a087a494b",
+      "issueId": "b686de03-afef-4862-b066-4c8ccae6f242",
+      "session": "2026-10-15",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.542930+00:00"
+    },
+    {
+      "reviewId": "3319c1bc-6c26-52d5-87e1-c74e30db0c8a",
+      "issueId": "c68b4912-104a-40fa-8991-15481e94f29c",
+      "session": "2026-10-15",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.567719+00:00"
+    },
+    {
+      "reviewId": "a9fa70aa-e1aa-5280-a824-4ecd8e26c85b",
+      "issueId": "16680534-fd05-48d8-bcc8-8a26a34e8883",
+      "session": "2026-10-16",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.592557+00:00"
+    },
+    {
+      "reviewId": "74772d51-6825-5c41-aeed-6d0506c9ff3d",
+      "issueId": "64ab1dd1-92c0-4299-9914-e12be85d11bc",
+      "session": "2026-10-16",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.620503+00:00"
+    },
+    {
+      "reviewId": "2175f387-7887-57ff-9690-028bfd45dae5",
+      "issueId": "b86b43b7-e72b-4b5e-8cab-c27fc7f29d01",
+      "session": "2026-10-16",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.646242+00:00"
+    },
+    {
+      "reviewId": "95072c02-dffc-5a04-babe-afb6cfdb4cba",
+      "issueId": "e5146886-477c-4383-ae59-142e44721732",
+      "session": "2026-10-16",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.671422+00:00"
+    },
+    {
+      "reviewId": "0ce58578-c66e-56f1-857e-8ebdd3b9986f",
+      "issueId": "35345acf-cf6a-4305-8f98-583cf36d8dc9",
+      "session": "2026-10-19",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.697039+00:00"
+    },
+    {
+      "reviewId": "259b93e6-d6e9-5408-840b-184922674d2d",
+      "issueId": "6ce79571-1dbb-4420-bc60-8e5fda31cf98",
+      "session": "2026-10-19",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.722418+00:00"
+    },
+    {
+      "reviewId": "d6b022d1-a246-5234-9ed2-6fba289321d7",
+      "issueId": "b24bbe56-39a8-4c9b-bb51-f72f8fd70e8f",
+      "session": "2026-10-19",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.744100+00:00"
+    },
+    {
+      "reviewId": "196f70b8-92d4-5621-8684-f53d10a3df4e",
+      "issueId": "f701a9ac-97f3-47d6-ab01-e539e79d7a78",
+      "session": "2026-10-19",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.765880+00:00"
+    },
+    {
+      "reviewId": "049afc46-536f-5fd2-8579-dff648f40cc9",
+      "issueId": "32f0bad9-ce90-4c39-aef8-c1e2d1afd7c5",
+      "session": "2026-10-20",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.788160+00:00"
+    },
+    {
+      "reviewId": "50020604-4109-52d1-94aa-787a6fae9c81",
+      "issueId": "79d67f64-bd53-48b0-b345-414104248b6d",
+      "session": "2026-10-20",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.809115+00:00"
+    },
+    {
+      "reviewId": "fafb8d51-057d-5456-b21b-f2a6378a2165",
+      "issueId": "bdb69dcc-51e1-4720-be86-a4d1b95f4c8e",
+      "session": "2026-10-20",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.831914+00:00"
+    },
+    {
+      "reviewId": "201a786e-7ef7-5c3f-8cd1-f6c29539e087",
+      "issueId": "df030021-44e6-477f-a3ae-5c2dc35aa544",
+      "session": "2026-10-20",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.852959+00:00"
+    },
+    {
+      "reviewId": "177963f7-2864-5c0b-af62-8cc4bf5ad8cc",
+      "issueId": "17d30629-95f2-46c1-b4dd-f9abcd4e888c",
+      "session": "2026-10-21",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.873754+00:00"
+    },
+    {
+      "reviewId": "bf691c44-5bdb-5ef3-a00f-f10d8d389e7d",
+      "issueId": "1c24fe93-adcd-414e-a065-64a1be49df04",
+      "session": "2026-10-21",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.899691+00:00"
+    },
+    {
+      "reviewId": "bfd85953-aca1-5046-8d70-72f6df4be6ec",
+      "issueId": "5729797f-234c-4129-a566-6182496380cb",
+      "session": "2026-10-21",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.924505+00:00"
+    },
+    {
+      "reviewId": "87387d46-f95c-5372-80c2-67f078e5fe7b",
+      "issueId": "894456b8-45a4-4c33-8332-12202f3e6f3a",
+      "session": "2026-10-21",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.945806+00:00"
+    },
+    {
+      "reviewId": "ec026b35-46c8-50cf-8378-78e8dbfaf032",
+      "issueId": "192b2d3a-7280-4ab7-886d-f53b221067e7",
+      "session": "2026-10-22",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.968288+00:00"
+    },
+    {
+      "reviewId": "41626177-9256-5d7a-8336-07cc17ca403d",
+      "issueId": "2ec16ab3-de64-42d0-b52d-b9ebe04544db",
+      "session": "2026-10-22",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:04.988130+00:00"
+    },
+    {
+      "reviewId": "7b53627c-d2da-5074-8bf7-e27dbab15b99",
+      "issueId": "ae6e0063-1a3b-46da-aca6-21c53c6fbd97",
+      "session": "2026-10-22",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.012594+00:00"
+    },
+    {
+      "reviewId": "2e208695-29e7-5877-aa98-8fd56b45cff8",
+      "issueId": "d6e3439f-a20c-45fc-9fe8-39b1da98fbeb",
+      "session": "2026-10-22",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.037895+00:00"
+    },
+    {
+      "reviewId": "14ec2e0e-7a99-554c-b095-15aea9711550",
+      "issueId": "a666d29a-786b-4921-a38b-39f954af1fb2",
+      "session": "2026-10-23",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.075851+00:00"
+    },
+    {
+      "reviewId": "1d0b16ff-8445-50ec-8fb2-389a11049128",
+      "issueId": "b58567c0-c106-49e6-b8e9-4b863320f691",
+      "session": "2026-10-23",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.109038+00:00"
+    },
+    {
+      "reviewId": "e16b8456-f057-552d-a034-857e35572c92",
+      "issueId": "bf38d722-bae5-4a86-94de-313cb6f81ec9",
+      "session": "2026-10-23",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.137913+00:00"
+    },
+    {
+      "reviewId": "f4b8889d-088a-5e28-8879-7d1477639a97",
+      "issueId": "f40873ec-ae98-462c-a6d0-8e96c4258f21",
+      "session": "2026-10-23",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.161545+00:00"
+    },
+    {
+      "reviewId": "d8c95a3d-737b-5a9b-98e6-8b10b75ace98",
+      "issueId": "30191df7-c608-4787-98de-7c67165524d3",
+      "session": "2026-10-26",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.182488+00:00"
+    },
+    {
+      "reviewId": "43c0360f-0032-5487-b89d-688982708d30",
+      "issueId": "3533df68-c9cf-4134-a4cf-6737b25670b3",
+      "session": "2026-10-26",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.204435+00:00"
+    },
+    {
+      "reviewId": "805ffa27-bc36-5140-80a5-8a8f4863180f",
+      "issueId": "6151e848-6170-4a09-9319-544d4c63e389",
+      "session": "2026-10-26",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.224603+00:00"
+    },
+    {
+      "reviewId": "f51a5b5c-3bb1-54ff-980f-90861c2d5053",
+      "issueId": "15d135b5-df6d-4d3e-b79e-9356681cd7e5",
+      "session": "2026-10-27",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.244045+00:00"
+    },
+    {
+      "reviewId": "47d45677-00ef-54d7-98fa-1357433e2e9e",
+      "issueId": "3e661432-21f7-4cdb-a197-523c3d24f9c3",
+      "session": "2026-10-27",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.266386+00:00"
+    },
+    {
+      "reviewId": "9067d795-f584-557b-98f5-4a8c3dd26577",
+      "issueId": "4a594bc5-0c97-4fa4-82aa-5b2d7ab0a8bd",
+      "session": "2026-10-27",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.285831+00:00"
+    },
+    {
+      "reviewId": "4c5e624c-e9ef-5e37-94ab-3ca7574cffe0",
+      "issueId": "6412b862-0125-407a-918f-9fc385e5f05a",
+      "session": "2026-10-28",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.308472+00:00"
+    },
+    {
+      "reviewId": "2df3af8d-4cb2-59d0-bbd2-a33cf40cb913",
+      "issueId": "79e07e43-0967-41cf-bc98-799a9a5c6924",
+      "session": "2026-10-28",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.329289+00:00"
+    },
+    {
+      "reviewId": "4ba96816-ac56-5e6b-82df-21bbc3759ad7",
+      "issueId": "bb30743f-a40e-4709-adfa-87982cf6d7ea",
+      "session": "2026-10-28",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.350513+00:00"
+    },
+    {
+      "reviewId": "ddb7147e-f925-5b22-b7d8-63475ff95eae",
+      "issueId": "2953b7d7-fe39-4e81-bde2-40ca9a503bcc",
+      "session": "2026-10-29",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.371075+00:00"
+    },
+    {
+      "reviewId": "09ea1a1c-074a-5ab5-a8de-1c67cb184315",
+      "issueId": "cd8c4104-3353-494b-be0a-ed968d7c23ca",
+      "session": "2026-10-29",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.392638+00:00"
+    },
+    {
+      "reviewId": "745d29b4-1c87-5488-a19c-89e5ef4f6932",
+      "issueId": "51c853c1-e6fb-4ff1-9f2c-24c75abad724",
+      "session": "2026-10-30",
+      "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+      "recordedAt": "2026-11-01T17:56:05.412837+00:00"
+    }
+  ]
+}

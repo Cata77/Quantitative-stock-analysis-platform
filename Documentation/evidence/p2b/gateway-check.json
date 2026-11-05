@@ -1,0 +1,25 @@
+{
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "checks": [
+    {
+      "symbol": "NBIS",
+      "status": 200,
+      "sameRun": true,
+      "sameRank": true,
+      "sameEligibility": true,
+      "rsi": 35.5828,
+      "rsiReason": null
+    },
+    {
+      "symbol": "SPCX",
+      "status": 200,
+      "sameRun": true,
+      "sameRank": true,
+      "sameEligibility": true,
+      "rsi": 37.1164,
+      "rsiReason": null
+    }
+  ],
+  "withoutToken": 401,
+  "passed": true
+}

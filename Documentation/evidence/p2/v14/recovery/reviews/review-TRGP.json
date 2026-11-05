@@ -1,0 +1,33 @@
+{
+  "reviewId": "8a4eb82b-63d6-5ef6-a20d-e3e1887d70fb",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "830ca212-75c2-4042-afdc-09c50fcafdcd",
+  "factId": null,
+  "issueId": "9b02fbe5-48fb-4292-8b47-972265388c0c",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.targaresources.com/news-releases/news-release-details/targa-resources-corp-announces-quarterly-common-dividend-and-0",
+    "sourceSha256": "48c451b81a98d2ab4a62a9b8c568047e61e7787581868c2773594eb148874fd6",
+    "sourceObservedAt": "2026-10-27T14:26:32.692925+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"6ccd85d9e4c2df9d6885cc46c58bfa741ffc5730db4ba78a00e754aa287a2718\"}",
+    "providerAction": {
+      "id": "022d81eb-7072-4109-b290-af82df73f362",
+      "rate": 1,
+      "type": "cash_dividends",
+      "cusip": "87612G101",
+      "symbol": "TRGP",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Targa Resources Corp.",
+    "issuerCik": "0001389170",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms TRGP, USD 1 per share, record date 2025-07-31, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

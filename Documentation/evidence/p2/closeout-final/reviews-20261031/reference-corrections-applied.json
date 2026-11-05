@@ -1,0 +1,169 @@
+{
+  "applied": true,
+  "before": {
+    "wbd": {
+      "active": true,
+      "currency": "USD",
+      "valid_to": null,
+      "issuer_id": "bb6f6294-cf0c-4dfa-8a7a-432f07c68fcc",
+      "updated_at": "2026-09-26T12:20:32.22822+00:00",
+      "valid_from": "2025-08-01",
+      "share_class": "SERIES_A",
+      "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+      "security_type": "COMMON_STOCK",
+      "primary_exchange_mic": "XNAS"
+    },
+    "xnys": 1,
+    "wbdSymbols": [
+      {
+        "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+        "symbol": "WBD",
+        "observed_at": "2026-09-26T12:20:32.227597+00:00",
+        "available_at": "2026-09-26T12:20:32.227597+00:00",
+        "effective_to": "2026-08-27",
+        "exchange_mic": "XNAS",
+        "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+        "effective_from": "2025-08-01",
+        "instrument_symbol_id": "8adb00f8-ea79-4ae1-919a-d7edaeac0625"
+      },
+      {
+        "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+        "symbol": "WBD",
+        "observed_at": "2026-08-28T13:20:38+00:00",
+        "available_at": "2026-08-28T13:20:38+00:00",
+        "effective_to": null,
+        "exchange_mic": "XNAS",
+        "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+        "effective_from": "2026-08-27",
+        "instrument_symbol_id": "29f82cba-96a9-44aa-98fb-aaaa212fd64f"
+      }
+    ],
+    "pskySymbols": [
+      {
+        "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+        "symbol": "PSKY",
+        "observed_at": "2026-09-26T12:20:32.660679+00:00",
+        "available_at": "2026-09-26T12:20:32.660679+00:00",
+        "effective_to": "2026-08-27",
+        "exchange_mic": "XNAS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2025-08-07",
+        "instrument_symbol_id": "6ca0a3c2-00f1-4b3c-8e49-fe112819c11b"
+      },
+      {
+        "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+        "symbol": "PSKY",
+        "observed_at": "2026-08-28T13:20:38+00:00",
+        "available_at": "2026-08-28T13:20:38+00:00",
+        "effective_to": null,
+        "exchange_mic": "XNAS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2026-08-27",
+        "instrument_symbol_id": "a64d0a4e-8653-45b7-acd9-055b63188147"
+      }
+    ]
+  },
+  "after": {
+    "wbd": {
+      "active": false,
+      "currency": "USD",
+      "valid_to": "2026-10-06",
+      "issuer_id": "bb6f6294-cf0c-4dfa-8a7a-432f07c68fcc",
+      "updated_at": "2026-10-31T11:49:22.620489+00:00",
+      "valid_from": "2025-08-01",
+      "share_class": "SERIES_A",
+      "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+      "security_type": "COMMON_STOCK",
+      "primary_exchange_mic": "XNAS"
+    },
+    "xnys": 1,
+    "wbdSymbols": [
+      {
+        "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+        "symbol": "WBD",
+        "observed_at": "2026-09-26T12:20:32.227597+00:00",
+        "available_at": "2026-09-26T12:20:32.227597+00:00",
+        "effective_to": "2026-08-27",
+        "exchange_mic": "XNAS",
+        "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+        "effective_from": "2025-08-01",
+        "instrument_symbol_id": "8adb00f8-ea79-4ae1-919a-d7edaeac0625"
+      },
+      {
+        "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+        "symbol": "WBD",
+        "observed_at": "2026-08-28T13:20:38+00:00",
+        "available_at": "2026-08-28T13:20:38+00:00",
+        "effective_to": null,
+        "exchange_mic": "XNAS",
+        "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+        "effective_from": "2026-08-27",
+        "instrument_symbol_id": "29f82cba-96a9-44aa-98fb-aaaa212fd64f"
+      }
+    ],
+    "pskySymbols": [
+      {
+        "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+        "symbol": "PSKY",
+        "observed_at": "2026-09-26T12:20:32.660679+00:00",
+        "available_at": "2026-09-26T12:20:32.660679+00:00",
+        "effective_to": "2026-08-27",
+        "exchange_mic": "XNAS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2025-08-07",
+        "instrument_symbol_id": "6ca0a3c2-00f1-4b3c-8e49-fe112819c11b"
+      },
+      {
+        "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+        "symbol": "PSKY",
+        "observed_at": "2026-08-28T13:20:38+00:00",
+        "available_at": "2026-08-28T13:20:38+00:00",
+        "effective_to": "2026-10-06",
+        "exchange_mic": "XNAS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2026-08-27",
+        "instrument_symbol_id": "a64d0a4e-8653-45b7-acd9-055b63188147"
+      },
+      {
+        "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+        "symbol": "SKYD",
+        "observed_at": "2026-10-31T11:49:22.644311+00:00",
+        "available_at": "2026-10-31T11:49:22.644311+00:00",
+        "effective_to": null,
+        "exchange_mic": "XNYS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2026-10-06",
+        "instrument_symbol_id": "79a1e275-df49-4264-9e83-3e3366c2b8a1"
+      }
+    ]
+  },
+  "sources": {
+    "WBD-nasdaq-eca2026-710": {
+      "sourceUri": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-710",
+      "sourceSha256": "891fbdea2b02316bbb541cc68a45319f01e223cd1b48b2abff4cc168c6eb309a",
+      "passage": "Symbol: WBD Last Trading Date: October 5, 2026 Marketplace Effective Date for Suspension: October 7, 2026"
+    },
+    "PSKY-skydance-8k": {
+      "sourceUri": "https://www.sec.gov/Archives/edgar/data/2041610/000110465926113913/tm2626659d7_8k.htm",
+      "sourceSha256": "dae2da8bf99ec92ad559a9bca35ddb3409ecb6768e1569f5da911b75309f537a",
+      "passage": "transferred the listing of the Class B Common Stock from The Nasdaq Stock Market LLC to the New York Stock Exchange and changed the ticker symbol for the Class B Common Stock from “PSKY” to “SKYD”"
+    }
+  },
+  "verified": {
+    "wbdValidTo": "2026-10-06",
+    "wbdActive": false,
+    "pskyCurrent": [
+      {
+        "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+        "symbol": "SKYD",
+        "observed_at": "2026-10-31T11:49:22.644311+00:00",
+        "available_at": "2026-10-31T11:49:22.644311+00:00",
+        "effective_to": null,
+        "exchange_mic": "XNYS",
+        "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+        "effective_from": "2026-10-06",
+        "instrument_symbol_id": "79a1e275-df49-4264-9e83-3e3366c2b8a1"
+      }
+    ]
+  }
+}

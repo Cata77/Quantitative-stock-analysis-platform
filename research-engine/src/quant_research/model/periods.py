@@ -108,9 +108,9 @@ def from_cross_section(
     The SQL already ranks source revisions before this boundary. No profile unsupported
     by that query is enabled here. Jurisdiction must be supplied explicitly by issuer ID.
     """
-    from .preparation import CURRENT_VERSION, enrich
+    from .preparation import CURRENT_VERSION, PREVIOUS_VERSION, enrich, enrich_v4
 
-    if preprocessing_version not in ("profiles-v1", CURRENT_VERSION):
+    if preprocessing_version not in ("profiles-v1", PREVIOUS_VERSION, CURRENT_VERSION):
         raise ValueError("Unknown preprocessing version")
     request = section["request"]
     cutoff = timestamp(request["knowledgeCutoff"])
@@ -234,7 +234,8 @@ def from_cross_section(
                 ],
             }
         )
-    if preprocessing_version == CURRENT_VERSION:
+    if preprocessing_version in (PREVIOUS_VERSION, CURRENT_VERSION):
         for row, item in zip(rows, section["inputs"], strict=True):
-            enrich(row, item, request["knowledgeCutoff"])
+            (enrich_v4 if preprocessing_version == CURRENT_VERSION else enrich)(
+                row, item, request["knowledgeCutoff"])
     return request["knowledgeCutoff"], rows

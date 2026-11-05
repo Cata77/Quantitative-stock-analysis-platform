@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "FDX",
+    "reviewId": "158b408c-dc36-57f2-9521-8e7aa4b0f3b6",
+    "recordedAt": "2026-10-29T14:07:13.173340+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "SPGI",
+    "reviewId": "ecfe214c-ef8b-5bd7-a17f-0ed9ae6cf299",
+    "recordedAt": "2026-10-29T14:07:13.270513+00:00",
+    "applied": true,
+    "idempotent": true
+  }
+]

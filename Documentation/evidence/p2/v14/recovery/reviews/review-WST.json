@@ -1,0 +1,33 @@
+{
+  "reviewId": "0b5518f0-25b9-530b-9c83-b12942973914",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "91122314-cf19-4852-9eee-9505b4190e45",
+  "factId": null,
+  "issueId": "f1b05b12-026f-4e38-bdaf-7f46129da664",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investor.westpharma.com/news-releases/news-release-details/west-announces-first-quarter-2025-results-increases-adjusted",
+    "sourceSha256": "48c451b81a98d2ab4a62a9b8c568047e61e7787581868c2773594eb148874fd6",
+    "sourceObservedAt": "2026-10-27T14:26:32.732003+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"41b85a7c09e55b31a18974246f9b551fac1cf91d43e80a89bcdcd9afe278bb43\"}",
+    "providerAction": {
+      "id": "72045acd-85f0-41ad-a522-7c333502fb17",
+      "rate": 0.21,
+      "type": "cash_dividends",
+      "cusip": "955306105",
+      "symbol": "WST",
+      "ex_date": "2025-07-30",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-30",
+      "payable_date": "2025-08-06",
+      "process_date": "2025-08-06"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "WEST PHARMACEUTICAL SERVICES INC",
+    "issuerCik": "0000105770",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms WST, USD 0.21 per share, record date 2025-07-30, payment date 2025-08-06. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

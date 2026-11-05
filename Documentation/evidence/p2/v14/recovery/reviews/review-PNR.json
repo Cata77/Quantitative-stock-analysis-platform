@@ -1,0 +1,33 @@
+{
+  "reviewId": "175bc103-3206-5713-ad89-229ee8f9c3f7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "0c2b09ce-dbc7-458b-b7aa-d2cb16a306ef",
+  "factId": null,
+  "issueId": "dcf97d31-56b4-4bd1-92c7-33a130e9347a",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investors.pentair.com/news-releases/news-release-details/pentair-announces-quarterly-cash-dividend-025-0",
+    "sourceSha256": "81febd1f728e2a7cffeb72b67cba6405265fc36d8170899e3622b5a57fe21a75",
+    "sourceObservedAt": "2026-10-27T14:26:32.638977+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"1dc7439ab2ca91dff311bc22b60c789f632ecbfe33d7501622b0b2aec6fb973e\"}",
+    "providerAction": {
+      "id": "d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c",
+      "rate": 0.25,
+      "type": "cash_dividends",
+      "cusip": "G7S00T104",
+      "symbol": "PNR",
+      "ex_date": "2025-07-18",
+      "foreign": true,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "PENTAIR plc",
+    "issuerCik": "0000077360",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms PNR, USD 0.25 per share, record date 2025-07-18, payment date 2025-08-01. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

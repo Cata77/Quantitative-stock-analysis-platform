@@ -26,7 +26,7 @@ public class DurableObservationProcessor {
     private final com.quantplatform.scoring.fundamentals.FundamentalDataStore fundamentalData;
 
     public DurableObservationProcessor(DataSource source, PlatformTransactionManager manager,
-            MarketDataEventProcessor projection, @Value("${spring.kafka.consumer.group-id}") String consumer) {
+            MarketDataEventProcessor projection, @Value("${scoring.consumer-name:scoring-service-v2}") String consumer) {
         jdbc = JdbcClient.create(source);
         dailyData = new DailyMarketDataStore(source);
         fundamentalData = new com.quantplatform.scoring.fundamentals.FundamentalDataStore(source);

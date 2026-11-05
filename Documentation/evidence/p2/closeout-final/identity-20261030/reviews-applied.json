@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "Q",
+    "reviewId": "386847bd-ec53-55f0-a5df-8c6dde6f6bfb",
+    "recordedAt": "2026-10-30T07:33:59.032452+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "VMRK",
+    "reviewId": "7280aa37-faba-5e2b-b68c-1416b9ed2d39",
+    "recordedAt": "2026-10-30T07:33:59.056739+00:00",
+    "applied": true,
+    "idempotent": true
+  }
+]

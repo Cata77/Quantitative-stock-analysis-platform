@@ -1,0 +1,23 @@
+[
+  {
+    "symbol": "DD",
+    "sourceUri": "https://www.dupont.com/news/dupont-completes-separation-of-qnity-electronics.html",
+    "file": "DD.html",
+    "sourceSha256": "73c4e7eafa6f23b928e6fc0936542712227b3ffd61e8e006ef90f0a1477d8db4",
+    "observedAt": "2026-10-29T13:58:42.018234+00:00"
+  },
+  {
+    "symbol": "CMCSA",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1166691/000095010326000079/dp239108_ex9901.htm",
+    "file": "CMCSA.html",
+    "sourceSha256": "3ce8d63f9927cea048dba44a68c1bc556fdfba4bed5d306a6e0670845736d978",
+    "observedAt": "2026-10-29T13:58:42.211299+00:00"
+  },
+  {
+    "symbol": "APTV",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000061/aptv-20260630.htm",
+    "file": "APTV.html",
+    "sourceSha256": "eef519eb8d9dd0c474663a413265795d3b7deca6f0210c909a44e21f571c2fa1",
+    "observedAt": "2026-10-29T13:58:42.815315+00:00"
+  }
+]

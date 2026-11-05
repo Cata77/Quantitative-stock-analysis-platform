@@ -1,0 +1,17 @@
+{
+  "runId": "b4d566ac-63c3-4959-902c-1bc76ed12285",
+  "uniqueInstruments": 518,
+  "eligible": 438,
+  "excluded": 80,
+  "checks": [
+    "Gateway authenticated CLI with page size 100 (6 pages)",
+    "Independent pagination with page size 137 (4 pages)",
+    "All API IDs, symbols, sectors, profiles, ranks, scores, contributions and reasons match retained publication",
+    "All live DB outputs equal immutable archived model evidence",
+    "ELIGIBLE and EXCLUDED API totals match ALL",
+    "LULU profile is GENERAL",
+    "Score status, normalized coverage and effective weights match the published outputs"
+  ],
+  "modelChanged": true,
+  "verifiedPublicationUnchangedDuringAudit": true
+}

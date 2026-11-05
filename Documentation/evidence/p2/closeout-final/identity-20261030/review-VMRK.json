@@ -1,0 +1,30 @@
+{
+  "reviewId": "7280aa37-faba-5e2b-b68c-1416b9ed2d39",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "9d5f1ddb-36c7-467b-9318-0bb9a438fd13",
+  "factId": null,
+  "issueId": "597f629c-e1a1-4a52-aa72-3935c00ce94a",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-identity-review",
+  "evidence": {
+    "scope": "EXACT_SYMBOL_TRANSITION_ISSUE_ONLY",
+    "sourceUri": "https://investors.avalonbay.com/sec-filings/all-sec-filings/content/0001104659-26-097833/tm2623381d1_8k.htm",
+    "sourceSha256": "3cca3b24182afa7b20a5e76796697835f43fd0a65b6e96085fed2d69ec98e17d",
+    "sourceObservedAt": "2026-10-30T07:32:32.579729+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"eb38a22ea2b402e69ca08dcaaa2fdb00d4b26cb1341a9db0dbeaa278a30116a1\"}",
+    "providerAction": {
+      "id": "5cb4d1cb-10dc-42b0-9e6b-4dcfa3352758",
+      "type": "name_changes",
+      "new_cusip": "29476L107",
+      "old_cusip": "29476L107",
+      "new_symbol": "VMRK",
+      "old_symbol": "EQR",
+      "process_date": "2026-08-18"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "EQUITY RESIDENTIAL",
+    "issuerCik": "0000906107",
+    "rationale": "The completion filing identifies Vivmark as formerly Equity Residential and confirms VMRK trading from August 18, 2026. AvalonBay shares converted into 2.793 Vivmark shares; this review concerns the surviving EQR instrument only. The provider keeps its CUSIP unchanged. Do not join AvalonBay prices, apply its exchange ratio to EQR shares, or approve other issues."
+  }
+}

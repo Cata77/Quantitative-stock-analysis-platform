@@ -1,0 +1,32 @@
+{
+  "reviewId": "2746dbe6-bbf4-5d58-80c9-392c35fdfeef",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "e5dab1a6-e646-4904-a51b-9cc2cc7a529a",
+  "factId": null,
+  "issueId": "b38f94a4-3869-448d-b447-e10db0872884",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://s25.q4cdn.com/479285134/files/doc_news/Mastercard-Board-of-Directors-Announces-Quarterly-Dividend-9062c18e0-2025.pdf",
+    "sourceSha256": "e3df32d54975d8906fb189f485b8adc0d3b68a4eb61c1f573f5c41ac5c40e65e",
+    "sourceObservedAt": "2026-10-26T14:04:51.741877+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"95b1801c0e3c488b1af600c03723b510a07a416dd1e66f53f8dae9ba40f768b5\"}",
+    "providerAction": {
+      "id": "e41bc546-fd39-4e4a-9ed9-b221bf6a8499",
+      "rate": 0.76,
+      "type": "cash_dividends",
+      "cusip": "57636Q104",
+      "symbol": "MA",
+      "ex_date": "2025-07-09",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-09",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Mastercard Inc",
+    "issuerCik": "0001141391",
+    "rationale": "Issuer common-stock dividend source confirms MA, USD 0.76 per share, record date 2025-07-09, payment date 2025-08-08. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

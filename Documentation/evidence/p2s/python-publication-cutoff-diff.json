@@ -1,0 +1,12 @@
+{
+  "database": "quant_p2s_verify (restored from build/p2b-ebitda-20261105/backup, isolated copy)",
+  "reference": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9 (Java, cutoff 2026-11-01T20:00:00Z)",
+  "candidate": "26f3c95a-bd26-4139-acba-fe543ae638a2 (Python, cutoff 2026-11-01T21:00:00Z)",
+  "inputsObservedBetweenCutoffs": {"bars": 0, "facts": 0, "filings": 0, "symbols": 0, "corporateActions": 0, "inputReviews": 0},
+  "scoreColumnsIdentical": 518,
+  "scoreOutputDifferencesOutsideCutoffProvenance": 0,
+  "scoreOutputDifferences": "only provenance available_at/observed_at of market inputs (PHASE6_CUTOFF_UPPER_BOUND = cutoff)",
+  "lineageIdenticalAfterCutoffSubstitution": 518,
+  "maximumAvailabilityDifferenceSeconds": [0, 3600],
+  "factorsArtifactsExclusionsIdentical": true
+}

@@ -43,7 +43,7 @@ class DatabaseRoleIntegrationTest {
         }
         var flyway=Flyway.configure().dataSource(url,"quant_migrator","isolated-test-migration-password")
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(24);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(29);
         assertThat(flyway.migrate().migrationsExecuted).isZero();
     }
     @Test void administratorOwnedRepeatablesCanBeRepairedForRestrictedMigrations() throws Exception {
@@ -93,7 +93,7 @@ class DatabaseRoleIntegrationTest {
         restricted.validate();assertThat(restricted.migrate().migrationsExecuted).isZero();
     }
     @Test void everyApplicationRoleIsNonAdministrativeAndCannotAssumeTheMigrator() throws Exception {
-        for(String role:List.of("quant_auth","quant_portfolio","quant_ingestion","quant_scoring","quant_screener","quant_search","quant_research")) {
+        for(String role:List.of("quant_auth","quant_portfolio","quant_ingestion","quant_scoring","quant_screener","quant_research")) {
             try(var c=connection();var s=c.createStatement();var rows=s.executeQuery("SELECT rolsuper OR rolcreatedb OR rolcreaterole OR rolbypassrls OR pg_has_role('"+role+"','quant_migrator','MEMBER') FROM pg_roles WHERE rolname='"+role+"'")) {
                 assertThat(rows.next()).isTrue();assertThat(rows.getBoolean(1)).isFalse();
             }
@@ -118,18 +118,38 @@ class DatabaseRoleIntegrationTest {
         allowed("quant_ingestion","SELECT operations.reconcile_ingestion_coverage('role-test')");
         denied("quant_ingestion","UPDATE operations.kafka_inbox SET delivery_count=delivery_count WHERE false");
         denied("quant_ingestion","UPDATE research.stock_scores SET warnings=warnings WHERE false");
-        denied("quant_scoring","UPDATE operations.outbox_events SET status=status WHERE false");
+        // P2s: the scoring worker delivers outbox events (status updates only; inserts stay with ingestion).
+        allowed("quant_scoring","UPDATE operations.outbox_events SET status=status WHERE false");
+        denied("quant_scoring","INSERT INTO operations.outbox_events SELECT * FROM operations.outbox_events WHERE false");
         denied("quant_scoring","SELECT password_hash FROM public.users");
     }
-    @Test void readersCannotWriteAndOnlySearchWorkerCanCheckpoint() throws Exception {
-        for(String role:List.of("quant_screener","quant_search","quant_research")) {
+    @Test void readersCannotWriteAndRetiredSearchRoleHasNoAccess() throws Exception {
+        for(String role:List.of("quant_screener","quant_research")) {
             allowed(role,"SELECT * FROM research.stock_scores");
             denied(role,"UPDATE research.stock_scores SET warnings=warnings WHERE false");
             denied(role,"SELECT password_hash FROM public.users");
             denied(role,"SELECT operations.reconcile_ingestion_coverage('forbidden')");
         }
-        denied("quant_screener","UPDATE operations.search_rebuild_checkpoints SET schema_version=1 WHERE false");
-        allowed("quant_search","INSERT INTO operations.search_rebuild_checkpoints VALUES('role-test',1,'index',repeat('a',64),0,now(),now())");
+        // P2s: outbox delivery from PostgreSQL; the worker updates status but never inserts or deletes events.
+        allowed("quant_scoring","SELECT event_id FROM operations.outbox_events WHERE false FOR UPDATE SKIP LOCKED");
+        denied("quant_scoring","DELETE FROM operations.outbox_events WHERE false");
+        denied("quant_screener","UPDATE operations.outbox_events SET status=status WHERE false");
+        allowed("quant_screener","SELECT * FROM market_data.daily_bar_observations WHERE false");
+        denied("quant_screener","UPDATE market_data.daily_bar_observations SET close=close WHERE false");
+        denied("quant_screener","SELECT * FROM market_data.corporate_actions WHERE false");
+        // EBITDA_FROM_SOURCE_V1: read-only access to published facts, filings and retained responses.
+        allowed("quant_screener","SELECT * FROM fundamentals.fundamental_facts WHERE false");
+        allowed("quant_screener","SELECT * FROM fundamentals.filings WHERE false");
+        allowed("quant_screener","SELECT * FROM operations.source_artifacts WHERE false");
+        denied("quant_screener","UPDATE fundamentals.fundamental_facts SET priority=priority WHERE false");
+        denied("quant_screener","UPDATE operations.source_artifacts SET media_type=media_type WHERE false");
+        denied("quant_screener","SELECT * FROM fundamentals.statements WHERE false");
+        denied("quant_screener","SELECT * FROM operations.outbox_events WHERE false");
+        // P2s (V025): the Elasticsearch indexer role was retired; it keeps no privileges.
+        denied("quant_search","SELECT * FROM research.stock_scores");
+        denied("quant_search","SELECT * FROM reference.issuers");
+        denied("quant_search","SELECT * FROM market_data.daily_bar_observations WHERE false");
+        denied("quant_search","SELECT * FROM operations.search_rebuild_checkpoints");
         allowed("quant_research","SELECT * FROM fundamentals.fundamental_facts");
     }
     @Test void migratorOwnsDdlAndNewFunctionsAreNotPubliclyExecutable() throws Exception {

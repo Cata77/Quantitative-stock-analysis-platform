@@ -1,0 +1,35 @@
+{
+  "reviewId": "e4997ede-a9ca-54f2-a3ca-a3d53a65dde7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "1ef3e64e-8a72-4a59-89b8-0f474a36b7ba",
+  "factId": null,
+  "issueId": "bbe2c8f0-7ae1-4b24-b63c-4d537b7fa400",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://classic.nasdaqtrader.com/TraderNews.aspx?id=ECA2025-559",
+    "sourceSha256": "54555f2300b807f4fa9858879ca9e6c51f033ae86417112d7caae0618381da3e",
+    "sourceObservedAt": "2026-10-30T13:41:52.671688+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"7f97559275efad62865465b3e32c06d3153f101cf5b3518bc48850d363ddb9df\"}",
+    "providerAction": {
+      "id": "09d778ab-97a9-47ee-9bad-aaa7353323ae",
+      "type": "spin_offs",
+      "ex_date": "2025-10-30",
+      "new_rate": 0.25,
+      "new_cusip": "83443Q103",
+      "new_symbol": "SOLS",
+      "record_date": "2025-10-17",
+      "source_rate": 1,
+      "payable_date": "2025-10-30",
+      "process_date": "2025-10-30",
+      "source_cusip": "438516106",
+      "source_symbol": "HON"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "HONEYWELL INTERNATIONAL INC",
+    "issuerCik": "0000773840",
+    "rationale": "Finalized Nasdaq notice confirms HON parent identity, separate child, CUSIPs, distribution ratio, record date, payment and ex-date. For SOLS, the due-bill redemption date is October 31, distinct from October 30 payment/ex-date; the provider has no due-bill field for this event. For HONA, distribution precedes the separate HON one-for-two reverse split on June 29, confirmed by the retained Honeywell completion filing. Accept only this exact parent spin-off issue. Do not merge parent and child prices, invent pre-listing history, or modify the independently recorded reverse split."
+  }
+}

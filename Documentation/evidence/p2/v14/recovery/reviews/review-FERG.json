@@ -1,0 +1,33 @@
+{
+  "reviewId": "fa90f0b4-8024-5bf1-88df-132969825431",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "b22b9506-3450-4e28-9783-3de418c985c6",
+  "factId": null,
+  "issueId": "e9f75e81-5651-4ac0-97f4-a00702a0a74f",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.corporate.ferguson.com/pressroom/news-releases/news-details/2025/Ferguson-Declares-Dividend/default.aspx",
+    "sourceSha256": "830590df851cf288976b09b4d998213e10bd84b7a4a31f4e024e125b91a421d0",
+    "sourceObservedAt": "2026-10-27T14:26:32.404289+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"acdec855c66d30772449fbc1de17cddd3c5d895f1505cd392c0ca177772736d5\"}",
+    "providerAction": {
+      "id": "b5b0db96-c283-4eeb-8ab4-6e04393a88b0",
+      "rate": 0.83,
+      "type": "cash_dividends",
+      "cusip": "31488V107",
+      "symbol": "FERG",
+      "ex_date": "2025-06-20",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-06-20",
+      "payable_date": "2025-08-06",
+      "process_date": "2025-08-06"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Ferguson Enterprises Inc. /DE/",
+    "issuerCik": "0002011641",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms FERG, USD 0.83 per share, record date 2025-06-20, payment date 2025-08-06. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

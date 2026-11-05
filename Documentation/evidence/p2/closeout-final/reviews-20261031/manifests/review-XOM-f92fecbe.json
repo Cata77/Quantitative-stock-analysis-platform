@@ -1,0 +1,37 @@
+{
+  "reviewId": "5a85b4bf-4cd9-587f-9a2f-8fb5da8f1e42",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "88873835-cbb0-4542-8e98-f1f9228b6a27",
+  "factId": null,
+  "issueId": "f92fecbe-5ed2-463e-8704-20714b80d779",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/34088/000003408825000040/livef8k2q25991.htm",
+    "sourceSha256": "41563ef9a6e48c082e4cecc8db88d1d9472253c226e1172b61624cc4f3a47fcf",
+    "sourceObservedAt": "2026-10-31T11:30:50.338059+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "payable on September 10, 2025, to shareholders of record of Common Stock at the close of business on August 15, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"37f307012d0cd1e426071361093662b7a98d888c4cca83b74c5e1c05e89800be\"}",
+    "providerAction": {
+      "id": "4678f638-99c7-4d18-b01d-1eeca6555b50",
+      "rate": 0.99,
+      "type": "cash_dividends",
+      "cusip": "30231G102",
+      "symbol": "XOM",
+      "ex_date": "2025-08-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-08-15",
+      "payable_date": "2025-09-10",
+      "process_date": "2025-09-10"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "EXXON MOBIL CORP",
+    "issuerCik": "0002115436",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "ExxonMobil quarterly dividend; ex-date equals record date under T+1. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

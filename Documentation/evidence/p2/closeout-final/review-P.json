@@ -1,0 +1,29 @@
+{
+  "reviewId": "7c5425af-1337-5b20-864c-799b7ce36e58",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "b6df52a6-1a23-4998-8435-99eeffa494ac",
+  "factId": null,
+  "issueId": "778f991c-02d0-4eec-bef8-835c1f38383a",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-rename-review",
+  "evidence": {
+    "sourceUri": "https://www.everpuredata.com/company/newsroom/press-releases/everpure-to-change-ticker-symbol.html",
+    "sourceSha256": "db98e5f24a24dbdf163cd40b9edf05e44667ea28bffebed80a4fb69d763eec10",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "scope": "EXACT_RENAME_ISSUE_ONLY",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"1a8e0e5d212c57cfb7358dec7976a56986ba40bc166011f5a5e2fccee3406d68\"}",
+    "providerAction": {
+      "id": "0824a8ad-1531-415e-96ee-6e9e1dcd1b8f",
+      "type": "name_changes",
+      "new_cusip": "74624M102",
+      "old_cusip": "74624M102",
+      "new_symbol": "P",
+      "old_symbol": "PSTG",
+      "process_date": "2026-04-17"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Everpure, Inc.",
+    "issuerCik": "0001474432",
+    "rationale": "Issuer announcement confirms the dated symbol change and unchanged CUSIP for the same common stock. Provider old/new symbols, effective date and unchanged CUSIP agree. Accept only this rename issue; do not change price observations, historical symbols or any other corporate action."
+  }
+}

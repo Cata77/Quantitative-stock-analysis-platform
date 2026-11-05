@@ -1,0 +1,36 @@
+{
+  "reviewId": "1483e5d4-4d4c-5ebd-80d6-2e9a3a4270eb",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "d9d11fef-f3be-4f89-a164-39172ba0fbeb",
+  "factId": null,
+  "issueId": "7e1a26e8-ff98-4fec-a1f1-3ebf88e43e56",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000061/aptv-20260630.htm",
+    "sourceSha256": "eef519eb8d9dd0c474663a413265795d3b7deca6f0210c909a44e21f571c2fa1",
+    "sourceObservedAt": "2026-10-29T13:58:42.815315+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"fa2eeff57a4823c182e933c32fbb4e8673362ac3a40cf90564fc7e8cd828d32f\"}",
+    "providerAction": {
+      "id": "74278c27-fe65-4a5f-a52b-811b0558d8e1",
+      "type": "spin_offs",
+      "ex_date": "2026-04-01",
+      "new_rate": 0.33333333333,
+      "new_cusip": "G9600F104",
+      "new_symbol": "VGNT",
+      "record_date": "2026-03-17",
+      "source_rate": 1,
+      "payable_date": "2026-04-01",
+      "process_date": "2026-04-01",
+      "source_cusip": "G3265R107",
+      "source_symbol": "APTV",
+      "due_bill_redemption_date": "2026-04-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Aptiv PLC",
+    "issuerCik": "0001521332",
+    "rationale": "Individual issuer source confirms parent identity, separate child, distribution ratio, record date and distribution date. The ex-date is the first regular-way trading session of the separated child; a weekend or after-close distribution is distinct from that trading date. Source and provider terms agree, including the rounded one-third ratio for Aptiv. Accept only this parent corporate-action issue. Do not merge parent and child price histories, alter provider prices, or approve other issues."
+  }
+}

@@ -9,10 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.MapPropertySource;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@EnableKafka
 @EnableScheduling
 @ConfigurationPropertiesScan
 @SpringBootApplication
@@ -23,9 +21,8 @@ public class ScoringApplication {
             var environment = event.getEnvironment();
             if (!environment.getProperty("scoring.command.operation", "serve").equals("serve")) {
                 environment.getPropertySources().addFirst(new MapPropertySource("command-mode", Map.of(
-                        "spring.kafka.listener.auto-startup", false,
-                        "scoring.coverage-enabled", false,
-                        "scoring.month-end-enabled", false)));
+                        "scoring.delivery.enabled", false,
+                        "scoring.coverage-enabled", false)));
             }
         });
         var context = app.run(args);

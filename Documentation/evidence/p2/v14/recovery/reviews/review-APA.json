@@ -1,0 +1,33 @@
+{
+  "reviewId": "0ca48dea-983f-512f-b928-389d66811b47",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "17bf5255-6edc-4d6e-a223-70bb783817e3",
+  "factId": null,
+  "issueId": "80977582-b76f-4dea-811b-71911827f98f",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investor.apacorp.com/news-releases/news-release-details/apa-corporation-declares-cash-dividend-common-shares-12/",
+    "sourceSha256": "4b3a002af4b4a307608050a820fcb8476f6f6bbed34f9d6e3ebd4837da848f4a",
+    "sourceObservedAt": "2026-10-27T14:23:09.043471+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"2bbb1d09abc8861ceacb9f8fb13d4ab240205d3fa7949f49bd205fd25824f110\"}",
+    "providerAction": {
+      "id": "ee95ffe8-0d97-4704-9c46-7a9867ee6438",
+      "rate": 0.25,
+      "type": "cash_dividends",
+      "cusip": "03743Q108",
+      "symbol": "APA",
+      "ex_date": "2025-07-22",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-22",
+      "payable_date": "2025-08-22",
+      "process_date": "2025-08-22"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "APA Corp",
+    "issuerCik": "0001841666",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms APA, USD 0.25 per share, record date 2025-07-22, payment date 2025-08-22. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

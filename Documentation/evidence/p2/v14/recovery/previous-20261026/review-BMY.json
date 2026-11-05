@@ -1,0 +1,33 @@
+{
+  "reviewId": "854b8cc6-2ad8-563f-bc27-9a601771fe68",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "8abb6725-6d33-47f7-9b32-f14abce11de2",
+  "factId": null,
+  "issueId": "681ee0a2-e484-47f0-9bb0-cc0237c8973a",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://news.bms.com/news/details/2025/Bristol-Myers-Squibb-Announces-Dividend-54d68b0a2/default.aspx",
+    "sourceSha256": "97ff51ae1df4d0d567a966b2f9b43512f9e03e1cde19d43fd37992d70f48ca77",
+    "sourceObservedAt": "2026-10-26 14:08:37 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"a76533388f482c8b3abf8794b855cae2245587720c4ba6e9ce33fc32686ed9eb\"}",
+    "providerAction": {
+      "id": "5a10a007-774e-4f60-b279-424d0a0fb9a4",
+      "rate": 0.62,
+      "type": "cash_dividends",
+      "cusip": "110122108",
+      "symbol": "BMY",
+      "ex_date": "2025-07-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-03",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "BRISTOL MYERS SQUIBB CO",
+    "issuerCik": "0000014272",
+    "rationale": "Issuer common-stock dividend source confirms BMY, USD 0.62 per share, record date 2025-07-03, payment date 2025-08-01. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

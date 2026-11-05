@@ -1,0 +1,33 @@
+{
+  "reviewId": "b2927293-0515-504f-842f-996bdd1dc9f2",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "a1c9ce73-34a5-411f-b089-5521181ffc56",
+  "factId": null,
+  "issueId": "99690adc-779a-403e-b519-62cf00d9b656",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investor.gehealthcare.com/node/11236/pdf",
+    "sourceSha256": "97ff51ae1df4d0d567a966b2f9b43512f9e03e1cde19d43fd37992d70f48ca77",
+    "sourceObservedAt": "2026-10-26 14:08:37 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"cb004d40c1e84064af577bbfb2acf2620b1c4b5147cb83d92fb3cff9bd6157af\"}",
+    "providerAction": {
+      "id": "3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+      "rate": 0.035,
+      "type": "cash_dividends",
+      "cusip": "36266G107",
+      "symbol": "GEHC",
+      "ex_date": "2025-07-25",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-25",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "GE HealthCare Technologies Inc.",
+    "issuerCik": "0001932393",
+    "rationale": "Issuer common-stock dividend source confirms GEHC, USD 0.035 per share, record date 2025-07-25, payment date 2025-08-15. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

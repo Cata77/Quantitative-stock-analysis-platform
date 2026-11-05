@@ -1,0 +1,37 @@
+{
+  "symbol": "OKE",
+  "reviews": [
+    {
+      "reviewId": "e022a358-0fbd-5484-bccd-d68e0947c428",
+      "recordedAt": "2026-10-31T11:09:19.422017+00:00",
+      "idempotent": true
+    },
+    {
+      "reviewId": "ca7c897b-1afc-530c-9e00-d20368226985",
+      "recordedAt": "2026-10-31T11:09:19.464446+00:00",
+      "idempotent": true
+    },
+    {
+      "reviewId": "d1ef236d-7954-5852-99f4-9cbd72e40bf6",
+      "recordedAt": "2026-10-31T11:09:19.490894+00:00",
+      "idempotent": true
+    },
+    {
+      "reviewId": "889fa155-7c66-5319-809a-591e953b660c",
+      "recordedAt": "2026-10-31T11:09:19.517850+00:00",
+      "idempotent": true
+    },
+    {
+      "reviewId": "a8166f8b-0d36-540c-af82-18d073f446d1",
+      "recordedAt": "2026-10-31T11:09:19.541331+00:00",
+      "idempotent": true
+    },
+    {
+      "reviewId": "ccdfa5b6-2498-583c-bd59-e32f6c660bc5",
+      "recordedAt": "2026-10-31T11:09:19.569422+00:00",
+      "idempotent": true
+    }
+  ],
+  "applied": 6,
+  "published": false
+}

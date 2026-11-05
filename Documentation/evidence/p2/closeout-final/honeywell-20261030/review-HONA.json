@@ -1,0 +1,30 @@
+{
+  "reviewId": "c218fb91-7bee-529a-979f-4e2a17867e83",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "97e6932f-7dca-4a6f-b955-5bd469481ee6",
+  "factId": null,
+  "issueId": "a467e5a3-3779-45dd-945f-11888d7e8599",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-identity-review",
+  "evidence": {
+    "scope": "EXACT_SYMBOL_TRANSITION_ISSUE_ONLY",
+    "sourceUri": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-399",
+    "sourceSha256": "0da68dfdc1903313e01a9227889ae91934b82ff24b7231789912813cd0e8c5ed",
+    "sourceObservedAt": "2026-10-30T13:39:44.487140+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"9f57efda5a9e8145eee0bd45b454758b89b77de778da015708259a86a1b10941\"}",
+    "providerAction": {
+      "id": "d4de0988-7015-4758-9189-1293c2978ecf",
+      "type": "name_changes",
+      "new_cusip": "43849R105",
+      "old_cusip": "43849R105",
+      "new_symbol": "HONA",
+      "old_symbol": "HONAV",
+      "process_date": "2026-06-29"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Honeywell Aerospace",
+    "issuerCik": "0002089271",
+    "rationale": "The finalized Nasdaq corporate action notice identifies Honeywell Aerospace CUSIP 43849R105, when-issued HONAV trading from June 15, 2026 and the transition to regular-way HONA on June 29. The Honeywell completion filing confirms the separation on June 29. Review only this same-security symbol transition. Do not join parent HON prices, manufacture pre-listing observations, or waive history, price, identity or metric-coverage checks."
+  }
+}

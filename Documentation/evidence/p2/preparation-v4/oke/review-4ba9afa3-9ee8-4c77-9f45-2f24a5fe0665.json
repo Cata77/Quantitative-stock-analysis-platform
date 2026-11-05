@@ -1,0 +1,32 @@
+{
+  "reviewId": "889fa155-7c66-5319-809a-591e953b660c",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+  "factId": null,
+  "issueId": "4ba9afa3-9ee8-4c77-9f45-2f24a5fe0665",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-and-exchange-review",
+  "evidence": {
+    "sourceUri": "https://ir.oneok.com/stock-information/dividend-history",
+    "sourceObservedAt": "2026-10-31T11:08:22.701037+00:00",
+    "sourceSha256": "255c099f252ae43c197ada00dd76c9829751e48e27d28dec96306956856e1734",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"14a39d9c25a2d436759991d446e32807b6ae33e203aea5d4148be55f75410b89\"}",
+    "providerAction": {
+      "id": "19bb1b50-70f7-467e-8e58-a1033feee40f",
+      "rate": 1.07,
+      "type": "cash_dividends",
+      "cusip": "682680103",
+      "symbol": "OKE",
+      "ex_date": "2026-05-04",
+      "foreign": false,
+      "special": false,
+      "record_date": "2026-05-04",
+      "payable_date": "2026-05-15",
+      "process_date": "2026-05-15"
+    },
+    "issuerCik": "0001039684",
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "rationale": "Issuer dividend history confirms USD amount, ex-date, record date and payable date for this exact ordinary common-stock distribution. The exchange notice identifies 682680103 as the predecessor OKE CUSIP. All five reviewed dividends precede the September reorganization. Accept only this exact quality issue. Preserve prices, event revisions, other blockers and observation timestamps."
+  }
+}

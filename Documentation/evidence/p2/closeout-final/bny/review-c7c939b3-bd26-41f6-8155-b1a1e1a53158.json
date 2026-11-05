@@ -1,0 +1,34 @@
+{
+  "reviewId": "18a70767-064b-54fa-a218-7cc296cac996",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "85727ee7-6191-40f0-9ea8-7dd711b14392",
+  "factId": null,
+  "issueId": "c7c939b3-bd26-41f6-8155-b1a1e1a53158",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-identity-review",
+  "evidence": {
+    "scope": "MISATTRIBUTED_OTHER_ISSUER_EVENT_NOT_BANK_ACTION",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1137390/000106299325016053/xslSCHEDULE_13D_X01/primary_doc.xml",
+    "sourceSha256": "d917366888f89d44b60f8a6c0cfca8b7b62547ca20bda35c9ed3be42a5c90e68",
+    "sourceObservedAt": "2026-10-29T14:18:06.906347+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"891200ee73a1e047e3439d044646de0c3bbb10563d66952f30d62095790d9f62\"}",
+    "providerAction": {
+      "id": "b57b41d5-8fd7-4530-b89c-8d12f5413304",
+      "rate": 0.051,
+      "type": "cash_dividends",
+      "cusip": "09248L106",
+      "symbol": "BNY",
+      "ex_date": "2025-09-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-09-15",
+      "payable_date": "2025-10-01",
+      "process_date": "2025-10-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "BLACKROCK NEW YORK MUNICIPAL INCOME TRUST",
+    "issuerCik": "0001390777",
+    "rationale": "The retained SEC Schedule 13D identifies CUSIP 09248L106 as BlackRock New York Municipal Income Trust, a different issuer from Bank of New York Mellon, CUSIP 064058100. This exact event predates the bank ticker change. Accept resolution of the misattribution issue, not this event as a bank dividend or merger. Preserve the original event for audit; do not merge fund and bank prices."
+  }
+}

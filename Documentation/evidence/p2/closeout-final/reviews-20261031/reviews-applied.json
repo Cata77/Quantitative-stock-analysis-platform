@@ -1,0 +1,373 @@
+{
+  "runAudited": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+  "reviews": [
+    {
+      "symbol": "ACN",
+      "issueId": "547a8cdd-7ab9-4601-a8e4-774b9f653bee",
+      "reviewId": "dce84113-9cf6-5f11-906b-492874f05287",
+      "manifest": "manifests\\review-ACN-547a8cdd.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.871551+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "ASML",
+      "issueId": "15aa2acd-022e-410d-8eef-24ecbea0b1fa",
+      "reviewId": "5763fdd0-7660-5d87-afbd-be3c3540b575",
+      "manifest": "manifests\\review-ASML-15aa2acd.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.906674+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "BDX",
+      "issueId": "2309aa90-e3dc-4815-a709-2c847cd6e851",
+      "reviewId": "e84211e3-c9fe-506f-b4b6-d79f494f92d7",
+      "manifest": "manifests\\review-BDX-2309aa90.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.921833+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "CCL",
+      "issueId": "3c94ec1e-5475-49be-8921-617be343af3a",
+      "reviewId": "c71dbb16-834d-5cbf-bcb1-838bd306e8ec",
+      "manifest": "manifests\\review-CCL-3c94ec1e.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.940419+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "CCL",
+      "issueId": "881b228d-cacb-4b5c-9d93-a398d4ea021b",
+      "reviewId": "1de74f7d-5231-5c31-a8dd-788852adb0a1",
+      "manifest": "manifests\\review-CCL-881b228d.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.958575+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "CCL",
+      "issueId": "894f1260-e733-49b7-b5c3-bb816b8319e0",
+      "reviewId": "d50d7ee9-365a-5cce-b5f2-83f0ca0619b8",
+      "manifest": "manifests\\review-CCL-894f1260.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.980230+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "CCL",
+      "issueId": "92dba909-90d7-49c4-8f61-b1b6257e649b",
+      "reviewId": "66b8f4f5-2434-5062-b965-0dce8f35d568",
+      "manifest": "manifests\\review-CCL-92dba909.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:11.996989+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "1a1ab034-9f46-4c85-bad7-f5f8feb47c38",
+      "reviewId": "c3e09a81-ae4a-5bc5-8b6c-15d9114efe2b",
+      "manifest": "manifests\\review-DOC-1a1ab034.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.017253+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "20be29bd-8028-4b25-804c-8d6739773818",
+      "reviewId": "df1572b2-27c3-5900-99d1-6021fcf89117",
+      "manifest": "manifests\\review-DOC-20be29bd.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.038339+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "4b7e2847-8a09-4dcf-a01d-b68d26bc0160",
+      "reviewId": "f99e2f61-8d3c-509c-8a8a-80618aaf7e04",
+      "manifest": "manifests\\review-DOC-4b7e2847.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.057361+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "753b8b2c-f02c-4d9e-95ed-2de08dcdacca",
+      "reviewId": "6a4461f9-8550-5985-8c9c-2c7251a2088a",
+      "manifest": "manifests\\review-DOC-753b8b2c.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.080098+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "7d0cff90-baeb-49bb-b497-88f26efcc286",
+      "reviewId": "160f3b31-b6bc-532e-8001-f98cbcd59386",
+      "manifest": "manifests\\review-DOC-7d0cff90.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.100029+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "99d8fae2-b30a-41d7-b7d1-ae26c03e8b64",
+      "reviewId": "43676b98-7b30-5f4c-898e-2e07e5ce6a87",
+      "manifest": "manifests\\review-DOC-99d8fae2.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.120602+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "a71f4865-9383-4d41-a867-c8192714dc9c",
+      "reviewId": "ae4b5091-1da0-5af9-a3ae-7f43da207931",
+      "manifest": "manifests\\review-DOC-a71f4865.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.140001+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "aeb420fd-1c47-459d-b678-a586210c43ca",
+      "reviewId": "b5452637-5eb3-553a-b873-8e30a52c2b63",
+      "manifest": "manifests\\review-DOC-aeb420fd.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.161924+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "af7da651-0717-4c88-9d1f-387584bb6de7",
+      "reviewId": "adcbfd06-3243-58a4-b3c2-834492b317fd",
+      "manifest": "manifests\\review-DOC-af7da651.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.181342+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "c0d9d92f-7d77-460f-acb9-acc4ad4efe08",
+      "reviewId": "68940758-cb09-59ec-a76c-c10e80389dd8",
+      "manifest": "manifests\\review-DOC-c0d9d92f.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.196972+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "c99657e6-b9eb-4ae2-9808-60f4f35f78f5",
+      "reviewId": "31299985-1092-58cb-91d5-e6ffbf042c6c",
+      "manifest": "manifests\\review-DOC-c99657e6.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.211514+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "dd96191b-e02f-42bf-9a30-3308e43b75e0",
+      "reviewId": "fb11e2ea-89e7-558b-8c8a-8df9c9c604af",
+      "manifest": "manifests\\review-DOC-dd96191b.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.226099+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "eba67ba0-7bce-4b01-b05a-18145e21d137",
+      "reviewId": "7f9ca3da-7a1f-569e-813d-b944df024fee",
+      "manifest": "manifests\\review-DOC-eba67ba0.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.239492+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "DOC",
+      "issueId": "f02be69b-8e46-4781-a3b9-f9d971dcad32",
+      "reviewId": "1c2bcbb7-9152-5f72-836c-6c9ae25fecf0",
+      "manifest": "manifests\\review-DOC-f02be69b.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.254684+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "FCX",
+      "issueId": "2e753912-a50a-494f-afe6-76769f672821",
+      "reviewId": "4f3d5b72-96d6-5a4e-9cef-69dc57275b90",
+      "manifest": "manifests\\review-FCX-2e753912.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.272521+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "FCX",
+      "issueId": "9aa9e2b2-abae-43a7-91ac-4718b39aeab5",
+      "reviewId": "620dd654-1576-5aec-bbed-0c63d1758c75",
+      "manifest": "manifests\\review-FCX-9aa9e2b2.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.297124+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "NI",
+      "issueId": "7cb9fa67-abda-4a00-a895-8ba6f288212b",
+      "reviewId": "10a6d06f-322e-5f4a-b672-0fdd3012f399",
+      "manifest": "manifests\\review-NI-7cb9fa67.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.313664+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "0ba03896-c39c-4bdc-b3b2-4317eb0d6d32",
+      "reviewId": "ed12d8cd-81ec-5e43-9a6f-007a77859516",
+      "manifest": "manifests\\review-OKE-0ba03896.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.330121+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "0c0d2397-7f38-434c-93be-6bd2812706db",
+      "reviewId": "74b6afde-8093-5bd7-9586-a66bc37caaa7",
+      "manifest": "manifests\\review-OKE-0c0d2397.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.349143+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "41049045-4531-4864-8008-032ddb902e49",
+      "reviewId": "f9759425-b99c-5276-af5d-cfd549249458",
+      "manifest": "manifests\\review-OKE-41049045.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.364214+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "4ba9afa3-9ee8-4c77-9f45-2f24a5fe0665",
+      "reviewId": "652d90a5-d1d2-5a9d-8eb1-91da600b765e",
+      "manifest": "manifests\\review-OKE-4ba9afa3.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.381347+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "c1297e9f-be23-48c2-b190-6c18db20f3a1",
+      "reviewId": "20b32306-38fd-52a4-bc5c-abc97caea3d3",
+      "manifest": "manifests\\review-OKE-c1297e9f.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.396060+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "OKE",
+      "issueId": "e9acc812-255b-4631-8529-7d05cd23a7e2",
+      "reviewId": "7dc35cf0-d3ed-525f-9c83-db686c28abaf",
+      "manifest": "manifests\\review-OKE-e9acc812.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.411053+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "TRI",
+      "issueId": "d3c9df1d-729b-4ece-b517-5cd231159e4d",
+      "reviewId": "2b408923-8ee3-5dd6-9078-01f2dc8a0cc9",
+      "manifest": "manifests\\review-TRI-d3c9df1d.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.427550+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "VLO",
+      "issueId": "0bdb1719-956d-4572-ac55-56607d57c379",
+      "reviewId": "342ba398-804e-5441-a66b-c118a89c3c9a",
+      "manifest": "manifests\\review-VLO-0bdb1719.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.448170+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "3365b6c6-8a0d-479d-8aa9-f9c0c46c6f69",
+      "reviewId": "43bcb93d-2927-5bae-9bf2-f8a357e65ca2",
+      "manifest": "manifests\\review-XOM-3365b6c6.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.468862+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "8b3e4605-cbad-4c5b-b10f-7d6b316f5838",
+      "reviewId": "42e388cd-166d-5877-9c4d-43a5b78fa58a",
+      "manifest": "manifests\\review-XOM-8b3e4605.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.485455+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "a18b47ac-f5db-43da-82d1-fc753eb97b85",
+      "reviewId": "12fecb00-75d7-5555-b841-20f8140dcf93",
+      "manifest": "manifests\\review-XOM-a18b47ac.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.506131+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "bc144cfe-3496-4a69-97cd-55143e81f060",
+      "reviewId": "89197590-2cc9-596e-9793-f388448d7a18",
+      "manifest": "manifests\\review-XOM-bc144cfe.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.525322+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "f92fecbe-5ed2-463e-8704-20714b80d779",
+      "reviewId": "5a85b4bf-4cd9-587f-9a2f-8fb5da8f1e42",
+      "manifest": "manifests\\review-XOM-f92fecbe.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.543654+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "XOM",
+      "issueId": "f979786f-55d4-478c-83f7-7e971f777edf",
+      "reviewId": "13be5484-ddf2-5ffa-aae1-5d300d70761e",
+      "manifest": "manifests\\review-XOM-f979786f.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.563772+00:00",
+      "idempotent": true
+    },
+    {
+      "symbol": "SPCX",
+      "issueId": "0926927e-ac9f-4687-bb09-4cd0ac67973d",
+      "reviewId": "c38fb0dd-2e7d-5a53-80e0-46398e016c50",
+      "manifest": "manifests\\review-SPCX-0926927e.json",
+      "applied": true,
+      "recordedAt": "2026-10-31T11:38:12.584864+00:00",
+      "idempotent": true
+    }
+  ],
+  "count": 39,
+  "instruments": [
+    "ACN",
+    "ASML",
+    "BDX",
+    "CCL",
+    "DOC",
+    "FCX",
+    "NI",
+    "OKE",
+    "SPCX",
+    "TRI",
+    "VLO",
+    "XOM"
+  ],
+  "applied": true,
+  "policy": "INDIVIDUAL_PRIMARY_SOURCE; SERVER_RECORDED_AT; NO_PRICE_ACTION_OR_TIMESTAMP_CHANGES"
+}

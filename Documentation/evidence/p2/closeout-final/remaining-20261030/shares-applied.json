@@ -1,0 +1,15 @@
+{
+  "reviewId": "a81e4df7-0a83-59c5-b542-2359fdfedb6b",
+  "recordedAt": "2026-10-30T14:19:55.806385+00:00",
+  "idempotent": true,
+  "selection": {
+    "publishedCutoff": [],
+    "reviewCutoff": [
+      [
+        "7fc68f06-2661-4823-96b2-bbed12c03c78",
+        316952725
+      ]
+    ]
+  },
+  "scope": "SHARE_SELECTION_ONLY_NOT_A_NEW_SCORE"
+}

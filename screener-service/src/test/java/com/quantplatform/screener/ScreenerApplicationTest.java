@@ -7,8 +7,6 @@ import java.time.*;
 import java.util.*;
 import java.sql.*;
 import com.quantplatform.screener.search.*;
-import com.quantplatform.screener.config.ScreenerProperties;
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +18,17 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.junit.jupiter.*;
 import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
-@SpringBootTest(properties={"screener.search-rebuild.enabled=false","spring.sql.init.mode=never"})
+@SpringBootTest(properties={"spring.sql.init.mode=never"})
 @AutoConfigureMockMvc
 @Transactional
 @Sql("/publication-fixture.sql")
 class ScreenerApplicationTest {
     @Container static final PostgreSQLContainer<?> DB=new PostgreSQLContainer<>(DockerImageName
         .parse("timescale/timescaledb:2.29.1-pg18").asCompatibleSubstituteFor("postgres"));
-    @Container static final ElasticsearchContainer ES=new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:8.11.0")
-        .withEnv("xpack.security.enabled","false").withEnv("ES_JAVA_OPTS","-Xms512m -Xmx512m");
     @DynamicPropertySource static void properties(DynamicPropertyRegistry r) throws Exception {
         try(var c=DriverManager.getConnection(DB.getJdbcUrl(),DB.getUsername(),DB.getPassword());var s=c.createStatement()) {
             s.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE");
@@ -42,13 +37,9 @@ class ScreenerApplicationTest {
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load().migrate();
         r.add("spring.datasource.url",DB::getJdbcUrl);r.add("spring.datasource.username",DB::getUsername);
         r.add("spring.datasource.password",DB::getPassword);
-        r.add("screener.elasticsearch.url",ES::getHttpHostAddress);
-        r.add("screener.elasticsearch.company-index",()->"screener-test");
     }
     @Autowired MockMvc mvc;
     @Autowired JdbcClient jdbc;
-    @Autowired ElasticsearchClient client;
-    @Autowired SearchRebuildService rebuild;
     @Autowired CompanySearchService search;
     static final java.util.UUID READER_ID=java.util.UUID.fromString("70000000-0000-0000-0000-000000000001");
     static final String READER_TOKEN=com.quantplatform.security.SecurityTokens.token(READER_ID);
@@ -155,54 +146,148 @@ class ScreenerApplicationTest {
         mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN).param("runId","50000000-0000-0000-0000-000000000003"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.freshness").value("UNAVAILABLE"));
     }
-    @Test void fullRebuildIsIdempotentAndRestoresDeletedSearchWithStableIdentity() throws Exception {
-        String first=rebuild.rebuild(true);
-        assertThat(rebuild.rebuild(false)).isEqualTo("UNCHANGED");
+    static final String FIRST="30000000-0000-0000-0000-000000000001";
+    static final String EXCLUDED="30000000-0000-0000-0000-000000000003";
+    static org.springframework.test.web.servlet.ResultActions financials(MockMvc mvc,String instrument,String run) throws Exception {
+        var request=get("/screener/instruments/"+instrument+"/financials").header("Authorization",READER_TOKEN).param("view","FULL");
+        return mvc.perform(run==null?request:request.param("runId",run));
+    }
+    @Test void financialsSeparateInputsDerivationsMetricsAndRsiOfTheSamePublication() throws Exception {
+        financials(mvc,FIRST,RUN).andExpect(status().isOk())
+            .andExpect(jsonPath("$.run.id").value(RUN)).andExpect(jsonPath("$.run.asOfDate").value("2026-07-31"))
+            .andExpect(jsonPath("$.run.mappingVersion").value("sec-us-gaap-v2"))
+            .andExpect(jsonPath("$.instrument.symbol").value("OLD1")).andExpect(jsonPath("$.instrument.sector").value("Technology"))
+            .andExpect(jsonPath("$.instrument.financialPeriodEnd").value("2026-06-30"))
+            .andExpect(jsonPath("$.score.eligible").value(true)).andExpect(jsonPath("$.score.rank").value(1))
+            .andExpect(jsonPath("$.score.scoreStatus").value("PARTIAL"))
+            .andExpect(jsonPath("$.inputs[?(@.code=='REVENUE_TTM')].valueKind").value(org.hamcrest.Matchers.contains("DERIVED_TTM")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='REVENUE_TTM')].periodType").value(org.hamcrest.Matchers.contains("TTM")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='REVENUE_TTM')].category").value(org.hamcrest.Matchers.contains("INCOME_STATEMENT")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='REVENUE_TTM')].filedDate").value(org.hamcrest.Matchers.contains("2026-07-15")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='CASH')].valueKind").value(org.hamcrest.Matchers.contains("REPORTED")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='SHARES_OUTSTANDING')].unit").value(org.hamcrest.Matchers.contains("shares")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='RAW_CLOSE')].valueKind").value(org.hamcrest.Matchers.contains("MARKET")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='RAW_CLOSE')].availabilityBasis").value(org.hamcrest.Matchers.contains("PHASE6_CUTOFF_UPPER_BOUND")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='COMMON_EQUITY')].status").value(org.hamcrest.Matchers.contains("UNAVAILABLE")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='COMMON_EQUITY')].reason").value(org.hamcrest.Matchers.contains("NOT_REPORTED")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='TOTAL_ASSETS_PRIOR')].status").value(org.hamcrest.Matchers.contains("NOT_USED_BY_MODEL")))
+            .andExpect(jsonPath("$.inputs[?(@.code=='TOTAL_ASSETS_PRIOR')].reason").value(org.hamcrest.Matchers.contains("INSUFFICIENT_HISTORY")))
+            .andExpect(jsonPath("$.derived[?(@.code=='market_cap')].value").value(org.hamcrest.Matchers.contains(456.4)))
+            .andExpect(jsonPath("$.derived[?(@.code=='market_cap')].unit").value(org.hamcrest.Matchers.contains("USD")))
+            .andExpect(jsonPath("$.derived[?(@.code=='market_cap')].formula").value(org.hamcrest.Matchers.contains("RAW_CLOSE * instrument SHARES_OUTSTANDING")))
+            .andExpect(jsonPath("$.derived[?(@.code=='ev')].status").value(org.hamcrest.Matchers.contains("UNAVAILABLE")))
+            .andExpect(jsonPath("$.derived[?(@.code=='ev')].reason").value(org.hamcrest.Matchers.contains("NOT_REPORTED")))
+            .andExpect(jsonPath("$.derived[?(@.code=='metric1' || @.code=='REVENUE_TTM')]").isEmpty())
+            .andExpect(jsonPath("$.metrics.length()").value(7))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("12345678901234567890.123456789")))
+            .andExpect(jsonPath("$.technical.rsi.value").value(57.915))
+            .andExpect(jsonPath("$.technical.rsi.version").value("RSI_14_WILDER_V1"))
+            .andExpect(jsonPath("$.technical.rsi.sessionsUsed").value(20))
+            .andExpect(jsonPath("$.technical.rsi.firstSession").value("2026-07-06"))
+            .andExpect(jsonPath("$.technical.rsi.lastSession").value("2026-07-31"))
+            .andExpect(jsonPath("$.technical.rsi.adjustedDataset").value("10000000-0000-0000-0000-000000000002"))
+            .andExpect(jsonPath("$.technical.rsi.partOfScore").value(false))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.value").value(44))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.ebitda").value(344))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.concept").value("us-gaap:DepreciationDepletionAndAmortization"))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.version").value("EBITDA_FROM_SOURCE_V1"))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.periodEnd").value("2026-06-30"))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.partOfScore").value(false))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.components.length()").value(3))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.components[?(@.sign==-1)].value").value(org.hamcrest.Matchers.contains(18)))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.components[?(@.accession=='0000000001-26-000001')].sourceArtifactId")
+                .value(org.hamcrest.Matchers.contains("10000000-0000-0000-0000-000000000010")));
+    }
+    @Test void depreciationIgnoresResponsesRetrievedAfterTheCutoff() throws Exception {
+        jdbc.sql("UPDATE operations.source_artifacts SET retrieved_at='2026-09-01' WHERE source_artifact_id='10000000-0000-0000-0000-000000000010'").update();
+        financials(mvc,FIRST,RUN).andExpect(status().isOk())
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.value").doesNotExist())
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.status").value("UNAVAILABLE"))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.reason").value("SOURCE_ARTIFACT_NOT_RETAINED"));
+    }
+    @Test void financialsOfExcludedInstrumentsAndUnrecordedPriceDatasetsAreExplicitGaps() throws Exception {
+        financials(mvc,EXCLUDED,RUN).andExpect(status().isOk())
+            .andExpect(jsonPath("$.score.eligible").value(false)).andExpect(jsonPath("$.score.rank").doesNotExist())
+            .andExpect(jsonPath("$.score.exclusions[0].reasonCode").value("MODEL_NOT_SUPPORTED"))
+            .andExpect(jsonPath("$.inputs").isEmpty())
+            .andExpect(jsonPath("$.technical.rsi.value").doesNotExist())
+            .andExpect(jsonPath("$.technical.rsi.status").value("UNAVAILABLE"))
+            .andExpect(jsonPath("$.technical.rsi.reason").value("MISSING_SCORE_DATE_PRICE"))
+            .andExpect(jsonPath("$.supplemental.depreciationAmortization.reason").value("MISSING_INPUT:OPERATING_INCOME_TTM"));
+        financials(mvc,FIRST,"50000000-0000-0000-0000-000000000001").andExpect(status().isOk())
+            .andExpect(jsonPath("$.technical.rsi.reason").value("PRICE_DATASET_NOT_RECORDED"));
+    }
+    @Test void defaultSummaryShowsUserIndicatorsWithoutNullNoise() throws Exception {
+        var result=mvc.perform(get("/screener/instruments/"+FIRST+"/financials").header("Authorization",READER_TOKEN).param("runId",RUN))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.company.symbol").value("OLD1")).andExpect(jsonPath("$.company.runId").value(RUN))
+            .andExpect(jsonPath("$.definitionsVersion").value("DISPLAY_METRICS_V2"))
+            .andExpect(jsonPath("$.valuation.marketCap.value").value(456.4))
+            .andExpect(jsonPath("$.valuation.priceToSales.value").value(0.46))
+            .andExpect(jsonPath("$.valuation.priceToSales.unit").value("MULTIPLE"))
+            .andExpect(jsonPath("$.valuation.priceToSales.period").value("TTM to 2026-06-30"))
+            .andExpect(jsonPath("$.valuation.priceToEarnings.reason").value("MISSING_INPUT:NET_INCOME_TTM"))
+            .andExpect(jsonPath("$.valuation.enterpriseValue.reason").value("ev:NOT_REPORTED"))
+            .andExpect(jsonPath("$.financials.revenue.value").value(1000))
+            .andExpect(jsonPath("$.financials.revenue.period").value("TTM to 2026-06-30"))
+            .andExpect(jsonPath("$.financials.ebitda.value").value(344))
+            .andExpect(jsonPath("$.financials.ebitda.period").value("TTM to 2026-06-30"))
+            .andExpect(jsonPath("$.financials.depreciationAmortization.value").value(44))
+            .andExpect(jsonPath("$.profitability.operatingMargin.value").value(30))
+            .andExpect(jsonPath("$.financials.totalAssets.reason").value("MISSING_INPUT:TOTAL_ASSETS"))
+            .andExpect(jsonPath("$.market.rsi14.value").value(57.915))
+            .andExpect(jsonPath("$.market.high52w.reason").value("INSUFFICIENT_PRICE_HISTORY"))
+            .andExpect(jsonPath("$.score.rank").value(1)).andExpect(jsonPath("$.score.rankedInstruments").value(2))
+            .andReturn().getResponse().getContentAsString();
+        assertThat(result).doesNotContain("null").doesNotContain("sourceIds").doesNotContain("cohortMean");
+        mvc.perform(get("/screener/instruments/"+FIRST+"/financials").header("Authorization",READER_TOKEN)
+                .param("runId",RUN).param("view","bad")).andExpect(status().isBadRequest());
+    }
+    @Test void financialsRequireAPublishedRunContainingTheInstrument() throws Exception {
+        mvc.perform(get("/screener/instruments/"+FIRST+"/financials").param("runId",RUN)).andExpect(status().isUnauthorized());
+        financials(mvc,FIRST,null).andExpect(status().isBadRequest());
+        financials(mvc,"not-a-uuid",RUN).andExpect(status().isBadRequest());
+        financials(mvc,FIRST,"bad").andExpect(status().isBadRequest());
+        for(String run:List.of(UUID.randomUUID().toString(),"50000000-0000-0000-0000-000000000003","50000000-0000-0000-0000-000000000004"))
+            financials(mvc,FIRST,run).andExpect(status().isNotFound()).andExpect(jsonPath("$.detail").value("Publication not found"));
+        financials(mvc,UUID.randomUUID().toString(),RUN).andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.detail").value("Instrument is not part of the publication"));
+    }
+    @Test void searchReadsCompaniesAndTheLatestPublicationFromPostgres() throws Exception {
         var results=search.search("Fixture",0,10);
         assertThat(results.totalElements()).isEqualTo(3);
-        assertThat(client.count(r->r.index("screener-test").query(q->q.term(t->t.field("score.runId").value(RUN)))).count()).isEqualTo(3);
         assertThat(results.content()).extracting(CompanySearchItem::instrumentId).doesNotHaveDuplicates();
         assertThat(results.content()).filteredOn(d->d.symbol().equals("NEW1")).singleElement().satisfies(d->{
             assertThat(d.instrumentId()).isEqualTo("30000000-0000-0000-0000-000000000001");
             assertThat(d.score().get("symbolAtScore")).isEqualTo("OLD1");
             assertThat(d.score().get("runId")).isEqualTo(RUN);
         });
+        mvc.perform(get("/screener/search").header("Authorization",READER_TOKEN).param("q","Fixture"))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(3))
+            .andExpect(jsonPath("$.content[0].schemaVersion").value(1));
         mvc.perform(get("/screener/search/status").header("Authorization",READER_TOKEN)).andExpect(status().isOk())
-            .andExpect(jsonPath("$.schema_version").value(1)).andExpect(jsonPath("$.document_count").value(3));
-        client.indices().delete(r->r.index(first));
-        mvc.perform(get("/screener/search").header("Authorization",READER_TOKEN).param("q","Fixture")).andExpect(status().isServiceUnavailable());
-        mvc.perform(get("/screener/rankings").header("Authorization",READER_TOKEN)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
-        String second=rebuild.rebuild(false);
-        assertThat(second).isNotEqualTo(first);
-        assertThat(search.search("Fixture",0,10).totalElements()).isEqualTo(3);
+            .andExpect(jsonPath("$.status").value("LIVE")).andExpect(jsonPath("$.backend").value("POSTGRESQL"));
+    }
+    @Test void symbolOutranksNameAndEveryTokenMustMatch() throws Exception {
+        var symbol=search.search("new2",0,10);
+        assertThat(symbol.content()).first().satisfies(d->{
+            assertThat(d.symbol()).isEqualTo("NEW2");
+            assertThat(d.relevance()).isEqualTo(10);
+        });
+        assertThat(search.search("NEW",0,10).totalElements()).isEqualTo(3);
+        assertThat(search.search("fixture company 2",0,10).content()).singleElement()
+            .extracting(CompanySearchItem::instrumentId).isEqualTo("30000000-0000-0000-0000-000000000002");
+        assertThat(search.search("Fixture zzz",0,10).totalElements()).isZero();
+        var paged=search.search("Fixture",1,2);
+        assertThat(paged.totalElements()).isEqualTo(3);
+        assertThat(paged.totalPages()).isEqualTo(2);
+        assertThat(paged.content()).hasSize(1);
+    }
+    @Test void likeWildcardsAreLiteralAndCanonicalChangesAreImmediate() throws Exception {
+        assertThat(search.search("%",0,10).totalElements()).isZero();
+        assertThat(search.search("_",0,10).totalElements()).isZero();
         jdbc.sql("UPDATE reference.issuers SET legal_name='Renamed canonical company' WHERE issuer_id='20000000-0000-0000-0000-000000000001'").update();
-        rebuild.rebuild(false);
         assertThat(search.search("Renamed",0,10).content()).singleElement()
             .extracting(CompanySearchItem::instrumentId).isEqualTo("30000000-0000-0000-0000-000000000001");
-    }
-    @Test void partialBulkFailureKeepsPreviousAliasAndCheckpoint() throws Exception {
-        String first=rebuild.rebuild(true);
-        // Inject a write failure after a fresh generation was created in the real cluster.
-        var spy=org.mockito.Mockito.spy(client);
-        org.mockito.Mockito.doThrow(new java.io.IOException("injected bulk failure")).when(spy)
-            .bulk(org.mockito.ArgumentMatchers.<java.util.function.Function<co.elastic.clients.elasticsearch.core.BulkRequest.Builder,
-                co.elastic.clients.util.ObjectBuilder<co.elastic.clients.elasticsearch.core.BulkRequest>>>any());
-        var broken=new SearchRebuildService(jdbc,spy,new ScreenerProperties(new ScreenerProperties.Elasticsearch("unused","screener-test")),Clock.systemUTC());
-        assertThatThrownBy(()->broken.rebuild(true)).isInstanceOf(java.io.IOException.class);
-        assertThat(client.indices().getAlias(r->r.name("screener-test")).result()).containsOnlyKeys(first);
-        assertThat(rebuild.status().get("index_name")).isEqualTo(first);
-        org.mockito.Mockito.doReturn(co.elastic.clients.elasticsearch.core.BulkResponse.of(b->b.errors(true).took(1).items(List.of())))
-            .when(spy).bulk(org.mockito.ArgumentMatchers.<java.util.function.Function<co.elastic.clients.elasticsearch.core.BulkRequest.Builder,
-                co.elastic.clients.util.ObjectBuilder<co.elastic.clients.elasticsearch.core.BulkRequest>>>any());
-        assertThatThrownBy(()->broken.rebuild(true)).isInstanceOf(java.io.IOException.class).hasMessageContaining("bulk failed");
-        assertThat(client.indices().getAlias(r->r.name("screener-test")).result()).containsOnlyKeys(first);
-        assertThat(search.search("Fixture",0,10).totalElements()).isEqualTo(3);
-    }
-    @Test void checkpointLossAfterAliasSwapIsRecovered() throws Exception {
-        String first=rebuild.rebuild(true);
-        jdbc.sql("DELETE FROM operations.search_rebuild_checkpoints").update();
-        assertThat(rebuild.rebuild(false)).isNotEqualTo(first);
-        assertThat(rebuild.status().get("document_count")).isEqualTo(3);
-        assertThat(search.search("Fixture",0,10).totalElements()).isEqualTo(3);
     }
 }

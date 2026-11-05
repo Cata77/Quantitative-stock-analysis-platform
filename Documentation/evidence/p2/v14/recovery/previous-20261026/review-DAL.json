@@ -1,0 +1,32 @@
+{
+  "reviewId": "7a2901b5-9ec9-5fc6-b0d8-c6faa5a65636",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "5af7c583-b89a-4d93-9e1b-cfb444cddd5a",
+  "factId": null,
+  "issueId": "01cf5c1a-b2cc-4d15-909e-59b69cdc18a0",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://news.delta.com/delta-air-lines-declares-quarterly-dividend-9",
+    "sourceSha256": "65dfc97a8e5f3bb4bdcd729589fbf07154b21cdac9389ff3f68ad15d940c7aff",
+    "sourceObservedAt": "2026-10-26T14:05:25.586144+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"5c4c17651a9c6ff12ce826f932cb663b2d83bf3f992d56f19ab044b777907056\"}",
+    "providerAction": {
+      "id": "6c096b12-8b6e-4860-aacf-5d7331600b96",
+      "rate": 0.1875,
+      "type": "cash_dividends",
+      "cusip": "247361702",
+      "symbol": "DAL",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-21",
+      "process_date": "2025-08-21"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "DELTA AIR LINES, INC.",
+    "issuerCik": "0000027904",
+    "rationale": "Issuer common-stock dividend source confirms DAL, USD 0.1875 per share, record date 2025-07-31, payment date 2025-08-21. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

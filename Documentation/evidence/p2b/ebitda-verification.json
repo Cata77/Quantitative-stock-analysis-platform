@@ -1,0 +1,52 @@
+{
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "instruments": 518,
+  "available": 288,
+  "gapReasons": {
+    "DEPRECIATION_AMORTIZATION_NOT_REPORTED": 101,
+    "OPERATING_INCOME_TTM:NO_SELECTED_CANONICAL_FACT": 109,
+    "OPERATING_INCOME_TTM:TTM_NO_COMPATIBLE_PERIOD_COMBINATION": 20
+  },
+  "mismatches": [],
+  "aapl": {
+    "value": 13100000000,
+    "ebitda": 167959000000,
+    "periodEnd": "2026-06-27",
+    "concept": "us-gaap:DepreciationDepletionAndAmortization",
+    "version": "EBITDA_FROM_SOURCE_V1",
+    "method": "OPERATING_INCOME_TTM + D&A of the same filings and periods",
+    "components": [
+      {
+        "periodStart": "2024-09-29",
+        "periodEnd": "2025-06-28",
+        "accession": "0000320193-26-000020",
+        "sign": -1,
+        "value": 8571000000,
+        "operatingIncome": 100623000000,
+        "sourceArtifactId": "77f6f801-faf1-4a19-96ef-0073e211f524"
+      },
+      {
+        "periodStart": "2024-09-29",
+        "periodEnd": "2025-09-27",
+        "accession": "0000320193-25-000079",
+        "sign": 1,
+        "value": 11698000000,
+        "operatingIncome": 133050000000,
+        "sourceArtifactId": "de41e5a8-0b9d-49e3-bf11-c095c154c048"
+      },
+      {
+        "periodStart": "2025-09-28",
+        "periodEnd": "2026-06-27",
+        "accession": "0000320193-26-000020",
+        "sign": 1,
+        "value": 9973000000,
+        "operatingIncome": 122432000000,
+        "sourceArtifactId": "77f6f801-faf1-4a19-96ef-0073e211f524"
+      }
+    ],
+    "partOfScore": false,
+    "status": "AVAILABLE",
+    "reason": null
+  },
+  "passed": true
+}

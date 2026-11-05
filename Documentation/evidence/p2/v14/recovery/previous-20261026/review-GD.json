@@ -1,0 +1,33 @@
+{
+  "reviewId": "fa4145b1-0235-5f6d-a504-7c41ade4e6c6",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "9648c912-68c3-4ec4-ab62-4a1cab9e5c2a",
+  "factId": null,
+  "issueId": "6df316ea-2d6a-4d91-ba78-0e7d08283fc5",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investorrelations.gd.com/news/press-release-details/2025/General-Dynamics-Board-Declares-Dividend/default.aspx",
+    "sourceSha256": "383dbb791a534a1975f9c01c85fe2e01aca00ca723aed504ad6f696949773dc2",
+    "sourceObservedAt": "2026-10-26 14:08:25 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"871a447ad4cfc1f3ebb81484206c02823281d71050fd58bd63d3b1438d6df328\"}",
+    "providerAction": {
+      "id": "61beb352-d49a-43ca-88e4-cdc13893575e",
+      "rate": 1.5,
+      "type": "cash_dividends",
+      "cusip": "369550108",
+      "symbol": "GD",
+      "ex_date": "2025-07-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-03",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "GENERAL DYNAMICS CORP",
+    "issuerCik": "0000040533",
+    "rationale": "Issuer common-stock dividend source confirms GD, USD 1.5 per share, record date 2025-07-03, payment date 2025-08-08. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

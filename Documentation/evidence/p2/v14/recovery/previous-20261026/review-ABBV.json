@@ -1,0 +1,32 @@
+{
+  "reviewId": "3b6185d4-7863-5e1e-9bf1-a10c2600ed6c",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "bdac8cb3-47cd-4fa7-a627-8a84e2994e87",
+  "factId": null,
+  "issueId": "aff16ffb-76b4-43da-a090-43f1692591f1",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://news.abbvie.com/2025-06-20-AbbVie-Declares-Quarterly-Dividend",
+    "sourceSha256": "b442122d11221ef6f76a69a774926d3ecc6ea6cac3cd3bce45cf3ccd4e11d66f",
+    "sourceObservedAt": "2026-10-26T14:03:57.620337+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"32e98903b55c81ff9280f1d3ac0f9d1aa60b7bd8065ad2a29064226a6b8264a1\"}",
+    "providerAction": {
+      "id": "a8416f11-2403-467a-ae35-5e949bd0a27d",
+      "rate": 1.64,
+      "type": "cash_dividends",
+      "cusip": "00287Y109",
+      "symbol": "ABBV",
+      "ex_date": "2025-07-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-15",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "AbbVie Inc.",
+    "issuerCik": "0001551152",
+    "rationale": "Issuer common-stock dividend source confirms ABBV, USD 1.64 per share, record date 2025-07-15, payment date 2025-08-15. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

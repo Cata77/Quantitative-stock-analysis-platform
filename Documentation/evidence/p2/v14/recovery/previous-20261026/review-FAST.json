@@ -1,0 +1,33 @@
+{
+  "reviewId": "8e27490d-a4ff-54df-8659-5f98bf368d65",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "4683e587-1998-41bf-b4db-58b8a162601f",
+  "factId": null,
+  "issueId": "1ff8dd75-62ee-4467-8922-302813414aae",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investor.fastenal.com/stock-info/dividend-history/default.aspx",
+    "sourceSha256": "97ff51ae1df4d0d567a966b2f9b43512f9e03e1cde19d43fd37992d70f48ca77",
+    "sourceObservedAt": "2026-10-26 14:08:37 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"6490e7b1469619e99836e948239cd756e81b2cc3aa3b4fa09f9b90ae88132acf\"}",
+    "providerAction": {
+      "id": "b0df392e-5b97-459e-aeba-2ef2b8cf7694",
+      "rate": 0.22,
+      "type": "cash_dividends",
+      "cusip": "311900104",
+      "symbol": "FAST",
+      "ex_date": "2025-07-29",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-29",
+      "payable_date": "2025-08-26",
+      "process_date": "2025-08-26"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "FASTENAL CO",
+    "issuerCik": "0000815556",
+    "rationale": "Issuer common-stock dividend source confirms FAST, USD 0.22 per share, record date 2025-07-29, payment date 2025-08-26. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

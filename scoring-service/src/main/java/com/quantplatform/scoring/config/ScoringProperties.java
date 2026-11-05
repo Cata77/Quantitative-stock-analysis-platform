@@ -2,7 +2,6 @@ package com.quantplatform.scoring.config;
 
 import java.time.Duration;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,14 +19,6 @@ public record ScoringProperties(
         @NotNull Duration retryBackoff,
         @Min(0) int retryAttempts,
         @NotNull Duration momentumLookback,
-        @Min(2) int minimumUniverseSize,
-        @Valid @NotNull Elasticsearch elasticsearch
+        @Min(2) int minimumUniverseSize
 ) {
-
-    public record Elasticsearch(
-            boolean enabled,
-            @NotBlank String baseUrl,
-            @NotBlank String companyIndex
-    ) {
-    }
 }

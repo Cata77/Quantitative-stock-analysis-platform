@@ -1,0 +1,33 @@
+{
+  "reviewId": "e877c718-f2ef-53b2-ac88-530925bf1324",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "8eb98776-c7d7-42ab-b33e-60fb421b8c3f",
+  "factId": null,
+  "issueId": "65951c85-8f58-40a1-9531-46cb008f7763",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://aosmith.gcs-web.com/news-releases/news-release-details/o-smith-reports-quarterly-dividend-3",
+    "sourceSha256": "d189add9d79574d42594b295d5f9d2c0f74369b1f96a864148a486a19f27b441",
+    "sourceObservedAt": "2026-10-27T14:23:08.972316+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"3aa342129291c5ec641f5c04148b81bbb3f7051cbbd71983a32b4cbdf0390286\"}",
+    "providerAction": {
+      "id": "db98bdb8-ef50-46d3-9c46-b1046d11798f",
+      "rate": 0.34,
+      "type": "cash_dividends",
+      "cusip": "831865209",
+      "symbol": "AOS",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "SMITH A O CORP",
+    "issuerCik": "0000091142",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms AOS, USD 0.34 per share, record date 2025-07-31, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

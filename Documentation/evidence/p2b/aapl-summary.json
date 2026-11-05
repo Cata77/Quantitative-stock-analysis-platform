@@ -1,0 +1,211 @@
+{
+ "company": {
+  "instrumentId": "85ca0ea2-4a0a-422a-8475-3c1eca7d2ace",
+  "symbol": "AAPL",
+  "sector": "Information Technology",
+  "profile": "GENERAL",
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "asOfDate": "2026-10-30",
+  "financialPeriodEnd": "2026-06-27",
+  "filingDate": "2026-07-31"
+ },
+ "valuation": {
+  "marketCap": {
+   "value": 5029592253400,
+   "unit": "USD",
+   "period": "2026-10-30"
+  },
+  "enterpriseValue": {
+   "unit": "USD",
+   "reason": "ev:NOT_REPORTED"
+  },
+  "priceToEarnings": {
+   "value": 39.01,
+   "unit": "MULTIPLE",
+   "period": "TTM to 2026-06-27"
+  },
+  "priceToSales": {
+   "value": 10.77,
+   "unit": "MULTIPLE",
+   "period": "TTM to 2026-06-27"
+  },
+  "priceToBook": {
+   "unit": "MULTIPLE",
+   "reason": "COMMON_EQUITY:NOT_REPORTED"
+  },
+  "priceToFreeCashFlow": {
+   "value": 36.8,
+   "unit": "MULTIPLE"
+  },
+  "evToEbit": {
+   "unit": "MULTIPLE",
+   "reason": "ev:NOT_REPORTED"
+  },
+  "freeCashFlowYield": {
+   "value": 2.72,
+   "unit": "PERCENT"
+  },
+  "dividendYield": {
+   "unit": "PERCENT",
+   "reason": "COMMON_DIVIDENDS_TTM:NO_SELECTED_CANONICAL_FACT"
+  }
+ },
+ "profitability": {
+  "grossMargin": {
+   "value": 48.65,
+   "unit": "PERCENT",
+   "period": "TTM to 2026-06-27"
+  },
+  "operatingMargin": {
+   "value": 33.17,
+   "unit": "PERCENT",
+   "period": "TTM to 2026-06-27"
+  },
+  "netMargin": {
+   "value": 27.62,
+   "unit": "PERCENT",
+   "period": "TTM to 2026-06-27"
+  },
+  "returnOnAssets": {
+   "value": 36.08,
+   "unit": "PERCENT",
+   "period": "TTM to 2026-06-27"
+  },
+  "returnOnEquity": {
+   "unit": "PERCENT",
+   "reason": "COMMON_EQUITY:NOT_REPORTED"
+  }
+ },
+ "financials": {
+  "revenue": {
+   "value": 466823000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "grossProfit": {
+   "value": 227123000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "operatingIncome": {
+   "value": 154859000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "ebitda": {
+   "unit": "USD",
+   "reason": "DEPRECIATION_AMORTIZATION_NOT_COLLECTED"
+  },
+  "netIncome": {
+   "value": 128930000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "operatingCashFlow": {
+   "value": 146724000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "capex": {
+   "value": 10041000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "freeCashFlow": {
+   "value": 136683000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "cash": {
+   "value": 39544000000,
+   "unit": "USD",
+   "period": "as of 2026-06-27"
+  },
+  "totalDebt": {
+   "value": 82347000000,
+   "unit": "USD",
+   "period": "as of 2026-06-27"
+  },
+  "netDebt": {
+   "value": 42803000000,
+   "unit": "USD",
+   "period": "as of 2026-06-27"
+  },
+  "totalAssets": {
+   "value": 383266000000,
+   "unit": "USD",
+   "period": "as of 2026-06-27"
+  },
+  "sharesOutstanding": {
+   "value": 14594180000,
+   "unit": "shares",
+   "period": "as of 2026-10-30"
+  }
+ },
+ "market": {
+  "price": {
+   "value": 344.63,
+   "unit": "USD",
+   "period": "2026-10-30"
+  },
+  "rsi14": {
+   "value": 55.3535,
+   "unit": "INDEX",
+   "period": "2026-10-30"
+  },
+  "return1y": {
+   "value": 28.25,
+   "unit": "PERCENT",
+   "period": "252 sessions to 2026-10-30"
+  },
+  "momentum12m1m": {
+   "value": 22.93,
+   "unit": "PERCENT",
+   "period": "2026-10-30"
+  },
+  "high52w": {
+   "value": 348.91,
+   "unit": "USD",
+   "period": "252 sessions to 2026-10-30"
+  },
+  "low52w": {
+   "value": 246.03,
+   "unit": "USD",
+   "period": "252 sessions to 2026-10-30"
+  },
+  "fromHigh52w": {
+   "value": -1.23,
+   "unit": "PERCENT",
+   "period": "252 sessions to 2026-10-30"
+  },
+  "volatility1y": {
+   "value": 24.12,
+   "unit": "PERCENT",
+   "period": "252 sessions to 2026-10-30"
+  },
+  "medianDollarVolume20d": {
+   "value": 13081042055.23,
+   "unit": "USD",
+   "period": "2026-10-30"
+  }
+ },
+ "score": {
+  "eligible": true,
+  "status": "PARTIAL",
+  "rank": 253,
+  "rankedInstruments": 515,
+  "percentile": 50.972763,
+  "compositeScore": -0.006724,
+  "valueScore": -0.250346,
+  "qualityScore": 0.617068,
+  "momentumScore": -0.333356,
+  "exclusionReasons": [],
+  "missingMetrics": {
+   "roic": "NOT_REPORTED",
+   "book_market": "NOT_REPORTED",
+   "ebit_ev": "NOT_REPORTED"
+  }
+ },
+ "definitionsVersion": "DISPLAY_METRICS_V1",
+ "note": "Display indicators are informational; only the score section comes from the model ranking."
+}

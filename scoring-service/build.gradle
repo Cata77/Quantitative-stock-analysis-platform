@@ -13,7 +13,6 @@ dependencies {
     implementation project(':ingestion-contract')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-kafka'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webclient'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -29,15 +28,8 @@ dependencies {
     testImplementation platform('org.testcontainers:testcontainers-bom:2.0.5')
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
     testImplementation 'org.testcontainers:testcontainers-postgresql'
-    testImplementation 'org.testcontainers:testcontainers-kafka'
     testRuntimeOnly 'com.h2database:h2'
 }
 
 sourceSets.test.resources.srcDir project(':database-migrations').file('src/main/resources')
 
-// The retained full-universe canonical capture is much larger than the synthetic fixtures.
-tasks.named('test') {
-    if (System.getenv('P2_COMPARISON_DIR')) {
-        maxHeapSize = '2g'
-    }
-}

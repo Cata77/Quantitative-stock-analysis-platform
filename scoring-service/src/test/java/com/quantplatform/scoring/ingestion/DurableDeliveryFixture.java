@@ -15,27 +15,15 @@ import com.quantplatform.scoring.calculation.*;
 import com.quantplatform.scoring.config.ScoringProperties;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.sql.DriverManager;
 import java.time.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BooleanSupplier;
-import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.*;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.*;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.*;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.listener.*;
-import org.springframework.util.backoff.FixedBackOff;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.kafka.ConfluentKafkaContainer;
 import org.testcontainers.junit.jupiter.*;
 import org.testcontainers.utility.DockerImageName;
 
@@ -44,27 +32,18 @@ class DurableDeliveryFixture {
     @Container static final PostgreSQLContainer<?> DB = new PostgreSQLContainer<>(DockerImageName
             .parse("timescale/timescaledb:2.29.1-pg18").asCompatibleSubstituteFor("postgres"))
             .withDatabaseName("postgres").withUsername("postgres").withPassword("postgres");
-    @Container static final ConfluentKafkaContainer KAFKA =
-            new ConfluentKafkaContainer("confluentinc/cp-kafka:7.8.0");
 
     DriverManagerDataSource source;
     DataSourceTransactionManager tx;
     JdbcClient jdbc;
     IngestionRunStore jobs;
-    OutboxStore outbox;
-    OutboxRelay relay;
     DurableObservationProcessor processor;
     MarketDataEventProcessor projection;
     DeadLetterService deadLetters;
-    DefaultKafkaProducerFactory<String, String> stringFactory;
-    DefaultKafkaProducerFactory<String, byte[]> bytesFactory;
-    KafkaTemplate<String, String> producer;
-    KafkaTemplate<String, byte[]> bytesProducer;
+    OutboxDeliveryWorker worker;
+    ScoringProperties properties;
     String topic, group;
     UUID dataset, job, instrument, sp500, nasdaq;
-    final DeliveryProperties delivery = new DeliveryProperties(3, 50, Duration.ofMinutes(2),
-            Duration.ofSeconds(15), Duration.ofMillis(1));
-    KafkaMessageListenerContainer<String, byte[]> container;
 
     @BeforeEach void setup() throws Exception {
         String database = "delivery_" + UUID.randomUUID().toString().replace("-", "");
@@ -81,26 +60,13 @@ class DurableDeliveryFixture {
         tx = new DataSourceTransactionManager(source);
         topic = "observations-" + UUID.randomUUID();
         group = "consumer-" + UUID.randomUUID();
-        try (var admin = Admin.create(Map.of("bootstrap.servers", KAFKA.getBootstrapServers()))) {
-            admin.createTopics(List.of(new NewTopic(topic, 1, (short) 1), new NewTopic(topic + "-dlq", 1, (short) 1)))
-                    .all().get(30, TimeUnit.SECONDS);
-        }
-        var config = new HashMap<String, Object>();
-        config.put("bootstrap.servers", KAFKA.getBootstrapServers());
-        config.put("acks", "all");
-        config.put("enable.idempotence", true);
-        stringFactory = new DefaultKafkaProducerFactory<>(config, new StringSerializer(), new StringSerializer());
-        bytesFactory = new DefaultKafkaProducerFactory<>(config, new StringSerializer(), new ByteArraySerializer());
-        producer = new KafkaTemplate<>(stringFactory);
-        bytesProducer = new KafkaTemplate<>(bytesFactory);
         jobs = new IngestionRunStore(source, tx, CanonicalJson.MAPPER);
-        outbox = new OutboxStore(source, tx, delivery);
-        relay = new OutboxRelay(outbox, producer, delivery);
         projection = mock(MarketDataEventProcessor.class);
         processor = new DurableObservationProcessor(source, tx, projection, group);
-        deadLetters = new DeadLetterService(source, tx, bytesProducer,
-                new ScoringProperties(topic, topic + "-dlq", 1, 1, Duration.ofMillis(10), 2,
-                        Duration.ofDays(365), 2, new ScoringProperties.Elasticsearch(false, "http://localhost", "companies")), group);
+        properties = new ScoringProperties(topic, topic + "-dlq", 1, 1, Duration.ofMillis(10), 2,
+                Duration.ofDays(365), 2);
+        deadLetters = new DeadLetterService(source, tx, properties, group);
+        worker = new OutboxDeliveryWorker(source, tx, processor, deadLetters, properties, Duration.ofMinutes(2));
         UUID provider = jdbc.sql("INSERT INTO operations.data_providers (code,name,license_notes) VALUES ('fixture','Fixture','test') RETURNING provider_id")
                 .query(UUID.class).single();
         dataset = jdbc.sql("INSERT INTO operations.datasets (provider_id,code,version,license_notes) VALUES (:id,'bars','1','test') RETURNING dataset_id")
@@ -120,12 +86,6 @@ class DurableDeliveryFixture {
                 """).param("id", instrument).update();
         sp500 = snapshot("SP500");
         nasdaq = snapshot("NASDAQ100");
-    }
-
-    @AfterEach void close() {
-        if (container != null) container.stop();
-        if (stringFactory != null) stringFactory.destroy();
-        if (bytesFactory != null) bytesFactory.destroy();
     }
 
     IngestionCoordinator coordinator(AlpacaStockMarketClient alpaca, String now) {
@@ -215,52 +175,6 @@ class DurableDeliveryFixture {
         }
     }
 
-    void startListener(MessageListener<String, byte[]> listener) {
-        var props = new ContainerProperties(topic);
-        props.setGroupId(group);
-        props.setAckMode(ContainerProperties.AckMode.RECORD);
-        props.setSyncCommits(true);
-        props.setMessageListener(listener);
-        container = new KafkaMessageListenerContainer<>(new DefaultKafkaConsumerFactory<>(consumerConfig(group),
-                new StringDeserializer(), new ByteArrayDeserializer()), props);
-        var handler = new DefaultErrorHandler(deadLetters::recover, new FixedBackOff(10, 2));
-        handler.addNotRetryableExceptions(MarketDataValidationException.class);
-        container.setCommonErrorHandler(handler);
-        container.start();
-    }
-
-    Map<String, Object> consumerConfig(String id) {
-        return Map.of("bootstrap.servers", KAFKA.getBootstrapServers(), "group.id", id,
-                "enable.auto.commit", false, "auto.offset.reset", "earliest", "isolation.level", "read_committed");
-    }
-
-    KafkaConsumer<String, byte[]> consumer(String id, String input) {
-        var consumer = new KafkaConsumer<>(consumerConfig(id), new StringDeserializer(), new ByteArrayDeserializer());
-        consumer.subscribe(List.of(input));
-        return consumer;
-    }
-
-    List<ConsumerRecord<String, byte[]>> poll(KafkaConsumer<String, byte[]> consumer, int size) {
-        var result = new ArrayList<ConsumerRecord<String, byte[]>>();
-        long end = System.nanoTime() + Duration.ofSeconds(30).toNanos();
-        while (result.size() < size && System.nanoTime() < end) consumer.poll(Duration.ofMillis(200)).forEach(result::add);
-        assertThat(result).hasSize(size);
-        return result;
-    }
-
-    void send(ObservationEvent event) throws Exception {
-        var record = new ProducerRecord<>(topic, event.instrumentId().toString(), event.json());
-        record.headers().add(ObservationEvent.HASH_HEADER, event.payloadHash().getBytes(StandardCharsets.UTF_8));
-        producer.send(record).get(20, TimeUnit.SECONDS);
-    }
-
-    long committedOffset() {
-        try (var admin = Admin.create(Map.of("bootstrap.servers", KAFKA.getBootstrapServers()))) {
-            var offsets = admin.listConsumerGroupOffsets(group).partitionsToOffsetAndMetadata().get(5, TimeUnit.SECONDS);
-            var offset = offsets.get(new TopicPartition(topic, 0));
-            return offset == null ? -1 : offset.offset();
-        } catch (Exception failure) { return -1; }
-    }
     void await(BooleanSupplier condition) throws Exception {
         long end = System.nanoTime() + Duration.ofSeconds(30).toNanos();
         while (!condition.getAsBoolean() && System.nanoTime() < end) Thread.sleep(50);

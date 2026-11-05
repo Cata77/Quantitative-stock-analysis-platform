@@ -1,0 +1,32 @@
+{
+  "reviewId": "43f646fd-2af8-5886-aeff-ed70f647ba32",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "2a77c162-8a53-4be7-b4f9-3dd729560c6c",
+  "factId": null,
+  "issueId": "c9f3c3af-d893-41de-9960-0841742fa7c8",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investors.delltechnologies.com/sec-filings/all-sec-filings/content/0001571996-25-000102/dell-20250801.htm",
+    "sourceSha256": "8c3e7046ebde81da1a599a11d6e59a7ac23ee00c227cf9627a8a80a57d260d77",
+    "sourceObservedAt": "2026-10-26T14:07:14.854871+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"03f52316f17aca369b1f98cd44ca7e5ee863a120f4a4a65e3fadc48dec96ad26\"}",
+    "providerAction": {
+      "id": "4fff0a72-72ea-49ed-906b-08f0b12ede04",
+      "rate": 0.525,
+      "type": "cash_dividends",
+      "cusip": "24703L202",
+      "symbol": "DELL",
+      "ex_date": "2025-07-22",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-22",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Dell Technologies Inc.",
+    "issuerCik": "0001571996",
+    "rationale": "Issuer common-stock dividend source confirms DELL, USD 0.525 per share, record date 2025-07-22, payment date 2025-08-01. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

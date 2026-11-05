@@ -1,6 +1,7 @@
 package com.quantplatform.marketdata.operations;
 
 import java.time.Instant;
+import java.sql.SQLException;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 import org.springframework.boot.ApplicationArguments;
@@ -8,19 +9,20 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 @ConditionalOnProperty(name = "market-data.enabled", havingValue = "true")
 public class IngestionRuntime implements ApplicationRunner {
+    private static final Logger log = LoggerFactory.getLogger(IngestionRuntime.class);
     private final IngestionCoordinator coordinator;
-    private final OutboxRelay relay;
     private final IngestionProperties properties;
     private final ReentrantLock cycleLock = new ReentrantLock();
     private volatile int exitCode = 2;
 
-    public IngestionRuntime(IngestionCoordinator coordinator, OutboxRelay relay, IngestionProperties properties) {
+    public IngestionRuntime(IngestionCoordinator coordinator, IngestionProperties properties) {
         this.coordinator = coordinator;
-        this.relay = relay;
         this.properties = properties;
     }
 
@@ -47,10 +49,19 @@ public class IngestionRuntime implements ApplicationRunner {
     public void cycle() {
         if (!cycleLock.tryLock()) return;
         try {
-            relay.drain();
+            // Delivery to canonical data is done by the scoring-service outbox worker (P2s, no Kafka).
             coordinator.reconcile();
-            relay.drain();
         } catch (RuntimeException failure) {
+            // Provider/SQL exception messages may contain credentials or full payloads.
+            // Keep enough classification to diagnose a stopped CLI without logging them.
+            Throwable root = failure;
+            var seen = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<Throwable, Boolean>());
+            while (root.getCause() != null && seen.add(root) && !seen.contains(root.getCause())) {
+                root = root.getCause();
+            }
+            String sqlState = root instanceof SQLException sql ? sql.getSQLState() : null;
+            log.error("Ingestion reconciliation stopped: failureType={}, causeType={}, sqlState={}",
+                    failure.getClass().getSimpleName(), root.getClass().getSimpleName(), sqlState);
             coordinator.failed("Reconciliation failed: " + failure.getClass().getSimpleName());
         } finally { cycleLock.unlock(); }
     }

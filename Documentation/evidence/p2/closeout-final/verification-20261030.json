@@ -1,0 +1,71 @@
+{
+  "run": {
+    "state": "PUBLISHED",
+    "request": {
+      "inputs": {
+        "scoreDate": "2026-10-26",
+        "rawDataset": "482ffe35-ab2a-40a7-b300-9197c2066e42",
+        "marketCutoff": "2026-10-26T20:00:00Z",
+        "timingPolicy": "CURRENT_SNAPSHOT_V1",
+        "sp500Snapshot": "e6d6670f-f45f-467a-8eb2-9bab9add9074",
+        "mappingVersion": "sec-us-gaap-v2",
+        "adjustedDataset": "9f5e4667-6b14-46da-a8f6-3088c95d9409",
+        "adjustmentBasis": "2026-10-27",
+        "knowledgeCutoff": "2026-10-27T14:27:01Z",
+        "requiredMetrics": [
+          "TOTAL_ASSETS"
+        ],
+        "nasdaq100Snapshot": "d444039a-db92-4c0a-9491-2a5579dfb09f",
+        "classificationVersion": "e53b26e0-7e40-4ea1-b6b4-6d2867d8ae24"
+      },
+      "candidate": "primary",
+      "jurisdictions": {},
+      "effective_from": "2026-10-28T13:30:00Z",
+      "collectionPolicy": "CURRENT_COLLECTION_OUTCOMES_V1",
+      "preprocessingVersion": "canonical-preparation-v3"
+    },
+    "as_of_date": "2026-10-26",
+    "input_sha256": "8b7a87030e8c5859d49888a9eec86f409e7b9ddef40bc11d048e2145e2913732",
+    "score_run_id": "b05e813d-d0e0-4993-8777-f05e90fa7fee",
+    "scored_count": 487,
+    "model_version": "1.4.0",
+    "excluded_count": 31,
+    "expected_count": 518,
+    "knowledge_cutoff": "2026-10-27T14:27:01+00:00",
+    "preprocessing_version": "canonical-preparation-v3"
+  },
+  "pythonJavaPreparedParity": true,
+  "pythonJavaScoreParity": true,
+  "absoluteTolerance": 1e-09,
+  "latePriceLineageRows": 0,
+  "pythonTests": {
+    "passed": 209,
+    "failed": 0
+  },
+  "ruff": "PASSED",
+  "allInstrumentsScored": false,
+  "nextActions": {
+    "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS": 5,
+    "RECOMPUTE_WITH_NEW_CUTOFF_AND_VERIFY_RECOVERY": 7,
+    "VERIFY_ACTIVE_STATUS_AND_VERSION_SECURITY_POLICY": 2,
+    "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS": 11,
+    "VERSION_INSTRUMENT_SHARE_CLASS_POLICY": 3,
+    "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION": 2,
+    "VERIFY_SECURITY_IDENTITY": 1
+  },
+  "reviewedAwaitingPublication": [
+    "APTV",
+    "CMCSA",
+    "DD",
+    "ECHO",
+    "FDX",
+    "P",
+    "SPGI"
+  ],
+  "collection": {
+    "adjustmentVintage": "2026-10-30",
+    "throughSession": "2026-10-29",
+    "status": "IN_PROGRESS",
+    "launchDirectory": "build/p2-final-20261030/collection"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "reviewId": "d65d14eb-3d6e-5136-9341-e9bcb2063c33",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "45d32f25-2fa9-4bf1-ae78-5a49e47aeee6",
+  "factId": null,
+  "issueId": "2b67b219-23c0-4255-bb80-7e6c893907c9",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investors.alliantenergy.com/News--Presentations/news/news-details/2025/Alliant-Energy-Corporation-Declares-Quarterly-Common-Stock-Dividend-8396cb737/default.aspx",
+    "sourceSha256": "8f6fd8a25924e54408d77e3ffcd9f12073b213112c44e3cea141704804e316e5",
+    "sourceObservedAt": "2026-10-27T14:26:32.515393+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"dcab71e9a4452372eef744acecc9bfdba5c48e67f73f8e3797873436037edd50\"}",
+    "providerAction": {
+      "id": "6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad",
+      "rate": 0.5075,
+      "type": "cash_dividends",
+      "cusip": "018802108",
+      "symbol": "LNT",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ALLIANT ENERGY CORP",
+    "issuerCik": "0000352541",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms LNT, USD 0.5075 per share, record date 2025-07-31, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "key": "PSKY-closing-8k12b",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2041610/000119312525175046/d841914d8k12b.htm",
+    "file": "sources/PSKY-closing-8k12b.htm",
+    "httpStatus": 200,
+    "mediaType": "text/html",
+    "observedAt": "2026-11-01T17:27:08.469096+00:00",
+    "bytes": 174590,
+    "sourceSha256": "2ad490a74f650cc14fa851388222e89ec58b6da4ece178b6bcbc7088c15a1258",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES"
+  }
+]

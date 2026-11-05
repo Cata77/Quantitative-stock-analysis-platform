@@ -1,0 +1,173 @@
+{
+  "policy": "READ_ONLY_CURRENT_REFERENCE_STATE",
+  "rows": [
+    {
+      "cik": "0001181412",
+      "active": true,
+      "symbol": "SPCX",
+      "symbols": [
+        {
+          "source": "NASDAQ_OFFICIAL_NASDAQ100_API",
+          "symbol": "SPCX",
+          "created_at": "2026-08-28T13:32:00.830247+00:00",
+          "observed_at": "2026-08-28T13:20:38+00:00",
+          "available_at": "2026-08-28T13:20:38+00:00",
+          "effective_to": null,
+          "exchange_mic": "XNAS",
+          "instrument_id": "0485b5ed-85a6-4e40-a978-65919a0f89bd",
+          "effective_from": "2026-08-27",
+          "instrument_symbol_id": "8510a8bf-ffd2-40d1-8bc6-86052e63e64d"
+        }
+      ],
+      "valid_to": null,
+      "legal_name": "SPACE EXPLORATION TECHNOLOGIES CORP",
+      "valid_from": "2026-08-27",
+      "instrument_id": "0485b5ed-85a6-4e40-a978-65919a0f89bd",
+      "security_type": "COMMON_STOCK"
+    },
+    {
+      "cik": "0001973239",
+      "active": true,
+      "symbol": "ARM",
+      "symbols": [
+        {
+          "source": "NASDAQ_OFFICIAL_NASDAQ100_API",
+          "symbol": "ARM",
+          "created_at": "2026-08-28T13:32:00.830247+00:00",
+          "observed_at": "2026-08-28T13:20:38+00:00",
+          "available_at": "2026-08-28T13:20:38+00:00",
+          "effective_to": null,
+          "exchange_mic": "XNAS",
+          "instrument_id": "12b3ed7c-8e06-4b74-96f2-dc1904919cd1",
+          "effective_from": "2026-08-27",
+          "instrument_symbol_id": "25a9a4e7-56d2-4d02-8c56-9e4b4fd50f1f"
+        },
+        {
+          "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+          "symbol": "ARM",
+          "created_at": "2026-09-26T12:20:32.100288+00:00",
+          "observed_at": "2026-09-26T12:20:32.127448+00:00",
+          "available_at": "2026-09-26T12:20:32.127448+00:00",
+          "effective_to": "2026-08-27",
+          "exchange_mic": "XNAS",
+          "instrument_id": "12b3ed7c-8e06-4b74-96f2-dc1904919cd1",
+          "effective_from": "2025-08-01",
+          "instrument_symbol_id": "7241b283-229d-49bf-810a-ecd04e8aecad"
+        }
+      ],
+      "valid_to": null,
+      "legal_name": "ARM HOLDINGS PLC /UK",
+      "valid_from": "2025-08-01",
+      "instrument_id": "12b3ed7c-8e06-4b74-96f2-dc1904919cd1",
+      "security_type": "DEPOSITARY_RECEIPT"
+    },
+    {
+      "cik": "0001437107",
+      "active": true,
+      "symbol": "WBD",
+      "symbols": [
+        {
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "WBD",
+          "created_at": "2026-08-28T13:31:25.720225+00:00",
+          "observed_at": "2026-08-28T13:20:38+00:00",
+          "available_at": "2026-08-28T13:20:38+00:00",
+          "effective_to": null,
+          "exchange_mic": "XNAS",
+          "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+          "effective_from": "2026-08-27",
+          "instrument_symbol_id": "29f82cba-96a9-44aa-98fb-aaaa212fd64f"
+        },
+        {
+          "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+          "symbol": "WBD",
+          "created_at": "2026-09-26T12:20:32.100288+00:00",
+          "observed_at": "2026-09-26T12:20:32.227597+00:00",
+          "available_at": "2026-09-26T12:20:32.227597+00:00",
+          "effective_to": "2026-08-27",
+          "exchange_mic": "XNAS",
+          "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+          "effective_from": "2025-08-01",
+          "instrument_symbol_id": "8adb00f8-ea79-4ae1-919a-d7edaeac0625"
+        }
+      ],
+      "valid_to": null,
+      "legal_name": "Warner Bros. Discovery, Inc.",
+      "valid_from": "2025-08-01",
+      "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+      "security_type": "COMMON_STOCK"
+    },
+    {
+      "cik": "0001737806",
+      "active": true,
+      "symbol": "PDD",
+      "symbols": [
+        {
+          "source": "NASDAQ_OFFICIAL_NASDAQ100_API",
+          "symbol": "PDD",
+          "created_at": "2026-08-28T13:32:00.830247+00:00",
+          "observed_at": "2026-08-28T13:20:38+00:00",
+          "available_at": "2026-08-28T13:20:38+00:00",
+          "effective_to": null,
+          "exchange_mic": "XNAS",
+          "instrument_id": "8d901df3-4736-401d-85fc-b326d07079e5",
+          "effective_from": "2026-08-27",
+          "instrument_symbol_id": "fda8d0fd-5c78-4517-869e-32b3c454fcb3"
+        },
+        {
+          "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+          "symbol": "PDD",
+          "created_at": "2026-09-26T12:20:32.100288+00:00",
+          "observed_at": "2026-09-26T12:20:32.201713+00:00",
+          "available_at": "2026-09-26T12:20:32.201713+00:00",
+          "effective_to": "2026-08-27",
+          "exchange_mic": "XNAS",
+          "instrument_id": "8d901df3-4736-401d-85fc-b326d07079e5",
+          "effective_from": "2025-08-01",
+          "instrument_symbol_id": "05e647d7-166f-47cd-b608-e138a1863f86"
+        }
+      ],
+      "valid_to": null,
+      "legal_name": "PDD Holdings Inc.",
+      "valid_from": "2025-08-01",
+      "instrument_id": "8d901df3-4736-401d-85fc-b326d07079e5",
+      "security_type": "DEPOSITARY_RECEIPT"
+    },
+    {
+      "cik": "0002041610",
+      "active": true,
+      "symbol": "PSKY",
+      "symbols": [
+        {
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "PSKY",
+          "created_at": "2026-08-28T13:31:25.720225+00:00",
+          "observed_at": "2026-08-28T13:20:38+00:00",
+          "available_at": "2026-08-28T13:20:38+00:00",
+          "effective_to": null,
+          "exchange_mic": "XNAS",
+          "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+          "effective_from": "2026-08-27",
+          "instrument_symbol_id": "a64d0a4e-8653-45b7-acd9-055b63188147"
+        },
+        {
+          "source": "LOCAL_ALPACA_IDENTITY_REVIEW",
+          "symbol": "PSKY",
+          "created_at": "2026-09-26T12:20:32.100288+00:00",
+          "observed_at": "2026-09-26T12:20:32.660679+00:00",
+          "available_at": "2026-09-26T12:20:32.660679+00:00",
+          "effective_to": "2026-08-27",
+          "exchange_mic": "XNAS",
+          "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+          "effective_from": "2025-08-07",
+          "instrument_symbol_id": "6ca0a3c2-00f1-4b3c-8e49-fe112819c11b"
+        }
+      ],
+      "valid_to": null,
+      "legal_name": "New Pluto Global, Inc.",
+      "valid_from": "2025-08-07",
+      "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+      "security_type": "COMMON_STOCK"
+    }
+  ]
+}

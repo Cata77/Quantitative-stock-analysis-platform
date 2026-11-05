@@ -1,7 +1,27 @@
 # Research Engine
 
-Modul Python pentru formule, reproducerea scorurilor Java și diagnosticarea
+Revizia [P2 1.4](P2-MODEL-1.4.md) se compară prin `quant_research.flexible_comparison`
+cu `--before-version 1.3.0 --version 1.4.0`. Implicit rămâne comparația 1.2 → 1.3.
+`publication_audit` reproduce automat 1.4 după versiunea runului. Sursele 1.3
+sunt păstrate în `research-engine/fixtures/model-v1.3-archive/`.
+
+Modul Python pentru formule, publicarea scorurilor, reproducerea publicațiilor și diagnosticarea
 modelului. Rulează prin CLI; nu are server HTTP sau container permanent.
+
+Decizia utilizatorului din 2026-11-05 (P2s): modelul se calculează și se publică
+numai în Python. `quant_research.publication` reproduce publicațiile Java numai
+prin citire (`reproduce`, `compare`). Publică runuri noi prin
+`python -m quant_research.publication.cli current`, cu certificare, cu ciclul de
+viață din Java și cu verificările triggerelor DB. Pentru `bead056b`, documentul de
+input și toate tabelele de rezultate Java sunt reproduse identic. O publicație Python
+pe o copie izolată, pe aceleași inputuri, are aceleași rezultate
+([dovezi](evidence/p2s/README.md)). Conexiunea vine din `QUANT_DB_DSN`, cu rolul
+`quant_scoring`.
+
+Uneltele de audit de o singură folosință din P0/P2 (`exclusion_audit`, `source_audit`,
+`p0_*`, `p2_*`, `input_review_audit`) sunt arhivate în
+[`archive/p0_p2_audits`](../research-engine/archive/p0_p2_audits/README.md), cu testele lor
+(51, rulate și în CI).
 
 `python -m quant_research.universe_export` oferă [lista și exportul P1](UNIVERSE-EXPORT.md)
 prin Gateway: univers complet, CSV, HTML local și verificări de integritate.
@@ -12,7 +32,7 @@ Nu calculează scoruri și nu necesită acces DB.
 1. Primește inputuri pregătite sau exportul canonic al inputurilor Scoring.
 2. Verifică proveniența și elimină informațiile ulterioare cutoffului.
 3. Calculează factorii, normalizarea, contribuțiile, rangurile și excluderile.
-4. Compară aceleași fixture-uri cu Java; separat, poate evalua panouri de randamente.
+4. Certifică modelul pe fixture înaintea publicării; separat, poate evalua panouri de randamente.
 
 `quant-model` folosește modelul versionat **1.2.0**.
 `quant-validation` generează diagnostice istorice din CSV și dovezi de proveniență.
@@ -28,6 +48,12 @@ cu recuperări măsurate. Studiile AAPL/PEP sunt specifice publicației auditate
 nu sunt reguli noi ale modelului de producție.
 
 ## Model și verificare
+
+`quant_research.flexible_comparison --prepared <fișier> --output <director-nou>`
+compară 1.2.0 și 1.3.0 pe aceleași date și păstrează scorurile, ponderile,
+acoperirea și blocajele fiecărui instrument. [Formula flexibilă](P2-FLEXIBLE-MODEL.md)
+are manifest și fixture-uri separate; `publication_audit` selectează modelul
+după versiunea publicației, fără schimbarea reproducerilor 1.2.
 
 Pregătirea P2, utilitarul de revizuire și comparația cu publicația păstrată sunt
 descrise în [P2-DATA-PREPARATION.md](P2-DATA-PREPARATION.md).

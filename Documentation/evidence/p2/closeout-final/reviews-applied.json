@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "ECHO",
+    "reviewId": "4ef8b953-9bf8-53a1-884f-63481f647c47",
+    "recordedAt": "2026-10-29T08:22:13.636723+00:00",
+    "applied": true,
+    "idempotent": true
+  },
+  {
+    "symbol": "P",
+    "reviewId": "7c5425af-1337-5b20-864c-799b7ce36e58",
+    "recordedAt": "2026-10-29T08:22:13.680582+00:00",
+    "applied": true,
+    "idempotent": true
+  }
+]

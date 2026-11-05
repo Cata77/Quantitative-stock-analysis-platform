@@ -1,0 +1,32 @@
+{
+  "reviewId": "ca707481-a104-57c4-82a7-1c1de6840f1f",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "78cd0682-a30c-4c31-933e-5ba611c5bf2a",
+  "factId": null,
+  "issueId": "4a95253f-4d88-4aab-b7a7-17f4309a5138",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://s206.q4cdn.com/795948973/files/doc_news/Pfizer-Declares-Third-Quarter-2025-Dividend-2025.pdf",
+    "sourceSha256": "596ebe7c2866203affe8b3ec747a1fa4eca6c2125bf737306f50e31ce6258886",
+    "sourceObservedAt": "2026-10-26T14:05:26.055436+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"26ce34a9741b643d6677301d39605a6231dd1e315a07d7e583e503bdc1ab472b\"}",
+    "providerAction": {
+      "id": "f7e352e2-af27-4570-b8f6-29fdaf0f03b7",
+      "rate": 0.43,
+      "type": "cash_dividends",
+      "cusip": "717081103",
+      "symbol": "PFE",
+      "ex_date": "2025-07-25",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-25",
+      "payable_date": "2025-09-02",
+      "process_date": "2025-09-02"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "PFIZER INC",
+    "issuerCik": "0000078003",
+    "rationale": "Issuer common-stock dividend source confirms PFE, USD 0.43 per share, record date 2025-07-25, payment date 2025-09-02. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

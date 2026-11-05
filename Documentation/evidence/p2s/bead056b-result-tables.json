@@ -1,0 +1,41 @@
+{
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "modelVersion": "1.5.0",
+  "counts": {
+    "scored": true,
+    "excluded": true
+  },
+  "tables": {
+    "lineage": {
+      "rows": 518,
+      "identical": true,
+      "onlyPython": 0,
+      "onlyStored": 0
+    },
+    "artifacts": {
+      "rows": 21352,
+      "identical": true,
+      "onlyPython": 0,
+      "onlyStored": 0
+    },
+    "scores": {
+      "rows": 518,
+      "identical": true,
+      "onlyPython": 0,
+      "onlyStored": 0
+    },
+    "factors": {
+      "rows": 2984,
+      "identical": true,
+      "onlyPython": 0,
+      "onlyStored": 0
+    },
+    "exclusions": {
+      "rows": 1558,
+      "identical": true,
+      "onlyPython": 0,
+      "onlyStored": 0
+    }
+  },
+  "identical": true
+}

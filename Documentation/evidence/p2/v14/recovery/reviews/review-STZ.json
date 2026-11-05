@@ -1,0 +1,33 @@
+{
+  "reviewId": "1a4588f4-b036-5e13-b1d5-fb5372f2c1c9",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "a5c59fbe-fd84-4733-9dd4-c6d0e5a966cf",
+  "factId": null,
+  "issueId": "e47008db-63b9-4302-a08d-cb5c8996bf6e",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://ir.cbrands.com/stock-data/dividend-history",
+    "sourceSha256": "81febd1f728e2a7cffeb72b67cba6405265fc36d8170899e3622b5a57fe21a75",
+    "sourceObservedAt": "2026-10-27T14:26:32.668755+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"65c3b2c161267dd1f7a6fd086ec1e71de58244f87099b493a52e0876104f4ea0\"}",
+    "providerAction": {
+      "id": "b3db7f5b-b874-4ba3-92d1-38a178f1d867",
+      "rate": 1.02,
+      "type": "cash_dividends",
+      "cusip": "21036P108",
+      "symbol": "STZ",
+      "ex_date": "2025-07-30",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-30",
+      "payable_date": "2025-08-14",
+      "process_date": "2025-08-14"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CONSTELLATION BRANDS, INC.",
+    "issuerCik": "0000016918",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms STZ, USD 1.02 per share, record date 2025-07-30, payment date 2025-08-14. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

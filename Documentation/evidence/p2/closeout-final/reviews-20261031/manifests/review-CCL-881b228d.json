@@ -1,0 +1,37 @@
+{
+  "reviewId": "1de74f7d-5231-5c31-a8dd-788852adb0a1",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "afca0986-9479-4431-8da5-d94010011514",
+  "factId": null,
+  "issueId": "881b228d-cacb-4b5c-9d93-a398d4ea021b",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/815097/000162828025058106/a20254qearningsrelease8-k.htm",
+    "sourceSha256": "5d456b7e5da6a031cfc5b866c721dc62e46518651ddfb60ec0612aa3a8b740ba",
+    "sourceObservedAt": "2026-10-31T11:29:39.946314+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "record date of February 13, 2026 and a payment date of February 27, 2026",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"d1ec36fd5f184b49cef34f56106b26b6a21ff9adb5f25d2f2899de4a33cadb1e\"}",
+    "providerAction": {
+      "id": "d4f7599e-cfaa-42cd-83e9-0ab8ccf52130",
+      "rate": 0.15,
+      "type": "cash_dividends",
+      "cusip": "143658300",
+      "symbol": "CCL",
+      "ex_date": "2026-02-13",
+      "foreign": true,
+      "special": false,
+      "record_date": "2026-02-13",
+      "payable_date": "2026-02-27",
+      "process_date": "2026-02-27"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CARNIVAL CORP",
+    "issuerCik": "0000815097",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Carnival quarterly dividend of USD 0.15; ex-date equals record date under T+1."
+  }
+}

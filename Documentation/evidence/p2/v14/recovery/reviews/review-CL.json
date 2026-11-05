@@ -1,0 +1,33 @@
+{
+  "reviewId": "49346090-b4c1-5485-8770-0fbe0fb74fe5",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "9c9abd55-4459-441f-90af-a6955f2b5534",
+  "factId": null,
+  "issueId": "3520da1a-bc40-44f4-9020-86be0dbe5985",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investor.colgatepalmolive.com/dividend-history",
+    "sourceSha256": "4b3a002af4b4a307608050a820fcb8476f6f6bbed34f9d6e3ebd4837da848f4a",
+    "sourceObservedAt": "2026-10-27T14:23:09.082551+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"bb9445186a93600140d5983b6e547d9c7c0c8bc9875ec704767cd90d1de389df\"}",
+    "providerAction": {
+      "id": "977f3975-364a-4979-bac1-3dce67153cfc",
+      "rate": 0.52,
+      "type": "cash_dividends",
+      "cusip": "194162103",
+      "symbol": "CL",
+      "ex_date": "2025-07-18",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "COLGATE PALMOLIVE CO",
+    "issuerCik": "0000021665",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms CL, USD 0.52 per share, record date 2025-07-18, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

@@ -10,14 +10,21 @@ import html
 import json
 import os
 import sys
+import threading
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 from uuid import UUID
 
+RSI_NOTE = (
+    "RSI(14) Wilder (RSI_14_WILDER_V1) provine din aceeași publicație, din închiderile "
+    "ajustate până la data scorului. Este informativ: nu intră în scor sau în rang."
+)
 RANKING_NOTE = (
     "Rangul și percentila compară toate instrumentele eligibile din reuniunea indicilor "
     "aceleiași publicații. Filtrarea nu recalculează rangul. Rangul folosește scorul "
@@ -31,6 +38,9 @@ FIELDS = (
     "sector",
     "peerGroup",
     "eligible",
+    "scoreStatus",
+    "scoreCoverage",
+    "effectiveWeights",
     "rank",
     "percentile",
     "compositeScore",
@@ -40,6 +50,8 @@ FIELDS = (
     "valueContribution",
     "qualityContribution",
     "momentumContribution",
+    "rsi14",
+    "rsi14Reason",
     "availableMetricCount",
     "missingMetricCount",
     "metricCoverage",
@@ -110,6 +122,10 @@ class Gateway:
 
     def page(self, params: dict) -> dict:
         return self.request("/screener/rankings?" + urllib.parse.urlencode(params))
+
+    def financials(self, instrument_id: str, run_id: str) -> dict:
+        path = f"/screener/instruments/{UUID(instrument_id)}/financials?"
+        return self.request(path + urllib.parse.urlencode({"runId": str(UUID(run_id))}))
 
 
 def collect(
@@ -198,6 +214,64 @@ def validate_rows(run: dict, rows: list[dict]) -> None:
     require(len(rows) - len(ranks) == run["excludedCount"], "Excluded count mismatch")
 
 
+def collect_rsi(
+    fetch_financials,
+    run: dict,
+    rows: list[dict],
+    workers: int = 4,
+    max_per_minute: int = 90,
+) -> dict[str, dict]:
+    """RSI per instrument from the financials summary of the same pinned publication.
+
+    Requests run concurrently (each takes seconds server-side) so the universe completes
+    within one 15-minute JWT, while starts are paced below the Gateway's default limit
+    of 100 requests/minute per client.
+    """
+    require(1 <= workers <= 16, "RSI workers must be 1..16")
+    require(max_per_minute >= 1, "RSI rate must be positive")
+    ids = [str(UUID(row["instrumentId"])) for row in rows]
+    interval, lock, next_start = 60 / max_per_minute, threading.Lock(), [time.monotonic()]
+
+    def paced(instrument_id: str) -> dict:
+        with lock:
+            start = next_start[0] = max(next_start[0], time.monotonic())
+            next_start[0] += interval
+        time.sleep(max(0.0, start - time.monotonic()))
+        return fetch_financials(instrument_id, run["id"])
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        summaries = list(pool.map(paced, ids))
+    result = {}
+    for instrument_id, summary in zip(ids, summaries, strict=True):
+        company = summary.get("company") or {}
+        require(
+            company.get("runId") == run["id"] and company.get("instrumentId") == instrument_id,
+            "Financials response belongs to another publication or instrument",
+        )
+        figure = (summary.get("market") or {}).get("rsi14")
+        require(isinstance(figure, dict), "Financials response lacks rsi14")
+        value, reason = figure.get("value"), figure.get("reason")
+        require(
+            (value is None) != (reason is None),
+            "rsi14 must have exactly one of value or reason",
+        )
+        if value is not None:
+            require(
+                isinstance(value, (Decimal, int)) and not isinstance(value, bool)
+                and 0 <= value <= 100,
+                "Invalid rsi14 value",
+            )
+        result[instrument_id] = {"value": value, "reason": reason, "period": figure.get("period")}
+    return result
+
+
+def validate_rsi(rows: list[dict], rsi: dict[str, dict]) -> None:
+    require(
+        set(rsi) == {str(UUID(row["instrumentId"])) for row in rows},
+        "RSI does not cover exactly the publication universe",
+    )
+
+
 def eligibility_reasons(row: dict) -> list[str]:
     return sorted(
         {
@@ -208,8 +282,10 @@ def eligibility_reasons(row: dict) -> list[str]:
     )
 
 
-def export_row(row: dict, run: dict) -> dict:
+def export_row(row: dict, run: dict, rsi: dict) -> dict:
     result = {field: row.get(field) for field in FIELDS}
+    result["rsi14"] = rsi["value"]
+    result["rsi14Reason"] = rsi["reason"]
     available, missing = row["availableMetricCount"], row["missingMetricCount"]
     result["metricCoverage"] = (
         Decimal(available) / Decimal(available + missing) if available + missing else None
@@ -232,14 +308,16 @@ def cell(value: object) -> str:
     return str(value)
 
 
-def render_html(run: dict, rows: list[dict]) -> str:
+def render_html(run: dict, rows: list[dict], rsi: dict[str, dict]) -> str:
     def escaped(value):
         return html.escape(cell(value) if value is not None else "—")
 
     body = []
-    for row in rows:
+    for order, row in enumerate(rows):
         values = [row[k] for k in ("symbol", "profile", "sector")]
-        values += ["Eligibil" if row["eligible"] else "Exclus"]
+        status = {"COMPLETE": "Scor complet", "PARTIAL": "Scor parțial",
+                  "UNAVAILABLE": "Exclus"}.get(row.get("scoreStatus"))
+        values += [status or ("Eligibil" if row["eligible"] else "Exclus")]
         values += [
             row[k]
             for k in (
@@ -252,16 +330,29 @@ def render_html(run: dict, rows: list[dict]) -> str:
             )
         ]
         metric_total = row["availableMetricCount"] + row["missingMetricCount"]
+        row_rsi = rsi[str(UUID(row["instrumentId"]))]
+        if row_rsi["value"] is not None:
+            rsi_cell = html.escape(f"{Decimal(row_rsi['value']):.2f}")
+            rsi_attr = html.escape(str(row_rsi["value"]))
+        else:
+            rsi_cell = f'— <small>{html.escape(row_rsi["reason"])}</small>'
+            rsi_attr = ""
         values += [
             f"{row['availableMetricCount']}/{metric_total}",
             "; ".join(eligibility_reasons(row)),
         ]
         detail = html.escape(
-            json_text({k: row[k] for k in ("instrumentId", "factors", "exclusions", "warnings")})
+            json_text({k: row.get(k) for k in (
+                "instrumentId", "factors", "exclusions", "warnings",
+                "scoreStatus", "scoreCoverage", "effectiveWeights",
+            )})
         )
         body.append(
-            f'<tr data-eligible="{str(row["eligible"]).lower()}">'
-            + "".join(f"<td>{escaped(v)}</td>" for v in values)
+            f'<tr data-eligible="{str(row["eligible"]).lower()}" data-order="{order}" '
+            f'data-rsi="{rsi_attr}">'
+            + "".join(f"<td>{escaped(v)}</td>" for v in values[:10])
+            + f"<td>{rsi_cell}</td>"
+            + "".join(f"<td>{escaped(v)}</td>" for v in values[10:])
             + "<td><details><summary>Date disponibile</summary>"
             + f"<pre>{detail}</pre></details></td></tr>"
         )
@@ -276,6 +367,7 @@ def render_html(run: dict, rows: list[dict]) -> str:
         "Value",
         "Quality",
         "Momentum",
+        "RSI 14",
         "Metrici disponibile",
         "Motive excludere",
         "Detalii",
@@ -289,6 +381,8 @@ th,td{padding:9px;border-bottom:1px solid #dce3ed;text-align:left;vertical-align
 th{background:#17263b;color:white;position:sticky;top:0}pre{white-space:pre-wrap;max-width:600px}
 label{display:inline-block;margin:12px 20px 12px 0}select,input{padding:7px}
 .table{overflow:auto}p{max-width:1100px}tr[hidden]{display:none}
+th button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+td small{color:#5b6b80}
 </style><h1>Universul publicației</h1>""" + (
         f"<p>Univers: <b>{run['expectedCount']}</b> · Eligibile: <b>{run['scoredCount']}</b> "
         f"· Excluse: <b>{run['excludedCount']}</b> · Acoperire: "
@@ -296,15 +390,25 @@ label{display:inline-block;margin:12px 20px 12px 0}select,input{padding:7px}
         f"<p>Data scorului: {escaped(run['asOfDate'])} · Model: {escaped(run['modelVersion'])} "
         f"· Publicat: {escaped(run['publishedAt'])}<br>Run: {escaped(run['id'])}</p>"
         f"<p>{html.escape(RANKING_NOTE)}</p>"
+        f"<p>{html.escape(RSI_NOTE)} Apasă pe antetul RSI pentru sortare descrescătoare, "
+        "crescătoare și revenire la ordinea clasamentului; valorile lipsă rămân la final.</p>"
         "<p>— înseamnă valoare neatribuită. Scorurile parțiale și factorii sunt afișați numai "
         "când există în publicație. Acoperirea metricilor nu este încredere predictivă.</p>"
+        "<p>În modelul 1.3, scorurile parțiale folosesc ponderi redistribuite; un scor bazat "
+        "numai pe Momentum nu evaluează Value sau Quality. Ponderile sunt în detalii.</p>"
         f"<p>Statut model: {escaped(run.get('modelStatus'))} · "
         f"Tip publicație: {escaped(run.get('publicationType'))}</p>"
         '<label>Vizualizare <select id="eligibility"><option value="ALL">Întregul univers</option>'
         '<option value="true">Numai eligibile</option><option value="false">Numai excluse</option>'
         '</select></label><label>Simbol <input id="symbol" type="search"></label>'
         '<p id="visible" aria-live="polite"></p><div class="table"><table><thead><tr>'
-        + "".join(f'<th scope="col">{h}</th>' for h in headers)
+        + "".join(
+            '<th scope="col" aria-sort="none" id="rsi-header"><button id="rsi-sort" '
+            'type="button">RSI 14 <span id="rsi-arrow">↕</span></button></th>'
+            if h == "RSI 14"
+            else f'<th scope="col">{h}</th>'
+            for h in headers
+        )
         + "</tr></thead><tbody>"
         + "".join(body)
         + "</tbody></table></div>"
@@ -316,14 +420,32 @@ row.hidden=!(eligibility.value==='ALL'||row.dataset.eligible===eligibility.value
 if(!row.hidden) count++;});
 document.getElementById('visible').textContent='Rânduri afișate: '+count;}
 eligibility.addEventListener('change',filter);symbol.addEventListener('input',filter);filter();
+let rsiState=0;const states=[['none','↕'],['descending','↓'],['ascending','↑']];
+document.getElementById('rsi-sort').addEventListener('click',()=>{
+rsiState=(rsiState+1)%3;const tbody=document.querySelector('tbody');
+const rows=[...tbody.rows];rows.sort((a,b)=>{
+const order=a.dataset.order-b.dataset.order;if(rsiState===0) return order;
+const x=a.dataset.rsi, y=b.dataset.rsi;
+if(x===''||y==='') return (x==='')-(y==='')||order;
+return (rsiState===1?y-x:x-y)||order;});
+rows.forEach(row=>tbody.appendChild(row));
+document.getElementById('rsi-header').setAttribute('aria-sort',states[rsiState][0]);
+document.getElementById('rsi-arrow').textContent=states[rsiState][1];});
 </script></html>"""
     )
 
 
 def write_export(
-    output: Path, run: dict, rows: list[dict], pages: list[dict], eligibility: str = "ALL"
+    output: Path,
+    run: dict,
+    rows: list[dict],
+    pages: list[dict],
+    eligibility: str = "ALL",
+    *,
+    rsi: dict[str, dict],
 ) -> dict:
     validate_rows(run, rows)
+    validate_rsi(rows, rsi)
     require(eligibility in ("ALL", "ELIGIBLE", "EXCLUDED"), "Invalid output eligibility")
     selected = [
         row
@@ -332,7 +454,7 @@ def write_export(
     ]
     # A dedicated new directory prevents a failed run being mistaken for an older export.
     output.mkdir(parents=True, exist_ok=False)
-    records = [export_row(row, run) for row in selected]
+    records = [export_row(row, run, rsi[str(UUID(row["instrumentId"]))]) for row in selected]
     with (output / "universe.csv").open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=FIELDS)
         writer.writeheader()
@@ -344,8 +466,9 @@ def write_export(
         "CSV round-trip differs from publication",
     )
     (output / "pages.json").write_text(json_text(pages) + "\n", encoding="utf-8")
+    (output / "rsi.json").write_text(json_text(rsi) + "\n", encoding="utf-8")
     # HTML always offers the full universe, independently of the CSV selection.
-    (output / "universe.html").write_text(render_html(run, rows), encoding="utf-8")
+    (output / "universe.html").write_text(render_html(run, rows, rsi), encoding="utf-8")
     summary = {
         "verifiedAt": datetime.now(UTC).isoformat(),
         "run": run,
@@ -357,6 +480,8 @@ def write_export(
         "coverage": Decimal(run["scoredCount"]) / Decimal(run["expectedCount"]),
         "pagesFetched": len(pages),
         "rankingPopulation": RANKING_NOTE,
+        "rsi": RSI_NOTE,
+        "rsiAvailable": sum(1 for item in rsi.values() if item["value"] is not None),
         "numericEncoding": "Decimal API values are lossless strings in JSON; CSV nulls are empty",
         "checks": [
             "publication pinned",
@@ -366,10 +491,11 @@ def write_export(
             "excluded scores null",
             "explicit exclusion reasons",
             "CSV round-trip matches API",
+            "RSI pinned to the same publication for every instrument",
         ],
         "sha256": {
             name: hashlib.sha256((output / name).read_bytes()).hexdigest()
-            for name in ("universe.csv", "universe.html", "pages.json")
+            for name in ("universe.csv", "universe.html", "pages.json", "rsi.json")
         },
     }
     # Written last: its presence signals a completed export.
@@ -383,11 +509,14 @@ def main() -> None:
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--gateway", default="http://localhost:18080")
+    # 127.0.0.1, not localhost: on Windows the client first tries ::1 and waits ~2 s per request.
+    parser.add_argument("--gateway", default="http://127.0.0.1:18080")
     parser.add_argument("--username", help="Login with a password prompt (or QUANT_PASSWORD)")
     parser.add_argument("--run-id")
     parser.add_argument("--as-of")
     parser.add_argument("--page-size", type=int, default=200)
+    parser.add_argument("--rsi-workers", type=int, default=4, help="Parallel RSI calls, 1..16")
+    parser.add_argument("--rsi-per-minute", type=int, default=90, help="Gateway limit is 100")
     parser.add_argument("--eligibility", choices=("ALL", "ELIGIBLE", "EXCLUDED"), default="ALL")
     parser.add_argument("--output", type=Path, required=True, help="New output directory")
     args = parser.parse_args()
@@ -404,7 +533,10 @@ def main() -> None:
         run, rows, pages = collect(
             gateway.page, run_id=args.run_id, as_of=args.as_of, size=args.page_size
         )
-        report = write_export(args.output, run, rows, pages, args.eligibility)
+        rsi = collect_rsi(
+            gateway.financials, run, rows, args.rsi_workers, args.rsi_per_minute
+        )
+        report = write_export(args.output, run, rows, pages, args.eligibility, rsi=rsi)
         print(
             f"Univers: {len(rows)} | Eligibile: {report['eligible']} | "
             f"Excluse: {report['excluded']} | Acoperire: {100 * report['coverage']:.2f}%"

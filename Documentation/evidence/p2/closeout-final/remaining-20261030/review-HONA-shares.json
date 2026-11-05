@@ -1,0 +1,21 @@
+{
+  "reviewId": "a81e4df7-0a83-59c5-b542-2359fdfedb6b",
+  "kind": "SHARE_CLASS",
+  "instrumentId": "97e6932f-7dca-4a6f-b955-5bd469481ee6",
+  "factId": "7fc68f06-2661-4823-96b2-bbed12c03c78",
+  "issueId": null,
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-share-review",
+  "evidence": {
+    "scope": "EXACT_INSTRUMENT_SHARES",
+    "shareClass": "Common Stock, par value $0.01",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2089271/000208927126000021/hona-20260627.htm",
+    "sourceSha256": "cf9e82888bf854879b1858a6937e3f45c03a54fdb56399994a07b45273b43446",
+    "sourceObservedAt": "2026-10-30T14:18:19.623903+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issuerCik": "0002089271",
+    "shares": 316952725,
+    "sharesAsOf": "2026-07-25",
+    "rationale": "The August 5 HONA 10-Q cover identifies HONA common stock and 316,952,725 shares outstanding on July 25, 2026. The June 25 8-K confirms common stock is the sole class of capital stock after recapitalization. This is an instant outstanding count, not weighted average EPS shares, authorized shares, or parent Honeywell shares. Link only the retained fact of the same issuer; do not waive freshness, history, accounting or market-price requirements."
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "reviewId": "3774c844-e200-54d6-9b3c-f131c22da6bc",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "b39a2e59-adc4-4e5c-b54f-f156e0e68873",
+  "factId": null,
+  "issueId": "2fd7446d-ba18-487a-a69c-19fa8b3cd34f",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investors.generalmills.com/press-releases/press-release-details/2025/General-Mills-Reports-Fiscal-2025-Fourth-quarter-and-Full-year-Results-and-Provides-Fiscal-2026-Outlook/",
+    "sourceSha256": "a5795d3976e1516c0822d30482538893512019af3a9ea0d4466cb7f599ad7f91",
+    "sourceObservedAt": "2026-10-27T14:26:32.447482+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"b54b283c3e4e108cfe825d79a6c7f4bb4d20d280916c8a7ab09989f13dfb4aa4\"}",
+    "providerAction": {
+      "id": "68a99382-7c0b-488f-be7f-6da2eff819c1",
+      "rate": 0.61,
+      "type": "cash_dividends",
+      "cusip": "370334104",
+      "symbol": "GIS",
+      "ex_date": "2025-07-10",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-10",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "GENERAL MILLS INC",
+    "issuerCik": "0000040704",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms GIS, USD 0.61 per share, record date 2025-07-10, payment date 2025-08-01. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

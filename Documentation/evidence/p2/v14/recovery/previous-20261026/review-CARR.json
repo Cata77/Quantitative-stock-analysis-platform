@@ -1,0 +1,33 @@
+{
+  "reviewId": "9dbc0e64-b19d-509a-8794-2fb59c825f95",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "b4831000-17bb-475e-b94b-ba42cc544f10",
+  "factId": null,
+  "issueId": "9c42c36f-3b12-4eca-b790-f00b45db681b",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://ir.carrier.com/news/news-details/2025/Carrier-Board-of-Directors-Declares-Quarterly-Cash-Dividend-2431c1629/default.aspx",
+    "sourceSha256": "383dbb791a534a1975f9c01c85fe2e01aca00ca723aed504ad6f696949773dc2",
+    "sourceObservedAt": "2026-10-26 14:08:25 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"1e3fbb040b22dfc933090c9734cd9a3503d8d4f58a8e63ce672588b7d3becac7\"}",
+    "providerAction": {
+      "id": "4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece",
+      "rate": 0.225,
+      "type": "cash_dividends",
+      "cusip": "14448C104",
+      "symbol": "CARR",
+      "ex_date": "2025-07-21",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-21",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CARRIER GLOBAL Corp",
+    "issuerCik": "0001783180",
+    "rationale": "Issuer common-stock dividend source confirms CARR, USD 0.225 per share, record date 2025-07-21, payment date 2025-08-08. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

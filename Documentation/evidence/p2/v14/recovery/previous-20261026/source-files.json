@@ -1,0 +1,62 @@
+[
+  {
+    "file": "ABBV.html",
+    "sha256": "b442122d11221ef6f76a69a774926d3ecc6ea6cac3cd3bce45cf3ccd4e11d66f"
+  },
+  {
+    "file": "ABT.html",
+    "sha256": "baf68b6bb460d5710eb0084985774021d9b1093bbbf756667d7889dd7097b892"
+  },
+  {
+    "file": "CFG.pdf",
+    "sha256": "c2c9cbb29a18f72a8ed993840581f4c22f6f6661d6a5401049ff7a643296ba49"
+  },
+  {
+    "file": "DAL.html",
+    "sha256": "65dfc97a8e5f3bb4bdcd729589fbf07154b21cdac9389ff3f68ad15d940c7aff"
+  },
+  {
+    "file": "DELL.html",
+    "sha256": "8c3e7046ebde81da1a599a11d6e59a7ac23ee00c227cf9627a8a80a57d260d77"
+  },
+  {
+    "file": "MA-pdf.pdf",
+    "sha256": "e3df32d54975d8906fb189f485b8adc0d3b68a4eb61c1f573f5c41ac5c40e65e"
+  },
+  {
+    "file": "NUE.html",
+    "sha256": "bcccd1f42f199401a20a1d449d503cb176bc207b22f25a671444c8c2c8ec268b"
+  },
+  {
+    "file": "PFE-pdf.pdf",
+    "sha256": "596ebe7c2866203affe8b3ec747a1fa4eca6c2125bf737306f50e31ce6258886"
+  },
+  {
+    "file": "PG.html",
+    "sha256": "7c293f03c01d35ecc372c917a3f7a5bf69d55bdbce450d413eee15479e1066d2"
+  },
+  {
+    "file": "PNC.html",
+    "sha256": "21ef47707a89505c56bedf67f2c44d0cd4e704d5650b3ef1eb3ec011b0b94ad6"
+  },
+  {
+    "file": "T.html",
+    "sha256": "91e03acc3bc3b84a5f102837c826add7104e0cd245c45198b709022e3abe9111"
+  },
+  {
+    "file": "VZ.html",
+    "sha256": "6baff2eabc4474c70e5a8537c0e3fea9c7af98f689cf513fa8f55fd49569f760"
+  },
+  {
+    "file": "web-batch2.json",
+    "sha256": "97ff51ae1df4d0d567a966b2f9b43512f9e03e1cde19d43fd37992d70f48ca77"
+  },
+  {
+    "file": "web-batch3.json",
+    "sha256": "7addff2640dcde621b3f9a8887b1b465bed0ae8745ed3c0c877d0e66022d9337"
+  },
+  {
+    "file": "web-gd-carr.json",
+    "sha256": "383dbb791a534a1975f9c01c85fe2e01aca00ca723aed504ad6f696949773dc2"
+  }
+]

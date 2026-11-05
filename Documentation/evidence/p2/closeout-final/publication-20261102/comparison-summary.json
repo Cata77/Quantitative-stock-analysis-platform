@@ -1,0 +1,16 @@
+{
+  "scope": "LONGITUDINAL_SNAPSHOT_COMPARISON_NOT_CAUSAL_PREPARATION_IMPACT",
+  "beforeRun": "4e60be7c-77d0-481e-ab99-040069f0c099",
+  "afterRun": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "beforeModelVersion": "1.5.0",
+  "afterModelVersion": "1.5.0",
+  "instrumentCount": 518,
+  "beforeEligible": 514,
+  "afterEligible": 515,
+  "recovered": [
+    "SKYD"
+  ],
+  "lost": [],
+  "missingSharesRecovered": [],
+  "shareValuesChanged": 0
+}

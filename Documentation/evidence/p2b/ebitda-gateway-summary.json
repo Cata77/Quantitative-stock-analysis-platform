@@ -1,0 +1,51 @@
+{
+ "MSFT": {
+  "definitionsVersion": "DISPLAY_METRICS_V2",
+  "ebitda": {
+   "unit": "USD",
+   "reason": "DEPRECIATION_AMORTIZATION_NOT_REPORTED"
+  },
+  "depreciationAmortization": {
+   "unit": "USD",
+   "reason": "DEPRECIATION_AMORTIZATION_NOT_REPORTED"
+  },
+  "operatingIncome": {
+   "value": 155237000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-30"
+  }
+ },
+ "JPM": {
+  "definitionsVersion": "DISPLAY_METRICS_V2",
+  "ebitda": {
+   "unit": "USD",
+   "reason": "OPERATING_INCOME_TTM:NO_SELECTED_CANONICAL_FACT"
+  },
+  "depreciationAmortization": {
+   "unit": "USD",
+   "reason": "OPERATING_INCOME_TTM:NO_SELECTED_CANONICAL_FACT"
+  },
+  "operatingIncome": {
+   "unit": "USD",
+   "reason": "OPERATING_INCOME_TTM:NO_SELECTED_CANONICAL_FACT"
+  }
+ },
+ "AAPL": {
+  "definitionsVersion": "DISPLAY_METRICS_V2",
+  "ebitda": {
+   "value": 167959000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "depreciationAmortization": {
+   "value": 13100000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  },
+  "operatingIncome": {
+   "value": 154859000000,
+   "unit": "USD",
+   "period": "TTM to 2026-06-27"
+  }
+ }
+}

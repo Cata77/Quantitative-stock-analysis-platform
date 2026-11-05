@@ -1,0 +1,33 @@
+{
+  "reviewId": "e508592e-9541-54a0-b65b-28b06b5d2a36",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "0f6917fc-3f86-4787-804d-a08e0eba7f9e",
+  "factId": null,
+  "issueId": "2204487d-ac85-40ce-a6c1-7b6e71125586",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://corporate.lowes.com/newsroom/press-releases/lowes-companies-inc-announces-increase-quarterly-cash-dividend-120-share-05-30-25",
+    "sourceSha256": "8f6fd8a25924e54408d77e3ffcd9f12073b213112c44e3cea141704804e316e5",
+    "sourceObservedAt": "2026-10-27T14:26:32.528355+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"6b90915298f0c4136f57b48adb255bfd37428371f1302fa6a6e2926941ecd92f\"}",
+    "providerAction": {
+      "id": "9f0dfdb9-fdda-4df2-90c5-50f3f3349d41",
+      "rate": 1.2,
+      "type": "cash_dividends",
+      "cusip": "548661107",
+      "symbol": "LOW",
+      "ex_date": "2025-07-23",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-23",
+      "payable_date": "2025-08-06",
+      "process_date": "2025-08-06"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "LOWES COMPANIES INC",
+    "issuerCik": "0000060667",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms LOW, USD 1.2 per share, record date 2025-07-23, payment date 2025-08-06. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

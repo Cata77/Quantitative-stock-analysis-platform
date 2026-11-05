@@ -1,0 +1,33 @@
+{
+  "reviewId": "6706d336-7cb5-5967-9179-9263a4cd4d33",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "d69b9ef3-6d56-4a68-b2d4-77cd9fe981b4",
+  "factId": null,
+  "issueId": "3bc6ecfa-a016-45d6-b801-f57d9f3cd9d8",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.hormelfoods.com/newsroom/press-releases/hormel-foods-corporation-declares-quarterly-dividend-50/",
+    "sourceSha256": "a5795d3976e1516c0822d30482538893512019af3a9ea0d4466cb7f599ad7f91",
+    "sourceObservedAt": "2026-10-27T14:26:32.477613+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"20b3c976288503f5ff764ba7d5f157a5d2d7891aa4c212137236403fc4ffd338\"}",
+    "providerAction": {
+      "id": "d1e03888-c1eb-4f5e-805e-5bb0941d1412",
+      "rate": 0.29,
+      "type": "cash_dividends",
+      "cusip": "440452100",
+      "symbol": "HRL",
+      "ex_date": "2025-07-14",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-14",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "HORMEL FOODS CORP /DE/",
+    "issuerCik": "0000048465",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms HRL, USD 0.29 per share, record date 2025-07-14, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

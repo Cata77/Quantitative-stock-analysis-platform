@@ -1,0 +1,33 @@
+{
+  "reviewId": "c1c5a641-0317-5da8-b3b5-5a24934aba2a",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "66f1802d-04f4-4bf9-a9a6-bea6de0c1a3b",
+  "factId": null,
+  "issueId": "d6ccdaea-2e25-46de-b73f-470a9e6b2e18",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investors.caterpillar.com/stock-info/dividend-history/default.aspx",
+    "sourceSha256": "7addff2640dcde621b3f9a8887b1b465bed0ae8745ed3c0c877d0e66022d9337",
+    "sourceObservedAt": "2026-10-26 14:08:57 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"d22d10fc3b10ec01cee99e75190e0cfb65fe9b6f2f1c561667d84a328822d3cb\"}",
+    "providerAction": {
+      "id": "9741489d-7bcb-405b-bd31-9ea1cf2ddbae",
+      "rate": 1.51,
+      "type": "cash_dividends",
+      "cusip": "149123101",
+      "symbol": "CAT",
+      "ex_date": "2025-07-21",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-21",
+      "payable_date": "2025-08-20",
+      "process_date": "2025-08-20"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CATERPILLAR INC",
+    "issuerCik": "0000018230",
+    "rationale": "Issuer common-stock dividend source confirms CAT, USD 1.51 per share, record date 2025-07-21, payment date 2025-08-20. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

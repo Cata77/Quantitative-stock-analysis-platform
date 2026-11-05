@@ -1,0 +1,3850 @@
+{
+  "runId": "b4d566ac-63c3-4959-902c-1bc76ed12285",
+  "excludedInstruments": 80,
+  "corporateActionIssueCount": 105,
+  "nextActions": {
+    "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS": 50,
+    "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS": 18,
+    "NO_CORPORATE_ACTION_ISSUES": 12
+  },
+  "remainingReasonsByInstrument": {
+    "CORPORATE_ACTION_REVIEW": 68,
+    "STALE_OR_MISSING_FILING": 7,
+    "INACTIVE_OR_UNSUPPORTED_SECURITY": 2,
+    "NO_VALID_NORMALIZED_METRICS": 1,
+    "NON_PRIMARY_SHARE_CLASS": 3,
+    "MISSING_SCORE_DATE_PRICE": 2,
+    "INCOMPLETE_LIQUIDITY_WINDOW": 2,
+    "NOT_REPORTED": 2,
+    "SECURITY_IDENTITY_REVIEW": 1
+  },
+  "policy": "READ_ONLY_TRIAGE; NO_REVIEWS_APPLIED; NO_HISTORICAL_TIMESTAMPS_CHANGED",
+  "rows": [
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "32e98903b55c81ff9280f1d3ac0f9d1aa60b7bd8065ad2a29064226a6b8264a1"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:04.431474+00:00",
+          "affected_key": "a8416f11-2403-467a-ae35-5e949bd0a27d",
+          "action_boundary": "2025-07-15",
+          "provider_content": {
+            "id": "a8416f11-2403-467a-ae35-5e949bd0a27d",
+            "rate": 1.64,
+            "type": "cash_dividends",
+            "cusip": "00287Y109",
+            "symbol": "ABBV",
+            "ex_date": "2025-07-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-15",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "aff16ffb-76b4-43da-a090-43f1692591f1",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "ABBV",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:a8416f11-2403-467a-ae35-5e949bd0a27d"
+      ],
+      "instrument_id": "bdac8cb3-47cd-4fa7-a627-8a84e2994e87",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "bfd7dbd2349fd44cf953c269c7ce1c7c03667cf3b1c058199ce676578c25d47e"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:19.952975+00:00",
+          "affected_key": "bb41a184-0a79-4017-80cd-9937db80e0b9",
+          "action_boundary": "2025-07-15",
+          "provider_content": {
+            "id": "bb41a184-0a79-4017-80cd-9937db80e0b9",
+            "rate": 0.59,
+            "type": "cash_dividends",
+            "cusip": "002824100",
+            "symbol": "ABT",
+            "ex_date": "2025-07-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-15",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "142db766-0d2e-4f4a-94d6-4b266e5d84fb",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "ABT",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:bb41a184-0a79-4017-80cd-9937db80e0b9"
+      ],
+      "instrument_id": "96b47483-6564-4e46-804f-a6451dc85b72",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "2bf79335f08dbcc0bd20b422f0ef46df812657689cb5d5bdc32c4e83ff5cc1bd"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:22.608391+00:00",
+          "affected_key": "642bd24e-5bde-4941-b2f4-bac3c2827163",
+          "action_boundary": "2025-07-10",
+          "provider_content": {
+            "id": "642bd24e-5bde-4941-b2f4-bac3c2827163",
+            "rate": 1.11,
+            "type": "cash_dividends",
+            "cusip": "G1151C101",
+            "symbol": "ACN",
+            "ex_date": "2025-07-10",
+            "foreign": true,
+            "special": false,
+            "record_date": "2025-07-10",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "547a8cdd-7ab9-4601-a8e4-774b9f653bee",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "ACN",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:642bd24e-5bde-4941-b2f4-bac3c2827163"
+      ],
+      "instrument_id": "d6d66c8c-26d5-496a-8e01-d4463ba72098",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "3aa342129291c5ec641f5c04148b81bbb3f7051cbbd71983a32b4cbdf0390286"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:14.969684+00:00",
+          "affected_key": "db98bdb8-ef50-46d3-9c46-b1046d11798f",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "db98bdb8-ef50-46d3-9c46-b1046d11798f",
+            "rate": 0.34,
+            "type": "cash_dividends",
+            "cusip": "831865209",
+            "symbol": "AOS",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "65951c85-8f58-40a1-9531-46cb008f7763",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "AOS",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:db98bdb8-ef50-46d3-9c46-b1046d11798f"
+      ],
+      "instrument_id": "8eb98776-c7d7-42ab-b33e-60fb421b8c3f",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "2bbb1d09abc8861ceacb9f8fb13d4ab240205d3fa7949f49bd205fd25824f110"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.377917+00:00",
+          "affected_key": "ee95ffe8-0d97-4704-9c46-7a9867ee6438",
+          "action_boundary": "2025-07-22",
+          "provider_content": {
+            "id": "ee95ffe8-0d97-4704-9c46-7a9867ee6438",
+            "rate": 0.25,
+            "type": "cash_dividends",
+            "cusip": "03743Q108",
+            "symbol": "APA",
+            "ex_date": "2025-07-22",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-22",
+            "payable_date": "2025-08-22",
+            "process_date": "2025-08-22"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "80977582-b76f-4dea-811b-71911827f98f",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "APA",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:ee95ffe8-0d97-4704-9c46-7a9867ee6438"
+      ],
+      "instrument_id": "17bf5255-6edc-4d6e-a223-70bb783817e3",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "ec1724f71361f3d93e819c2d5e2cb32eab6cf9cf62a854fb50387a36ec2190e0"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.770233+00:00",
+          "affected_key": "e363b7d6-eac9-4f33-bfea-d3cc8d218fac",
+          "action_boundary": "2025-07-01",
+          "provider_content": {
+            "id": "e363b7d6-eac9-4f33-bfea-d3cc8d218fac",
+            "rate": 1.79,
+            "type": "cash_dividends",
+            "cusip": "009158106",
+            "symbol": "APD",
+            "ex_date": "2025-07-01",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-01",
+            "payable_date": "2025-08-11",
+            "process_date": "2025-08-11"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "0f88acd8-d6ab-498a-baba-b4e9e9db5446",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "APD",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:e363b7d6-eac9-4f33-bfea-d3cc8d218fac"
+      ],
+      "instrument_id": "4cc4d713-a513-472d-b677-06903cb30b6e",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "fa2eeff57a4823c182e933c32fbb4e8673362ac3a40cf90564fc7e8cd828d32f"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:02:50.956957+00:00",
+          "affected_key": "74278c27-fe65-4a5f-a52b-811b0558d8e1",
+          "action_boundary": "2026-04-01",
+          "provider_content": {
+            "id": "74278c27-fe65-4a5f-a52b-811b0558d8e1",
+            "type": "spin_offs",
+            "ex_date": "2026-04-01",
+            "new_rate": 0.33333333333,
+            "new_cusip": "G9600F104",
+            "new_symbol": "VGNT",
+            "record_date": "2026-03-17",
+            "source_rate": 1,
+            "payable_date": "2026-04-01",
+            "process_date": "2026-04-01",
+            "source_cusip": "G3265R107",
+            "source_symbol": "APTV",
+            "due_bill_redemption_date": "2026-04-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "7e1a26e8-ff98-4fec-a1f1-3ebf88e43e56",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "APTV",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:74278c27-fe65-4a5f-a52b-811b0558d8e1"
+      ],
+      "instrument_id": "d9d11fef-f3be-4f89-a164-39172ba0fbeb",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "ARM",
+      "reasons": [
+        "INACTIVE_OR_UNSUPPORTED_SECURITY",
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "12b3ed7c-8e06-4b74-96f2-dc1904919cd1",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "e1395e3cca057527a333f6812653c9a0ecb717c7318bf008a3d4809218325d07"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:16.02155+00:00",
+          "affected_key": "d6df31b6-64f8-4526-991d-428f0e1c2bd6",
+          "action_boundary": "2025-07-29",
+          "provider_content": {
+            "id": "d6df31b6-64f8-4526-991d-428f0e1c2bd6",
+            "rate": 1.569767,
+            "type": "cash_dividends",
+            "cusip": "N07059210",
+            "symbol": "ASML",
+            "ex_date": "2025-07-29",
+            "foreign": true,
+            "special": false,
+            "record_date": "2025-07-29",
+            "payable_date": "2025-08-06",
+            "process_date": "2025-08-06"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "15aa2acd-022e-410d-8eef-24ecbea0b1fa",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "ASML",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d6df31b6-64f8-4526-991d-428f0e1c2bd6",
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "081e9e79-3fe9-4f0e-adec-01b062e9bd82",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "4bf066fa35b79859cf5c209c99dc929a81fccfccce5a79bb118f52a6ab72569e"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:35.320224+00:00",
+          "affected_key": "3dd16f56-7bb1-4b82-a4e1-6632dde9373a",
+          "action_boundary": "2025-07-03",
+          "provider_content": {
+            "id": "3dd16f56-7bb1-4b82-a4e1-6632dde9373a",
+            "rate": 0.82,
+            "type": "cash_dividends",
+            "cusip": "025816109",
+            "symbol": "AXP",
+            "ex_date": "2025-07-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-03",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "1703d5b0-8a8b-431d-94aa-9c797afadd6e",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "AXP",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:3dd16f56-7bb1-4b82-a4e1-6632dde9373a"
+      ],
+      "instrument_id": "d67c7ee5-bc64-4f56-a820-51921a83c7f3",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "AZO",
+      "reasons": [
+        "NO_VALID_NORMALIZED_METRICS"
+      ],
+      "instrument_id": "c62714df-c0f0-4fc3-b1d0-8222a967363a",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "3e4a824534c83810c3a3c967da9b4a8d305ec9f1482fce5f769422049dd57bb5"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:02:56.373335+00:00",
+          "affected_key": "2d714944-6685-4e1e-9b5c-277d276bbe41",
+          "action_boundary": "2026-02-10",
+          "provider_content": {
+            "id": "2d714944-6685-4e1e-9b5c-277d276bbe41",
+            "type": "spin_offs",
+            "ex_date": "2026-02-10",
+            "new_rate": 0.135343142914,
+            "new_cusip": "941848103",
+            "new_symbol": "WAT",
+            "record_date": "2026-02-05",
+            "source_rate": 1,
+            "payable_date": "2026-02-10",
+            "process_date": "2026-02-10",
+            "source_cusip": "075887109",
+            "source_symbol": "BDX"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2309aa90-e3dc-4815-a709-2c847cd6e851",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "BDX",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:2d714944-6685-4e1e-9b5c-277d276bbe41"
+      ],
+      "instrument_id": "75416fb9-9fdc-4ce1-9057-05b809763d38",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "a76533388f482c8b3abf8794b855cae2245587720c4ba6e9ce33fc32686ed9eb"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:05.041618+00:00",
+          "affected_key": "5a10a007-774e-4f60-b279-424d0a0fb9a4",
+          "action_boundary": "2025-07-03",
+          "provider_content": {
+            "id": "5a10a007-774e-4f60-b279-424d0a0fb9a4",
+            "rate": 0.62,
+            "type": "cash_dividends",
+            "cusip": "110122108",
+            "symbol": "BMY",
+            "ex_date": "2025-07-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-03",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "681ee0a2-e484-47f0-9bb0-cc0237c8973a",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "BMY",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:5a10a007-774e-4f60-b279-424d0a0fb9a4"
+      ],
+      "instrument_id": "8abb6725-6d33-47f7-9b32-f14abce11de2",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "c3768feaf04785ad556853339647da29ec1ed1c1983bc36aed3a753f95fd43a4"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:18.028645+00:00",
+          "affected_key": "96cb646f-4148-4592-be41-d828d03f99ce",
+          "action_boundary": "2026-05-21",
+          "provider_content": {
+            "id": "96cb646f-4148-4592-be41-d828d03f99ce",
+            "type": "name_changes",
+            "new_cusip": "064058100",
+            "old_cusip": "064058100",
+            "new_symbol": "BNY",
+            "old_symbol": "BK",
+            "process_date": "2026-05-21"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "099881ba-b501-4d67-92e8-c69c38e1ec52",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "d5c4933fe3eac91ec005099aa2500e04e6ae0ee6ae5e9b03b8faf78319696346"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.365005+00:00",
+          "affected_key": "4dd90703-420c-452d-9c0b-c57f107f66b5",
+          "action_boundary": "2026-02-06",
+          "provider_content": {
+            "id": "4dd90703-420c-452d-9c0b-c57f107f66b5",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2026-02-06",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-02-06",
+            "payable_date": "2026-03-02",
+            "process_date": "2026-03-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "4241e68a-9f67-46f4-9c2e-0f1b13598400",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "62bdd7160c2992a4833351e4510e0c30cac1fc265b843161ac890abd638c91f2"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.235359+00:00",
+          "affected_key": "0d25a050-0539-4261-806a-487f63e333f7",
+          "action_boundary": "2025-12-22",
+          "provider_content": {
+            "id": "0d25a050-0539-4261-806a-487f63e333f7",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2025-12-22",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-12-22",
+            "payable_date": "2025-12-31",
+            "process_date": "2025-12-31"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "4ddebd40-e42b-4d6f-b81c-c757691d958c",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1fffafe9dec87ab1c20707c9c612d86a8a78d4e0362df4c34e6a2fac31aeef2a"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.003283+00:00",
+          "affected_key": "86873325-b196-441b-a517-39e0a53e027c",
+          "action_boundary": "2026-01-20",
+          "provider_content": {
+            "id": "86873325-b196-441b-a517-39e0a53e027c",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2026-01-20",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-01-20",
+            "payable_date": "2026-02-02",
+            "process_date": "2026-02-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "59b9431f-4027-4d38-b6c7-a0b9fde64dad",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "stock_mergers",
+            "reason": "identity or required terms unresolved",
+            "revision": "3ff386fe79f75712952b9471140a0c5a1b4907cadc5292cd49404197d2005f91"
+          },
+          "action_type": "stock_mergers",
+          "detected_at": "2026-09-26T12:02:18.084322+00:00",
+          "affected_key": "3afe0848-2aa4-4bc8-bc6d-5c20475426a9",
+          "action_boundary": "2026-02-09",
+          "provider_content": {
+            "id": "3afe0848-2aa4-4bc8-bc6d-5c20475426a9",
+            "type": "stock_mergers",
+            "payable_date": "2026-02-10",
+            "process_date": "2026-02-09",
+            "acquiree_rate": 1,
+            "acquirer_rate": 1.02143002,
+            "acquiree_cusip": "09248L106",
+            "acquirer_cusip": "09255E102",
+            "effective_date": "2026-02-09",
+            "acquiree_symbol": "BNY",
+            "acquirer_symbol": "MYN"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "6eb295ba-2500-4489-b702-9cc99b4f4ff5",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1eba09fe83d905d0ccaf90f3ffb2d04969741ca8d6d603ca72601be20c65cc98"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.142671+00:00",
+          "affected_key": "744a200f-443e-4d02-9bf4-011c73cfc027",
+          "action_boundary": "2025-07-25",
+          "provider_content": {
+            "id": "744a200f-443e-4d02-9bf4-011c73cfc027",
+            "rate": 0.53,
+            "type": "cash_dividends",
+            "cusip": "064058100",
+            "symbol": "BK",
+            "ex_date": "2025-07-25",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-25",
+            "payable_date": "2025-08-07",
+            "process_date": "2025-08-07"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "808b8f7a-614b-41a2-923e-666002762f91",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "7b00d550dfdf51ca28d1c53bc5273b1a56a051cef60924a4d153d0f62d6806dc"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.173768+00:00",
+          "affected_key": "91420c72-c013-419b-98ef-ce2cdb5336d7",
+          "action_boundary": "2025-11-14",
+          "provider_content": {
+            "id": "91420c72-c013-419b-98ef-ce2cdb5336d7",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2025-11-14",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-11-14",
+            "payable_date": "2025-12-01",
+            "process_date": "2025-12-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "94baa9c2-bbf1-4f2b-9863-601fa3e669d1",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "891200ee73a1e047e3439d044646de0c3bbb10563d66952f30d62095790d9f62"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.267931+00:00",
+          "affected_key": "b57b41d5-8fd7-4530-b89c-8d12f5413304",
+          "action_boundary": "2025-09-15",
+          "provider_content": {
+            "id": "b57b41d5-8fd7-4530-b89c-8d12f5413304",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2025-09-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-09-15",
+            "payable_date": "2025-10-01",
+            "process_date": "2025-10-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c7c939b3-bd26-41f6-8155-b1a1e1a53158",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "3ce3c42da02d0c2816bbe9d0e4ad7d02fd4bedfe7286c0ef6e70caa6a8eefb05"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:18.335366+00:00",
+          "affected_key": "5cee151f-72b2-4a20-88cb-058705bdb35e",
+          "action_boundary": "2025-08-15",
+          "provider_content": {
+            "id": "5cee151f-72b2-4a20-88cb-058705bdb35e",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2025-08-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-08-15",
+            "payable_date": "2025-09-02",
+            "process_date": "2025-09-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "f36705f8-3da9-4d16-8bdb-0f8cdc25673c",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "9403cef83cfbdf01cac2d604f7caec3aea08dcdf0e1eafb094539ac5d538be60"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:17.958945+00:00",
+          "affected_key": "cae5b411-d9a4-43ce-a24d-cacbd842e5a5",
+          "action_boundary": "2025-10-15",
+          "provider_content": {
+            "id": "cae5b411-d9a4-43ce-a24d-cacbd842e5a5",
+            "rate": 0.051,
+            "type": "cash_dividends",
+            "cusip": "09248L106",
+            "symbol": "BNY",
+            "ex_date": "2025-10-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-10-15",
+            "payable_date": "2025-11-03",
+            "process_date": "2025-11-03"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "fd280e82-cf6a-43bd-a72b-c87d48834805",
+          "earliest_matching_symbol_date": "2026-05-21",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "BNY",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:0d25a050-0539-4261-806a-487f63e333f7",
+        "CORPORATE_ACTION_REVIEW:3afe0848-2aa4-4bc8-bc6d-5c20475426a9",
+        "CORPORATE_ACTION_REVIEW:4dd90703-420c-452d-9c0b-c57f107f66b5",
+        "CORPORATE_ACTION_REVIEW:5cee151f-72b2-4a20-88cb-058705bdb35e",
+        "CORPORATE_ACTION_REVIEW:744a200f-443e-4d02-9bf4-011c73cfc027",
+        "CORPORATE_ACTION_REVIEW:86873325-b196-441b-a517-39e0a53e027c",
+        "CORPORATE_ACTION_REVIEW:91420c72-c013-419b-98ef-ce2cdb5336d7",
+        "CORPORATE_ACTION_REVIEW:96cb646f-4148-4592-be41-d828d03f99ce",
+        "CORPORATE_ACTION_REVIEW:b57b41d5-8fd7-4530-b89c-8d12f5413304",
+        "CORPORATE_ACTION_REVIEW:cae5b411-d9a4-43ce-a24d-cacbd842e5a5"
+      ],
+      "instrument_id": "85727ee7-6191-40f0-9ea8-7dd711b14392",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1e3fbb040b22dfc933090c9734cd9a3503d8d4f58a8e63ce672588b7d3becac7"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:21.483955+00:00",
+          "affected_key": "4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece",
+          "action_boundary": "2025-07-21",
+          "provider_content": {
+            "id": "4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece",
+            "rate": 0.225,
+            "type": "cash_dividends",
+            "cusip": "14448C104",
+            "symbol": "CARR",
+            "ex_date": "2025-07-21",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-21",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "9c42c36f-3b12-4eca-b790-f00b45db681b",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CARR",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:4fd8fab2-b4b6-46f7-ad9c-7b5cf1078ece"
+      ],
+      "instrument_id": "b4831000-17bb-475e-b94b-ba42cc544f10",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "d22d10fc3b10ec01cee99e75190e0cfb65fe9b6f2f1c561667d84a328822d3cb"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:25.035058+00:00",
+          "affected_key": "9741489d-7bcb-405b-bd31-9ea1cf2ddbae",
+          "action_boundary": "2025-07-21",
+          "provider_content": {
+            "id": "9741489d-7bcb-405b-bd31-9ea1cf2ddbae",
+            "rate": 1.51,
+            "type": "cash_dividends",
+            "cusip": "149123101",
+            "symbol": "CAT",
+            "ex_date": "2025-07-21",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-21",
+            "payable_date": "2025-08-20",
+            "process_date": "2025-08-20"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d6ccdaea-2e25-46de-b73f-470a9e6b2e18",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CAT",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:9741489d-7bcb-405b-bd31-9ea1cf2ddbae"
+      ],
+      "instrument_id": "66f1802d-04f4-4bf9-a9a6-bea6de0c1a3b",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "CCEP",
+      "reasons": [
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "8ec3f5d0-1fa6-4f01-8f32-9fe21ffa4ee1",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "7ac37253e42032e2f23d987cb4b94e5bca8a5e17a86412a43c48b09a2a739d69"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:04.848795+00:00",
+          "affected_key": "90d81e44-1933-44be-849c-6215ecb84891",
+          "action_boundary": "2026-05-18",
+          "provider_content": {
+            "id": "90d81e44-1933-44be-849c-6215ecb84891",
+            "rate": 0.15,
+            "type": "cash_dividends",
+            "cusip": "G2004J103",
+            "symbol": "CCL",
+            "ex_date": "2026-05-18",
+            "foreign": true,
+            "special": false,
+            "record_date": "2026-05-18",
+            "payable_date": "2026-05-29",
+            "process_date": "2026-05-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "3c94ec1e-5475-49be-8921-617be343af3a",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "d1ec36fd5f184b49cef34f56106b26b6a21ff9adb5f25d2f2899de4a33cadb1e"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:04.885603+00:00",
+          "affected_key": "d4f7599e-cfaa-42cd-83e9-0ab8ccf52130",
+          "action_boundary": "2026-02-13",
+          "provider_content": {
+            "id": "d4f7599e-cfaa-42cd-83e9-0ab8ccf52130",
+            "rate": 0.15,
+            "type": "cash_dividends",
+            "cusip": "143658300",
+            "symbol": "CCL",
+            "ex_date": "2026-02-13",
+            "foreign": true,
+            "special": false,
+            "record_date": "2026-02-13",
+            "payable_date": "2026-02-27",
+            "process_date": "2026-02-27"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "881b228d-cacb-4b5c-9d93-a398d4ea021b",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "39d2a7efa63bf0aead3d724371d345420b0d3a23a50c9994a2af8850ee904471"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:03:04.747402+00:00",
+          "affected_key": "35c3056d-4bf0-43b4-a21f-d0cc9d94fa4c",
+          "action_boundary": "2026-05-07",
+          "provider_content": {
+            "id": "35c3056d-4bf0-43b4-a21f-d0cc9d94fa4c",
+            "type": "name_changes",
+            "new_cusip": "G2004J103",
+            "old_cusip": "143658300",
+            "new_symbol": "CCL",
+            "old_symbol": "CCL",
+            "process_date": "2026-05-07"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "894f1260-e733-49b7-b5c3-bb816b8319e0",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6a1578bb7eb02ecf2aa1014fae98c533abef7739fb2c254a4c397e630547c9bc"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:04.782255+00:00",
+          "affected_key": "dcc7bfaa-f0f4-4d85-a16b-33bf173e1f40",
+          "action_boundary": "2026-08-07",
+          "provider_content": {
+            "id": "dcc7bfaa-f0f4-4d85-a16b-33bf173e1f40",
+            "rate": 0.15,
+            "type": "cash_dividends",
+            "cusip": "G2004J103",
+            "symbol": "CCL",
+            "ex_date": "2026-08-07",
+            "foreign": true,
+            "special": false,
+            "record_date": "2026-08-07",
+            "payable_date": "2026-08-28",
+            "process_date": "2026-08-28"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "92dba909-90d7-49c4-8f61-b1b6257e649b",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CCL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:35c3056d-4bf0-43b4-a21f-d0cc9d94fa4c",
+        "CORPORATE_ACTION_REVIEW:90d81e44-1933-44be-849c-6215ecb84891",
+        "CORPORATE_ACTION_REVIEW:d4f7599e-cfaa-42cd-83e9-0ab8ccf52130",
+        "CORPORATE_ACTION_REVIEW:dcc7bfaa-f0f4-4d85-a16b-33bf173e1f40"
+      ],
+      "instrument_id": "afca0986-9479-4431-8da5-d94010011514",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "a7d5cda6fd0068c554ec0c4645ca294c651aad4060dfd83d4b8d992a92e7d4e1"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:58.88857+00:00",
+          "affected_key": "4801d77b-b8f8-4ce5-911e-fd39ecc1db8e",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "4801d77b-b8f8-4ce5-911e-fd39ecc1db8e",
+            "rate": 0.42,
+            "type": "cash_dividends",
+            "cusip": "174610105",
+            "symbol": "CFG",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-14",
+            "process_date": "2025-08-14"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "05908e8e-8d75-4206-92ed-718f69e584c2",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CFG",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:4801d77b-b8f8-4ce5-911e-fd39ecc1db8e"
+      ],
+      "instrument_id": "78ace1ab-bcaa-40e2-abc9-029d2d0d24ad",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "bb9445186a93600140d5983b6e547d9c7c0c8bc9875ec704767cd90d1de389df"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:27.109217+00:00",
+          "affected_key": "977f3975-364a-4979-bac1-3dce67153cfc",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "977f3975-364a-4979-bac1-3dce67153cfc",
+            "rate": 0.52,
+            "type": "cash_dividends",
+            "cusip": "194162103",
+            "symbol": "CL",
+            "ex_date": "2025-07-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "3520da1a-bc40-44f4-9020-86be0dbe5985",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:977f3975-364a-4979-bac1-3dce67153cfc"
+      ],
+      "instrument_id": "9c9abd55-4459-441f-90af-a6955f2b5534",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "c4a22c7308337c560a771f656c0e2a24e0b19ae60d7b7b23e87dec33b8c4a1a1"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:03:17.037463+00:00",
+          "affected_key": "e4131f80-c756-442d-b278-32a15401f42b",
+          "action_boundary": "2026-01-05",
+          "provider_content": {
+            "id": "e4131f80-c756-442d-b278-32a15401f42b",
+            "type": "spin_offs",
+            "ex_date": "2026-01-05",
+            "new_rate": 0.04,
+            "new_cusip": "925283103",
+            "new_symbol": "VSNT",
+            "record_date": "2025-12-16",
+            "source_rate": 1,
+            "payable_date": "2026-01-02",
+            "process_date": "2026-01-05",
+            "source_cusip": "20030N101",
+            "source_symbol": "CMCSA",
+            "due_bill_redemption_date": "2026-01-05"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "a16f4fe4-38a6-4103-b79c-75c21f71ddee",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "CMCSA",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:e4131f80-c756-442d-b278-32a15401f42b"
+      ],
+      "instrument_id": "f788e0b4-c4a3-457e-a3dd-fe4b30fd8ba2",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "4ff4166530bd8c36f445afa98c2a927b6cfad3ba538c8b87964a742a482396dd"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:28.903556+00:00",
+          "affected_key": "fcfed13e-8f84-43ed-9a28-73eb4337fa9d",
+          "action_boundary": "2025-07-22",
+          "provider_content": {
+            "id": "fcfed13e-8f84-43ed-9a28-73eb4337fa9d",
+            "rate": 0.665,
+            "type": "cash_dividends",
+            "cusip": "126650100",
+            "symbol": "CVS",
+            "ex_date": "2025-07-22",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-22",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "103b934f-10f0-4e4a-a759-0da33e2efe3d",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "CVS",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:fcfed13e-8f84-43ed-9a28-73eb4337fa9d"
+      ],
+      "instrument_id": "6cc5153f-e5bb-4921-9831-9ccd5e1a9263",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "5c4c17651a9c6ff12ce826f932cb663b2d83bf3f992d56f19ab044b777907056"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:22.593517+00:00",
+          "affected_key": "6c096b12-8b6e-4860-aacf-5d7331600b96",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "6c096b12-8b6e-4860-aacf-5d7331600b96",
+            "rate": 0.1875,
+            "type": "cash_dividends",
+            "cusip": "247361702",
+            "symbol": "DAL",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-21",
+            "process_date": "2025-08-21"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "01cf5c1a-b2cc-4d15-909e-59b69cdc18a0",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "DAL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:6c096b12-8b6e-4860-aacf-5d7331600b96"
+      ],
+      "instrument_id": "5af7c583-b89a-4d93-9e1b-cfb444cddd5a",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "8d79abbb1eec8269437430941de3cf3f7668e86ca9cc936037925aea49d1c5a8"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:02:22.451176+00:00",
+          "affected_key": "a4480242-0951-4793-b024-bc531a2a5caf",
+          "action_boundary": "2025-11-03",
+          "provider_content": {
+            "id": "a4480242-0951-4793-b024-bc531a2a5caf",
+            "type": "spin_offs",
+            "ex_date": "2025-11-03",
+            "new_rate": 0.5,
+            "new_cusip": "74743L100",
+            "new_symbol": "Q",
+            "record_date": "2025-10-22",
+            "source_rate": 1,
+            "payable_date": "2025-11-01",
+            "process_date": "2025-11-03",
+            "source_cusip": "26614N102",
+            "source_symbol": "DD"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "58e808f8-46af-4f87-ba99-89c4d3732190",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "DD",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:a4480242-0951-4793-b024-bc531a2a5caf"
+      ],
+      "instrument_id": "bc4245d2-52d1-4d6e-b801-e6c558c1e603",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "81dfad1f40f39eec25e037e41fa8063da29bf84db7521d876140e7f42ccfd72a"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:17.804031+00:00",
+          "affected_key": "ec7b1ecb-0ac9-468a-a56a-2dc7ceae942f",
+          "action_boundary": "2025-06-30",
+          "provider_content": {
+            "id": "ec7b1ecb-0ac9-468a-a56a-2dc7ceae942f",
+            "rate": 1.62,
+            "type": "cash_dividends",
+            "cusip": "244199105",
+            "symbol": "DE",
+            "ex_date": "2025-06-30",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-06-30",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d132f841-77c1-4bc7-b7b1-9eb366c54026",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "DE",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:ec7b1ecb-0ac9-468a-a56a-2dc7ceae942f"
+      ],
+      "instrument_id": "cba839f1-8f75-4a9a-b05c-4dc8c84eafa2",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "03f52316f17aca369b1f98cd44ca7e5ee863a120f4a4a65e3fadc48dec96ad26"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:53.392305+00:00",
+          "affected_key": "4fff0a72-72ea-49ed-906b-08f0b12ede04",
+          "action_boundary": "2025-07-22",
+          "provider_content": {
+            "id": "4fff0a72-72ea-49ed-906b-08f0b12ede04",
+            "rate": 0.525,
+            "type": "cash_dividends",
+            "cusip": "24703L202",
+            "symbol": "DELL",
+            "ex_date": "2025-07-22",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-22",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c9f3c3af-d893-41de-9960-0841742fa7c8",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "DELL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:4fff0a72-72ea-49ed-906b-08f0b12ede04"
+      ],
+      "instrument_id": "2a77c162-8a53-4be7-b4f9-3dd729560c6c",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "3d96dcc185c93215830719fa4f4575513ed215a7e6af2b97ccd9f9b3e5774ec7"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:57.474856+00:00",
+          "affected_key": "80dc492b-d834-4282-8136-a3d4b209a12f",
+          "action_boundary": "2026-01-30",
+          "provider_content": {
+            "id": "80dc492b-d834-4282-8136-a3d4b209a12f",
+            "type": "name_changes",
+            "new_cusip": "42250P103",
+            "old_cusip": "71943U104",
+            "new_symbol": "DOC",
+            "old_symbol": "DOC",
+            "process_date": "2026-01-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "1a1ab034-9f46-4c85-bad7-f5f8feb47c38",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "316a152dd71a2ec2ecf0cb5d14175f17e6b5627eaddad6d1942397667f4842ba"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.441543+00:00",
+          "affected_key": "f702ae59-1c8c-4a34-badb-705c6ae855c3",
+          "action_boundary": "2026-04-17",
+          "provider_content": {
+            "id": "f702ae59-1c8c-4a34-badb-705c6ae855c3",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-04-17",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-04-17",
+            "payable_date": "2026-04-30",
+            "process_date": "2026-04-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "20be29bd-8028-4b25-804c-8d6739773818",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "7828549da6841a20e98d4f930bc7f440ba227829b68015e0a0094c947640be6b"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.660012+00:00",
+          "affected_key": "8d929a0c-f6dc-4312-8345-ff76739a8f7f",
+          "action_boundary": "2026-08-17",
+          "provider_content": {
+            "id": "8d929a0c-f6dc-4312-8345-ff76739a8f7f",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-08-17",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-08-17",
+            "payable_date": "2026-08-28",
+            "process_date": "2026-08-28"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "4b7e2847-8a09-4dcf-a01d-b68d26bc0160",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "305dace2f2411cb4b845aade72fa59c6bc8d35410a88de9c4539655095282048"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.347208+00:00",
+          "affected_key": "f346e197-2891-4817-b2a0-53e02b50837a",
+          "action_boundary": "2025-12-19",
+          "provider_content": {
+            "id": "f346e197-2891-4817-b2a0-53e02b50837a",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2025-12-19",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-12-19",
+            "payable_date": "2025-12-30",
+            "process_date": "2025-12-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "753b8b2c-f02c-4d9e-95ed-2de08dcdacca",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "3eb48a47cb7dcbc8d9676a832047eda0d8d3d8ce31c4c9ee88c9821ff2c52752"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.380538+00:00",
+          "affected_key": "ff2de5ed-7a18-4dd1-be7a-5dc067e6f2cc",
+          "action_boundary": "2026-06-15",
+          "provider_content": {
+            "id": "ff2de5ed-7a18-4dd1-be7a-5dc067e6f2cc",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-06-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-06-15",
+            "payable_date": "2026-06-26",
+            "process_date": "2026-06-26"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "7d0cff90-baeb-49bb-b497-88f26efcc286",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "7af91a80a1ebfc3cfc51f0641e6569d325692d90e12d07d4ad007c7209f8be9f"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.692556+00:00",
+          "affected_key": "26249850-7035-4222-9641-0d656488fdaa",
+          "action_boundary": "2025-08-18",
+          "provider_content": {
+            "id": "26249850-7035-4222-9641-0d656488fdaa",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2025-08-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-08-18",
+            "payable_date": "2025-08-29",
+            "process_date": "2025-08-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "99d8fae2-b30a-41d7-b7d1-ae26c03e8b64",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1dcf0477340dbcf951c1f92541623fb0c396e6a99b5d1f939d9e19af621c032d"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.312499+00:00",
+          "affected_key": "a5a5aaa1-60e4-46d0-8338-2240cd386189",
+          "action_boundary": "2026-02-13",
+          "provider_content": {
+            "id": "a5a5aaa1-60e4-46d0-8338-2240cd386189",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-02-13",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-02-13",
+            "payable_date": "2026-02-27",
+            "process_date": "2026-02-27"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "a71f4865-9383-4d41-a867-c8192714dc9c",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "4ebd87d2cf027cdd53c84d607c1573e35392fa6891703759a660379486ad20de"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.281247+00:00",
+          "affected_key": "aa13f155-97d8-44a2-a70c-e0fddbe10dc0",
+          "action_boundary": "2026-03-17",
+          "provider_content": {
+            "id": "aa13f155-97d8-44a2-a70c-e0fddbe10dc0",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-03-17",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-03-17",
+            "payable_date": "2026-03-31",
+            "process_date": "2026-03-31"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "aeb420fd-1c47-459d-b678-a586210c43ca",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "ef26441e6e7ce87fb685cf7211b8bcd703543b0912a323280a244c35e7eb4ece"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.560164+00:00",
+          "affected_key": "d5addac4-0f8e-4af1-8728-94d98d5ded97",
+          "action_boundary": "2025-11-14",
+          "provider_content": {
+            "id": "d5addac4-0f8e-4af1-8728-94d98d5ded97",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2025-11-14",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-11-14",
+            "payable_date": "2025-11-26",
+            "process_date": "2025-11-26"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "af7da651-0717-4c88-9d1f-387584bb6de7",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "f656c46781bb1e83dc24c12a1bb5d00b67134b840bcf7965fc373cbfe6ed10b5"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.474856+00:00",
+          "affected_key": "aa83fdaf-c3ea-44f6-a46e-e2d66fbed7f2",
+          "action_boundary": "2026-01-16",
+          "provider_content": {
+            "id": "aa83fdaf-c3ea-44f6-a46e-e2d66fbed7f2",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-01-16",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-01-16",
+            "payable_date": "2026-01-30",
+            "process_date": "2026-01-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c0d9d92f-7d77-460f-acb9-acc4ad4efe08",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "28ab7a4904c1f04bb3fa9be42bcac3c4ca1183a56df9306f3034754c3c6477e7"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.627043+00:00",
+          "affected_key": "ef1c9b24-8c2a-4d5a-a186-c8ea9d049a7f",
+          "action_boundary": "2026-05-18",
+          "provider_content": {
+            "id": "ef1c9b24-8c2a-4d5a-a186-c8ea9d049a7f",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-05-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-05-18",
+            "payable_date": "2026-05-29",
+            "process_date": "2026-05-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c99657e6-b9eb-4ae2-9808-60f4f35f78f5",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6e6beec439d9fa1807b725a89dc8d7e13b054d3657a8f73ad1b0f7ac4541c3e9"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.724733+00:00",
+          "affected_key": "41d8e9bf-b096-4d29-bd89-3b2e5cddbc3d",
+          "action_boundary": "2025-10-17",
+          "provider_content": {
+            "id": "41d8e9bf-b096-4d29-bd89-3b2e5cddbc3d",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2025-10-17",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-10-17",
+            "payable_date": "2025-10-30",
+            "process_date": "2025-10-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "dd96191b-e02f-42bf-9a30-3308e43b75e0",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "741b21ff362fb2be5505661668db5fed55349fb73d3382521add96c74af01b6c"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.524124+00:00",
+          "affected_key": "aedddbaa-0ad3-47db-8e55-2a8a2fa83987",
+          "action_boundary": "2026-07-20",
+          "provider_content": {
+            "id": "aedddbaa-0ad3-47db-8e55-2a8a2fa83987",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2026-07-20",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-07-20",
+            "payable_date": "2026-07-31",
+            "process_date": "2026-07-31"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "eba67ba0-7bce-4b01-b05a-18145e21d137",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "d179a98597ff06eef90d23062cc40d091603ade2c76680addddb52e594d35ceb"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.592773+00:00",
+          "affected_key": "20c60fdf-cabb-42ac-ae83-2a5b556405b1",
+          "action_boundary": "2025-09-19",
+          "provider_content": {
+            "id": "20c60fdf-cabb-42ac-ae83-2a5b556405b1",
+            "rate": 0.10167,
+            "type": "cash_dividends",
+            "cusip": "42250P103",
+            "symbol": "DOC",
+            "ex_date": "2025-09-19",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-09-19",
+            "payable_date": "2025-09-30",
+            "process_date": "2025-09-30"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "f02be69b-8e46-4781-a3b9-f9d971dcad32",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "DOC",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:20c60fdf-cabb-42ac-ae83-2a5b556405b1",
+        "CORPORATE_ACTION_REVIEW:26249850-7035-4222-9641-0d656488fdaa",
+        "CORPORATE_ACTION_REVIEW:41d8e9bf-b096-4d29-bd89-3b2e5cddbc3d",
+        "CORPORATE_ACTION_REVIEW:80dc492b-d834-4282-8136-a3d4b209a12f",
+        "CORPORATE_ACTION_REVIEW:8d929a0c-f6dc-4312-8345-ff76739a8f7f",
+        "CORPORATE_ACTION_REVIEW:a5a5aaa1-60e4-46d0-8338-2240cd386189",
+        "CORPORATE_ACTION_REVIEW:aa13f155-97d8-44a2-a70c-e0fddbe10dc0",
+        "CORPORATE_ACTION_REVIEW:aa83fdaf-c3ea-44f6-a46e-e2d66fbed7f2",
+        "CORPORATE_ACTION_REVIEW:aedddbaa-0ad3-47db-8e55-2a8a2fa83987",
+        "CORPORATE_ACTION_REVIEW:d5addac4-0f8e-4af1-8728-94d98d5ded97",
+        "CORPORATE_ACTION_REVIEW:ef1c9b24-8c2a-4d5a-a186-c8ea9d049a7f",
+        "CORPORATE_ACTION_REVIEW:f346e197-2891-4817-b2a0-53e02b50837a",
+        "CORPORATE_ACTION_REVIEW:f702ae59-1c8c-4a34-badb-705c6ae855c3",
+        "CORPORATE_ACTION_REVIEW:ff2de5ed-7a18-4dd1-be7a-5dc067e6f2cc"
+      ],
+      "instrument_id": "c7311e9d-497f-42c6-b5d8-a1acd3baad43",
+      "scoring_profile": "EQUITY_REIT",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "20032503b0d7c8bd9e508a677840e2bca095c7723053a6a985d54070be5570ab"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:22.440032+00:00",
+          "affected_key": "81d8adf4-6889-4be9-bce0-db1b97d2f8ee",
+          "action_boundary": "2025-07-10",
+          "provider_content": {
+            "id": "81d8adf4-6889-4be9-bce0-db1b97d2f8ee",
+            "rate": 1.5,
+            "type": "cash_dividends",
+            "cusip": "237194105",
+            "symbol": "DRI",
+            "ex_date": "2025-07-10",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-10",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "76d53bd7-6dd6-41fa-8fb0-761d5838ce7c",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "DRI",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:81d8adf4-6889-4be9-bce0-db1b97d2f8ee"
+      ],
+      "instrument_id": "923b9d9f-0e2c-4ed6-a9ec-06463bacbd61",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "69ee59c657bd41914725ec62205b467368d7601113d5e4ae1cee20dc0d4f95d0"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:03:06.129562+00:00",
+          "affected_key": "e434836c-344d-4e24-a40c-bc24987c0d73",
+          "action_boundary": "2026-06-24",
+          "provider_content": {
+            "id": "e434836c-344d-4e24-a40c-bc24987c0d73",
+            "type": "name_changes",
+            "new_cusip": "278768106",
+            "old_cusip": "278768106",
+            "new_symbol": "ECHO",
+            "old_symbol": "SATS",
+            "process_date": "2026-06-24"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d0e76aa3-44cf-4005-8037-64215757d4e8",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "ECHO",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:e434836c-344d-4e24-a40c-bc24987c0d73"
+      ],
+      "instrument_id": "2cb41e4f-7353-4c4c-8eec-05b59690ac96",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6490e7b1469619e99836e948239cd756e81b2cc3aa3b4fa09f9b90ae88132acf"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:32.975844+00:00",
+          "affected_key": "b0df392e-5b97-459e-aeba-2ef2b8cf7694",
+          "action_boundary": "2025-07-29",
+          "provider_content": {
+            "id": "b0df392e-5b97-459e-aeba-2ef2b8cf7694",
+            "rate": 0.22,
+            "type": "cash_dividends",
+            "cusip": "311900104",
+            "symbol": "FAST",
+            "ex_date": "2025-07-29",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-29",
+            "payable_date": "2025-08-26",
+            "process_date": "2025-08-26"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "1ff8dd75-62ee-4467-8922-302813414aae",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "FAST",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:b0df392e-5b97-459e-aeba-2ef2b8cf7694"
+      ],
+      "instrument_id": "4683e587-1998-41bf-b4db-58b8a162601f",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "f375f24c0437ac41ef10545a49125a7676b8062c592b6544e04156526697d83d"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:08.521552+00:00",
+          "affected_key": "aa692c16-2762-44ff-836d-1ed84f5c6787",
+          "action_boundary": "2025-07-15",
+          "provider_content": {
+            "id": "aa692c16-2762-44ff-836d-1ed84f5c6787",
+            "rate": 0.15,
+            "type": "cash_dividends",
+            "cusip": "35671D857",
+            "symbol": "FCX",
+            "ex_date": "2025-07-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-15",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2e753912-a50a-494f-afe6-76769f672821",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "94b30cdf028d6578088b2655b8bc81760a2aff716852614bf2e44c403039c309"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:08.521552+00:00",
+          "affected_key": "9190a42f-b673-4361-aa29-a306825d1814",
+          "action_boundary": "2025-07-15",
+          "provider_content": {
+            "id": "9190a42f-b673-4361-aa29-a306825d1814",
+            "rate": 0.075,
+            "type": "cash_dividends",
+            "cusip": "35671D857",
+            "symbol": "FCX",
+            "ex_date": "2025-07-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-15",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "9aa9e2b2-abae-43a7-91ac-4718b39aeab5",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "FCX",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:9190a42f-b673-4361-aa29-a306825d1814",
+        "CORPORATE_ACTION_REVIEW:aa692c16-2762-44ff-836d-1ed84f5c6787"
+      ],
+      "instrument_id": "74f04780-1ce2-445f-b3fb-f3252a2bcf0f",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "bbee1a7056dedb4163e62eeec349feae4aea359e9eb4848249b3cb280aafb907"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:02:35.06767+00:00",
+          "affected_key": "ec9ece1b-bd85-49db-9234-a431ac703c5e",
+          "action_boundary": "2026-06-01",
+          "provider_content": {
+            "id": "ec9ece1b-bd85-49db-9234-a431ac703c5e",
+            "type": "spin_offs",
+            "ex_date": "2026-06-01",
+            "new_rate": 0.5,
+            "new_cusip": "314352105",
+            "new_symbol": "FDXF",
+            "record_date": "2026-05-15",
+            "source_rate": 1,
+            "payable_date": "2026-06-01",
+            "process_date": "2026-06-01",
+            "source_cusip": "31428X106",
+            "source_symbol": "FDX",
+            "due_bill_redemption_date": "2026-06-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "37786ddd-16ca-4ecf-91be-7ac5e6eba965",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "FDX",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:ec9ece1b-bd85-49db-9234-a431ac703c5e"
+      ],
+      "instrument_id": "40688838-9db7-49ec-a074-33fdc11c5658",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "FER",
+      "reasons": [
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "8d12ba2b-e873-44ed-be10-5ac57a4e5e64",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "acdec855c66d30772449fbc1de17cddd3c5d895f1505cd392c0ca177772736d5"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:54.596305+00:00",
+          "affected_key": "b5b0db96-c283-4eeb-8ab4-6e04393a88b0",
+          "action_boundary": "2025-06-20",
+          "provider_content": {
+            "id": "b5b0db96-c283-4eeb-8ab4-6e04393a88b0",
+            "rate": 0.83,
+            "type": "cash_dividends",
+            "cusip": "31488V107",
+            "symbol": "FERG",
+            "ex_date": "2025-06-20",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-06-20",
+            "payable_date": "2025-08-06",
+            "process_date": "2025-08-06"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "e9f75e81-5651-4ac0-97f4-a00702a0a74f",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "FERG",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:b5b0db96-c283-4eeb-8ab4-6e04393a88b0"
+      ],
+      "instrument_id": "b22b9506-3450-4e28-9783-3de418c985c6",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "FOX",
+      "reasons": [
+        "NON_PRIMARY_SHARE_CLASS"
+      ],
+      "instrument_id": "0a5a8199-a4bd-4420-bf02-47e7f8e6fe31",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "871a447ad4cfc1f3ebb81484206c02823281d71050fd58bd63d3b1438d6df328"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:00.188801+00:00",
+          "affected_key": "61beb352-d49a-43ca-88e4-cdc13893575e",
+          "action_boundary": "2025-07-03",
+          "provider_content": {
+            "id": "61beb352-d49a-43ca-88e4-cdc13893575e",
+            "rate": 1.5,
+            "type": "cash_dividends",
+            "cusip": "369550108",
+            "symbol": "GD",
+            "ex_date": "2025-07-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-03",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "6df316ea-2d6a-4d91-ba78-0e7d08283fc5",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "GD",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:61beb352-d49a-43ca-88e4-cdc13893575e"
+      ],
+      "instrument_id": "9648c912-68c3-4ec4-ab62-4a1cab9e5c2a",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "cb004d40c1e84064af577bbfb2acf2620b1c4b5147cb83d92fb3cff9bd6157af"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:07.927411+00:00",
+          "affected_key": "3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+          "action_boundary": "2025-07-25",
+          "provider_content": {
+            "id": "3092c26b-d179-4ff8-8a3a-f8318007f0a2",
+            "rate": 0.035,
+            "type": "cash_dividends",
+            "cusip": "36266G107",
+            "symbol": "GEHC",
+            "ex_date": "2025-07-25",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-25",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "99690adc-779a-403e-b519-62cf00d9b656",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "GEHC",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:3092c26b-d179-4ff8-8a3a-f8318007f0a2"
+      ],
+      "instrument_id": "a1c9ce73-34a5-411f-b089-5521181ffc56",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "4701449bb3fe3684436ebcb67099fb89b91906813d75b14ff82f95534c702018"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:58.745359+00:00",
+          "affected_key": "6e377a3b-7f44-4244-9f29-4209f4496cf2",
+          "action_boundary": "2025-07-21",
+          "provider_content": {
+            "id": "6e377a3b-7f44-4244-9f29-4209f4496cf2",
+            "rate": 0.25,
+            "type": "cash_dividends",
+            "cusip": "36828A101",
+            "symbol": "GEV",
+            "ex_date": "2025-07-21",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-21",
+            "payable_date": "2025-08-18",
+            "process_date": "2025-08-18"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "016c3648-6a82-40ed-8582-4cc47707a251",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "GEV",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:6e377a3b-7f44-4244-9f29-4209f4496cf2"
+      ],
+      "instrument_id": "ac4b5eab-9730-446f-9d96-ed0410490e33",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "b54b283c3e4e108cfe825d79a6c7f4bb4d20d280916c8a7ab09989f13dfb4aa4"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:18.096761+00:00",
+          "affected_key": "68a99382-7c0b-488f-be7f-6da2eff819c1",
+          "action_boundary": "2025-07-10",
+          "provider_content": {
+            "id": "68a99382-7c0b-488f-be7f-6da2eff819c1",
+            "rate": 0.61,
+            "type": "cash_dividends",
+            "cusip": "370334104",
+            "symbol": "GIS",
+            "ex_date": "2025-07-10",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-10",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2fd7446d-ba18-487a-a69c-19fa8b3cd34f",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "GIS",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:68a99382-7c0b-488f-be7f-6da2eff819c1"
+      ],
+      "instrument_id": "b39a2e59-adc4-4e5c-b54f-f156e0e68873",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "613453670118aca8bbc8b6f72ad20ce502347d882fa1092a095f07b4e7fc81a2"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:15.663224+00:00",
+          "affected_key": "0a4efa71-d13b-4cad-984f-bb677d4f47b9",
+          "action_boundary": "2025-07-03",
+          "provider_content": {
+            "id": "0a4efa71-d13b-4cad-984f-bb677d4f47b9",
+            "rate": 0.27,
+            "type": "cash_dividends",
+            "cusip": "37959E102",
+            "symbol": "GL",
+            "ex_date": "2025-07-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-03",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2bba9099-bffd-4324-b30f-5130ba5fc425",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "GL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:0a4efa71-d13b-4cad-984f-bb677d4f47b9"
+      ],
+      "instrument_id": "23d95b6b-4364-4608-919c-16d99525bcdd",
+      "scoring_profile": "INSURER",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "GOOG",
+      "reasons": [
+        "NON_PRIMARY_SHARE_CLASS"
+      ],
+      "instrument_id": "6dd407ad-a409-4f01-bbd7-b1a14886bd9d",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "7f97559275efad62865465b3e32c06d3153f101cf5b3518bc48850d363ddb9df"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:03:08.673462+00:00",
+          "affected_key": "09d778ab-97a9-47ee-9bad-aaa7353323ae",
+          "action_boundary": "2025-10-30",
+          "provider_content": {
+            "id": "09d778ab-97a9-47ee-9bad-aaa7353323ae",
+            "type": "spin_offs",
+            "ex_date": "2025-10-30",
+            "new_rate": 0.25,
+            "new_cusip": "83443Q103",
+            "new_symbol": "SOLS",
+            "record_date": "2025-10-17",
+            "source_rate": 1,
+            "payable_date": "2025-10-30",
+            "process_date": "2025-10-30",
+            "source_cusip": "438516106",
+            "source_symbol": "HON"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "bbe2c8f0-7ae1-4b24-b63c-4d537b7fa400",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        },
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "1922d4a6474f1487ae7eb4a553806635f25ad04f167072a7e878f67359270c80"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:03:08.821954+00:00",
+          "affected_key": "87a92cb7-9afb-4814-a146-e3abb46a4fdb",
+          "action_boundary": "2026-06-29",
+          "provider_content": {
+            "id": "87a92cb7-9afb-4814-a146-e3abb46a4fdb",
+            "type": "spin_offs",
+            "ex_date": "2026-06-29",
+            "new_rate": 0.5,
+            "new_cusip": "43849R105",
+            "new_symbol": "HONA",
+            "record_date": "2026-06-15",
+            "source_rate": 1,
+            "payable_date": "2026-06-29",
+            "process_date": "2026-06-29",
+            "source_cusip": "438516106",
+            "source_symbol": "HON",
+            "due_bill_redemption_date": "2026-06-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d32ca4d3-723b-49a8-9ebb-329b7bb58006",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "HON",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:09d778ab-97a9-47ee-9bad-aaa7353323ae",
+        "CORPORATE_ACTION_REVIEW:87a92cb7-9afb-4814-a146-e3abb46a4fdb"
+      ],
+      "instrument_id": "1ef3e64e-8a72-4a59-89b8-0f474a36b7ba",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "9f57efda5a9e8145eee0bd45b454758b89b77de778da015708259a86a1b10941"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:55.880333+00:00",
+          "affected_key": "d4de0988-7015-4758-9189-1293c2978ecf",
+          "action_boundary": "2026-06-29",
+          "provider_content": {
+            "id": "d4de0988-7015-4758-9189-1293c2978ecf",
+            "type": "name_changes",
+            "new_cusip": "43849R105",
+            "old_cusip": "43849R105",
+            "new_symbol": "HONA",
+            "old_symbol": "HONAV",
+            "process_date": "2026-06-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "a467e5a3-3779-45dd-945f-11888d7e8599",
+          "earliest_matching_symbol_date": null,
+          "symbol_history_starts_after_action": null
+        }
+      ],
+      "symbol": "HONA",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d4de0988-7015-4758-9189-1293c2978ecf"
+      ],
+      "instrument_id": "97e6932f-7dca-4a6f-b955-5bd469481ee6",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "20b3c976288503f5ff764ba7d5f157a5d2d7891aa4c212137236403fc4ffd338"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:16.158928+00:00",
+          "affected_key": "d1e03888-c1eb-4f5e-805e-5bb0941d1412",
+          "action_boundary": "2025-07-14",
+          "provider_content": {
+            "id": "d1e03888-c1eb-4f5e-805e-5bb0941d1412",
+            "rate": 0.29,
+            "type": "cash_dividends",
+            "cusip": "440452100",
+            "symbol": "HRL",
+            "ex_date": "2025-07-14",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-14",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "3bc6ecfa-a016-45d6-b801-f57d9f3cd9d8",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "HRL",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d1e03888-c1eb-4f5e-805e-5bb0941d1412"
+      ],
+      "instrument_id": "d69b9ef3-6d56-4a68-b2d4-77cd9fe981b4",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "eb5b69bf68421be5ade4aebfc6c6aa39a13afe8d6d473eccf9460d2ccc6bec9e"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:58.189238+00:00",
+          "affected_key": "e0950398-fc3e-4fc9-ab46-8c3199464d5e",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "e0950398-fc3e-4fc9-ab46-8c3199464d5e",
+            "rate": 0.2925,
+            "type": "cash_dividends",
+            "cusip": "49456B101",
+            "symbol": "KMI",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d1555bd7-a4e7-4115-9876-b874877c2ec2",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "KMI",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:e0950398-fc3e-4fc9-ab46-8c3199464d5e"
+      ],
+      "instrument_id": "4c68bf02-f089-4813-8311-af47c7d6b3e4",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "dcab71e9a4452372eef744acecc9bfdba5c48e67f73f8e3797873436037edd50"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:16.715808+00:00",
+          "affected_key": "6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad",
+            "rate": 0.5075,
+            "type": "cash_dividends",
+            "cusip": "018802108",
+            "symbol": "LNT",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2b67b219-23c0-4255-bb80-7e6c893907c9",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "LNT",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:6daf53b8-3a8d-43c6-8d4e-2f26d57c12ad"
+      ],
+      "instrument_id": "45d32f25-2fa9-4bf1-ae78-5a49e47aeee6",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6b90915298f0c4136f57b48adb255bfd37428371f1302fa6a6e2926941ecd92f"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:26.268308+00:00",
+          "affected_key": "9f0dfdb9-fdda-4df2-90c5-50f3f3349d41",
+          "action_boundary": "2025-07-23",
+          "provider_content": {
+            "id": "9f0dfdb9-fdda-4df2-90c5-50f3f3349d41",
+            "rate": 1.2,
+            "type": "cash_dividends",
+            "cusip": "548661107",
+            "symbol": "LOW",
+            "ex_date": "2025-07-23",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-23",
+            "payable_date": "2025-08-06",
+            "process_date": "2025-08-06"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2204487d-ac85-40ce-a6c1-7b6e71125586",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "LOW",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:9f0dfdb9-fdda-4df2-90c5-50f3f3349d41"
+      ],
+      "instrument_id": "0f6917fc-3f86-4787-804d-a08e0eba7f9e",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "95b1801c0e3c488b1af600c03723b510a07a416dd1e66f53f8dae9ba40f768b5"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:12.259291+00:00",
+          "affected_key": "e41bc546-fd39-4e4a-9ed9-b221bf6a8499",
+          "action_boundary": "2025-07-09",
+          "provider_content": {
+            "id": "e41bc546-fd39-4e4a-9ed9-b221bf6a8499",
+            "rate": 0.76,
+            "type": "cash_dividends",
+            "cusip": "57636Q104",
+            "symbol": "MA",
+            "ex_date": "2025-07-09",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-09",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "b38f94a4-3869-448d-b447-e10db0872884",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "MA",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:e41bc546-fd39-4e4a-9ed9-b221bf6a8499"
+      ],
+      "instrument_id": "e5dab1a6-e646-4904-a51b-9cc2cc7a529a",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "439c590e0dcf8d0bed4bc366014867efa18eb1039a3386bde0e5045f8b4b656d"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:53.651987+00:00",
+          "affected_key": "d6776958-2e3b-42b2-a611-cffe5d29f29d",
+          "action_boundary": "2025-07-24",
+          "provider_content": {
+            "id": "d6776958-2e3b-42b2-a611-cffe5d29f29d",
+            "rate": 0.9,
+            "type": "cash_dividends",
+            "cusip": "571748102",
+            "symbol": "MMC",
+            "ex_date": "2025-07-24",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-24",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "84a1b4d2-2d96-4bf2-b34a-0d5a3ef30318",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "MRSH",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d6776958-2e3b-42b2-a611-cffe5d29f29d"
+      ],
+      "instrument_id": "9e81a001-0c2b-4f87-b6ea-822874eaa456",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "0fbb13957695513a5959c80db9eb4b8bdb12eca3623234d701bd564554e54c0d"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:21.398148+00:00",
+          "affected_key": "7fad7e1a-1763-4c9b-b761-2e6de53fd9be",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "7fad7e1a-1763-4c9b-b761-2e6de53fd9be",
+            "rate": 1,
+            "type": "cash_dividends",
+            "cusip": "617446448",
+            "symbol": "MS",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "2294fb15-94b2-475c-ada3-5ec1e7f5d9c4",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "MS",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:7fad7e1a-1763-4c9b-b761-2e6de53fd9be"
+      ],
+      "instrument_id": "64fc5811-1a8d-4c48-9861-80462c463300",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "NBIS",
+      "reasons": [
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "2b1523bc-f02f-492d-875f-72082205b46d",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "f2aba24e87b8480d1040fbc1a3b47b4e7d55a108972a768c2d2d5ae5b4dee0ac"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:53.847292+00:00",
+          "affected_key": "2e263b6f-5f90-4ddf-a884-d0681c1b060a",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "2e263b6f-5f90-4ddf-a884-d0681c1b060a",
+            "rate": 0.28,
+            "type": "cash_dividends",
+            "cusip": "65473P105",
+            "symbol": "NI",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-20",
+            "process_date": "2025-08-20"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "7cb9fa67-abda-4a00-a895-8ba6f288212b",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "NI",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:2e263b6f-5f90-4ddf-a884-d0681c1b060a"
+      ],
+      "instrument_id": "14adb876-3511-45d4-9475-a1d8b63e5e6f",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "3c3175fad1bc69af3e8023f76f81f722ed4db480f99ba6ce18f305683835bb60"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:58.497262+00:00",
+          "affected_key": "3717fd66-ea93-4373-ab0a-53ee04f9bb77",
+          "action_boundary": "2025-06-30",
+          "provider_content": {
+            "id": "3717fd66-ea93-4373-ab0a-53ee04f9bb77",
+            "rate": 0.55,
+            "type": "cash_dividends",
+            "cusip": "670346105",
+            "symbol": "NUE",
+            "ex_date": "2025-06-30",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-06-30",
+            "payable_date": "2025-08-11",
+            "process_date": "2025-08-11"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "39384995-9f05-4b18-ae77-a606c1a204f1",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "NUE",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:3717fd66-ea93-4373-ab0a-53ee04f9bb77"
+      ],
+      "instrument_id": "046b5b93-72b4-4ac7-a91c-8f61a1036998",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "NWS",
+      "reasons": [
+        "NON_PRIMARY_SHARE_CLASS"
+      ],
+      "instrument_id": "26285223-fdd0-489a-aa89-6ac396fa51f0",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "665317aa588989174c8c7fae70cd3fc114b90c71116ad3acbf95af56fc85d9d5"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:02.205758+00:00",
+          "affected_key": "c47e1181-eab1-463c-b9de-5a06650faced",
+          "action_boundary": "2026-08-03",
+          "provider_content": {
+            "id": "c47e1181-eab1-463c-b9de-5a06650faced",
+            "rate": 1.07,
+            "type": "cash_dividends",
+            "cusip": "682680103",
+            "symbol": "OKE",
+            "ex_date": "2026-08-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-08-03",
+            "payable_date": "2026-08-14",
+            "process_date": "2026-08-14"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "0ba03896-c39c-4bdc-b3b2-4317eb0d6d32",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "db6b66657a71d8ceaaef66ad6b8077df63d07d60b412258292641af1a9f8ecb5"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:02.005291+00:00",
+          "affected_key": "88d7a547-f07c-4659-8688-06f9fcca4a80",
+          "action_boundary": "2025-11-03",
+          "provider_content": {
+            "id": "88d7a547-f07c-4659-8688-06f9fcca4a80",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "682680103",
+            "symbol": "OKE",
+            "ex_date": "2025-11-03",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-11-03",
+            "payable_date": "2025-11-14",
+            "process_date": "2025-11-14"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "0c0d2397-7f38-434c-93be-6bd2812706db",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "26301f3f9660ddc725ceccc3052ddff7d9f64f29b43408873a7c8ac9162c6900"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:02.153989+00:00",
+          "affected_key": "a2901367-bd9c-4757-ae6e-9eb950044914",
+          "action_boundary": "2026-02-02",
+          "provider_content": {
+            "id": "a2901367-bd9c-4757-ae6e-9eb950044914",
+            "rate": 1.07,
+            "type": "cash_dividends",
+            "cusip": "682680103",
+            "symbol": "OKE",
+            "ex_date": "2026-02-02",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-02-02",
+            "payable_date": "2026-02-13",
+            "process_date": "2026-02-13"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "41049045-4531-4864-8008-032ddb902e49",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "14a39d9c25a2d436759991d446e32807b6ae33e203aea5d4148be55f75410b89"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:02.04282+00:00",
+          "affected_key": "19bb1b50-70f7-467e-8e58-a1033feee40f",
+          "action_boundary": "2026-05-04",
+          "provider_content": {
+            "id": "19bb1b50-70f7-467e-8e58-a1033feee40f",
+            "rate": 1.07,
+            "type": "cash_dividends",
+            "cusip": "682680103",
+            "symbol": "OKE",
+            "ex_date": "2026-05-04",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-05-04",
+            "payable_date": "2026-05-15",
+            "process_date": "2026-05-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "4ba9afa3-9ee8-4c77-9f45-2f24a5fe0665",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "57cca162ef43839234a774fb6224284af5a7ff87d73c19140705cbc4b2863d2d"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:02.077684+00:00",
+          "affected_key": "9ea40639-5017-43f4-a6b9-e119c813f28e",
+          "action_boundary": "2025-08-01",
+          "provider_content": {
+            "id": "9ea40639-5017-43f4-a6b9-e119c813f28e",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "682680103",
+            "symbol": "OKE",
+            "ex_date": "2025-08-01",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-08-01",
+            "payable_date": "2025-08-14",
+            "process_date": "2025-08-14"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c1297e9f-be23-48c2-b190-6c18db20f3a1",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "087279df393a62a5da50f9ac5613c725bbd26a1f2910b81be3577699535d5786"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:03:02.113644+00:00",
+          "affected_key": "f91ae982-5eaf-49bc-970a-d541f59b838d",
+          "action_boundary": "2026-09-11",
+          "provider_content": {
+            "id": "f91ae982-5eaf-49bc-970a-d541f59b838d",
+            "type": "name_changes",
+            "new_cusip": "30609A109",
+            "old_cusip": "682680103",
+            "new_symbol": "OKE",
+            "old_symbol": "OKE",
+            "process_date": "2026-09-11"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "e9acc812-255b-4631-8529-7d05cd23a7e2",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "OKE",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:19bb1b50-70f7-467e-8e58-a1033feee40f",
+        "CORPORATE_ACTION_REVIEW:88d7a547-f07c-4659-8688-06f9fcca4a80",
+        "CORPORATE_ACTION_REVIEW:9ea40639-5017-43f4-a6b9-e119c813f28e",
+        "CORPORATE_ACTION_REVIEW:a2901367-bd9c-4757-ae6e-9eb950044914",
+        "CORPORATE_ACTION_REVIEW:c47e1181-eab1-463c-b9de-5a06650faced",
+        "CORPORATE_ACTION_REVIEW:f91ae982-5eaf-49bc-970a-d541f59b838d"
+      ],
+      "instrument_id": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "1a8e0e5d212c57cfb7358dec7976a56986ba40bc166011f5a5e2fccee3406d68"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:37.275524+00:00",
+          "affected_key": "0824a8ad-1531-415e-96ee-6e9e1dcd1b8f",
+          "action_boundary": "2026-04-17",
+          "provider_content": {
+            "id": "0824a8ad-1531-415e-96ee-6e9e1dcd1b8f",
+            "type": "name_changes",
+            "new_cusip": "74624M102",
+            "old_cusip": "74624M102",
+            "new_symbol": "P",
+            "old_symbol": "PSTG",
+            "process_date": "2026-04-17"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "778f991c-02d0-4eec-bef8-835c1f38383a",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "P",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:0824a8ad-1531-415e-96ee-6e9e1dcd1b8f"
+      ],
+      "instrument_id": "b6df52a6-1a23-4998-8435-99eeffa494ac",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1f00a62352565c1252579d80e9f23c739ba6e9c2317b1050ec87456f09316874"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:57.440142+00:00",
+          "affected_key": "31264698-05ab-4419-a5f6-7a356473a216",
+          "action_boundary": "2025-07-21",
+          "provider_content": {
+            "id": "31264698-05ab-4419-a5f6-7a356473a216",
+            "rate": 1.08,
+            "type": "cash_dividends",
+            "cusip": "704326107",
+            "symbol": "PAYX",
+            "ex_date": "2025-07-21",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-21",
+            "payable_date": "2025-08-29",
+            "process_date": "2025-08-29"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "5120ea3c-a3e3-4907-833e-59ca53a483d3",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "PAYX",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:31264698-05ab-4419-a5f6-7a356473a216"
+      ],
+      "instrument_id": "09c72306-8d65-4d44-b624-1463f3628165",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "PDD",
+      "reasons": [
+        "INACTIVE_OR_UNSUPPORTED_SECURITY",
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "8d901df3-4736-401d-85fc-b326d07079e5",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "26ce34a9741b643d6677301d39605a6231dd1e315a07d7e583e503bdc1ab472b"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:55.035732+00:00",
+          "affected_key": "f7e352e2-af27-4570-b8f6-29fdaf0f03b7",
+          "action_boundary": "2025-07-25",
+          "provider_content": {
+            "id": "f7e352e2-af27-4570-b8f6-29fdaf0f03b7",
+            "rate": 0.43,
+            "type": "cash_dividends",
+            "cusip": "717081103",
+            "symbol": "PFE",
+            "ex_date": "2025-07-25",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-25",
+            "payable_date": "2025-09-02",
+            "process_date": "2025-09-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "4a95253f-4d88-4aab-b7a7-17f4309a5138",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "PFE",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:f7e352e2-af27-4570-b8f6-29fdaf0f03b7"
+      ],
+      "instrument_id": "78cd0682-a30c-4c31-933e-5ba611c5bf2a",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "b663007143391bd9c7fb53b8967e7bf63a578a9c4875129acd8f94863307ded4"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:16.511159+00:00",
+          "affected_key": "979158b1-1ba4-4ed8-a2e1-4dc059fd3669",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "979158b1-1ba4-4ed8-a2e1-4dc059fd3669",
+            "rate": 1.0568,
+            "type": "cash_dividends",
+            "cusip": "742718109",
+            "symbol": "PG",
+            "ex_date": "2025-07-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "9e0d7846-1bf5-4a98-a2b4-3e417eb5e698",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "PG",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:979158b1-1ba4-4ed8-a2e1-4dc059fd3669"
+      ],
+      "instrument_id": "697b6688-2d36-40f1-913d-0f4944f5df61",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "f27df569595003fd8284d9e3a4df5df4db7fe9f002f645fae754dafebeaef534"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:22.952784+00:00",
+          "affected_key": "51ca1fbb-c2da-4866-ba1a-70039453db08",
+          "action_boundary": "2025-07-15",
+          "provider_content": {
+            "id": "51ca1fbb-c2da-4866-ba1a-70039453db08",
+            "rate": 1.7,
+            "type": "cash_dividends",
+            "cusip": "693475105",
+            "symbol": "PNC",
+            "ex_date": "2025-07-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-15",
+            "payable_date": "2025-08-05",
+            "process_date": "2025-08-05"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "eed27ef5-d54c-4d4b-b121-b14db3f50121",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "PNC",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:51ca1fbb-c2da-4866-ba1a-70039453db08"
+      ],
+      "instrument_id": "bb6d41f2-468b-4fad-8ae2-6cee129aa4c8",
+      "scoring_profile": "FINANCIAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "1dc7439ab2ca91dff311bc22b60c789f632ecbfe33d7501622b0b2aec6fb973e"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:21.841875+00:00",
+          "affected_key": "d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c",
+            "rate": 0.25,
+            "type": "cash_dividends",
+            "cusip": "G7S00T104",
+            "symbol": "PNR",
+            "ex_date": "2025-07-18",
+            "foreign": true,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "dcf97d31-56b4-4bd1-92c7-33a130e9347a",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "PNR",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d2f76c3a-ed5d-4189-96ba-a4f5f6f1671c"
+      ],
+      "instrument_id": "0c2b09ce-dbc7-458b-b7aa-d2cb16a306ef",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "PSKY",
+      "reasons": [
+        "INCOMPLETE_LIQUIDITY_WINDOW",
+        "MISSING_SCORE_DATE_PRICE",
+        "NOT_REPORTED:ADJUSTED_CLOSE"
+      ],
+      "instrument_id": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "95d21928814800b83701d92fce91d756d3758bf31ae877397b60562b718ffeee"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:30.545021+00:00",
+          "affected_key": "0b29f3f7-e550-414b-a536-39b91319d576",
+          "action_boundary": "2025-11-03",
+          "provider_content": {
+            "id": "0b29f3f7-e550-414b-a536-39b91319d576",
+            "type": "name_changes",
+            "new_cusip": "74743L100",
+            "old_cusip": "74743L100",
+            "new_symbol": "Q",
+            "old_symbol": "Q.WI",
+            "process_date": "2025-11-03"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "23395fab-64da-40b0-b4f0-9d2c603450fd",
+          "earliest_matching_symbol_date": null,
+          "symbol_history_starts_after_action": null
+        }
+      ],
+      "symbol": "Q",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:0b29f3f7-e550-414b-a536-39b91319d576"
+      ],
+      "instrument_id": "564b17ae-5270-4974-b8d6-2c2fd0038948",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "7cd2ccada9704901b71e06ebd63fbda9d06be3477918039ff928f7ac66ab1334"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:20.86939+00:00",
+          "affected_key": "f3e18fe8-6c28-49bf-b1e7-02f3127843b3",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "f3e18fe8-6c28-49bf-b1e7-02f3127843b3",
+            "rate": 0.07,
+            "type": "cash_dividends",
+            "cusip": "714046109",
+            "symbol": "RVTY",
+            "ex_date": "2025-07-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-08-08",
+            "process_date": "2025-08-08"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "a4c56b7d-31f7-494f-ab43-6ad934f3af0f",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "RVTY",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:f3e18fe8-6c28-49bf-b1e7-02f3127843b3"
+      ],
+      "instrument_id": "48915c2c-741c-4387-ac72-24fb43eebb63",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "SPCX",
+      "reasons": [
+        "SECURITY_IDENTITY_REVIEW:SPCX"
+      ],
+      "instrument_id": "0485b5ed-85a6-4e40-a978-65919a0f89bd",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "spin_offs",
+            "reason": "identity or required terms unresolved",
+            "revision": "e24c6db5b6bf9096fe7c82160881e715ee79ab37d0d522e2388b09dc9be4adac"
+          },
+          "action_type": "spin_offs",
+          "detected_at": "2026-09-26T12:02:24.957058+00:00",
+          "affected_key": "d4f8cb93-e10f-4ee9-8484-3ed67053b281",
+          "action_boundary": "2026-07-01",
+          "provider_content": {
+            "id": "d4f8cb93-e10f-4ee9-8484-3ed67053b281",
+            "type": "spin_offs",
+            "ex_date": "2026-07-01",
+            "new_rate": 1,
+            "new_cusip": "60744M106",
+            "new_symbol": "MBGL",
+            "record_date": "2026-06-15",
+            "source_rate": 1,
+            "payable_date": "2026-07-01",
+            "process_date": "2026-07-01",
+            "source_cusip": "78409V104",
+            "source_symbol": "SPGI"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "aa5a71ce-108b-4623-b5ac-4254138ab9cb",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "SPGI",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:d4f8cb93-e10f-4ee9-8484-3ed67053b281"
+      ],
+      "instrument_id": "ea6ffa50-765d-4cf6-985d-73883f1f4dae",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "65c3b2c161267dd1f7a6fd086ec1e71de58244f87099b493a52e0876104f4ea0"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:03:04.560164+00:00",
+          "affected_key": "b3db7f5b-b874-4ba3-92d1-38a178f1d867",
+          "action_boundary": "2025-07-30",
+          "provider_content": {
+            "id": "b3db7f5b-b874-4ba3-92d1-38a178f1d867",
+            "rate": 1.02,
+            "type": "cash_dividends",
+            "cusip": "21036P108",
+            "symbol": "STZ",
+            "ex_date": "2025-07-30",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-30",
+            "payable_date": "2025-08-14",
+            "process_date": "2025-08-14"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "e47008db-63b9-4302-a08d-cb5c8996bf6e",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "STZ",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:b3db7f5b-b874-4ba3-92d1-38a178f1d867"
+      ],
+      "instrument_id": "a5c59fbe-fd84-4733-9dd4-c6d0e5a966cf",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "f814fd0dbd45bc4889fc5f4d59b057b199ebbd74fd7681fd520a454d61e02045"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:24.41802+00:00",
+          "affected_key": "5793e2fa-7c96-4076-abe4-d55969885cc1",
+          "action_boundary": "2025-07-10",
+          "provider_content": {
+            "id": "5793e2fa-7c96-4076-abe4-d55969885cc1",
+            "rate": 0.2775,
+            "type": "cash_dividends",
+            "cusip": "00206R102",
+            "symbol": "T",
+            "ex_date": "2025-07-10",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-10",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "8e68f10c-c3a0-4d76-bcf0-91a083083a65",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "T",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:5793e2fa-7c96-4076-abe4-d55969885cc1"
+      ],
+      "instrument_id": "0211c50f-a073-426d-b6da-2d74e66ce9e0",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6ccd85d9e4c2df9d6885cc46c58bfa741ffc5730db4ba78a00e754aa287a2718"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:58.980549+00:00",
+          "affected_key": "022d81eb-7072-4109-b290-af82df73f362",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "022d81eb-7072-4109-b290-af82df73f362",
+            "rate": 1,
+            "type": "cash_dividends",
+            "cusip": "87612G101",
+            "symbol": "TRGP",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-15",
+            "process_date": "2025-08-15"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "9b02fbe5-48fb-4292-8b47-972265388c0c",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "TRGP",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:022d81eb-7072-4109-b290-af82df73f362"
+      ],
+      "instrument_id": "830ca212-75c2-4042-afdc-09c50fcafdcd",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "stock_and_cash_mergers",
+            "reason": "identity or required terms unresolved",
+            "revision": "64817e944b407c122650bb4ca7210e040de653314ce2f94c9d46222999ab3e8c"
+          },
+          "action_type": "stock_and_cash_mergers",
+          "detected_at": "2026-09-26T12:02:56.489113+00:00",
+          "affected_key": "65657e53-ac83-4b93-9dea-47b93c4a4267",
+          "action_boundary": "2026-05-04",
+          "provider_content": {
+            "id": "65657e53-ac83-4b93-9dea-47b93c4a4267",
+            "type": "stock_and_cash_mergers",
+            "cash_rate": 1.435518,
+            "payable_date": "2026-05-05",
+            "process_date": "2026-05-05",
+            "acquiree_rate": 1,
+            "acquirer_rate": 0.98456,
+            "acquiree_cusip": "884903808",
+            "acquirer_cusip": "884903881",
+            "effective_date": "2026-05-04",
+            "acquiree_symbol": "TRI",
+            "acquirer_symbol": "TRI"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "d3c9df1d-729b-4ece-b517-5cd231159e4d",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "TRI",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:65657e53-ac83-4b93-9dea-47b93c4a4267",
+        "STALE_OR_MISSING_FILING"
+      ],
+      "instrument_id": "d6522320-a1fc-4269-9f7b-40f79645913b",
+      "scoring_profile": "UNKNOWN",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "a12d961e43a4e75df355633ca40b7245a73fbc643daa285eed93f5553562b3aa"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:30.220582+00:00",
+          "affected_key": "81b2dc52-2aa0-4b0b-a069-bd10631612f1",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "81b2dc52-2aa0-4b0b-a069-bd10631612f1",
+            "rate": 1.36,
+            "type": "cash_dividends",
+            "cusip": "882508104",
+            "symbol": "TXN",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-08-12",
+            "process_date": "2025-08-12"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "5866c988-ed41-4c7a-8d73-785128f6d9c1",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "TXN",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:81b2dc52-2aa0-4b0b-a069-bd10631612f1"
+      ],
+      "instrument_id": "dd600ad2-def8-40e0-82f4-d0bf696efb8f",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "78275ae56796374ae6ed082bdc899805ab8bd475a2ea386423a51a951e22c0ba"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:32.645723+00:00",
+          "affected_key": "2ef9e794-dc41-46eb-91a0-84ef8cd8ff2d",
+          "action_boundary": "2025-07-31",
+          "provider_content": {
+            "id": "2ef9e794-dc41-46eb-91a0-84ef8cd8ff2d",
+            "rate": 1.13,
+            "type": "cash_dividends",
+            "cusip": "91913Y100",
+            "symbol": "VLO",
+            "ex_date": "2025-07-31",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-31",
+            "payable_date": "2025-09-02",
+            "process_date": "2025-09-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "0bdb1719-956d-4572-ac55-56607d57c379",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "VLO",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:2ef9e794-dc41-46eb-91a0-84ef8cd8ff2d"
+      ],
+      "instrument_id": "8124bddd-1f61-4044-8d7f-55b315aaa2a7",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "eb38a22ea2b402e69ca08dcaaa2fdb00d4b26cb1341a9db0dbeaa278a30116a1"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:36.357147+00:00",
+          "affected_key": "5cb4d1cb-10dc-42b0-9e6b-4dcfa3352758",
+          "action_boundary": "2026-08-18",
+          "provider_content": {
+            "id": "5cb4d1cb-10dc-42b0-9e6b-4dcfa3352758",
+            "type": "name_changes",
+            "new_cusip": "29476L107",
+            "old_cusip": "29476L107",
+            "new_symbol": "VMRK",
+            "old_symbol": "EQR",
+            "process_date": "2026-08-18"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "597f629c-e1a1-4a52-aa72-3935c00ce94a",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": false
+        }
+      ],
+      "symbol": "VMRK",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:5cb4d1cb-10dc-42b0-9e6b-4dcfa3352758"
+      ],
+      "instrument_id": "9d5f1ddb-36c7-467b-9318-0bb9a438fd13",
+      "scoring_profile": "EQUITY_REIT",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "ee5ebd7c506c162890b1a273cbfa491d5f4bb8b54da6b3b0135464260ebb64ba"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:55.005761+00:00",
+          "affected_key": "6228634a-8c64-4967-95ef-04d18ed73997",
+          "action_boundary": "2025-07-10",
+          "provider_content": {
+            "id": "6228634a-8c64-4967-95ef-04d18ed73997",
+            "rate": 0.6775,
+            "type": "cash_dividends",
+            "cusip": "92343V104",
+            "symbol": "VZ",
+            "ex_date": "2025-07-10",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-10",
+            "payable_date": "2025-08-01",
+            "process_date": "2025-08-01"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "c6315923-fd7c-4bb1-a3d4-1fb572537d81",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "VZ",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:6228634a-8c64-4967-95ef-04d18ed73997"
+      ],
+      "instrument_id": "c5c1f69a-c8e5-47ba-ac1e-cfce118bcae3",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [],
+      "symbol": "WBD",
+      "reasons": [
+        "INCOMPLETE_LIQUIDITY_WINDOW",
+        "MISSING_SCORE_DATE_PRICE",
+        "NOT_REPORTED:ADJUSTED_CLOSE"
+      ],
+      "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+      "scoring_profile": "GENERAL",
+      "next_action": "NO_CORPORATE_ACTION_ISSUES"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "b7b75dbb1abf71e7595686fa5a2c613027a73a4eed5e9c69405d85206e742fe9"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:53.695013+00:00",
+          "affected_key": "199e3afd-0772-48b4-84e3-27bbf68356f3",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "199e3afd-0772-48b4-84e3-27bbf68356f3",
+            "rate": 0.66,
+            "type": "cash_dividends",
+            "cusip": "969904101",
+            "symbol": "WSM",
+            "ex_date": "2025-07-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-08-22",
+            "process_date": "2025-08-22"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "116eab92-ffbb-4a4f-89fe-d09f6ece22f6",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "WSM",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:199e3afd-0772-48b4-84e3-27bbf68356f3"
+      ],
+      "instrument_id": "eeaa240e-e01a-479b-b160-73d46ac92a4c",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "41b85a7c09e55b31a18974246f9b551fac1cf91d43e80a89bcdcd9afe278bb43"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:28.048971+00:00",
+          "affected_key": "72045acd-85f0-41ad-a522-7c333502fb17",
+          "action_boundary": "2025-07-30",
+          "provider_content": {
+            "id": "72045acd-85f0-41ad-a522-7c333502fb17",
+            "rate": 0.21,
+            "type": "cash_dividends",
+            "cusip": "955306105",
+            "symbol": "WST",
+            "ex_date": "2025-07-30",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-30",
+            "payable_date": "2025-08-06",
+            "process_date": "2025-08-06"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "f1b05b12-026f-4e38-bdaf-7f46129da664",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "WST",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:72045acd-85f0-41ad-a522-7c333502fb17"
+      ],
+      "instrument_id": "91122314-cf19-4852-9eee-9505b4190e45",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "3fc0c93030a34c4933e7811bfcaf363ad4b1a5830d63e8da7a76457709474adc"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.662656+00:00",
+          "affected_key": "e6bc38d2-0d75-4169-85d2-4edcd1f549f7",
+          "action_boundary": "2026-08-17",
+          "provider_content": {
+            "id": "e6bc38d2-0d75-4169-85d2-4edcd1f549f7",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "30233Q108",
+            "symbol": "XOM",
+            "ex_date": "2026-08-17",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-08-17",
+            "payable_date": "2026-09-10",
+            "process_date": "2026-09-10"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "3365b6c6-8a0d-479d-8aa9-f9c0c46c6f69",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "name_changes",
+            "reason": "identity or required terms unresolved",
+            "revision": "3015ed2aaef56f33fd59e132a492c7ed46e25467d8f633895b077c66e01ab70e"
+          },
+          "action_type": "name_changes",
+          "detected_at": "2026-09-26T12:02:23.585623+00:00",
+          "affected_key": "71daae23-2985-4549-870e-a6d678474b6b",
+          "action_boundary": "2026-07-02",
+          "provider_content": {
+            "id": "71daae23-2985-4549-870e-a6d678474b6b",
+            "type": "name_changes",
+            "new_cusip": "30233Q108",
+            "old_cusip": "30231G102",
+            "new_symbol": "XOM",
+            "old_symbol": "XOM",
+            "process_date": "2026-07-02"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "8b3e4605-cbad-4c5b-b10f-7d6b316f5838",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "b630d1914e470b3c590b0daa6a696422f2af22a44f4d0f13d617cecd800bbfb2"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.637628+00:00",
+          "affected_key": "349d3e09-eaf0-49d1-be60-2de571045023",
+          "action_boundary": "2026-02-12",
+          "provider_content": {
+            "id": "349d3e09-eaf0-49d1-be60-2de571045023",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "30231G102",
+            "symbol": "XOM",
+            "ex_date": "2026-02-12",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-02-12",
+            "payable_date": "2026-03-10",
+            "process_date": "2026-03-10"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "a18b47ac-f5db-43da-82d1-fc753eb97b85",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "6b82e861e58b649f0c932b4f0a389a90425be397eefeb1bccbbdb7bbe7b40b24"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.711935+00:00",
+          "affected_key": "15048505-3db5-4bbb-8f34-a97c56bcc80d",
+          "action_boundary": "2026-05-15",
+          "provider_content": {
+            "id": "15048505-3db5-4bbb-8f34-a97c56bcc80d",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "30231G102",
+            "symbol": "XOM",
+            "ex_date": "2026-05-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2026-05-15",
+            "payable_date": "2026-06-10",
+            "process_date": "2026-06-10"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "bc144cfe-3496-4a69-97cd-55143e81f060",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "37f307012d0cd1e426071361093662b7a98d888c4cca83b74c5e1c05e89800be"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.61221+00:00",
+          "affected_key": "4678f638-99c7-4d18-b01d-1eeca6555b50",
+          "action_boundary": "2025-08-15",
+          "provider_content": {
+            "id": "4678f638-99c7-4d18-b01d-1eeca6555b50",
+            "rate": 0.99,
+            "type": "cash_dividends",
+            "cusip": "30231G102",
+            "symbol": "XOM",
+            "ex_date": "2025-08-15",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-08-15",
+            "payable_date": "2025-09-10",
+            "process_date": "2025-09-10"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "f92fecbe-5ed2-463e-8704-20714b80d779",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        },
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "9be36dba3445ddd8ea3f8045b318efbdb4528010c1ebab2a0c35b9c1e2361f58"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:23.686742+00:00",
+          "affected_key": "6a8377eb-e432-4d2c-ac96-9d66683a8b6d",
+          "action_boundary": "2025-11-14",
+          "provider_content": {
+            "id": "6a8377eb-e432-4d2c-ac96-9d66683a8b6d",
+            "rate": 1.03,
+            "type": "cash_dividends",
+            "cusip": "30231G102",
+            "symbol": "XOM",
+            "ex_date": "2025-11-14",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-11-14",
+            "payable_date": "2025-12-10",
+            "process_date": "2025-12-10"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "f979786f-55d4-478c-83f7-7e971f777edf",
+          "earliest_matching_symbol_date": "2026-08-27",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "XOM",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:15048505-3db5-4bbb-8f34-a97c56bcc80d",
+        "CORPORATE_ACTION_REVIEW:349d3e09-eaf0-49d1-be60-2de571045023",
+        "CORPORATE_ACTION_REVIEW:4678f638-99c7-4d18-b01d-1eeca6555b50",
+        "CORPORATE_ACTION_REVIEW:6a8377eb-e432-4d2c-ac96-9d66683a8b6d",
+        "CORPORATE_ACTION_REVIEW:71daae23-2985-4549-870e-a6d678474b6b",
+        "CORPORATE_ACTION_REVIEW:e6bc38d2-0d75-4169-85d2-4edcd1f549f7"
+      ],
+      "instrument_id": "88873835-cbb0-4542-8e98-f1f9228b6a27",
+      "scoring_profile": "GENERAL",
+      "next_action": "REVIEW_IDENTITY_CONTINUITY_AND_CORPORATE_ACTION_TERMS"
+    },
+    {
+      "issues": [
+        {
+          "evidence": {
+            "type": "cash_dividends",
+            "reason": "identity or required terms unresolved",
+            "revision": "73f2724b79c43bd57cb99d9ba0277d897aa8dbdc211be4f3123535560aaf92c0"
+          },
+          "action_type": "cash_dividends",
+          "detected_at": "2026-09-26T12:02:24.149662+00:00",
+          "affected_key": "13a0a334-3b05-4f78-a95e-02a5639d0fd7",
+          "action_boundary": "2025-07-18",
+          "provider_content": {
+            "id": "13a0a334-3b05-4f78-a95e-02a5639d0fd7",
+            "rate": 0.5,
+            "type": "cash_dividends",
+            "cusip": "98978V103",
+            "symbol": "ZTS",
+            "ex_date": "2025-07-18",
+            "foreign": false,
+            "special": false,
+            "record_date": "2025-07-18",
+            "payable_date": "2025-09-03",
+            "process_date": "2025-09-03"
+          },
+          "source_artifact_id": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+          "data_quality_issue_id": "e0554dbb-0219-4bc5-8336-176e2159451d",
+          "earliest_matching_symbol_date": "2025-08-01",
+          "symbol_history_starts_after_action": true
+        }
+      ],
+      "symbol": "ZTS",
+      "reasons": [
+        "CORPORATE_ACTION_REVIEW:13a0a334-3b05-4f78-a95e-02a5639d0fd7"
+      ],
+      "instrument_id": "19542726-cbc1-408c-b141-39ae3fda164b",
+      "scoring_profile": "GENERAL",
+      "next_action": "VERIFY_CASH_DIVIDEND_IDENTITY_AND_TERMS"
+    }
+  ]
+}

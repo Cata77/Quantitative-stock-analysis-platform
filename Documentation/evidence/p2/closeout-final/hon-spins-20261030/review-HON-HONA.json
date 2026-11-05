@@ -1,0 +1,36 @@
+{
+  "reviewId": "f27ed2db-737e-585e-9753-64b9dbaf4172",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "1ef3e64e-8a72-4a59-89b8-0f474a36b7ba",
+  "factId": null,
+  "issueId": "d32ca4d3-723b-49a8-9ebb-329b7bb58006",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-399",
+    "sourceSha256": "22debc5fcf8fcdd73898a6d5d37d473f54ae27480d6eb4ec738ce139da16374b",
+    "sourceObservedAt": "2026-10-30T13:41:53.724831+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"1922d4a6474f1487ae7eb4a553806635f25ad04f167072a7e878f67359270c80\"}",
+    "providerAction": {
+      "id": "87a92cb7-9afb-4814-a146-e3abb46a4fdb",
+      "type": "spin_offs",
+      "ex_date": "2026-06-29",
+      "new_rate": 0.5,
+      "new_cusip": "43849R105",
+      "new_symbol": "HONA",
+      "record_date": "2026-06-15",
+      "source_rate": 1,
+      "payable_date": "2026-06-29",
+      "process_date": "2026-06-29",
+      "source_cusip": "438516106",
+      "source_symbol": "HON",
+      "due_bill_redemption_date": "2026-06-29"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "HONEYWELL INTERNATIONAL INC",
+    "issuerCik": "0000773840",
+    "rationale": "Finalized Nasdaq notice confirms HON parent identity, separate child, CUSIPs, distribution ratio, record date, payment and ex-date. For SOLS, the due-bill redemption date is October 31, distinct from October 30 payment/ex-date; the provider has no due-bill field for this event. For HONA, distribution precedes the separate HON one-for-two reverse split on June 29, confirmed by the retained Honeywell completion filing. Accept only this exact parent spin-off issue. Do not merge parent and child prices, invent pre-listing history, or modify the independently recorded reverse split."
+  }
+}

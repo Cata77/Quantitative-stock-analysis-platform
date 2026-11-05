@@ -1,0 +1,33 @@
+{
+  "reviewId": "dfd6a8f8-1e53-588f-ac07-424185b4646a",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "19542726-cbc1-408c-b141-39ae3fda164b",
+  "factId": null,
+  "issueId": "e0554dbb-0219-4bc5-8336-176e2159451d",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://investor.zoetis.com/news/news-details/2025/Zoetis-Declares-Third-Quarter-2025-Dividend/default.aspx",
+    "sourceSha256": "48c451b81a98d2ab4a62a9b8c568047e61e7787581868c2773594eb148874fd6",
+    "sourceObservedAt": "2026-10-27T14:26:32.747234+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"73f2724b79c43bd57cb99d9ba0277d897aa8dbdc211be4f3123535560aaf92c0\"}",
+    "providerAction": {
+      "id": "13a0a334-3b05-4f78-a95e-02a5639d0fd7",
+      "rate": 0.5,
+      "type": "cash_dividends",
+      "cusip": "98978V103",
+      "symbol": "ZTS",
+      "ex_date": "2025-07-18",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-18",
+      "payable_date": "2025-09-03",
+      "process_date": "2025-09-03"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Zoetis Inc.",
+    "issuerCik": "0001555280",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms ZTS, USD 0.5 per share, record date 2025-07-18, payment date 2025-09-03. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

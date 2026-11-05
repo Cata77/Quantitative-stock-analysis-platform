@@ -1,0 +1,294 @@
+{
+  "purpose": "Java scoring formula, preparation, publication and parity code removed in P2s (user decision 2026-11-05: Python is the single model implementation).",
+  "lastJavaPublication": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9 (model 1.5.0)",
+  "files": [
+    {
+      "path": ".github/workflows/scoring-parity.yml",
+      "sha256": "53d74cbf25e5ff98a3ce6f5a3a4bd3d2269cca3e5b10efa65d43e643204d7dfb",
+      "bytes": 2344,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/calculation/MonthEndSchedule.java",
+      "sha256": "d101744eea0d449074aca543e4912b02c7ac8cb1b0f9339b787d753b85d6b213",
+      "bytes": 1135,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/calculation/MonthEndScoringCoordinator.java",
+      "sha256": "b96ad3d9124cced33ad63bcce456b84948561ad85443f4914524e8abe083a78f",
+      "bytes": 7421,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/java/com/quantplatform/scoring/calculation/MonthEndScoringCoordinator.java"
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/config/ScoringCommandProperties.java",
+      "sha256": "89ca95166e368d0f1bd0fd02c241512695bed42c9846477390fa8cecac2a39a9",
+      "bytes": 824,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/ingestion/ScoringCommandRunner.java",
+      "sha256": "aedce7f86a043d8e65316b1a68a06dd2003cf52f47e7850d06e4d4b59b84a733",
+      "bytes": 1723,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInput.java",
+      "sha256": "ecadb33a75e8e5e6c75fdc20499407b45933b7d43d7584b1635419d0493575d8",
+      "bytes": 1353,
+      "identicalTo": "research-engine/fixtures/model-v1.0-archive/scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInput.java"
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInputRepository.java",
+      "sha256": "78b52692af46cc476b17d61ee538d7427b697c4af7ca9ad1c9166c67ac73c1b5",
+      "bytes": 3432,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInputRequest.java",
+      "sha256": "6d6da382c2e6a459d13a4cc4361dd81a80d9ddaa0ee434e50188921b954ce72c",
+      "bytes": 3105,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/java/com/quantplatform/scoring/inputs/ScoringInputRequest.java"
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/CanonicalModelInputs.java",
+      "sha256": "d25ca50250f9b2e133fac0c7f082cc677e4f637b61a87ff2e6ccab924cecca49",
+      "bytes": 10246,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/FlexibleModel.java",
+      "sha256": "1e5f5c89d2d755d0eb0bc2be19cc427f8212b2e217de88aeeace6592d53fd0b4",
+      "bytes": 16102,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/FrozenModel.java",
+      "sha256": "3de7223c423e1aeb1b3e723d17099c038663f86a09f5a88252bea74bcec6a7cf",
+      "bytes": 25666,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/java/com/quantplatform/scoring/model/FrozenModel.java"
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/GoldenParity.java",
+      "sha256": "d6f07c2bd3ecb9af85817470edec9cf2b3535885c8e9bc58347b60ebeb0c9d4c",
+      "bytes": 3855,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV3.java",
+      "sha256": "f483215059b7a3af8c2903b1728e70c4f3055bf7bc79c733113a653970826725",
+      "bytes": 3170,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV3.java"
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/model/PreparationV4.java",
+      "sha256": "6ccbe8e60ec9e0b8a2df40ccf48768f3e47193ef1de61b8486b4ffbcd25378d3",
+      "bytes": 2471,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/java/com/quantplatform/scoring/runs/ScoringRunService.java",
+      "sha256": "fa92b2b8f67da38c4ce40cd09089576b232b1554d1a79e19fa686d8828635e76",
+      "bytes": 17151,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/application.yml",
+      "sha256": "b9f99be01196ec496deb1673451852101c86ca11c16bcf848667a0f16de437a8",
+      "bytes": 2985,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/expected.json",
+      "sha256": "dcfbee95ec0a973e4d8584c68f31759883c82b6f59c86f5a3368d8e607fe786b",
+      "bytes": 1175703,
+      "identicalTo": "research-engine/fixtures/model-v1/expected.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible/expected.json",
+      "sha256": "8faa7ec1777197af48710564c1608a838554f6e19de04353c409b7e0052d641c",
+      "bytes": 1069891,
+      "identicalTo": "research-engine/fixtures/model-v1.3/expected.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible/manifest.canonical.json",
+      "sha256": "c92776898dc572ffdb8da5310fe247b0d5a29dc169675e7ee132df6194d6e2cf",
+      "bytes": 8712,
+      "identicalTo": "research-engine/fixtures/model-v1.3-archive/research-engine/src/quant_research/model/flexible/manifest.canonical.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible/manifest.json",
+      "sha256": "1eeafae2aeb95b46082a0cadfa8013359f97db44500791ee8b38452d3d8248f8",
+      "bytes": 11080,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible/manifest.sha256",
+      "sha256": "f1884b388989f062e1508fc305ee83647b021e9d54694ba16b2342f2df78eaa4",
+      "bytes": 66,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible/prepared.json",
+      "sha256": "30d86c4259093c2cc1fcf87cc513a8c89968ceb9dcabee88f5dfb12ee401db61",
+      "bytes": 907220,
+      "identicalTo": "research-engine/fixtures/model-v1.3/prepared.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v14/expected.json",
+      "sha256": "767ea3e2f79e2e3d9bef69336cf5c0ade3a1ea63ecf2a132610f755fc6f061ed",
+      "bytes": 1053501,
+      "identicalTo": "research-engine/fixtures/model-v1.4/expected.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v14/manifest.canonical.json",
+      "sha256": "6eba49f0785ae1fd6d311461e2952cf139dc1f8054042103cea4c23f83fa9c53",
+      "bytes": 8915,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v14/manifest.json",
+      "sha256": "d1602aca52c8f1950e51ed90f24805b86cf203f3980b5d6dd29c211391dac1f8",
+      "bytes": 11290,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v14/manifest.sha256",
+      "sha256": "08d220cc5d2c9da267ddaab08626615e4b6e6d4445334ed7a655dbc936dc59a3",
+      "bytes": 66,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v14/prepared.json",
+      "sha256": "08c07f529fe30985f79c4d74e90d7cf3d302b49d8ebeb4d2c09419b9c70f5e06",
+      "bytes": 907239,
+      "identicalTo": "research-engine/fixtures/model-v1.4/prepared.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v15/expected.json",
+      "sha256": "39a5aab61cd76c34badd2b259f4d5812b156a99a12a455f5d7565ac4772a85ae",
+      "bytes": 1046882,
+      "identicalTo": "research-engine/fixtures/model-v1.5/expected.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v15/manifest.canonical.json",
+      "sha256": "58a1c2c213fa687b6e1c45c9525ce456243395ef3bbe5b9b24a6caa5b45f6de5",
+      "bytes": 9542,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v15/manifest.json",
+      "sha256": "668f3c4a89e9e918cdd71d33f3d051b739a562ba65cfcff518354c909dcc9f8f",
+      "bytes": 12067,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v15/manifest.sha256",
+      "sha256": "f228d792f5d7dd7b4555243f043276a4323a2b5b3ac2b3cda648577958461492",
+      "bytes": 66,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/flexible_v15/prepared.json",
+      "sha256": "33cd664617cfdfb9bdb20d8946a61f4611e13970a34351ce4b6baa38ae73e7fb",
+      "bytes": 907561,
+      "identicalTo": "research-engine/fixtures/model-v1.5/prepared.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/manifest.canonical.json",
+      "sha256": "b3b36a0a46e97f953652c63a774f34c64b1f4f66076d95e4362f4d4ca0183839",
+      "bytes": 8127,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/manifest.json",
+      "sha256": "b70c96e6535c1458d51127f95e1f64a7940d4e5c3329dceb3b2afeba6131ba1c",
+      "bytes": 10084,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/research-engine/src/quant_research/model/manifest.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/prepared.json",
+      "sha256": "50259f69c90dd6401559e2e06f2b9ef611ff9c8febcc22aef72668dbb5a3b588",
+      "bytes": 1008269,
+      "identicalTo": "research-engine/fixtures/model-v1/prepared.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/varied-expected.json",
+      "sha256": "93062a86fb9417f077dbff7455ee6e8dd5741919b46b59d931fdb40d9c94c395",
+      "bytes": 1881010,
+      "identicalTo": "research-engine/fixtures/model-v1/varied-expected.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/varied-prepared.json",
+      "sha256": "3512c259279f6188959539a9961b73aa7396fb69dcf56b0141046819ea63edd7",
+      "bytes": 1606672,
+      "identicalTo": "research-engine/fixtures/model-v1/varied-prepared.json"
+    },
+    {
+      "path": "scoring-service/src/main/resources/model/varied-unrounded.json",
+      "sha256": "56fe45d5d58fff858a43afec7a003f04b25c1e6e83f1d4deeaaeb80d321ba194",
+      "bytes": 1856750,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/main/resources/sql/current-collection-outcomes.sql",
+      "sha256": "a1d0a0ca771b6828e48ee442aefa6f8bb61952246bb514d5eae4e62ea7481727",
+      "bytes": 4550,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/resources/sql/current-collection-outcomes.sql"
+    },
+    {
+      "path": "scoring-service/src/main/resources/sql/scoring-inputs-profiles-v1.sql",
+      "sha256": "93282cdffe9380febf1eb95649e038fb669f63ee45d584593ec32b64fde663ad",
+      "bytes": 16575,
+      "identicalTo": "research-engine/fixtures/model-v1.2-preparation-v3-archive/scoring-service/src/main/resources/sql/scoring-inputs-profiles-v1.sql"
+    },
+    {
+      "path": "scoring-service/src/main/resources/sql/scoring-inputs.sql",
+      "sha256": "6385f73fe3e708162ad9f59751d453d2c4582e516a1f2c785f3b5fa75048db90",
+      "bytes": 19325,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/ingestion/ScoringInputIntegrationTest.java",
+      "sha256": "96fce698fa919a0c17201f773eaa6326d69a2e18602f08de32af0416a51a6457",
+      "bytes": 39063,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/ingestion/ScoringRunIntegrationTest.java",
+      "sha256": "ebff9cecfedde388dd186caaea0089961ff5acdb0e89c065ea7d2d31ee400558",
+      "bytes": 36349,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/model/CanonicalModelInputsTest.java",
+      "sha256": "ce1bc60fad53dd50e253049d4737dc58b4377878d701f86ae1c14af5e586c1e6",
+      "bytes": 5433,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/model/FlexibleModelParityTest.java",
+      "sha256": "ebb1f27e671454e6bf0fa74d5d87c935c9ee89573d6fe8ba6281f35e992f74a1",
+      "bytes": 1472,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/model/FrozenModelParityTest.java",
+      "sha256": "24a9108884708e65f799583395dc2107135dcf36bb5e0f6be388854c566f1d1f",
+      "bytes": 2339,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/model/P2CohortParityTest.java",
+      "sha256": "eee429a51cfda6df093a598b7f6a1eed736610884e36f33dfb702e1b42565084",
+      "bytes": 1394,
+      "stored": true
+    },
+    {
+      "path": "scoring-service/src/test/java/com/quantplatform/scoring/model/P2PeriodAuditTest.java",
+      "sha256": "204fd09205519c3cc621b70247ea8e1c49e891a92071549f7dfd048dc017176c",
+      "bytes": 1912,
+      "stored": true
+    }
+  ]
+}

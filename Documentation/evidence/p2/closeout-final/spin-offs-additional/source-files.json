@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "FDX",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1048911/000110465926068519/tm2616055d1_8k.htm",
+    "file": "FDX.html",
+    "sourceSha256": "0d79a205eb4491226c2dc5c5a0c44c571fe9d778b90b8a551f21229aa2115720",
+    "observedAt": "2026-10-29T14:06:42.480215+00:00"
+  },
+  {
+    "symbol": "SPGI",
+    "sourceUri": "https://press.spglobal.com/2026-07-01-S-P-GLOBAL-INC-COMPLETES-SEPARATION-OF-MOBILITY-GLOBAL-INC",
+    "file": "SPGI.html",
+    "sourceSha256": "4f727a45274cf1ad8daccb4b0c35c5c0f271c8d7c332623b2e37d757c0ea7e21",
+    "observedAt": "2026-10-29T14:06:42.705885+00:00"
+  }
+]

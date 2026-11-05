@@ -1,0 +1,32 @@
+{
+  "reviewId": "2981e053-54a4-5f59-b276-d9d46552f9d0",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "c5c1f69a-c8e5-47ba-ac1e-cfce118bcae3",
+  "factId": null,
+  "issueId": "c6315923-fd7c-4bb1-a3d4-1fb572537d81",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://www.verizon.com/about/news/verizon-declares-quarterly-dividend-june-6",
+    "sourceSha256": "6baff2eabc4474c70e5a8537c0e3fea9c7af98f689cf513fa8f55fd49569f760",
+    "sourceObservedAt": "2026-10-26T14:04:52.156401+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"ee5ebd7c506c162890b1a273cbfa491d5f4bb8b54da6b3b0135464260ebb64ba\"}",
+    "providerAction": {
+      "id": "6228634a-8c64-4967-95ef-04d18ed73997",
+      "rate": 0.6775,
+      "type": "cash_dividends",
+      "cusip": "92343V104",
+      "symbol": "VZ",
+      "ex_date": "2025-07-10",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-10",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "VERIZON COMMUNICATIONS INC",
+    "issuerCik": "0000732712",
+    "rationale": "Issuer common-stock dividend source confirms VZ, USD 0.6775 per share, record date 2025-07-10, payment date 2025-08-01. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

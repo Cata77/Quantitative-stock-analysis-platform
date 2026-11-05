@@ -1,0 +1,33 @@
+{
+  "reviewId": "8f1dc3c7-e0db-533f-8ca6-c7ee07ce099a",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "4cc4d713-a513-472d-b677-06903cb30b6e",
+  "factId": null,
+  "issueId": "0f88acd8-d6ab-498a-baba-b4e9e9db5446",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investors.airproducts.com/stock-information",
+    "sourceSha256": "7addff2640dcde621b3f9a8887b1b465bed0ae8745ed3c0c877d0e66022d9337",
+    "sourceObservedAt": "2026-10-26 14:08:57 UTC",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"ec1724f71361f3d93e819c2d5e2cb32eab6cf9cf62a854fb50387a36ec2190e0\"}",
+    "providerAction": {
+      "id": "e363b7d6-eac9-4f33-bfea-d3cc8d218fac",
+      "rate": 1.79,
+      "type": "cash_dividends",
+      "cusip": "009158106",
+      "symbol": "APD",
+      "ex_date": "2025-07-01",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-01",
+      "payable_date": "2025-08-11",
+      "process_date": "2025-08-11"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Air Products & Chemicals, Inc.",
+    "issuerCik": "0000002969",
+    "rationale": "Issuer common-stock dividend source confirms APD, USD 1.79 per share, record date 2025-07-01, payment date 2025-08-11. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review.",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES"
+  }
+}

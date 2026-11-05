@@ -1,0 +1,33 @@
+{
+  "reviewId": "d50d7ee9-365a-5cce-b5f2-83f0ca0619b8",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "afca0986-9479-4431-8da5-d94010011514",
+  "factId": null,
+  "issueId": "894f1260-e733-49b7-b5c3-bb816b8319e0",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1125259/000087666126000397/ruleprovisionnotice.htm",
+    "sourceSha256": "cfe01a5e3c7c26509e27c3f7e3352baf3a228826e5c0d03a1170a69b86c7715a",
+    "sourceObservedAt": "2026-10-31T11:27:37.225584+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "Carnival Corporation (\"old CCL\") (CUSIP: 143658300) and Carnival plc (\"CUK\") will be converted into a single publicly traded corporate entity, to be renamed Carnival Corporation Ltd. (CUSIP: G2004J103)",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"39d2a7efa63bf0aead3d724371d345420b0d3a23a50c9994a2af8850ee904471\"}",
+    "providerAction": {
+      "id": "35c3056d-4bf0-43b4-a21f-d0cc9d94fa4c",
+      "type": "name_changes",
+      "new_cusip": "G2004J103",
+      "old_cusip": "143658300",
+      "new_symbol": "CCL",
+      "old_symbol": "CCL",
+      "process_date": "2026-05-07"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CARNIVAL CORP",
+    "issuerCik": "0000815097",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Redomiciliation of the same Carnival Corporation common stock (CIK 815097 unchanged) from Panama to Bermuda on May 7, 2026; each old share represents the same number of Carnival Corporation Ltd. common shares, still NYSE: CCL (8-K of May 7, 2026 retained as CCL-8k). Carnival plc ADS holders received new shares one-for-one; that exchange concerns CUK, not this instrument. No price series are joined."
+  }
+}

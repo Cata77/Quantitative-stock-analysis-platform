@@ -1,0 +1,52 @@
+{
+  "run": {
+    "state": "PUBLISHED",
+    "request": {
+      "inputs": {
+        "scoreDate": "2026-10-29",
+        "rawDataset": "482ffe35-ab2a-40a7-b300-9197c2066e42",
+        "marketCutoff": "2026-10-29T20:00:00Z",
+        "timingPolicy": "CURRENT_SNAPSHOT_V1",
+        "sp500Snapshot": "e6d6670f-f45f-467a-8eb2-9bab9add9074",
+        "mappingVersion": "sec-us-gaap-v2",
+        "adjustedDataset": "9f5e4667-6b14-46da-a8f6-3088c95d9409",
+        "adjustmentBasis": "2026-10-30",
+        "knowledgeCutoff": "2026-10-30T13:44:35Z",
+        "requiredMetrics": [
+          "TOTAL_ASSETS"
+        ],
+        "nasdaq100Snapshot": "d444039a-db92-4c0a-9491-2a5579dfb09f",
+        "classificationVersion": "e53b26e0-7e40-4ea1-b6b4-6d2867d8ae24"
+      },
+      "candidate": "primary",
+      "jurisdictions": {},
+      "effective_from": "2026-11-02T14:30:00Z",
+      "collectionPolicy": "CURRENT_COLLECTION_OUTCOMES_V1",
+      "preprocessingVersion": "canonical-preparation-v3"
+    },
+    "as_of_date": "2026-10-29",
+    "input_sha256": "c7ee2d153b98ab7ecd4a284e4d15784fdb3e15c57cc33f646253cbb01a07803a",
+    "score_run_id": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+    "scored_count": 497,
+    "model_version": "1.4.0",
+    "excluded_count": 21,
+    "expected_count": 518,
+    "knowledge_cutoff": "2026-10-30T13:44:35+00:00",
+    "preprocessing_version": "canonical-preparation-v3"
+  },
+  "pythonJavaPreparedParity": true,
+  "pythonJavaScoreParity": true,
+  "absoluteTolerance": 1e-09,
+  "latePriceLineageRows": 0,
+  "artifacts": {
+    "publication-verification.json": "35271d073308a2c70695e53e1106bc954be2ec313dbd7c4ce3d14f4407fae64d",
+    "published-input-document.json": "c7ee2d153b98ab7ecd4a284e4d15784fdb3e15c57cc33f646253cbb01a07803a",
+    "published-model-evidence.json": "20857ea0bcbd6c156afc6c85d3498902c45e5d4f5a832ead8f64d7cfe8d17723"
+  },
+  "validation": {
+    "pythonTestsPassed": 223,
+    "ruff": "PASSED",
+    "javaSuites": "NOT_RERUN_NO_JAVA_CHANGES",
+    "publicationChanged": false
+  }
+}

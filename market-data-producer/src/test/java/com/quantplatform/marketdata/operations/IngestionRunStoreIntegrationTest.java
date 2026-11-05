@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -76,6 +77,50 @@ class IngestionRunStoreIntegrationTest {
         var second = instrument(issuer, "B");
         sp500 = snapshot("SP500", List.of(first, second));
         nasdaq = snapshot("NASDAQ100", List.of(first));
+    }
+
+    @Test
+    void registrationIsConcurrentIdempotentAndRollsBackInvalidNewJobs() throws Exception {
+        var registry = new IngestionJobRegistry(dataSource, new DataSourceTransactionManager(dataSource));
+        var config = Map.<String, Object>of("feed", "sip", "adjustment", "RAW");
+        UUID id;
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            var tasks = java.util.stream.IntStream.range(0, 8).<Callable<UUID>>mapToObj(index ->
+                    () -> registry.register("parallel-provider", "prices", "DAILY_PRICE", config, "bars", 3)).toList();
+            var results = executor.invokeAll(tasks, 10, TimeUnit.SECONDS);
+            id = results.getFirst().get();
+            for (var result : results) assertThat(result.get()).isEqualTo(id);
+        }
+        assertThat(registry.register("parallel-provider", "prices", "DAILY_PRICE", config, "bars", 3)).isEqualTo(id);
+        assertThat(registry.register("parallel-provider", "prices", "DAILY_PRICE", config, "bars", 4)).isNotEqualTo(id);
+        var original = jdbc.sql("SELECT configuration::text FROM operations.job_definitions WHERE job_definition_id=:id")
+                .param("id", id).query(String.class).single();
+        assertThat(com.quantplatform.ingestion.CanonicalJson.readObject(original))
+                .containsEntry("maxAttempts", 3).containsEntry("eventType", "DAILY_PRICE").containsEntry("topic", "bars");
+        assertThatThrownBy(() -> registry.register("rollback-provider", "prices", "DAILY_PRICE", config, "bars", 0))
+                .isInstanceOf(org.springframework.dao.DataIntegrityViolationException.class);
+        assertThat(jdbc.sql("SELECT count(*) FROM operations.data_providers WHERE code='rollback-provider'")
+                .query(Integer.class).single()).isZero();
+    }
+
+    @Test
+    void registrationDoesNotWaitForForeignKeyReadersOfExistingReferenceRows() throws Exception {
+        var registry = new IngestionJobRegistry(dataSource, new DataSourceTransactionManager(dataSource));
+        UUID id = registry.register("lock-provider", "prices", "DAILY_PRICE", Map.of(), "bars", 3);
+        try (var connection = dataSource.getConnection(); var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            connection.setAutoCommit(false);
+            try (var statement = connection.createStatement()) {
+                statement.execute("SELECT provider_id FROM operations.data_providers WHERE code='lock-provider' FOR KEY SHARE");
+                statement.execute("SELECT dataset_id FROM operations.datasets WHERE code='prices' FOR KEY SHARE");
+                statement.execute("SELECT job_definition_id FROM operations.job_definitions WHERE code='lock-provider:prices' FOR KEY SHARE");
+            }
+            try {
+                var result = executor.submit(() -> registry.register("lock-provider", "prices", "DAILY_PRICE", Map.of(), "bars", 3));
+                assertThat(result.get(3, TimeUnit.SECONDS)).isEqualTo(id);
+            } finally {
+                connection.rollback();
+            }
+        }
     }
 
     @Test

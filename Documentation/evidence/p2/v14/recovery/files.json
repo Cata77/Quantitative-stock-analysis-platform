@@ -1,0 +1,254 @@
+[
+  {
+    "path": "previous-20261026\\retained-sources.zip",
+    "sha256": "ae76fc03b7e1cd987853eb6a3c411e663095ab3a6d35fcabcdef72124bffd580"
+  },
+  {
+    "path": "previous-20261026\\review-ABBV.json",
+    "sha256": "14a5ed2c87c457d194527f54551f1318b071e6e26a236835a6216e159d4b44e9"
+  },
+  {
+    "path": "previous-20261026\\review-ABT.json",
+    "sha256": "df7c9c25fa236785e3391420aec8c7533bb444c05d0a18b3704bf903a8397a9b"
+  },
+  {
+    "path": "previous-20261026\\review-APD.json",
+    "sha256": "aab4acafcc25c9e541a3d2ce0bde3a0c0464a41bbf8a70b08380978afbefe4cd"
+  },
+  {
+    "path": "previous-20261026\\review-BMY.json",
+    "sha256": "b679c214fe910c2ed3bc37fb30f98f5aecd979075e25b88db5a931cd07797b2c"
+  },
+  {
+    "path": "previous-20261026\\review-CARR.json",
+    "sha256": "e0eec0559f8c0bcca02edecd06fe8adc01397b3eb4d4ccc9cc055d705f63035c"
+  },
+  {
+    "path": "previous-20261026\\review-CAT.json",
+    "sha256": "efd3af34e6d8041182cc2c37e842517c3c69754f115ed3c0ffebdd4830a1db11"
+  },
+  {
+    "path": "previous-20261026\\review-CFG.json",
+    "sha256": "1eabc1cf1f4e2fa1bc7b84a73ab5bdc15fb3ed26ac68a96c1b2dc1b250b5efc6"
+  },
+  {
+    "path": "previous-20261026\\review-DAL.json",
+    "sha256": "47dabc950834606008bc0a59d498671c00be880dbc058ecbf95ed74af9534a4f"
+  },
+  {
+    "path": "previous-20261026\\review-DELL.json",
+    "sha256": "0d94b2f52d101584429a33cdb52d18e02e16cef89fce3e7363978248f396b230"
+  },
+  {
+    "path": "previous-20261026\\review-FAST.json",
+    "sha256": "e557e0a2b446db86076fe62a032664540f2e104d02449ced9065432f647370b3"
+  },
+  {
+    "path": "previous-20261026\\review-GD.json",
+    "sha256": "a6eebd0c21911b8ec07febd213b7a893d5ad79c043f2c301bf02b8eaa4ef4764"
+  },
+  {
+    "path": "previous-20261026\\review-GEHC.json",
+    "sha256": "9e6df7ca86f415184948e3335594490340ce9b0ed7b2273d6cd74b466119d621"
+  },
+  {
+    "path": "previous-20261026\\review-MA.json",
+    "sha256": "b9a8172c0c2390362db810048d7572bab58e05c4a9c6acc793faf04a09e4f449"
+  },
+  {
+    "path": "previous-20261026\\review-NUE.json",
+    "sha256": "503fd4363b75a9ce157b1fd9ec153853aa32b81d58c665c19b9e98143cd8a277"
+  },
+  {
+    "path": "previous-20261026\\review-PFE.json",
+    "sha256": "4ea5668a257170dadd9be1b347158b2ec18bae2b9a9a2411e6a61d9ab6b951f7"
+  },
+  {
+    "path": "previous-20261026\\review-PG.json",
+    "sha256": "b83f9284c91c5bd47da3e091c1c710d5b355694ef703be6e496605c27d48b64e"
+  },
+  {
+    "path": "previous-20261026\\review-PNC.json",
+    "sha256": "e2fdb876f6ec15f73ed16bfa2b5c8215989f4c0faa390e70f22dc3fe2341ac21"
+  },
+  {
+    "path": "previous-20261026\\review-T.json",
+    "sha256": "971cf1bdd0a2807a479ddc1a401169c5f59fa1816a58fbd0bc6920e9d801bb29"
+  },
+  {
+    "path": "previous-20261026\\review-TXN.json",
+    "sha256": "b5a554a551530a477fddc0fa3b20ccecb5776846b534047d06cff4b2ffb4455f"
+  },
+  {
+    "path": "previous-20261026\\review-VZ.json",
+    "sha256": "a40a105be51fb81dd2479e377ee883dff56080c8d1a74d56c37ce595ab473872"
+  },
+  {
+    "path": "previous-20261026\\reviews-applied.json",
+    "sha256": "5a99235f3bbd429c7729f16529e6dd38fc13df9556e88212a102be20fd67b0f5"
+  },
+  {
+    "path": "previous-20261026\\source-files.json",
+    "sha256": "c1e1c3037e84ba363dac12bcd2926fc9c0199c0319edd538484ea608b6023017"
+  },
+  {
+    "path": "review-dividends.py",
+    "sha256": "86d4d89e764bbec0e7baf76a2070a862af6a6b6671d75db0ccea8610607478dc"
+  },
+  {
+    "path": "reviews\\review-AOS.json",
+    "sha256": "4d7fca7440b39d473777ce16170419b7d421da39c7031eb6b7ecdd9d8f48045b"
+  },
+  {
+    "path": "reviews\\review-APA.json",
+    "sha256": "b4cbb2cb1e97211fcd46c96af8e11c89c059beb3ebbe9916773a0efe27131ade"
+  },
+  {
+    "path": "reviews\\review-AXP.json",
+    "sha256": "4f686a86d654ba137947c67e280c30198d4e5d2cb5b6ee1fae20f598a73fab72"
+  },
+  {
+    "path": "reviews\\review-CL.json",
+    "sha256": "f174de037eef916bc45ab33c099496f2db4e484149dab96a2440b78c39eefd3b"
+  },
+  {
+    "path": "reviews\\review-CVS.json",
+    "sha256": "e83b7d5beea00e4c40fb8250fd01cff9041e176f03d479deb2851d5d6007648c"
+  },
+  {
+    "path": "reviews\\review-DE.json",
+    "sha256": "b2d2cb307390c36833aa878e22bc2ba339e84cb476a89a32251c449f187fcfc1"
+  },
+  {
+    "path": "reviews\\review-DRI.json",
+    "sha256": "0ddb4567b452b43b4f154b2e1a9540960a5435e7d965fe5691603ba5c494c64b"
+  },
+  {
+    "path": "reviews\\review-FERG.json",
+    "sha256": "db85ef799961f48153f539a6ef2ee750a4bc223d94cfedf83678bd9d091f8498"
+  },
+  {
+    "path": "reviews\\review-GEV.json",
+    "sha256": "0722753b5f67d875e4c730fa01f64aed71ef6b37046cd1687414e05c791c483b"
+  },
+  {
+    "path": "reviews\\review-GIS.json",
+    "sha256": "415ccecb546fdbdc3fb534a27b1efe25c925c31f716ef0dfafeba216c8eb1b16"
+  },
+  {
+    "path": "reviews\\review-GL.json",
+    "sha256": "28882e4a9a67a25d01e7e577c39f62a6aee6f5a2a76f81cafe5f0de847e3cb54"
+  },
+  {
+    "path": "reviews\\review-HRL.json",
+    "sha256": "3304266038b80830e402d934e99b81d4a0ca25923907480aaa78d0e7cd7fde45"
+  },
+  {
+    "path": "reviews\\review-KMI.json",
+    "sha256": "17a74913ced79f81a58d713eb9aaaf6fedb682e97ac5600dbf8bc715b6b93659"
+  },
+  {
+    "path": "reviews\\review-LNT.json",
+    "sha256": "cb0016cb6cf27af7d9f8d24b72f278b1ced10403658f25397c7a372a9d61a460"
+  },
+  {
+    "path": "reviews\\review-LOW.json",
+    "sha256": "a13bdded164682c9f3fcebeb0506b2a60591a8cc4c7eba8977bf93286b955e4e"
+  },
+  {
+    "path": "reviews\\review-MRSH.json",
+    "sha256": "d93c429447ccc1b46c9111789907d5bd7e152764bf64978b7611abe64ec40f6c"
+  },
+  {
+    "path": "reviews\\review-MS.json",
+    "sha256": "c9bc431a2f1dfc4ad41129c4650889a7156be405afd2de7dbcfaeac31656d2e9"
+  },
+  {
+    "path": "reviews\\review-PAYX.json",
+    "sha256": "5a70c137a393a5415a5f32eb17f107f050832531fccb61e6899c5d68867caa95"
+  },
+  {
+    "path": "reviews\\review-PNR.json",
+    "sha256": "c2d5cea5ca5dd661383e84a1f936aba0385abaacdcb8d8ee40390e401b48d67b"
+  },
+  {
+    "path": "reviews\\review-RVTY.json",
+    "sha256": "64a5c75ba205a65e12ed275185c74f9e4b8c8f14ddccb09940a607bf3c46a6f9"
+  },
+  {
+    "path": "reviews\\review-STZ.json",
+    "sha256": "b4d9adfa37ba69c9bc4a2a58447d12051e0385feb6b2fdab86ac46f15b76acc5"
+  },
+  {
+    "path": "reviews\\review-TRGP.json",
+    "sha256": "4c462b97b17eab77213605c44de713da78ed0da7e07172b407e3f148479ab0d1"
+  },
+  {
+    "path": "reviews\\review-WSM.json",
+    "sha256": "45211d0d3e44428e73036d06829476ade0b934c6c67ca9b8d0bb87ff29ce7bc7"
+  },
+  {
+    "path": "reviews\\review-WST.json",
+    "sha256": "2885b8f8d4f3914ef1d5c7429d6846488070c4dea0148333cadcd27490144cc0"
+  },
+  {
+    "path": "reviews\\review-ZTS.json",
+    "sha256": "c85f448b5e13106269775c3cf72c6738c24f2fba28fb0fb67d4b1b11f92bedb8"
+  },
+  {
+    "path": "reviews-applied.json",
+    "sha256": "73dae52a050745d8a8950b1a8bb25ef43480ec41db5e48fa027ef2c6ec2ece33"
+  },
+  {
+    "path": "sources\\web-batch1.json",
+    "sha256": "4b3a002af4b4a307608050a820fcb8476f6f6bbed34f9d6e3ebd4837da848f4a"
+  },
+  {
+    "path": "sources\\web-batch10.json",
+    "sha256": "6b75629b19237fa08b2ade06821bc153060b5ee9261839eece7515fd6466e0cb"
+  },
+  {
+    "path": "sources\\web-batch11.json",
+    "sha256": "888a8c3125cada15655d9d053ff8ca8a36a63805bfbee8da2e3d98428d39a58d"
+  },
+  {
+    "path": "sources\\web-batch12.json",
+    "sha256": "d189add9d79574d42594b295d5f9d2c0f74369b1f96a864148a486a19f27b441"
+  },
+  {
+    "path": "sources\\web-batch2.json",
+    "sha256": "830590df851cf288976b09b4d998213e10bd84b7a4a31f4e024e125b91a421d0"
+  },
+  {
+    "path": "sources\\web-batch3.json",
+    "sha256": "a5795d3976e1516c0822d30482538893512019af3a9ea0d4466cb7f599ad7f91"
+  },
+  {
+    "path": "sources\\web-batch4.json",
+    "sha256": "8f6fd8a25924e54408d77e3ffcd9f12073b213112c44e3cea141704804e316e5"
+  },
+  {
+    "path": "sources\\web-batch5.json",
+    "sha256": "7e5eda35b2e1718c4d1ae65369144395f488feb66cf16c7fd3a40f871cefe3db"
+  },
+  {
+    "path": "sources\\web-batch6.json",
+    "sha256": "81febd1f728e2a7cffeb72b67cba6405265fc36d8170899e3622b5a57fe21a75"
+  },
+  {
+    "path": "sources\\web-batch7.json",
+    "sha256": "43aa2a6a4965896fdd1a1565a8a0693ee3f6f29fb1c647eab9807cd7ab44dd73"
+  },
+  {
+    "path": "sources\\web-batch8.json",
+    "sha256": "48c451b81a98d2ab4a62a9b8c568047e61e7787581868c2773594eb148874fd6"
+  },
+  {
+    "path": "sources\\web-batch9.json",
+    "sha256": "6d576ee1f2e3d7e33e0c957d55b28f018eb030e22bb906365e906252e3e188fe"
+  },
+  {
+    "path": "sources\\web-foreign-dividends.json",
+    "sha256": "7451760a37ad03703560f2a757fb09f80f56e9f3dc635b70184596cda61135e3"
+  }
+]

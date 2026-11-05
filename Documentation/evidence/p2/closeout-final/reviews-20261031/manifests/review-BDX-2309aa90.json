@@ -1,0 +1,38 @@
+{
+  "reviewId": "e84211e3-c9fe-506f-b4b6-d79f494f92d7",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "75416fb9-9fdc-4ce1-9057-05b809763d38",
+  "factId": null,
+  "issueId": "2309aa90-e3dc-4815-a709-2c847cd6e851",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2082015/000119312526046598/ownership.xml",
+    "sourceSha256": "ecc72816d0734a31110fbf3ba57781ffc8f1b33a2ddbbb7f7ea91620777f6fbe",
+    "sourceObservedAt": "2026-10-31T11:27:36.672302+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "in exchange for 0.135343148384084 shares of Waters common stock",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"3e4a824534c83810c3a3c967da9b4a8d305ec9f1482fce5f769422049dd57bb5\"}",
+    "providerAction": {
+      "id": "2d714944-6685-4e1e-9b5c-277d276bbe41",
+      "type": "spin_offs",
+      "ex_date": "2026-02-10",
+      "new_rate": 0.135343142914,
+      "new_cusip": "941848103",
+      "new_symbol": "WAT",
+      "record_date": "2026-02-05",
+      "source_rate": 1,
+      "payable_date": "2026-02-10",
+      "process_date": "2026-02-10",
+      "source_cusip": "075887109",
+      "source_symbol": "BDX"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "BECTON DICKINSON & CO",
+    "issuerCik": "0000010795",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "SEC Form 4 (Augusta SpinCo, Feb 11, 2026) gives 0.135343148384084 Waters shares per distributed SpinCo share; BD distributed one SpinCo share per BD share (record date February 5, 2026), i.e. about 0.135 Waters shares per BD share. Provider new_rate 0.135343142914 differs by 4.0e-8 relative; with a WAT/BDX value ratio below 0.3 the resulting change of the backward adjustment factor is below 2e-8 relative, below the 1e-6 rounding of published metrics. The provider rate is not rewritten; the tolerance is explicit."
+  }
+}

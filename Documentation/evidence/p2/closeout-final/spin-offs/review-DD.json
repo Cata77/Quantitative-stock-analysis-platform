@@ -1,0 +1,35 @@
+{
+  "reviewId": "ba75beef-2fdc-560a-8d60-85ad41560df5",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "bc4245d2-52d1-4d6e-b801-e6c558c1e603",
+  "factId": null,
+  "issueId": "58e808f8-46af-4f87-ba99-89c4d3732190",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://www.dupont.com/news/dupont-completes-separation-of-qnity-electronics.html",
+    "sourceSha256": "73c4e7eafa6f23b928e6fc0936542712227b3ffd61e8e006ef90f0a1477d8db4",
+    "sourceObservedAt": "2026-10-29T13:58:42.018234+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"8d79abbb1eec8269437430941de3cf3f7668e86ca9cc936037925aea49d1c5a8\"}",
+    "providerAction": {
+      "id": "a4480242-0951-4793-b024-bc531a2a5caf",
+      "type": "spin_offs",
+      "ex_date": "2025-11-03",
+      "new_rate": 0.5,
+      "new_cusip": "74743L100",
+      "new_symbol": "Q",
+      "record_date": "2025-10-22",
+      "source_rate": 1,
+      "payable_date": "2025-11-01",
+      "process_date": "2025-11-03",
+      "source_cusip": "26614N102",
+      "source_symbol": "DD"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "DuPont de Nemours, Inc.",
+    "issuerCik": "0001666700",
+    "rationale": "Individual issuer source confirms parent identity, separate child, distribution ratio, record date and distribution date. The ex-date is the first regular-way trading session of the separated child; a weekend or after-close distribution is distinct from that trading date. Source and provider terms agree, including the rounded one-third ratio for Aptiv. Accept only this parent corporate-action issue. Do not merge parent and child price histories, alter provider prices, or approve other issues."
+  }
+}

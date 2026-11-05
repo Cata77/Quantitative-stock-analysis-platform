@@ -210,7 +210,9 @@ class UniverseSnapshotImporterIntegrationTest {
                 .validateMigrationNaming(true)
                 .locations("classpath:db/migration")
                 .load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(24);
+        // Every versioned and repeatable migration on the classpath is applied to the new database.
+        assertThat(flyway.migrate().migrationsExecuted).isPositive();
+        assertThat(flyway.info().pending()).isEmpty();
         return database;
     }
 

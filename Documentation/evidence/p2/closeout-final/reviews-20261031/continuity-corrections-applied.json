@@ -1,0 +1,184 @@
+{
+  "applied": true,
+  "authorizedBy": "user, 2026-10-31",
+  "reviews": {
+    "CCL": [
+      "c71dbb16-834d-5cbf-bcb1-838bd306e8ec",
+      "1de74f7d-5231-5c31-a8dd-788852adb0a1",
+      "d50d7ee9-365a-5cce-b5f2-83f0ca0619b8",
+      "66b8f4f5-2434-5062-b965-0dce8f35d568"
+    ],
+    "DOC": [
+      "c3e09a81-ae4a-5bc5-8b6c-15d9114efe2b",
+      "df1572b2-27c3-5900-99d1-6021fcf89117",
+      "f99e2f61-8d3c-509c-8a8a-80618aaf7e04",
+      "6a4461f9-8550-5985-8c9c-2c7251a2088a",
+      "160f3b31-b6bc-532e-8001-f98cbcd59386",
+      "43676b98-7b30-5f4c-898e-2e07e5ce6a87",
+      "ae4b5091-1da0-5af9-a3ae-7f43da207931",
+      "b5452637-5eb3-553a-b873-8e30a52c2b63",
+      "adcbfd06-3243-58a4-b3c2-834492b317fd",
+      "68940758-cb09-59ec-a76c-c10e80389dd8",
+      "31299985-1092-58cb-91d5-e6ffbf042c6c",
+      "fb11e2ea-89e7-558b-8c8a-8df9c9c604af",
+      "7f9ca3da-7a1f-569e-813d-b944df024fee",
+      "1c2bcbb7-9152-5f72-836c-6c9ae25fecf0"
+    ],
+    "OKE": [
+      "ed12d8cd-81ec-5e43-9a6f-007a77859516",
+      "74b6afde-8093-5bd7-9586-a66bc37caaa7",
+      "f9759425-b99c-5276-af5d-cfd549249458",
+      "652d90a5-d1d2-5a9d-8eb1-91da600b765e",
+      "20b32306-38fd-52a4-bc5c-abc97caea3d3",
+      "7dc35cf0-d3ed-525f-9c83-db686c28abaf"
+    ],
+    "XOM": [
+      "43bcb93d-2927-5bae-9bf2-f8a357e65ca2",
+      "42e388cd-166d-5877-9c4d-43a5b78fa58a",
+      "12fecb00-75d7-5555-b841-20f8140dcf93",
+      "89197590-2cc9-596e-9793-f388448d7a18",
+      "5a85b4bf-4cd9-587f-9a2f-8fb5da8f1e42",
+      "13be5484-ddf2-5ffa-aae1-5d300d70761e"
+    ]
+  },
+  "before": {
+    "88873835-cbb0-4542-8e98-f1f9228b6a27": {
+      "symbols": [
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "XOM",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2026-08-27"
+    },
+    "afca0986-9479-4431-8da5-d94010011514": {
+      "symbols": [
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "CCL",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2026-08-27"
+    },
+    "c7311e9d-497f-42c6-b5d8-a1acd3baad43": {
+      "symbols": [
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "DOC",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2026-08-27"
+    },
+    "ee986a8e-e5b6-4f24-bf24-48af043a8c26": {
+      "symbols": [
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "OKE",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2026-08-27"
+    }
+  },
+  "after": {
+    "88873835-cbb0-4542-8e98-f1f9228b6a27": {
+      "symbols": [
+        {
+          "to": "2026-08-27",
+          "mic": "XNYS",
+          "from": "2025-08-01",
+          "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+          "symbol": "XOM",
+          "availableAt": "2026-10-31T12:06:43.554218+00:00"
+        },
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "XOM",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2025-08-01"
+    },
+    "afca0986-9479-4431-8da5-d94010011514": {
+      "symbols": [
+        {
+          "to": "2026-08-27",
+          "mic": "XNYS",
+          "from": "2025-08-01",
+          "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+          "symbol": "CCL",
+          "availableAt": "2026-10-31T12:06:43.593616+00:00"
+        },
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "CCL",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2025-08-01"
+    },
+    "c7311e9d-497f-42c6-b5d8-a1acd3baad43": {
+      "symbols": [
+        {
+          "to": "2026-08-27",
+          "mic": "XNYS",
+          "from": "2025-08-01",
+          "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+          "symbol": "DOC",
+          "availableAt": "2026-10-31T12:06:43.589212+00:00"
+        },
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "DOC",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2025-08-01"
+    },
+    "ee986a8e-e5b6-4f24-bf24-48af043a8c26": {
+      "symbols": [
+        {
+          "to": "2026-08-27",
+          "mic": "XNYS",
+          "from": "2025-08-01",
+          "source": "P2_PRIMARY_SOURCE_REVIEW_20261031",
+          "symbol": "OKE",
+          "availableAt": "2026-10-31T12:06:43.596791+00:00"
+        },
+        {
+          "to": null,
+          "mic": "XNYS",
+          "from": "2026-08-27",
+          "source": "OPEN_DATASET_WIKIPEDIA_CURRENT_CONSTITUENTS",
+          "symbol": "OKE",
+          "availableAt": "2026-08-28T13:20:38+00:00"
+        }
+      ],
+      "validFrom": "2025-08-01"
+    }
+  }
+}

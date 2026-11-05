@@ -1,0 +1,30 @@
+[
+  {
+    "name": "dividends",
+    "sourceUri": "https://ir.oneok.com/stock-information/dividend-history",
+    "file": "dividends.html",
+    "sourceSha256": "bd8ce446062c327367fbb48d60b0642ded228e265265cda24060f561a4e25c3e",
+    "observedAt": "2026-10-31T11:08:22.701037+00:00"
+  },
+  {
+    "name": "identity",
+    "sourceUri": "https://ir.oneok.com/how-to-invest/frequently-asked-questions",
+    "file": "identity.html",
+    "sourceSha256": "85a77e9bf64aac4e10aeedd24b30cac2ed0be72f75aa904f1ae178120047d185",
+    "observedAt": "2026-10-31T11:08:23.529436+00:00"
+  },
+  {
+    "name": "exchange",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/876661/000087666126000770/ruleprovisionnotice.htm",
+    "file": "exchange.html",
+    "sourceSha256": "8b1f08bd98cde9ef658f83a104d0a0bb9d0e8ff68d4aa2ad5a8b087958e98ccb",
+    "observedAt": "2026-10-31T11:08:23.798192+00:00"
+  },
+  {
+    "name": "reorganization",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1039684/000119312526387972/d81803d8k12b.htm",
+    "file": "reorganization.html",
+    "sourceSha256": "ac151c8735aa2da8143a458afbfc77b3d58efeee17eca6556d108f1ac1171a98",
+    "observedAt": "2026-10-31T11:08:23.939512+00:00"
+  }
+]

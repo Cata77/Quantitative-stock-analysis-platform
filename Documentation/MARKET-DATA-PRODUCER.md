@@ -9,7 +9,8 @@ universul datat S&P 500 / Nasdaq-100. Port local: **18084** (8084 în container)
 2. Planifică în PostgreSQL colectările lipsă și reia lucrările întrerupte.
 3. Cere prețuri/calendar/acțiuni corporative de la Alpaca și raportări de la SEC.
 4. Salvează sursa, checksumul, progresul și evenimentele în outbox, într-o tranzacție.
-5. Relay-ul publică în `market-data-observations-v2`, cu UUID-ul instrumentului drept cheie.
+5. Scoring livrează evenimentele din outbox direct din PostgreSQL (fără Kafka din P2s),
+   pe canalul `market-data-observations-v2`, în ordine pentru fiecare instrument.
 6. Scoring confirmă datele canonice; abia apoi se poate certifica acoperirea completă.
 
 Prețurile brute servesc lichidității și capitalizării; seria ajustată servește
@@ -29,7 +30,8 @@ Dacă se cere colectarea prețurilor, dezactivarea ambelor este respinsă înain
 de accesul la DB/furnizor. Pentru a opri colectarea prețurilor se folosesc
 `MARKET_DATA_LATEST_BARS_ENABLED=false` și `MARKET_DATA_BACKFILL_ENABLED=false`.
 SEC folosește `SEC_FUNDAMENTALS_ENABLED` și un `SEC_USER_AGENT` cu identitate/contact real.
-Versiunea `SEC_MAPPING_VERSION` trebuie aliniată cu `SCORING_MODEL_MAPPING_VERSION`;
+Versiunea `SEC_MAPPING_VERSION` trebuie aliniată cu `--mapping-version` al publicării Python
+(`SCORING_MODEL_MAPPING_VERSION` în `.env`);
 publicația locală din octombrie folosește `sec-us-gaap-v2`.
 
 Fișierele de referință stau în [infrastructure/reference-data](../infrastructure/reference-data)
@@ -59,6 +61,18 @@ runtime-ul continuă până la terminarea acestora sau până la timeout. La fin
 erorile persistente produc în continuare eșec. `MISSING_SESSION` păstrează
 răspunsurile furnizorului și checkpointul final; nu echivalează cu o eroare HTTP
 sau cu o pagină neterminată și nu dovedește singur cauza economică a absenței.
+
+La oprirea reconcilierii, logul include `failureType`, `causeType` și `sqlState`
+(când cauza este SQL), fără textul excepției sau payloadul furnizorului.
+Această clasificare permite diagnosticarea unui CLI oprit fără expunerea
+credentialelor; politica de retry și stările persistate rămân neschimbate.
+
+Înregistrarea furnizorului, datasetului și configurației de job este separată
+în `IngestionJobRegistry`. Pentru înregistrări existente folosește
+`INSERT ... ON CONFLICT DO NOTHING` și citirea ID-ului într-o instrucțiune
+următoare, în aceeași tranzacție. Evită actualizările fără modificări care
+produceau lockuri în colectarea paralelă; hashul configurației și identitatea
+joburilor rămân aceleași. Testele acoperă concurența, cititorii FK și rollbackul.
 
 `GET /internal/ingestion/status` raportează progresul, problemele și ultima sesiune
 acoperită. Cere `operations:read` și se accesează direct pe portul producerului.

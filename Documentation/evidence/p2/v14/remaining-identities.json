@@ -1,0 +1,74 @@
+[
+  {
+    "cik": "0001973239",
+    "active": true,
+    "symbol": "ARM",
+    "valid_to": null,
+    "legal_name": "ARM HOLDINGS PLC /UK",
+    "valid_from": "2025-08-01",
+    "security_type": "DEPOSITARY_RECEIPT"
+  },
+  {
+    "cik": "0001754301",
+    "active": true,
+    "symbol": "FOX",
+    "valid_to": null,
+    "legal_name": "Fox Corp",
+    "valid_from": "2025-08-01",
+    "security_type": "COMMON_STOCK"
+  },
+  {
+    "cik": "0001652044",
+    "active": true,
+    "symbol": "GOOG",
+    "valid_to": null,
+    "legal_name": "Alphabet Inc.",
+    "valid_from": "2025-08-01",
+    "security_type": "COMMON_STOCK"
+  },
+  {
+    "cik": "0001564708",
+    "active": true,
+    "symbol": "NWS",
+    "valid_to": null,
+    "legal_name": "NEWS CORP",
+    "valid_from": "2025-08-01",
+    "security_type": "COMMON_STOCK"
+  },
+  {
+    "cik": "0001737806",
+    "active": true,
+    "symbol": "PDD",
+    "valid_to": null,
+    "legal_name": "PDD Holdings Inc.",
+    "valid_from": "2025-08-01",
+    "security_type": "DEPOSITARY_RECEIPT"
+  },
+  {
+    "cik": "0002041610",
+    "active": true,
+    "symbol": "PSKY",
+    "valid_to": null,
+    "legal_name": "New Pluto Global, Inc.",
+    "valid_from": "2025-08-07",
+    "security_type": "COMMON_STOCK"
+  },
+  {
+    "cik": "0001181412",
+    "active": true,
+    "symbol": "SPCX",
+    "valid_to": null,
+    "legal_name": "SPACE EXPLORATION TECHNOLOGIES CORP",
+    "valid_from": "2026-08-27",
+    "security_type": "COMMON_STOCK"
+  },
+  {
+    "cik": "0001437107",
+    "active": true,
+    "symbol": "WBD",
+    "valid_to": null,
+    "legal_name": "Warner Bros. Discovery, Inc.",
+    "valid_from": "2025-08-01",
+    "security_type": "COMMON_STOCK"
+  }
+]

@@ -1,0 +1,222 @@
+{
+  "reviews": [
+    {
+      "symbol": "AOS",
+      "applied": true,
+      "reviewId": "e877c718-f2ef-53b2-ac88-530925bf1324",
+      "recordedAt": "2026-10-27T14:26:32.241529+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch12.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "APA",
+      "applied": true,
+      "reviewId": "0ca48dea-983f-512f-b928-389d66811b47",
+      "recordedAt": "2026-10-27T14:26:32.266994+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch1.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "AXP",
+      "applied": true,
+      "reviewId": "502bb634-6059-5ca2-964f-b7429f635a5f",
+      "recordedAt": "2026-10-27T14:26:32.288602+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch1.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "CL",
+      "applied": true,
+      "reviewId": "49346090-b4c1-5485-8770-0fbe0fb74fe5",
+      "recordedAt": "2026-10-27T14:26:32.320414+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch1.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "CVS",
+      "applied": true,
+      "reviewId": "2c32ba20-d99f-594e-b0ed-8d9b932ce7b4",
+      "recordedAt": "2026-10-27T14:26:32.345237+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch1.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "DE",
+      "applied": true,
+      "reviewId": "0a33a3e8-57c7-5060-b86f-84a2aaa96b63",
+      "recordedAt": "2026-10-27T14:26:32.371098+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch9.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "DRI",
+      "applied": true,
+      "reviewId": "5cd94d0e-a032-5e00-ab24-c4dc6f81c2a4",
+      "recordedAt": "2026-10-27T14:26:32.394802+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch2.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "FCX",
+      "applied": false,
+      "reason": "MULTIPLE_PROVIDER_ACTIONS_REQUIRE_RECONCILIATION"
+    },
+    {
+      "symbol": "FERG",
+      "applied": true,
+      "reviewId": "fa90f0b4-8024-5bf1-88df-132969825431",
+      "recordedAt": "2026-10-27T14:26:32.411359+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch2.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "GEV",
+      "applied": true,
+      "reviewId": "1c1c808e-12c1-52e1-8d5a-237783065bb4",
+      "recordedAt": "2026-10-27T14:26:32.438212+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch3.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "GIS",
+      "applied": true,
+      "reviewId": "3774c844-e200-54d6-9b3c-f131c22da6bc",
+      "recordedAt": "2026-10-27T14:26:32.454217+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch3.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "GL",
+      "applied": true,
+      "reviewId": "d1b63303-49d2-52fd-9609-c0e128484bd0",
+      "recordedAt": "2026-10-27T14:26:32.468790+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch12.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "HRL",
+      "applied": true,
+      "reviewId": "6706d336-7cb5-5967-9179-9263a4cd4d33",
+      "recordedAt": "2026-10-27T14:26:32.483658+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch3.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "KMI",
+      "applied": true,
+      "reviewId": "53da29e5-9f9e-59c9-989d-07be9964c8e0",
+      "recordedAt": "2026-10-27T14:26:32.507092+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch4.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "LNT",
+      "applied": true,
+      "reviewId": "d65d14eb-3d6e-5136-9341-e9bcb2063c33",
+      "recordedAt": "2026-10-27T14:26:32.521109+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch4.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "LOW",
+      "applied": true,
+      "reviewId": "e508592e-9541-54a0-b65b-28b06b5d2a36",
+      "recordedAt": "2026-10-27T14:26:32.534881+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch4.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "MRSH",
+      "applied": true,
+      "reviewId": "63488a82-0fc0-52e3-b2d5-2abfa23f9a53",
+      "recordedAt": "2026-10-27T14:26:32.568907+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch11.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "MS",
+      "applied": true,
+      "reviewId": "3322d990-040c-539b-a75f-366143877d94",
+      "recordedAt": "2026-10-27T14:26:32.593555+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch5.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "NI",
+      "applied": false,
+      "reason": "ISSUER_HISTORY_EX_DATE_CONFLICT"
+    },
+    {
+      "symbol": "PAYX",
+      "applied": true,
+      "reviewId": "4c974151-d515-5832-8efb-11739d22b6ce",
+      "recordedAt": "2026-10-27T14:26:32.621059+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch10.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "PNR",
+      "applied": true,
+      "reviewId": "175bc103-3206-5713-ad89-229ee8f9c3f7",
+      "recordedAt": "2026-10-27T14:26:32.645318+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch6.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "RVTY",
+      "applied": true,
+      "reviewId": "6bb3fe78-c92c-5fd3-bef7-0089863287f9",
+      "recordedAt": "2026-10-27T14:26:32.660483+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch11.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "STZ",
+      "applied": true,
+      "reviewId": "1a4588f4-b036-5e13-b1d5-fb5372f2c1c9",
+      "recordedAt": "2026-10-27T14:26:32.675062+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch6.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "TRGP",
+      "applied": true,
+      "reviewId": "8a4eb82b-63d6-5ef6-a20d-e3e1887d70fb",
+      "recordedAt": "2026-10-27T14:26:32.699466+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch8.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "VLO",
+      "applied": false,
+      "reason": "ISSUER_HISTORY_EX_DATE_CONFLICT"
+    },
+    {
+      "symbol": "WSM",
+      "applied": true,
+      "reviewId": "0dec2dd2-9ebf-5729-affe-61a8401b2bd7",
+      "recordedAt": "2026-10-27T14:26:32.724318+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch7.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "WST",
+      "applied": true,
+      "reviewId": "0b5518f0-25b9-530b-9c83-b12942973914",
+      "recordedAt": "2026-10-27T14:26:32.739249+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch8.json",
+      "idempotent": true
+    },
+    {
+      "symbol": "ZTS",
+      "applied": true,
+      "reviewId": "dfd6a8f8-1e53-588f-ac07-424185b4646a",
+      "recordedAt": "2026-10-27T14:26:32.753241+00:00",
+      "sourceFile": "build\\p2-v14-20261027\\sources\\web-batch8.json",
+      "idempotent": true
+    }
+  ],
+  "applied": 25,
+  "published": false,
+  "policy": "INDIVIDUAL_ISSUER_EVIDENCE; SERVER_RECORDED_AT; NO_PRICE_OR_TIMESTAMP_CHANGES"
+}

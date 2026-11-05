@@ -1,0 +1,27 @@
+{
+  "reviewId": "0643d166-64a4-5393-be97-8c6a94bc4b7b",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+  "factId": null,
+  "issueId": "403e9b39-edb7-40af-a499-69a8d4851053",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261101",
+  "evidence": {
+    "scope": "SESSION_BEFORE_INSTRUMENT_LISTING",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2041610/000119312525175046/d841914d8k12b.htm",
+    "sourceSha256": "2ad490a74f650cc14fa851388222e89ec58b6da4ece178b6bcbc7088c15a1258",
+    "sourceObservedAt": "2026-11-01T17:27:08.469096+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "shares of Class B Common Stock will trade on the Nasdaq Stock Market LLC (“ Nasdaq ”) under the ticker symbol “PSKY”",
+    "issueEvidence": "{\"reason\": \"provider pagination exhausted\"}",
+    "issueRunId": "ba967030-6c69-4764-a210-73849a31ab59",
+    "datasetId": "482ffe35-ab2a-40a7-b300-9197c2066e42",
+    "adjustment": "RAW",
+    "issueAdjustmentAsOf": null,
+    "session": "2025-08-05",
+    "supportingPassage": "On August 7, 2025, Paramount Skydance Corporation, a Delaware corporation",
+    "instrumentListedFrom": "2025-08-07",
+    "windowStart": "2025-10-29",
+    "rationale": "Paramount Skydance Class B shares were created at the closing on 2025-08-07 and first traded as PSKY. A session before that date cannot have a bar for this instrument, and it precedes the 253-session window, so no history, momentum or liquidity input uses it."
+  }
+}

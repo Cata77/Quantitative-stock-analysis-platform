@@ -1,0 +1,79 @@
+{
+  "runId": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "excludedInstruments": 3,
+  "auditedAt": "2026-11-02T11:12:03.840944+00:00",
+  "publication": {
+    "state": "PUBLISHED",
+    "actual_count": 518,
+    "scored_count": 515,
+    "actual_scored": 515,
+    "excluded_count": 3,
+    "expected_count": 518,
+    "knowledge_cutoff": "2026-11-01T20:00:00+00:00"
+  },
+  "allInstrumentsScored": false,
+  "reviewInterpretation": "LIVE_REVIEW_STATUS_DOES_NOT_CHANGE_PUBLISHED_RESULTS",
+  "corporateActionIssueCount": 0,
+  "nextActions": {
+    "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION": 2,
+    "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION": 1
+  },
+  "allNextActions": {
+    "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION": 2,
+    "INVESTIGATE_PUBLISHED_REASON": 1,
+    "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION": 1
+  },
+  "remainingReasonsByInstrument": {
+    "NO_VALID_NORMALIZED_METRICS": 2,
+    "INCOMPLETE_LIQUIDITY_WINDOW": 1,
+    "MISSING_SCORE_DATE_PRICE": 1,
+    "INACTIVE_OR_UNSUPPORTED_SECURITY": 1,
+    "NOT_REPORTED": 1
+  },
+  "policy": "READ_ONLY_TRIAGE; NO_REVIEWS_APPLIED; NO_HISTORICAL_TIMESTAMPS_CHANGED",
+  "rows": [
+    {
+      "issues": [],
+      "symbol": "HONA",
+      "reasons": [
+        "NO_VALID_NORMALIZED_METRICS"
+      ],
+      "instrument_id": "97e6932f-7dca-4a6f-b955-5bd469481ee6",
+      "scoring_profile": "GENERAL",
+      "next_actions": [
+        "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION"
+      ],
+      "next_action": "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION"
+    },
+    {
+      "issues": [],
+      "symbol": "SPCX",
+      "reasons": [
+        "NO_VALID_NORMALIZED_METRICS"
+      ],
+      "instrument_id": "0485b5ed-85a6-4e40-a978-65919a0f89bd",
+      "scoring_profile": "GENERAL",
+      "next_actions": [
+        "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION"
+      ],
+      "next_action": "TRACE_METRIC_INPUTS_HISTORY_AND_NORMALIZATION"
+    },
+    {
+      "issues": [],
+      "symbol": "WBD",
+      "reasons": [
+        "INACTIVE_OR_UNSUPPORTED_SECURITY:DELISTED:2026-10-06",
+        "INCOMPLETE_LIQUIDITY_WINDOW",
+        "MISSING_SCORE_DATE_PRICE",
+        "NOT_REPORTED:ADJUSTED_CLOSE"
+      ],
+      "instrument_id": "77f24b58-a12d-4483-b86f-9d695eb4324a",
+      "scoring_profile": "GENERAL",
+      "next_actions": [
+        "INVESTIGATE_PUBLISHED_REASON",
+        "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION"
+      ],
+      "next_action": "RECOVER_EXACT_INSTRUMENT_PRICES_OR_RETAIN_EXCLUSION"
+    }
+  ]
+}

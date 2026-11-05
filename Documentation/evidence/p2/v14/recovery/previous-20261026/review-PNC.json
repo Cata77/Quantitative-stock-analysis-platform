@@ -1,0 +1,32 @@
+{
+  "reviewId": "d36f67d4-63f9-568e-bb73-dd8651aa9e59",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "bb6d41f2-468b-4fad-8ae2-6cee129aa4c8",
+  "factId": null,
+  "issueId": "eed27ef5-d54c-4d4b-b121-b14db3f50121",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investor.pnc.com/sec-filings/all-sec-filings/content/0000713676-25-000060/pnc-20250630.htm",
+    "sourceSha256": "21ef47707a89505c56bedf67f2c44d0cd4e704d5650b3ef1eb3ec011b0b94ad6",
+    "sourceObservedAt": "2026-10-26T14:04:51.674277+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"f27df569595003fd8284d9e3a4df5df4db7fe9f002f645fae754dafebeaef534\"}",
+    "providerAction": {
+      "id": "51ca1fbb-c2da-4866-ba1a-70039453db08",
+      "rate": 1.7,
+      "type": "cash_dividends",
+      "cusip": "693475105",
+      "symbol": "PNC",
+      "ex_date": "2025-07-15",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-15",
+      "payable_date": "2025-08-05",
+      "process_date": "2025-08-05"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "PNC FINANCIAL SERVICES GROUP, INC.",
+    "issuerCik": "0000713676",
+    "rationale": "Issuer common-stock dividend source confirms PNC, USD 1.7 per share, record date 2025-07-15, payment date 2025-08-05. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

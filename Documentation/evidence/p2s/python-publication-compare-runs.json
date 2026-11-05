@@ -1,0 +1,45 @@
+{
+  "reference": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "candidate": "26f3c95a-bd26-4139-acba-fe543ae638a2",
+  "implementations": [
+    "java-flexible-1.5.0",
+    "python-flexible-1.5.0"
+  ],
+  "published": true,
+  "sameModel": true,
+  "sameCounts": true,
+  "sameInputSections": false,
+  "tables": {
+    "lineage": {
+      "rows": 518,
+      "identical": false,
+      "onlyReference": 518,
+      "onlyCandidate": 518
+    },
+    "artifacts": {
+      "rows": 21352,
+      "identical": true,
+      "onlyReference": 0,
+      "onlyCandidate": 0
+    },
+    "scores": {
+      "rows": 518,
+      "identical": false,
+      "onlyReference": 518,
+      "onlyCandidate": 518
+    },
+    "factors": {
+      "rows": 2984,
+      "identical": true,
+      "onlyReference": 0,
+      "onlyCandidate": 0
+    },
+    "exclusions": {
+      "rows": 1558,
+      "identical": true,
+      "onlyReference": 0,
+      "onlyCandidate": 0
+    }
+  },
+  "identical": false
+}

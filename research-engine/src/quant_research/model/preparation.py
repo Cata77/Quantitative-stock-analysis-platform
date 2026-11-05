@@ -2,7 +2,44 @@
 
 from .engine import timestamp
 
-CURRENT_VERSION = "canonical-preparation-v3"
+CURRENT_VERSION = "canonical-preparation-v4"
+PREVIOUS_VERSION = "canonical-preparation-v3"
+
+
+def enrich_v4(row: dict, item: dict, cutoff: str) -> None:
+    """Derive common equity only from explicit same-filing parent equity and preferred equity."""
+    from .periods import _result
+
+    enrich(row, item, cutoff)
+    if row["profile"] != "GENERAL":
+        return
+    facts = [f for f in item["facts"]
+             if timestamp(f["availableAt"]) <= timestamp(cutoff)
+             and timestamp(f["observedAt"]) <= timestamp(cutoff)
+             and f["end"] <= row["score_date"] and f["unit"] == "USD"]
+    for suffix in ("", "_PRIOR"):
+        key = "COMMON_EQUITY" + suffix
+        anchor = row["provenance"].get("TOTAL_ASSETS" + suffix)
+        if key in row["values"] or not anchor:
+            continue
+        end = anchor["period_end"]
+        if any(f["metric"] == "COMMON_EQUITY" and f["end"] == end for f in facts):
+            continue
+        total = [f for f in facts if f["metric"] == "STOCKHOLDERS_EQUITY"
+                 and f["end"] == end and f.get("start") is None]
+        preferred = [f for f in facts if f["metric"] == "PREFERRED_EQUITY"
+                     and f["end"] == end and f.get("start") is None]
+        if len(total) != 1 or len(preferred) != 1:
+            continue
+        total, preferred = total[0], preferred[0]
+        if (not total.get("filingId") or total["filingId"] != preferred.get("filingId")
+                or preferred["value"] < 0):
+            continue
+        derived = _result([(total, 1), (preferred, -1)])
+        row["values"][key] = derived.pop("value")
+        derived["derivation"] = "PARENT_EQUITY_MINUS_PREFERRED_SAME_FILING_PERIOD_V1"
+        row["provenance"][key] = derived
+        row["preparation_diagnostics"].pop(key, None)
 
 
 def enrich(row: dict, item: dict, cutoff: str) -> None:

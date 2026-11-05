@@ -1,0 +1,33 @@
+{
+  "reviewId": "d1b63303-49d2-52fd-9609-c0e128484bd0",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "23d95b6b-4364-4608-919c-16d99525bcdd",
+  "factId": null,
+  "issueId": "2bba9099-bffd-4324-b30f-5130ba5fc425",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.prnewswire.com/news-releases/globe-life-inc-declares-dividend-302437556.html",
+    "sourceSha256": "d189add9d79574d42594b295d5f9d2c0f74369b1f96a864148a486a19f27b441",
+    "sourceObservedAt": "2026-10-27T14:26:32.461918+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"613453670118aca8bbc8b6f72ad20ce502347d882fa1092a095f07b4e7fc81a2\"}",
+    "providerAction": {
+      "id": "0a4efa71-d13b-4cad-984f-bb677d4f47b9",
+      "rate": 0.27,
+      "type": "cash_dividends",
+      "cusip": "37959E102",
+      "symbol": "GL",
+      "ex_date": "2025-07-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-03",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "GLOBE LIFE INC.",
+    "issuerCik": "0000320335",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms GL, USD 0.27 per share, record date 2025-07-03, payment date 2025-08-01. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

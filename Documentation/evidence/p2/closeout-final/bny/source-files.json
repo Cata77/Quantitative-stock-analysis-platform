@@ -1,0 +1,23 @@
+[
+  {
+    "name": "bank-rename",
+    "sourceUri": "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-announces-planned-change-of-stock-ticker-symbol-to-bny-130465.html",
+    "file": "bank-rename.html",
+    "sourceSha256": "84f829b0d155f5bd198a039a0565b98e34373010a502c6a3e45ce2fd2f6eb812",
+    "observedAt": "2026-10-29T14:18:05.604138+00:00"
+  },
+  {
+    "name": "bank-dividend",
+    "sourceUri": "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-declares-dividends-130438.html",
+    "file": "bank-dividend.html",
+    "sourceSha256": "e9b38bcdebe7543d19057cbcf14b63f35efdb3689e67b7d6f753652bdf71bf0f",
+    "observedAt": "2026-10-29T14:18:06.608910+00:00"
+  },
+  {
+    "name": "fund-identity",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1137390/000106299325016053/xslSCHEDULE_13D_X01/primary_doc.xml",
+    "file": "fund-identity.html",
+    "sourceSha256": "03e87e630ea88c0592f844c94e772af9f8458d67ece61481c66e6b769eaf51d1",
+    "observedAt": "2026-10-29T14:18:06.906347+00:00"
+  }
+]

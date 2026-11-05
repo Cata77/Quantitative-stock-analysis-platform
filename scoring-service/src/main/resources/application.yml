@@ -20,35 +20,6 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
-  kafka:
-    properties:
-      security.protocol: ${KAFKA_SECURITY_PROTOCOL:SSL}
-      ssl.keystore.location: ${KAFKA_SSL_KEYSTORE_LOCATION:}
-      ssl.keystore.password: ${KAFKA_SSL_KEYSTORE_PASSWORD:}
-      ssl.key.password: ${KAFKA_SSL_KEY_PASSWORD:}
-      ssl.truststore.location: ${KAFKA_SSL_TRUSTSTORE_LOCATION:}
-      ssl.truststore.password: ${KAFKA_SSL_TRUSTSTORE_PASSWORD:}
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    client-id: ${KAFKA_CLIENT_ID:scoring-service}
-    admin:
-      fail-fast: false
-    consumer:
-      group-id: ${SCORING_CONSUMER_GROUP:scoring-service-v2}
-      auto-offset-reset: earliest
-      enable-auto-commit: false
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
-      properties:
-        isolation.level: read_committed
-    producer:
-      acks: all
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-      properties:
-        enable.idempotence: true
-    listener:
-      ack-mode: record
-      concurrency: ${SCORING_CONSUMER_CONCURRENCY:3}
 
 management:
   endpoints:
@@ -57,13 +28,15 @@ management:
         include: health
 
 scoring:
-  model:
-    mapping-version: ${SCORING_MODEL_MAPPING_VERSION:sec-us-gaap-v1}
-    raw-dataset: ${SCORING_MODEL_RAW_DATASET:}
-    adjusted-dataset: ${SCORING_MODEL_ADJUSTED_DATASET:}
-    classification-version: ${SCORING_MODEL_CLASSIFICATION_VERSION:}
+  # Score publication is in research-engine (python -m quant_research.publication.cli, P2s).
   command:
     operation: ${SCORING_OPERATION:serve}
+  # Inbox identity of the canonical consumer; must stay stable across transports (P2s).
+  consumer-name: ${SCORING_CONSUMER_GROUP:scoring-service-v2}
+  delivery:
+    enabled: ${SCORING_DELIVERY_ENABLED:true}
+    interval-ms: ${SCORING_DELIVERY_INTERVAL_MS:1000}
+    lease: ${SCORING_DELIVERY_LEASE:PT2M}
   input-topic: ${MARKET_DATA_TOPIC:market-data-observations-v2}
   dead-letter-topic: ${MARKET_DATA_DLQ_TOPIC:market-data-observations-v2-dlq}
   topic-partitions: ${MARKET_DATA_TOPIC_PARTITIONS:6}
@@ -74,10 +47,6 @@ scoring:
   minimum-universe-size: ${SCORING_MINIMUM_UNIVERSE_SIZE:3}
   schedule-cron: ${SCORING_SCHEDULE_CRON:0 5 0 * * *}
   schedule-zone: ${SCORING_SCHEDULE_ZONE:UTC}
-  elasticsearch:
-    enabled: ${SCORING_ELASTICSEARCH_ENABLED:false}
-    base-url: ${ELASTICSEARCH_URL:https://localhost:9200}
-    company-index: ${ELASTICSEARCH_COMPANY_INDEX:companies}
 
 logging:
   level:

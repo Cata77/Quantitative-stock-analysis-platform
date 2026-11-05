@@ -1,0 +1,32 @@
+{
+  "reviewId": "7e6e2b7c-9627-5807-84de-498eb375119e",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "78ace1ab-bcaa-40e2-abc9-029d2d0d24ad",
+  "factId": null,
+  "issueId": "05908e8e-8d75-4206-92ed-718f69e584c2",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investor.citizensbank.com/~/media/Files/C/CitizensBank-IR/2q-25-earnings-press-release.pdf",
+    "sourceSha256": "c2c9cbb29a18f72a8ed993840581f4c22f6f6661d6a5401049ff7a643296ba49",
+    "sourceObservedAt": "2026-10-26T14:07:15.524517+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"a7d5cda6fd0068c554ec0c4645ca294c651aad4060dfd83d4b8d992a92e7d4e1\"}",
+    "providerAction": {
+      "id": "4801d77b-b8f8-4ce5-911e-fd39ecc1db8e",
+      "rate": 0.42,
+      "type": "cash_dividends",
+      "cusip": "174610105",
+      "symbol": "CFG",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-14",
+      "process_date": "2025-08-14"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "CITIZENS FINANCIAL GROUP INC/RI",
+    "issuerCik": "0000759944",
+    "rationale": "Issuer common-stock dividend source confirms CFG, USD 0.42 per share, record date 2025-07-31, payment date 2025-08-14. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

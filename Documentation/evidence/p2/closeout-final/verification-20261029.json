@@ -1,0 +1,64 @@
+{
+  "verifiedOn": "2026-10-29",
+  "runId": "b05e813d-d0e0-4993-8777-f05e90fa7fee",
+  "modelVersion": "1.4.0",
+  "inputSha256": "8b7a87030e8c5859d49888a9eec86f409e7b9ddef40bc11d048e2145e2913732",
+  "expectedCount": 518,
+  "scoredCount": 487,
+  "excludedCount": 31,
+  "pythonJavaPreparedParity": true,
+  "pythonJavaScoreParity": true,
+  "absoluteTolerance": 1e-09,
+  "latePriceLineageRows": 0,
+  "remainingReasonsByInstrument": {
+    "CORPORATE_ACTION_REVIEW": 23,
+    "INACTIVE_OR_UNSUPPORTED_SECURITY": 2,
+    "NON_PRIMARY_SHARE_CLASS": 3,
+    "NOT_REPORTED": 2,
+    "MISSING_SCORE_DATE_PRICE": 2,
+    "INCOMPLETE_LIQUIDITY_WINDOW": 2,
+    "SECURITY_IDENTITY_REVIEW": 1
+  },
+  "allInstrumentsScored": false,
+  "reviewsPrepared": [
+    "review-ECHO.json",
+    "review-P.json"
+  ],
+  "reviewsApplied": false,
+  "publicationChanged": false,
+  "status": "OPEN",
+  "fullEvidenceDirectory": "build/p2-final-20261029",
+  "validation": {
+    "pythonTests": {
+      "passed": 202,
+      "failed": 0
+    },
+    "ruff": "PASSED",
+    "composeConfig": "PASSED",
+    "reviewManifests": "VALIDATED_NOT_APPLIED",
+    "javaTests": {
+      "scoring-service": {
+        "tests": 102,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 2,
+        "passed": 99
+      },
+      "database-migrations": {
+        "tests": 19,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 19
+      },
+      "screener-service": {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 17
+      },
+      "failure": "ScoringInputIntegrationTest.targetScaleUsesOneStatementAndRecordsAnActualQueryPlan: TimeoutException, 180-second limit"
+    }
+  }
+}

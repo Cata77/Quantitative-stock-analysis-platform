@@ -1,0 +1,33 @@
+{
+  "reviewId": "3322d990-040c-539b-a75f-366143877d94",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "64fc5811-1a8d-4c48-9861-80462c463300",
+  "factId": null,
+  "issueId": "2294fb15-94b2-475c-ada3-5ec1e7f5d9c4",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.morganstanley.com/about-us-ir/shareholder/2q2025.pdf?cid=SM_CORP_LINKEDIN_morgan-stanley_20250716",
+    "sourceSha256": "7e5eda35b2e1718c4d1ae65369144395f488feb66cf16c7fd3a40f871cefe3db",
+    "sourceObservedAt": "2026-10-27T14:26:32.586726+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"0fbb13957695513a5959c80db9eb4b8bdb12eca3623234d701bd564554e54c0d\"}",
+    "providerAction": {
+      "id": "7fad7e1a-1763-4c9b-b761-2e6de53fd9be",
+      "rate": 1,
+      "type": "cash_dividends",
+      "cusip": "617446448",
+      "symbol": "MS",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-08-15",
+      "process_date": "2025-08-15"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "MORGAN STANLEY",
+    "issuerCik": "0000895421",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms MS, USD 1 per share, record date 2025-07-31, payment date 2025-08-15. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

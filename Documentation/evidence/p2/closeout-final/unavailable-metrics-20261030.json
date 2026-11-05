@@ -1,0 +1,94 @@
+{
+  "runId": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+  "rows": [
+    {
+      "symbol": "Q",
+      "instrumentId": "564b17ae-5270-4974-b8d6-2c2fd0038948",
+      "reasons": [
+        "NO_VALID_NORMALIZED_METRICS"
+      ],
+      "metrics": {
+        "ebit_ev": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "fcf_yield": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "book_market": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "gross_profitability": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "roic": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "cash_earnings": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "momentum": {
+          "raw": null,
+          "reason": "INSUFFICIENT_HISTORY",
+          "cohortCount": 0
+        }
+      }
+    },
+    {
+      "symbol": "HONA",
+      "instrumentId": "97e6932f-7dca-4a6f-b955-5bd469481ee6",
+      "reasons": [
+        "NO_VALID_NORMALIZED_METRICS"
+      ],
+      "metrics": {
+        "ebit_ev": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "fcf_yield": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "book_market": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "gross_profitability": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "roic": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "cash_earnings": {
+          "raw": null,
+          "reason": "NOT_REPORTED",
+          "cohortCount": 0
+        },
+        "momentum": {
+          "raw": null,
+          "reason": "INSUFFICIENT_HISTORY",
+          "cohortCount": 0
+        }
+      }
+    }
+  ],
+  "interpretation": "Prepared model diagnostics; NOT_REPORTED does not establish absence from original filings"
+}

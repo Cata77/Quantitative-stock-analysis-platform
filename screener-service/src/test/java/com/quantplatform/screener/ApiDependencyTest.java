@@ -14,7 +14,7 @@ class ApiDependencyTest {
         var rankings=mock(RankingService.class);var search=mock(CompanySearchService.class);
         when(rankings.findRankings(any(),anyInt(),anyInt(),any()))
             .thenThrow(new org.springframework.dao.DataAccessResourceFailureException("private database address"));
-        when(search.search(anyString(),anyInt(),anyInt())).thenThrow(new SearchUnavailableException(new java.io.IOException("private host")));
+        when(search.search(anyString(),anyInt(),anyInt())).thenThrow(new org.springframework.dao.DataAccessResourceFailureException("private host"));
         var mvc=MockMvcBuilders.standaloneSetup(new ScreenerController(rankings,search)).setControllerAdvice(new ApiExceptionHandler()).build();
         mvc.perform(get("/screener/rankings")).andExpect(status().isServiceUnavailable());
         mvc.perform(get("/screener/search").param("q","test")).andExpect(status().isServiceUnavailable());

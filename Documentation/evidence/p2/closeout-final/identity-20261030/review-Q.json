@@ -1,0 +1,30 @@
+{
+  "reviewId": "386847bd-ec53-55f0-a5df-8c6dde6f6bfb",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "564b17ae-5270-4974-b8d6-2c2fd0038948",
+  "factId": null,
+  "issueId": "23395fab-64da-40b0-b4f0-9d2c603450fd",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-identity-review",
+  "evidence": {
+    "scope": "EXACT_SYMBOL_TRANSITION_ISSUE_ONLY",
+    "sourceUri": "https://ir.qnityelectronics.com/sec-filings/all-sec-filings/content/0001193125-25-261603/d65598d8k.htm",
+    "sourceSha256": "3cca3b24182afa7b20a5e76796697835f43fd0a65b6e96085fed2d69ec98e17d",
+    "sourceObservedAt": "2026-10-30T07:32:31.471757+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"95d21928814800b83701d92fce91d756d3758bf31ae877397b60562b718ffeee\"}",
+    "providerAction": {
+      "id": "0b29f3f7-e550-414b-a536-39b91319d576",
+      "type": "name_changes",
+      "new_cusip": "74743L100",
+      "old_cusip": "74743L100",
+      "new_symbol": "Q",
+      "old_symbol": "Q.WI",
+      "process_date": "2025-11-03"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "Qnity Electronics",
+    "issuerCik": "0002058873",
+    "rationale": "Qnity filings confirm when-issued Q WI trading from October 27 through October 31, 2025 and commencement of regular-way Q trading on November 3 after completed separation. Provider Q.WI is the dotted spelling of that when-issued symbol. Review only the symbol transition for the same Qnity security; do not join DuPont prices, manufacture pre-listing history or waive price/history checks."
+  }
+}

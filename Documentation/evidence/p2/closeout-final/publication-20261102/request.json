@@ -1,0 +1,45 @@
+{
+  "scoreDate": "2026-10-30",
+  "cutoff": "2026-11-01T20:00:00Z",
+  "explicitCutoff": {
+    "reason": "Adjustment vintage 2026-11-01 equals the cutoff's New York date; all inputs were observed before it (user decision 2026-11-01)",
+    "decidedAt": "2026-11-02T11:09:41.584373+00:00",
+    "lateObservations": [
+      {
+        "n": 0,
+        "source": "instrument_symbols"
+      },
+      {
+        "n": 0,
+        "source": "instrument_share_facts"
+      },
+      {
+        "n": 0,
+        "source": "filings"
+      },
+      {
+        "n": 0,
+        "source": "corporate_actions"
+      },
+      {
+        "n": 0,
+        "source": "ingestion_run_items_terminal_after_cutoff"
+      },
+      {
+        "n": 0,
+        "source": "fundamental_facts"
+      },
+      {
+        "n": 0,
+        "source": "consolidated_raw_liquidity"
+      },
+      {
+        "n": 0,
+        "source": "daily_bar_observations"
+      }
+    ]
+  },
+  "modelVersion": "1.5.0",
+  "preprocessingVersion": "canonical-preparation-v4",
+  "jarSha256": "fc7ee3c0918d69ad092e74e6c44ea0409bec90b957c74d1940ae98933e65c838"
+}

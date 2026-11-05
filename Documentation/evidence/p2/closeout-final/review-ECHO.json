@@ -1,0 +1,29 @@
+{
+  "reviewId": "4ef8b953-9bf8-53a1-884f-63481f647c47",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "2cb41e4f-7353-4c4c-8eec-05b59690ac96",
+  "factId": null,
+  "issueId": "d0e76aa3-44cf-4005-8037-64215757d4e8",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-rename-review",
+  "evidence": {
+    "sourceUri": "https://echostar.gcs-web.com/news-releases/news-release-details/echostar-changing-stocker-ticker-sats-echo-marking-companys-next",
+    "sourceSha256": "db98e5f24a24dbdf163cd40b9edf05e44667ea28bffebed80a4fb69d763eec10",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "scope": "EXACT_RENAME_ISSUE_ONLY",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"69ee59c657bd41914725ec62205b467368d7601113d5e4ae1cee20dc0d4f95d0\"}",
+    "providerAction": {
+      "id": "e434836c-344d-4e24-a40c-bc24987c0d73",
+      "type": "name_changes",
+      "new_cusip": "278768106",
+      "old_cusip": "278768106",
+      "new_symbol": "ECHO",
+      "old_symbol": "SATS",
+      "process_date": "2026-06-24"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "EchoStar CORP",
+    "issuerCik": "0001415404",
+    "rationale": "Issuer announcement confirms the dated symbol change and unchanged CUSIP for the same common stock. Provider old/new symbols, effective date and unchanged CUSIP agree. Accept only this rename issue; do not change price observations, historical symbols or any other corporate action."
+  }
+}

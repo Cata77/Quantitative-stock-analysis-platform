@@ -1,0 +1,33 @@
+{
+  "reviewId": "c3e09a81-ae4a-5bc5-8b6c-15d9114efe2b",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "c7311e9d-497f-42c6-b5d8-a1acd3baad43",
+  "factId": null,
+  "issueId": "1a1ab034-9f46-4c85-bad7-f5f8feb47c38",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1574540/000148711824000002/DOC_SC13G.htm",
+    "sourceSha256": "bb356f7e99220ac5fe106d058032a443515f485e07f3aeb51f3015a2c44be4d8",
+    "sourceObservedAt": "2026-10-31T11:27:34.676128+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "PHYSICIANS REALTY TRUST (Name of Issuer) COMMON SHARES, PAR VALUE $0.01 PER SHARE (Title of Class of Securities) 71943U104 (CUSIP Number)",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"3d96dcc185c93215830719fa4f4575513ed215a7e6af2b97ccd9f9b3e5774ec7\"}",
+    "providerAction": {
+      "id": "80dc492b-d834-4282-8136-a3d4b209a12f",
+      "type": "name_changes",
+      "new_cusip": "42250P103",
+      "old_cusip": "71943U104",
+      "new_symbol": "DOC",
+      "old_symbol": "DOC",
+      "process_date": "2026-01-30"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "HEALTHPEAK PROPERTIES, INC.",
+    "issuerCik": "0000765880",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "CUSIP 71943U104 identifies Physicians Realty Trust (CIK 1574540), the former holder of the DOC ticker acquired by Healthpeak in March 2024. Healthpeak common stock remains 42250P103 throughout the window (monthly dividend releases retained as DOC-8k-*). The provider row is a stale cross-issuer symbol mapping, not an event of this instrument; no Physicians Realty history is attributed to Healthpeak."
+  }
+}

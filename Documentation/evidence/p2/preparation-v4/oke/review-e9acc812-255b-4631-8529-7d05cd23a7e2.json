@@ -1,0 +1,28 @@
+{
+  "reviewId": "ccdfa5b6-2498-583c-bd59-e32f6c660bc5",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+  "factId": null,
+  "issueId": "e9acc812-255b-4631-8529-7d05cd23a7e2",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-and-exchange-review",
+  "evidence": {
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1039684/000119312526387972/d81803d8k12b.htm",
+    "sourceObservedAt": "2026-10-31T11:08:23.939512+00:00",
+    "sourceSha256": "255c099f252ae43c197ada00dd76c9829751e48e27d28dec96306956856e1734",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"087279df393a62a5da50f9ac5613c725bbd26a1f2910b81be3577699535d5786\"}",
+    "providerAction": {
+      "id": "f91ae982-5eaf-49bc-970a-d541f59b838d",
+      "type": "name_changes",
+      "new_cusip": "30609A109",
+      "old_cusip": "682680103",
+      "new_symbol": "OKE",
+      "old_symbol": "OKE",
+      "process_date": "2026-09-11"
+    },
+    "issuerCik": "0001039684",
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "rationale": "The issuer 8-K and NYSE notice confirm the September 10 legal reorganization, the old and new CUSIPs and a one-for-one conversion with unchanged share counts and percentage ownership. The issuer FAQ dates the new trading CUSIP to September 11, matching the provider process date. Legal effectiveness and trading processing are distinct. The same OKE listing continues; this is not an unrelated ticker reuse. Accept only this exact quality issue. Preserve prices, event revisions, other blockers and observation timestamps."
+  }
+}

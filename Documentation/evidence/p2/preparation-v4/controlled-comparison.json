@@ -1,0 +1,18 @@
+{
+  "sourceRun": "f41d3a8d-10f6-4bf7-a606-33dc838fa7ff",
+  "inputSha256": "c7ee2d153b98ab7ecd4a284e4d15784fdb3e15c57cc33f646253cbb01a07803a",
+  "modelVersion": "1.4.0",
+  "beforePreparation": "canonical-preparation-v3",
+  "afterPreparation": "canonical-preparation-v4",
+  "beforeScored": 497,
+  "afterScored": 498,
+  "changes": [
+    {
+      "symbol": "Q",
+      "before": false,
+      "after": true,
+      "reasons": []
+    }
+  ],
+  "published": false
+}

@@ -37,82 +37,6 @@ services:
         condition: service_healthy
     restart: "no"
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    profiles: [infrastructure, application]
-    ports:
-      - "127.0.0.1:9200:9200"
-    environment:
-      discovery.type: single-node
-      xpack.security.enabled: "true"
-      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:-}
-      xpack.security.http.ssl.enabled: "true"
-      xpack.security.http.ssl.key: certs/http.key
-      xpack.security.http.ssl.certificate: certs/http.crt
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
-      - ./certs/elasticsearch:/usr/share/elasticsearch/config/certs:ro
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - curl --fail --silent --cacert config/certs/ca.crt -u "elastic:$${ELASTIC_PASSWORD}" https://localhost:9200/_cluster/health?wait_for_status=yellow >/dev/null
-      interval: 10s
-      timeout: 5s
-      retries: 20
-      start_period: 30s
-    restart: unless-stopped
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.7.11
-    profiles: [infrastructure, application]
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-    volumes:
-      - zookeeper-data:/var/lib/zookeeper/data
-      - zookeeper-log:/var/lib/zookeeper/log
-    healthcheck:
-      test: [CMD-SHELL, cub zk-ready localhost 30]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 20s
-    restart: unless-stopped
-
-  kafka:
-    image: confluentinc/cp-kafka:7.7.11
-    profiles: [infrastructure, application]
-    depends_on:
-      zookeeper:
-        condition: service_healthy
-    ports:
-      - "127.0.0.1:9092:9092"
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: SSL://0.0.0.0:9092,SSL_INTERNAL://0.0.0.0:29092
-      KAFKA_ADVERTISED_LISTENERS: SSL://localhost:9092,SSL_INTERNAL://kafka:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SSL:SSL,SSL_INTERNAL:SSL
-      KAFKA_INTER_BROKER_LISTENER_NAME: SSL_INTERNAL
-      KAFKA_SSL_CLIENT_AUTH: required
-      KAFKA_SSL_KEYSTORE_FILENAME: broker.keystore.jks
-      KAFKA_SSL_KEYSTORE_CREDENTIALS: keystore-password
-      KAFKA_SSL_KEY_CREDENTIALS: key-password
-      KAFKA_SSL_TRUSTSTORE_FILENAME: broker.truststore.jks
-      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: truststore-password
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    volumes:
-      - kafka-data:/var/lib/kafka/data
-      - ./certs/kafka:/etc/kafka/secrets:ro
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - kafka-broker-api-versions --bootstrap-server localhost:9092 --command-config /etc/kafka/secrets/client.properties >/dev/null 2>&1
-      interval: 10s
-      timeout: 10s
-      retries: 15
-      start_period: 30s
-    restart: unless-stopped
-
   auth-service:
     profiles: [application]
     build:
@@ -175,12 +99,6 @@ services:
       MARKET_DATA_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
       MARKET_DATA_DB_USER: ${MARKET_DATA_DB_USER:-quant_ingestion}
       MARKET_DATA_DB_PASSWORD: ${MARKET_DATA_DB_PASSWORD:-}
-      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      KAFKA_SSL_KEYSTORE_LOCATION: /run/kafka/client.keystore.jks
-      KAFKA_SSL_KEYSTORE_PASSWORD: ${INGESTION_KAFKA_KEYSTORE_PASSWORD:-}
-      KAFKA_SSL_KEY_PASSWORD: ${INGESTION_KAFKA_KEY_PASSWORD:-}
-      KAFKA_SSL_TRUSTSTORE_LOCATION: /run/kafka/client.truststore.jks
-      KAFKA_SSL_TRUSTSTORE_PASSWORD: ${INGESTION_KAFKA_TRUSTSTORE_PASSWORD:-}
       MARKET_DATA_ENABLED: ${MARKET_DATA_ENABLED:-false}
       SEC_MAPPING_VERSION: ${SEC_MAPPING_VERSION:-sec-us-gaap-v1}
       SEC_FUNDAMENTALS_ENABLED: ${SEC_FUNDAMENTALS_ENABLED:-false}
@@ -222,14 +140,11 @@ services:
       REFERENCE_DATA_CLASSIFICATION_SOURCE: ${REFERENCE_DATA_CLASSIFICATION_SOURCE:-}
       REFERENCE_DATA_CLASSIFICATION_VERSION: ${REFERENCE_DATA_CLASSIFICATION_VERSION:-}
     volumes:
-      - ./certs/market-data-producer:/run/kafka:ro
       - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
       - ./reference-data:/reference-data:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
-      kafka:
-        condition: service_healthy
     restart: unless-stopped
 
   scoring-service:
@@ -244,31 +159,14 @@ services:
       JWT_ISSUER: ${JWT_ISSUER:-}
       JWT_AUDIENCE: ${JWT_AUDIENCE:-}
       JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      SCORING_MONTH_END_ENABLED: ${SCORING_MONTH_END_ENABLED:-true}
-      SCORING_MODEL_RAW_DATASET: ${SCORING_MODEL_RAW_DATASET:-}
-      SCORING_MODEL_ADJUSTED_DATASET: ${SCORING_MODEL_ADJUSTED_DATASET:-}
-      SCORING_MODEL_MAPPING_VERSION: ${SCORING_MODEL_MAPPING_VERSION:-sec-us-gaap-v1}
-      SCORING_MODEL_CLASSIFICATION_VERSION: ${SCORING_MODEL_CLASSIFICATION_VERSION:-}
       SCORING_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
       SCORING_DB_USER: ${SCORING_DB_USER:-quant_scoring}
       SCORING_DB_PASSWORD: ${SCORING_DB_PASSWORD:-}
-      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      KAFKA_SSL_KEYSTORE_LOCATION: /run/kafka/client.keystore.jks
-      KAFKA_SSL_KEYSTORE_PASSWORD: ${SCORING_KAFKA_KEYSTORE_PASSWORD:-}
-      KAFKA_SSL_KEY_PASSWORD: ${SCORING_KAFKA_KEY_PASSWORD:-}
-      KAFKA_SSL_TRUSTSTORE_LOCATION: /run/kafka/client.truststore.jks
-      KAFKA_SSL_TRUSTSTORE_PASSWORD: ${SCORING_KAFKA_TRUSTSTORE_PASSWORD:-}
-      ELASTICSEARCH_URL: ${ELASTICSEARCH_URL:-https://elasticsearch:9200}
     volumes:
-      - ./certs/scoring-service:/run/kafka:ro
       - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
-      kafka:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
     restart: unless-stopped
 
   screener-service:
@@ -286,33 +184,12 @@ services:
       SCREENER_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
       SCREENER_DB_USER: ${SCREENER_DB_USER:-quant_screener}
       SCREENER_DB_PASSWORD: ${SCREENER_DB_PASSWORD:-}
-      ELASTICSEARCH_URL: ${ELASTICSEARCH_URL:-https://elasticsearch:9200}
-      ELASTICSEARCH_COMPANY_INDEX: ${ELASTICSEARCH_COMPANY_INDEX:-companies-read}
-      SEARCH_REBUILD_ENABLED: "false"
-      JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/run/search/truststore.jks
-      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_API_KEY:-}
-      SEARCH_REBUILD_INTERVAL: ${SEARCH_REBUILD_INTERVAL:-300000}
     volumes:
-      - ./certs/search-client:/run/search:ro
       - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
-      elasticsearch:
-        condition: service_started
     restart: unless-stopped
-
-  search-indexer:
-    extends:
-      service: screener-service
-    ports: !reset []
-    command: ["--spring.main.web-application-type=none", "--spring.main.keep-alive=true"]
-    environment:
-      SCREENER_DB_USER: quant_search
-      SCREENER_DB_PASSWORD: ${SEARCH_DB_PASSWORD:-}
-      SEARCH_REBUILD_ENABLED: "true"
-      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_INDEXER_API_KEY:-}
-
 
   gateway-service:
     profiles: [application]
@@ -343,7 +220,3 @@ services:
 
 volumes:
   pgdata:
-  kafka-data:
-  elasticsearch-data:
-  zookeeper-data:
-  zookeeper-log:

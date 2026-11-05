@@ -1,5 +1,10 @@
 # P0 — Diagnostic încheiat al excluderilor
 
+> Notă 2026-11-05 (P2s): uneltele `exclusion_audit`, `source_audit`, `p0_*`, `p2_*` și
+> `input_review_audit` sunt arhivate în `research-engine/archive/p0_p2_audits/`. Comenzile
+> `python -m quant_research.<modul>` de mai jos devin `python -m quant_research_audits.<modul>`,
+> cu `PYTHONPATH=research-engine/archive/p0_p2_audits` ([README](../research-engine/archive/p0_p2_audits/README.md)).
+
 Încheiat la 2026-10-22 pentru runul `c2cf1551-a8fb-47ff-95eb-c4cb186778c9`.
 Toate cele **469 de excluderi** au explicații legate de input, perioadă, profil
 și sursă; **518 = 49 + 469** se reconciliază cu DB și cu modelul reprodus.

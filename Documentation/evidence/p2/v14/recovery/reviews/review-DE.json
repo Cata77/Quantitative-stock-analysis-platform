@@ -1,0 +1,33 @@
+{
+  "reviewId": "0a33a3e8-57c7-5060-b86f-84a2aaa96b63",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "cba839f1-8f75-4a9a-b05c-4dc8c84eafa2",
+  "factId": null,
+  "issueId": "d132f841-77c1-4bc7-b7b1-9eb366c54026",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.prnewswire.com/news-releases/deere--company-announces-quarterly-dividend-302467335.html",
+    "sourceSha256": "6d576ee1f2e3d7e33e0c957d55b28f018eb030e22bb906365e906252e3e188fe",
+    "sourceObservedAt": "2026-10-27T14:23:09.127199+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"81dfad1f40f39eec25e037e41fa8063da29bf84db7521d876140e7f42ccfd72a\"}",
+    "providerAction": {
+      "id": "ec7b1ecb-0ac9-468a-a56a-2dc7ceae942f",
+      "rate": 1.62,
+      "type": "cash_dividends",
+      "cusip": "244199105",
+      "symbol": "DE",
+      "ex_date": "2025-06-30",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-06-30",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "DEERE & CO",
+    "issuerCik": "0000315189",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms DE, USD 1.62 per share, record date 2025-06-30, payment date 2025-08-08. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

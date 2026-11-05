@@ -1,0 +1,32 @@
+{
+  "reviewId": "daddfc4b-0317-5441-8a4f-149f4f156f6b",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "0211c50f-a073-426d-b6da-2d74e66ce9e0",
+  "factId": null,
+  "issueId": "8e68f10c-c3a0-4d76-bcf0-91a083083a65",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261026",
+  "evidence": {
+    "sourceUri": "https://investors.att.com/stock-information/historical-stock-information/historical-common-dividends/att-inc",
+    "sourceSha256": "91e03acc3bc3b84a5f102837c826add7104e0cd245c45198b709022e3abe9111",
+    "sourceObservedAt": "2026-10-26T14:03:57.942637+00:00",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"f814fd0dbd45bc4889fc5f4d59b057b199ebbd74fd7681fd520a454d61e02045\"}",
+    "providerAction": {
+      "id": "5793e2fa-7c96-4076-abe4-d55969885cc1",
+      "rate": 0.2775,
+      "type": "cash_dividends",
+      "cusip": "00206R102",
+      "symbol": "T",
+      "ex_date": "2025-07-10",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-10",
+      "payable_date": "2025-08-01",
+      "process_date": "2025-08-01"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "AT&T INC.",
+    "issuerCik": "0000732717",
+    "rationale": "Issuer common-stock dividend source confirms T, USD 0.2775 per share, record date 2025-07-10, payment date 2025-08-01. The retained provider event matches these terms and issuer identity. Historical symbol coverage starts after the event; accept only this identified cash-dividend issue. No price adjustment, symbol history or other issue is approved or changed by this review."
+  }
+}

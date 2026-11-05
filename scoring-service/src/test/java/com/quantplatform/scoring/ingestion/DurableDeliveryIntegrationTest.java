@@ -6,84 +6,121 @@ import static org.mockito.Mockito.*;
 
 import com.quantplatform.ingestion.CanonicalJson;
 import com.quantplatform.ingestion.ObservationEvent;
-import com.quantplatform.marketdata.config.AlpacaProperties;
-import com.quantplatform.marketdata.config.MarketDataProperties;
-import com.quantplatform.marketdata.operations.*;
 import com.quantplatform.marketdata.provider.alpaca.AlpacaStockMarketClient;
-import com.quantplatform.marketdata.provider.alphavantage.AlphaVantageFundamentalClient;
-import com.quantplatform.scoring.calculation.*;
-import com.quantplatform.scoring.config.ScoringProperties;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.sql.DriverManager;
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BooleanSupplier;
-import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.*;
-import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.*;
-import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.jdbc.datasource.*;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.listener.*;
-import org.springframework.util.backoff.FixedBackOff;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.kafka.ConfluentKafkaContainer;
 import org.testcontainers.junit.jupiter.*;
-import org.testcontainers.utility.DockerImageName;
 
+/** Delivery of the outbox directly from PostgreSQL (P2s): the guarantees the Kafka transport gave. */
 @Testcontainers
 class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
-    @Test void committedOutboxSurvivesProducerRestartAndDuplicateDeliveryHasOneBusinessEffect() throws Exception {
-        var event = stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
+    void expireLeases() { jdbc.sql("UPDATE operations.outbox_events SET lease_until=clock_timestamp()-INTERVAL '1 second' WHERE status='CLAIMED'").update(); }
+    void retryNow() { jdbc.sql("UPDATE operations.outbox_events SET next_retry_at=clock_timestamp()-INTERVAL '1 second' WHERE status='FAILED_RETRYABLE'").update(); }
+
+    @Test void committedOutboxIsDeliveredOnceAndCompletesCoverage() {
+        stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
         assertThat(count("market_data.observations")).isZero();
-        assertThat(new OutboxRelay(new OutboxStore(source, tx, delivery), producer, delivery).drain()).isEqualTo(1);
-        send(event);
-        startListener(new DurableMarketDataListener(processor)::consume);
-        await(() -> count("operations.kafka_inbox") == 1 && scalar("SELECT delivery_count FROM operations.kafka_inbox") == 2);
+        assertThat(worker.drain(10)).isEqualTo(1);
+        assertThat(worker.drain(10)).isZero();
+        assertThat(count("operations.kafka_inbox")).isEqualTo(1);
         assertThat(count("market_data.observations")).isEqualTo(1);
+        assertThat(text("SELECT status FROM operations.outbox_events")).isEqualTo("PUBLISHED");
         verify(projection, times(1)).process(any());
-        await(() -> committedOffset() == 2);
         processor.reconcileCoverage();
         assertThat(text("SELECT status FROM operations.ingestion_runs")).isEqualTo("COMPLETE");
     }
 
-    @Test void sendBeforeOutboxAcknowledgementCanBeRepeatedAfterLeaseExpiry() throws Exception {
-        stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
-        var abandoned = outbox.claim("crashed-worker").orElseThrow();
-        var record = new ProducerRecord<>(abandoned.topic(), abandoned.key(), abandoned.json());
-        record.headers().add(ObservationEvent.HASH_HEADER, abandoned.hash().getBytes(StandardCharsets.UTF_8));
-        producer.send(record).get(20, TimeUnit.SECONDS);
-        jdbc.sql("UPDATE operations.outbox_events SET lease_until=clock_timestamp()-INTERVAL '1 second'").update();
-        assertThat(relay.drain()).isEqualTo(1);
-        assertThat(outbox.acknowledge(abandoned, 0, 0)).isFalse();
-        startListener(new DurableMarketDataListener(processor)::consume);
-        await(() -> count("operations.kafka_inbox") == 1 && scalar("SELECT delivery_count FROM operations.kafka_inbox") == 2);
-        assertThat(count("market_data.observations")).isEqualTo(1);
+    @Test void crashAfterCanonicalCommitRedeliversAfterLeaseExpiryWithoutAnotherWrite() {
+        var event = stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
+        var abandoned = worker.claim().orElseThrow();
+        assertThat(processor.process(event, abandoned.topic(), 0, abandoned.offset())).isTrue(); // then the worker dies
+        assertThat(worker.claim()).as("an unexpired lease is never shared").isEmpty();
+        expireLeases();
+        assertThat(worker.drain(10)).isZero();
+        assertThat(text("SELECT status FROM operations.outbox_events")).isEqualTo("PUBLISHED");
         assertThat(scalar("SELECT attempt_count FROM operations.outbox_events")).isEqualTo(2);
+        assertThat(scalar("SELECT delivery_count FROM operations.kafka_inbox")).isEqualTo(2);
+        assertThat(count("market_data.observations")).isEqualTo(1);
         verify(projection, times(1)).process(any());
     }
 
-    @Test void canonicalCommitBeforeOffsetAcknowledgementRedeliversWithoutAnotherWrite() throws Exception {
+    @Test void concurrentWorkersCannotShareClaims() {
         stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
-        relay.drain();
-        var listener = new DurableMarketDataListener(processor);
-        var calls = new AtomicInteger();
-        startListener(record -> {
-            listener.consume(record);
-            if (calls.incrementAndGet() == 1) throw new IllegalStateException("simulated crash after database commit");
-        });
-        await(() -> calls.get() == 2 && committedOffset() == 1);
+        var other = new OutboxDeliveryWorker(source, tx, processor, deadLetters, properties, Duration.ofMinutes(2));
+        var claim = worker.claim().orElseThrow();
+        assertThat(other.claim()).isEmpty();
+        expireLeases();
+        var stolen = other.claim().orElseThrow();
+        assertThat(stolen.eventId()).isEqualTo(claim.eventId());
+        assertThat(stolen.token()).isNotEqualTo(claim.token());
+        assertThat(stolen.attempt()).isEqualTo(2);
+    }
+
+    @Test void eventsOfOneInstrumentAreDeliveredInCreationOrder() {
+        stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
+        stage(LocalDate.parse("2026-09-02"), "scheduled", "100");
+        doThrow(new IllegalStateException("projection unavailable")).doNothing().when(projection).process(any());
+        assertThat(worker.drain(1)).isZero();
+        jdbc.sql("UPDATE operations.outbox_events SET next_retry_at=clock_timestamp()+INTERVAL '1 hour' WHERE status='FAILED_RETRYABLE'").update();
+        assertThat(jdbc.sql("SELECT status FROM operations.outbox_events ORDER BY created_at,event_id").query(String.class).list())
+                .containsExactly("FAILED_RETRYABLE", "PENDING");
+        assertThat(worker.claim()).as("a later event waits for the earlier one of the same instrument").isEmpty();
+        retryNow();
+        assertThat(worker.drain(10)).isEqualTo(2);
+        assertThat(count("market_data.observations")).isEqualTo(2);
+        assertThat(jdbc.sql("SELECT DISTINCT status FROM operations.outbox_events").query(String.class).list())
+                .containsExactly("PUBLISHED");
+    }
+
+    @Test void transientFailuresAreBoundedThenDeadLetteredAndReplayIsExplicitAndAudited() {
+        stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
+        doThrow(new IllegalStateException("dependency down")).when(projection).process(any());
+        for (int attempt = 1; attempt <= properties.retryAttempts() + 1; attempt++) {
+            worker.drain(1);
+            assertThat(scalar("SELECT attempt_count FROM operations.outbox_events")).isEqualTo(attempt);
+            retryNow();
+        }
+        assertThat(text("SELECT status FROM operations.outbox_events")).isEqualTo("FAILED_TERMINAL");
+        assertThat(count("operations.dead_letter_records")).isEqualTo(1);
+        assertThat(count("operations.kafka_inbox")).isZero();
+        assertThat(worker.drain(10)).isZero();
+        var entry = deadLetters.inspect(10).getFirst();
+        assertThat(entry.reason()).contains("dependency down");
+        UUID request = UUID.randomUUID();
+        assertThat(deadLetters.replay(entry.id(), request, "test-operator", "dependency restored")).isTrue();
+        assertThat(deadLetters.replay(entry.id(), request, "test-operator", "dependency restored")).isTrue();
+        assertThatThrownBy(() -> deadLetters.replay(entry.id(), request, "another-operator", "changed"))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThat(count("operations.dead_letter_replays")).isEqualTo(1);
+        assertThat(text("SELECT status FROM operations.dead_letter_replays")).isEqualTo("PUBLISHED");
+        reset(projection);
+        assertThat(worker.drain(10)).isEqualTo(1);
         assertThat(count("market_data.observations")).isEqualTo(1);
-        assertThat(scalar("SELECT delivery_count FROM operations.kafka_inbox")).isEqualTo(2);
-        verify(projection, times(1)).process(any());
+        assertThat(text("SELECT status FROM operations.outbox_events")).isEqualTo("PUBLISHED");
+    }
+
+    @Test void invalidPricesAndPayloadHashesAreQuarantinedWithoutCanonicalWrites() {
+        var negative = stage(LocalDate.parse("2026-09-01"), "bad-price", "-1");
+        var tampered = stage(LocalDate.parse("2026-09-02"), "wrong-hash", "100");
+        jdbc.sql("UPDATE operations.outbox_events SET payload_hash=repeat('0',64) WHERE event_id=:id")
+                .param("id", tampered.eventId()).update();
+        assertThat(worker.drain(10)).isZero();
+        assertThat(count("operations.dead_letter_records")).isEqualTo(2);
+        assertThat(jdbc.sql("SELECT DISTINCT status FROM operations.outbox_events").query(String.class).list())
+                .containsExactly("FAILED_TERMINAL");
+        var entries = deadLetters.inspect(10);
+        assertThat(entries).extracting(DeadLetterService.Inspection::topic).containsOnly(topic);
+        String negativeJson = jdbc.sql("SELECT payload::text FROM operations.outbox_events WHERE event_id=:id")
+                .param("id", negative.eventId()).query(String.class).single();
+        assertThat(entries).anySatisfy(e -> assertThat(new String(Base64.getMimeDecoder().decode(e.payloadBase64())))
+                .isEqualTo(negativeJson));
+        assertThat(count("operations.kafka_inbox")).isZero();
+        assertThat(count("market_data.observations")).isZero();
+        processor.reconcileCoverage();
+        assertThat(count("operations.data_coverage")).isZero();
     }
 
     @Test void failedCanonicalTransactionRollsBackInboxAndCanBeRetried() {
@@ -118,60 +155,6 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
                 instrument, correction.eventType(), correction.economicTime(), correction.adjustmentMode(), correction.payload());
         assertThatThrownBy(() -> processor.process(collision, topic, 0, 3)).isInstanceOf(MarketDataValidationException.class);
         assertThat(count("operations.kafka_inbox")).isEqualTo(2);
-    }
-
-    @Test void poisonMessagesPreserveBytesHeadersAndLocationAndReplayIsExplicitAndAudited() throws Exception {
-        byte[] poison = new byte[] {(byte) 0xff, 0, 42};
-        var record = new ProducerRecord<String, byte[]>(topic, instrument.toString(), poison);
-        record.headers().add("fixture", new byte[] {1, 2}).add("fixture", null);
-        bytesProducer.send(record).get(20, TimeUnit.SECONDS);
-        startListener(new DurableMarketDataListener(processor)::consume);
-        await(() -> count("operations.dead_letter_records") == 1 && committedOffset() == 1);
-        var entry = deadLetters.inspect(10).getFirst();
-        assertThat(Base64.getDecoder().decode(entry.payloadBase64())).isEqualTo(poison);
-        assertThat(entry.headers()).contains("fixture", "AQI=", "null");
-        assertThat(entry.topic()).isEqualTo(topic);
-        assertThat(entry.offset()).isZero();
-        try (var dlq = consumer(UUID.randomUUID().toString(), topic + "-dlq")) {
-            var records = poll(dlq, 1);
-            assertThat(records.getFirst().value()).isEqualTo(poison);
-            assertThat(new String(records.getFirst().headers().lastHeader("x-original-offset").value(), StandardCharsets.UTF_8)).isEqualTo("0");
-        }
-        UUID request = UUID.randomUUID();
-        assertThat(deadLetters.replay(entry.id(), request, "test-operator", "verify parser recovery")).isTrue();
-        assertThat(deadLetters.replay(entry.id(), request, "test-operator", "verify parser recovery")).isTrue();
-        await(() -> count("operations.dead_letter_records") == 2 && committedOffset() == 2);
-        assertThat(count("operations.dead_letter_replays")).isEqualTo(1);
-        assertThat(text("SELECT status FROM operations.dead_letter_replays")).isEqualTo("PUBLISHED");
-        assertThatThrownBy(() -> deadLetters.replay(entry.id(), request, "another-operator", "changed"))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThat(count("market_data.observations")).isZero();
-    }
-
-    @Test void replayAfterTransientConsumerFailureAcceptsTheOriginalObservation() throws Exception {
-        var event = stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
-        var record = new ConsumerRecord<String, byte[]>(topic, 0, 42, instrument.toString(), event.json().getBytes(StandardCharsets.UTF_8));
-        record.headers().add(ObservationEvent.HASH_HEADER, event.payloadHash().getBytes(StandardCharsets.UTF_8));
-        deadLetters.recover(record, new IllegalStateException("temporary dependency failure"));
-        var id = deadLetters.inspect(1).getFirst().id();
-        UUID request = UUID.randomUUID();
-        deadLetters.replay(id, request, "operator", "dependency restored");
-        startListener(new DurableMarketDataListener(processor)::consume);
-        await(() -> count("market_data.observations") == 1 && committedOffset() == 1);
-        assertThat(count("operations.dead_letter_records")).isEqualTo(1);
-    }
-
-    @Test void outboxRetriesAreBoundedAndConcurrentWorkersCannotShareClaims() {
-        stage(LocalDate.parse("2026-09-01"), "scheduled", "100");
-        for (int attempt = 1; attempt <= 3; attempt++) {
-            var claim = outbox.claim("worker").orElseThrow();
-            assertThat(new OutboxStore(source, tx, delivery).claim("other-worker")).isEmpty();
-            assertThat(claim.attempt()).isEqualTo(attempt);
-            outbox.failed(claim, "BROKER_UNAVAILABLE");
-            if (attempt < 3) jdbc.sql("UPDATE operations.outbox_events SET next_retry_at=clock_timestamp()-INTERVAL '1 second'").update();
-        }
-        assertThat(outbox.claim("restart")).isEmpty();
-        assertThat(text("SELECT status FROM operations.outbox_events")).isEqualTo("FAILED_TERMINAL");
     }
 
     @Test void contiguousWatermarkStopsAtMissingSessionAndRetractsInvalidCoverage() {
@@ -225,22 +208,6 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
         int completeRequests = dates.size();
         coordinator(alpaca, "2026-09-12T15:00:00Z").reconcile();
         assertThat(dates).hasSize(completeRequests);
-    }
-
-    @Test void invalidPricesAndEnvelopeHashesAreQuarantinedWithoutCanonicalWrites() throws Exception {
-        var negative = stage(LocalDate.parse("2026-09-01"), "bad-price", "-1");
-        send(negative);
-        var valid = stage(LocalDate.parse("2026-09-02"), "wrong-hash", "100");
-        var tampered = new ProducerRecord<>(topic, instrument.toString(), valid.json());
-        tampered.headers().add(ObservationEvent.HASH_HEADER, "wrong".getBytes(StandardCharsets.UTF_8));
-        producer.send(tampered).get(20, TimeUnit.SECONDS);
-        producer.send(topic, instrument.toString(), "{invalid-json").get(20, TimeUnit.SECONDS);
-        startListener(new DurableMarketDataListener(processor)::consume);
-        await(() -> count("operations.dead_letter_records") == 3 && committedOffset() == 3);
-        assertThat(count("operations.kafka_inbox")).isZero();
-        assertThat(count("market_data.observations")).isZero();
-        processor.reconcileCoverage();
-        assertThat(count("operations.data_coverage")).isZero();
     }
 
     @Test void concurrentVirtualThreadDeliveriesHaveOneEffectWithoutCarrierPinning(
@@ -306,5 +273,4 @@ class DurableDeliveryIntegrationTest extends DurableDeliveryFixture {
         assertThat(scalar("SELECT COUNT(*) FROM operations.data_coverage WHERE valid")).isEqualTo(1);
         assertThat(count("operations.data_watermarks")).isEqualTo(1);
     }
-
 }

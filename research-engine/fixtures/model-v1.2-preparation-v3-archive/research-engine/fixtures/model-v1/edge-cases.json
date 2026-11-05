@@ -1,0 +1,198 @@
+[
+  {
+    "profile": "GENERAL",
+    "remove_values": [
+      "CAPEX_TTM"
+    ],
+    "expected_derived": {
+      "fcf": null
+    },
+    "expected_exclusions": []
+  },
+  {
+    "profile": "GENERAL",
+    "values": {
+      "PRETAX_INCOME_TTM": -1000,
+      "OPERATING_CASH_FLOW_TTM": -100
+    },
+    "expected_derived": {
+      "ebit": -800,
+      "fcf": -400
+    }
+  },
+  {
+    "profile": "GENERAL",
+    "values": {
+      "TOTAL_ASSETS": -18000
+    },
+    "expected_derived": {
+      "gross_profitability": null
+    },
+    "expected_exclusions": [
+      "INSUFFICIENT_QUALITY_COVERAGE"
+    ]
+  },
+  {
+    "profile": "BANK",
+    "values": {
+      "CET1_CAPITAL": 600
+    },
+    "expected_exclusions": [
+      "CET1_REQUIREMENT_BREACH"
+    ]
+  },
+  {
+    "profile": "BANK",
+    "values": {
+      "CET1_CAPITAL": 750
+    },
+    "expected_warnings": [
+      "LOW_CET1_SURPLUS"
+    ]
+  },
+  {
+    "profile": "PC_INSURER",
+    "values": {
+      "TOTAL_ADJUSTED_CAPITAL": 199
+    },
+    "expected_exclusions": [
+      "RBC_REGULATORY_RISK"
+    ]
+  },
+  {
+    "profile": "LIFE_INSURER",
+    "values": {
+      "TOTAL_ADJUSTED_CAPITAL": 250
+    },
+    "expected_warnings": [
+      "RBC_TREND_WARNING"
+    ]
+  },
+  {
+    "profile": "PC_INSURER",
+    "values": {
+      "LOSSES_LAE_TTM": 800
+    },
+    "expected_warnings": [
+      "HIGH_COMBINED_RATIO"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "NET_INCOME_TTM": -2000
+    },
+    "expected_exclusions": [
+      "NON_POSITIVE_EBITDARE"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "CASH_INTEREST_TTM": 1000
+    },
+    "expected_exclusions": [
+      "REIT_INTEREST_COVERAGE_BREACH"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "CASH_INTEREST_TTM": 700
+    },
+    "expected_warnings": [
+      "REIT_INTEREST_COVERAGE_WARNING"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "DEBT_NONCURRENT": 20000
+    },
+    "expected_exclusions": [
+      "REIT_LEVERAGE_BREACH"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "DEBT_NONCURRENT": 11000
+    },
+    "expected_warnings": [
+      "REIT_LEVERAGE_WARNING"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "DIVIDENDS_DECLARED_TTM": 800
+    },
+    "expected_warnings": [
+      "REIT_PAYOUT_WARNING"
+    ]
+  },
+  {
+    "profile": "EQUITY_REIT",
+    "values": {
+      "DIVIDENDS_DECLARED_TTM": 1000,
+      "DIVIDENDS_DECLARED_PRIOR_TTM": 1000
+    },
+    "expected_exclusions": [
+      "REIT_PAYOUT_BREACH"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "fields": {
+      "profile_supported": false
+    },
+    "expected_exclusions": [
+      "MODEL_NOT_SUPPORTED"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "fields": {
+      "history_count": 251
+    },
+    "expected_exclusions": [
+      "INSUFFICIENT_HISTORY"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "fields": {
+      "filing_date": "2025-01-01"
+    },
+    "expected_exclusions": [
+      "STALE"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "fields": {
+      "primary_class": false
+    },
+    "expected_exclusions": [
+      "NON_PRIMARY_SHARE_CLASS"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "values": {
+      "ADJUSTED_CLOSE": 4.99
+    },
+    "expected_exclusions": [
+      "PRICE_BELOW_MINIMUM"
+    ]
+  },
+  {
+    "profile": "GENERAL",
+    "values": {
+      "MEDIAN_DOLLAR_VOLUME": 4999999
+    },
+    "expected_exclusions": [
+      "ILLIQUID"
+    ]
+  }
+]

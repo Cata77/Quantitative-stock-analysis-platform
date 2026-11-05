@@ -1,0 +1,37 @@
+{
+  "reviewId": "342ba398-804e-5441-a66b-c118a89c3c9a",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "8124bddd-1f61-4044-8d7f-55b315aaa2a7",
+  "factId": null,
+  "issueId": "0bdb1719-956d-4572-ac55-56607d57c379",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/1035002/000103500225000060/a6302025exh9901earningsrel.htm",
+    "sourceSha256": "da113534b0d31e11ec9088418d4086df9fa292e7aeb187ce54b0b1b36e7aa540",
+    "sourceObservedAt": "2026-10-31T11:28:40.486394+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "payable on September 2, 2025 to holders of record at the close of business on July 31, 2025",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"78275ae56796374ae6ed082bdc899805ab8bd475a2ea386423a51a951e22c0ba\"}",
+    "providerAction": {
+      "id": "2ef9e794-dc41-46eb-91a0-84ef8cd8ff2d",
+      "rate": 1.13,
+      "type": "cash_dividends",
+      "cusip": "91913Y100",
+      "symbol": "VLO",
+      "ex_date": "2025-07-31",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-31",
+      "payable_date": "2025-09-02",
+      "process_date": "2025-09-02"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "VALERO ENERGY CORP/TX",
+    "issuerCik": "0001035002",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Under T+1 settlement the ex-date equals the record date. Ex-date precedes the first session of the 253-session price window ending 2026-10-30; the action cannot change any adjusted close, history count or liquidity input used."
+  }
+}

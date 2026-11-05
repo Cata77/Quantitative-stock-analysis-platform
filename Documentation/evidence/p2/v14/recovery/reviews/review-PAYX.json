@@ -1,0 +1,33 @@
+{
+  "reviewId": "4c974151-d515-5832-8efb-11739d22b6ce",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "09c72306-8d65-4d44-b624-1463f3628165",
+  "factId": null,
+  "issueId": "5120ea3c-a3e3-4907-833e-59ca53a483d3",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://finance.yahoo.com/news/paychex-declares-quarterly-dividend-201500999.html",
+    "sourceSha256": "6b75629b19237fa08b2ade06821bc153060b5ee9261839eece7515fd6466e0cb",
+    "sourceObservedAt": "2026-10-27T14:26:32.614155+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"1f00a62352565c1252579d80e9f23c739ba6e9c2317b1050ec87456f09316874\"}",
+    "providerAction": {
+      "id": "31264698-05ab-4419-a5f6-7a356473a216",
+      "rate": 1.08,
+      "type": "cash_dividends",
+      "cusip": "704326107",
+      "symbol": "PAYX",
+      "ex_date": "2025-07-21",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-21",
+      "payable_date": "2025-08-29",
+      "process_date": "2025-08-29"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "PAYCHEX INC",
+    "issuerCik": "0000723531",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms PAYX, USD 1.08 per share, record date 2025-07-21, payment date 2025-08-29. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

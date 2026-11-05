@@ -1,0 +1,35 @@
+{
+  "reviewId": "ecfe214c-ef8b-5bd7-a17f-0ed9ae6cf299",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ea6ffa50-765d-4cf6-985d-73883f1f4dae",
+  "factId": null,
+  "issueId": "aa5a71ce-108b-4623-b5ac-4254138ab9cb",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-spin-off-review",
+  "evidence": {
+    "scope": "EXACT_PARENT_SPIN_OFF_ISSUE_ONLY",
+    "sourceUri": "https://press.spglobal.com/2026-07-01-S-P-GLOBAL-INC-COMPLETES-SEPARATION-OF-MOBILITY-GLOBAL-INC",
+    "sourceSha256": "4f727a45274cf1ad8daccb4b0c35c5c0f271c8d7c332623b2e37d757c0ea7e21",
+    "sourceObservedAt": "2026-10-29T14:06:42.705885+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BODY",
+    "issueEvidence": "{\"type\": \"spin_offs\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"e24c6db5b6bf9096fe7c82160881e715ee79ab37d0d522e2388b09dc9be4adac\"}",
+    "providerAction": {
+      "id": "d4f8cb93-e10f-4ee9-8484-3ed67053b281",
+      "type": "spin_offs",
+      "ex_date": "2026-07-01",
+      "new_rate": 1,
+      "new_cusip": "60744M106",
+      "new_symbol": "MBGL",
+      "record_date": "2026-06-15",
+      "source_rate": 1,
+      "payable_date": "2026-07-01",
+      "process_date": "2026-07-01",
+      "source_cusip": "78409V104",
+      "source_symbol": "SPGI"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "S&P Global Inc.",
+    "issuerCik": "0000064040",
+    "rationale": "Individual issuer source confirms parent identity, separate child, distribution ratio, record date and distribution date. The ex-date is the first regular-way trading session of the separated child; a weekend or after-close distribution is distinct from that trading date. Source and provider terms agree for this individually reviewed distribution. Accept only this parent corporate-action issue. Do not merge parent and child price histories, alter provider prices, or approve other issues."
+  }
+}

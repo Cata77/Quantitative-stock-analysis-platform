@@ -1,0 +1,33 @@
+{
+  "reviewId": "502bb634-6059-5ca2-964f-b7429f635a5f",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "d67c7ee5-bc64-4f56-a820-51921a83c7f3",
+  "factId": null,
+  "issueId": "1703d5b0-8a8b-431d-94aa-9c797afadd6e",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.americanexpress.com/en-us/newsroom/articles/financial-news/american-express-declares-regular-quarterly-dividend0.html",
+    "sourceSha256": "4b3a002af4b4a307608050a820fcb8476f6f6bbed34f9d6e3ebd4837da848f4a",
+    "sourceObservedAt": "2026-10-27T14:23:09.060414+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"4bf066fa35b79859cf5c209c99dc929a81fccfccce5a79bb118f52a6ab72569e\"}",
+    "providerAction": {
+      "id": "3dd16f56-7bb1-4b82-a4e1-6632dde9373a",
+      "rate": 0.82,
+      "type": "cash_dividends",
+      "cusip": "025816109",
+      "symbol": "AXP",
+      "ex_date": "2025-07-03",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-03",
+      "payable_date": "2025-08-08",
+      "process_date": "2025-08-08"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "AMERICAN EXPRESS CO",
+    "issuerCik": "0000004962",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms AXP, USD 0.82 per share, record date 2025-07-03, payment date 2025-08-08. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

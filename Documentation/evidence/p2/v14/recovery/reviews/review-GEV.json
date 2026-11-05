@@ -1,0 +1,33 @@
+{
+  "reviewId": "1c1c808e-12c1-52e1-8d5a-237783065bb4",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ac4b5eab-9730-446f-9d96-ed0410490e33",
+  "factId": null,
+  "issueId": "016c3648-6a82-40ed-8582-4cc47707a251",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-issuer-source-review-20261027",
+  "evidence": {
+    "sourceUri": "https://www.gevernova.com/news/press-releases/ge-vernova-declares-third-quarter-2025-dividend",
+    "sourceSha256": "a5795d3976e1516c0822d30482538893512019af3a9ea0d4466cb7f599ad7f91",
+    "sourceObservedAt": "2026-10-27T14:26:32.431472+00:00",
+    "captureFormat": "WEB_TOOL_RENDERED_RESPONSE_NOT_ORIGIN_BYTES",
+    "issueEvidence": "{\"type\": \"cash_dividends\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"4701449bb3fe3684436ebcb67099fb89b91906813d75b14ff82f95534c702018\"}",
+    "providerAction": {
+      "id": "6e377a3b-7f44-4244-9f29-4209f4496cf2",
+      "rate": 0.25,
+      "type": "cash_dividends",
+      "cusip": "36828A101",
+      "symbol": "GEV",
+      "ex_date": "2025-07-21",
+      "foreign": false,
+      "special": false,
+      "record_date": "2025-07-21",
+      "payable_date": "2025-08-18",
+      "process_date": "2025-08-18"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "GE Vernova Inc.",
+    "issuerCik": "0001996810",
+    "rationale": "Individually inspected issuer dividend announcement/history confirms GEV, USD 0.25 per share, record date 2025-07-21, payment date 2025-08-18. Provider terms and named issuer match. Accept only this identified cash-dividend issue; do not rewrite prices, symbol history, gross/net terms, timestamps or other issues."
+  }
+}

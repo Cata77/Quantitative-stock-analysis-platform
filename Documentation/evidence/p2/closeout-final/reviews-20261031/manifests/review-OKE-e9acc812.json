@@ -1,0 +1,33 @@
+{
+  "reviewId": "7dc35cf0-d3ed-525f-9c83-db686c28abaf",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "ee986a8e-e5b6-4f24-bf24-48af043a8c26",
+  "factId": null,
+  "issueId": "e9acc812-255b-4631-8529-7d05cd23a7e2",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261031",
+  "evidence": {
+    "scope": "EXACT_PROVIDER_ACTION_ISSUE_ONLY",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/0001039684/000087666126000770/ruleprovisionnotice.htm",
+    "sourceSha256": "8b1f08bd98cde9ef658f83a104d0a0bb9d0e8ff68d4aa2ad5a8b087958e98ccb",
+    "sourceObservedAt": "2026-10-31T11:25:42.834948+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "ONEOK, Inc. (Old, CUSIP: 682680103) receiving one share of ONEOK, Inc. (New, CUSIP: 30609A109), for each share",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"087279df393a62a5da50f9ac5613c725bbd26a1f2910b81be3577699535d5786\"}",
+    "providerAction": {
+      "id": "f91ae982-5eaf-49bc-970a-d541f59b838d",
+      "type": "name_changes",
+      "new_cusip": "30609A109",
+      "old_cusip": "682680103",
+      "new_symbol": "OKE",
+      "old_symbol": "OKE",
+      "process_date": "2026-09-11"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "ONEOK INC /NEW/",
+    "issuerCik": "0001039684",
+    "priceWindowStart": "2025-10-29",
+    "scoreDate": "2026-10-30",
+    "rationale": "Holding-company reorganization effective September 10, 2026 under OGCA 1081.G: one-for-one automatic conversion, uninterrupted NYSE: OKE trading, successor issuer under Rule 12g-3(a) (8-K12B retained as OKE-8k12b). Economic continuity of the instrument; no ratio or cash term affects adjusted prices."
+  }
+}

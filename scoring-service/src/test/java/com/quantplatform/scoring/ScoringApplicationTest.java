@@ -26,10 +26,8 @@ import com.quantplatform.scoring.persistence.FactorScoreRepository;
                 "spring.datasource.url=jdbc:h2:mem:scoring;MODE=PostgreSQL",
                 "spring.datasource.driver-class-name=org.h2.Driver",
                 "spring.jpa.hibernate.ddl-auto=create-drop",
-                "spring.kafka.listener.auto-startup=false",
-                "scoring.coverage-enabled=false",
-                "scoring.month-end-enabled=false",
-                "scoring.elasticsearch.enabled=false"
+                "scoring.delivery.enabled=false",
+                "scoring.coverage-enabled=false"
         })
 @Transactional
 class ScoringApplicationTest {

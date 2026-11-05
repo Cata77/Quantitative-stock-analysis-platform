@@ -1,0 +1,7 @@
+{
+  "operation": "migrate",
+  "jar_sha256": "0392fd0b031378d2dc384af0b05f3f9f76f4eb4923a7c46d0a02636297d348d5",
+  "started_at": "2026-10-26T08:20:22.283613+00:00",
+  "exit_code": 0,
+  "finished_at": "2026-10-26T08:20:24.878012+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "reviewId": "47d45677-00ef-54d7-98fa-1357433e2e9e",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "8e26439e-70a8-4c8f-a52d-efdc67e4567e",
+  "factId": null,
+  "issueId": "3e661432-21f7-4cdb-a197-523c3d24f9c3",
+  "decision": "ACCEPT",
+  "reviewer": "claude-p2-primary-source-review-20261101",
+  "evidence": {
+    "scope": "SYMBOL_RETIRED_SESSION_RECOVERED_UNDER_SUCCESSOR_SYMBOL",
+    "sourceUri": "https://www.sec.gov/Archives/edgar/data/2041610/000110465926113913/tm2626659d7_8k.htm",
+    "sourceSha256": "dae2da8bf99ec92ad559a9bca35ddb3409ecb6768e1569f5da911b75309f537a",
+    "sourceObservedAt": "2026-10-31T11:48:24.600135+00:00",
+    "captureFormat": "ORIGINAL_HTTP_RESPONSE_BYTES",
+    "sourcePassage": "transferred the listing of the Class B Common Stock from The Nasdaq Stock Market LLC to the New York Stock Exchange and changed the ticker symbol for the Class B Common Stock from “PSKY” to “SKYD”",
+    "issueEvidence": "{\"reason\": \"provider pagination exhausted\"}",
+    "issueRunId": "8141858b-97ba-4e9e-b12f-bfacd77bd6de",
+    "datasetId": "482ffe35-ab2a-40a7-b300-9197c2066e42",
+    "adjustment": "RAW",
+    "issueAdjustmentAsOf": null,
+    "session": "2026-10-27",
+    "recoveredBars": [
+      {
+        "ingestedAt": "2026-10-31T12:38:24.204326+00:00",
+        "adjustmentAsOf": null,
+        "observationKey": "f95747ff4e97adf5808e39e198140d45e377f407e77d1387c2a600a9e8113db1"
+      }
+    ],
+    "rationale": "Class B moved from Nasdaq PSKY to NYSE SKYD on 2026-10-06. The issue records an exhausted provider response for the retired PSKY request, not a session without trading; the same dataset holds a VALID XNYS bar of this instrument for the session, collected under SKYD. No price is copied, re-dated or inferred."
+  }
+}

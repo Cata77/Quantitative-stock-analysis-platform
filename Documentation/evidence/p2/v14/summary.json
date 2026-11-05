@@ -1,0 +1,29 @@
+{
+  "model": "1.4.0",
+  "runId": "9166603d-8ea9-44f1-8a1a-9bc16490bdc1",
+  "expected": 518,
+  "complete": 0,
+  "partial": 442,
+  "unavailable": 76,
+  "beforeScored": 438,
+  "recoveredSymbols": [
+    "AZO",
+    "CCEP",
+    "FER",
+    "NBIS"
+  ],
+  "lostInstruments": 0,
+  "existingScoresChanged": 91,
+  "existingRanksChanged": 436,
+  "allScoresTargetReached": false,
+  "p2Complete": false,
+  "remainingCategories": {
+    "corporateActions": 68,
+    "unsupportedDepositaryReceipts": 2,
+    "nonPrimaryShareClasses": 3,
+    "missingPricesAndLiquidity": 2,
+    "securityIdentity": 1
+  },
+  "historicalAcceptance": "NOT_EVALUATED",
+  "reviewPolicy": "NO_NEW_INPUT_REVIEWS; NO_BACKDATING; OLD_PUBLICATIONS_PRESERVED"
+}

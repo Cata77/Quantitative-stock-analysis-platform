@@ -1,0 +1,30 @@
+{
+  "reviewId": "ec3f6d2d-49ee-5407-a36d-e9f9fc9e6a9c",
+  "kind": "QUALITY_ISSUE",
+  "instrumentId": "85727ee7-6191-40f0-9ea8-7dd711b14392",
+  "factId": null,
+  "issueId": "099881ba-b501-4d67-92e8-c69c38e1ec52",
+  "decision": "ACCEPT",
+  "reviewer": "codex-p2-primary-source-identity-review",
+  "evidence": {
+    "scope": "EXACT_BANK_SYMBOL_CHANGE",
+    "sourceUri": "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-announces-planned-change-of-stock-ticker-symbol-to-bny-130465.html",
+    "sourceSha256": "d917366888f89d44b60f8a6c0cfca8b7b62547ca20bda35c9ed3be42a5c90e68",
+    "sourceObservedAt": "2026-10-29T14:18:05.604138+00:00",
+    "captureFormat": "HASHED_MANIFEST_OF_ORIGINAL_HTTP_RESPONSES",
+    "issueEvidence": "{\"type\": \"name_changes\", \"reason\": \"identity or required terms unresolved\", \"revision\": \"c3768feaf04785ad556853339647da29ec1ed1c1983bc36aed3a753f95fd43a4\"}",
+    "providerAction": {
+      "id": "96cb646f-4148-4592-be41-d828d03f99ce",
+      "type": "name_changes",
+      "new_cusip": "064058100",
+      "old_cusip": "064058100",
+      "new_symbol": "BNY",
+      "old_symbol": "BK",
+      "process_date": "2026-05-21"
+    },
+    "providerSourceArtifactId": "c6c17bfd-d5cf-4129-9387-32216ff06d8d",
+    "issuerName": "BLACKROCK NEW YORK MUNICIPAL INCOME TRUST",
+    "issuerCik": "0001390777",
+    "rationale": "Issuer confirms BK to BNY effective May 21, 2026 without a change in legal name, capital structure, CUSIPs or holder rights. Accept only this exact bank rename issue."
+  }
+}
