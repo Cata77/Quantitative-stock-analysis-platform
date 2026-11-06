@@ -24,7 +24,7 @@ Uneltele de audit de o singură folosință din P0/P2 (`exclusion_audit`, `sourc
 (51, rulate și în CI).
 
 `python -m quant_research.universe_export` oferă [lista și exportul P1](UNIVERSE-EXPORT.md)
-prin Gateway: univers complet, CSV, HTML local și verificări de integritate.
+prin backend-ul web: univers complet, CSV, HTML local și verificări de integritate.
 Nu calculează scoruri și nu necesită acces DB.
 
 ## Flow

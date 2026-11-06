@@ -1,5 +1,6 @@
 -- Privileged prerequisites for a fresh deployment, before central Flyway.
--- Configure LOGIN/passwords separately via the secret provisioner.
+-- Configure LOGIN/passwords separately via the secret provisioner. quant_auth, quant_portfolio and
+-- quant_screener are retired (V026) but still created here because V014 references them.
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_migrator') THEN CREATE ROLE quant_migrator NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_auth') THEN CREATE ROLE quant_auth NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
@@ -8,6 +9,7 @@ DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_scoring') THEN CREATE ROLE quant_scoring NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_screener') THEN CREATE ROLE quant_screener NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_research') THEN CREATE ROLE quant_research NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='quant_web') THEN CREATE ROLE quant_web NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS; END IF;
 END $$;
 SELECT format('GRANT CONNECT,CREATE ON DATABASE %I TO quant_migrator',current_database()) \gexec
 GRANT USAGE,CREATE ON SCHEMA public TO quant_migrator;

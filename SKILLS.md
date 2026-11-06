@@ -25,20 +25,19 @@ deployment. Do not create subagents unless the user explicitly requests delegati
 
 | Area | Implementation | Documentation |
 |---|---|---|
-| Collection, universe, sources, outbox | `market-data-producer` | [Market Data](Documentation/MARKET-DATA-PRODUCER.md) |
-| Canonical data, scores, provenance | `scoring-service` | [Scoring](Documentation/SCORING-SERVICE.md), [Model](Documentation/MODEL.md) |
-| Python formulas and historical validation | `research-engine` | [Research](Documentation/RESEARCH-ENGINE.md) |
-| Rankings and search | `screener-service` | [Screener](Documentation/SCREENER-SERVICE.md) |
-| Accounts and JWT | `auth-service` | [Auth](Documentation/AUTH-SERVICE.md) |
-| User-reported holdings | `portfolio-service` | [Portfolio](Documentation/PORTFOLIO-SERVICE.md) |
-| HTTP entry point and authorization | `gateway-service` | [Gateway](Documentation/GATEWAY-SERVICE.md) |
+| Collection, universe, sources, canonical data, inbox, DLQ | `market-data-producer` | [Market Data](Documentation/MARKET-DATA-PRODUCER.md) |
+| Python model, score publication, provenance, historical validation | `research-engine` | [Research](Documentation/RESEARCH-ENGINE.md), [Publication](Documentation/SCORE-PUBLICATION.md), [Model](Documentation/MODEL.md) |
+| HTTP entry point and authorization | `web-backend` (`com.quantplatform.web`) | [Web Backend](Documentation/WEB-BACKEND.md) |
+| Rankings and search | `web-backend` (`com.quantplatform.screener`) | [Screener](Documentation/SCREENER-SERVICE.md) |
+| Accounts and JWT | `web-backend` (`com.quantplatform.auth`) | [Auth](Documentation/AUTH-SERVICE.md) |
+| User-reported holdings | `web-backend` (`com.quantplatform.portfolio`) | [Portfolio](Documentation/PORTFOLIO-SERVICE.md) |
 | Database schema and permissions | `database-migrations` | [Database](Documentation/DATABASE-MIGRATIONS.md) |
 | Public contracts | Controllers and DTOs | [Endpoints](Documentation/ENDPOINTS.md) |
 
-PostgreSQL is the source of truth and also carries the collector's events: the
-outbox is delivered to canonical data directly from PostgreSQL (P2s; Kafka and
-Elasticsearch were removed). `ingestion-contract`, `security-common`, and
-`observability-common` are shared libraries. Do not introduce dependencies between
+PostgreSQL is the source of truth. Since P2s the collector writes each provider page
+and its canonical data in one transaction (the outbox table is the observation journal;
+Kafka, Elasticsearch, `scoring-service` and the separate web services were removed).
+`ingestion-contract`, `security-common`, and `observability-common` are shared libraries. Do not introduce dependencies between
 services that bypass existing contracts and roles without justification.
 
 ## Data and scoring rules
@@ -89,6 +88,8 @@ services that bypass existing contracts and roles without justification.
   check dependencies and permissions for the affected roles.
 - Preserve local volumes and data. Do not use database resets or
   `docker compose down -v` as routine fixes.
+- Never run the root `gradlew clean`: it deletes the root `build/` directory. Keep
+  backups and local evidence in `local-backups/` (ignored by Git and Docker).
 - For upgrades involving existing data, follow the backup and restore procedure
   in the database documentation. Do not make destructive changes without authorization.
 - Do not display or commit `.env`, tokens, private keys, dumps, or logs containing
@@ -106,7 +107,7 @@ PowerShell examples from the repository root:
 
 ```powershell
 # Test the modified module; replace the name when working on another service.
-.\gradlew.bat :screener-service:test
+.\gradlew.bat :web-backend:test
 
 # For changes to the Python model or data preparation.
 .\research-engine\.venv\Scripts\python.exe -m pytest research-engine/tests

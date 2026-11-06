@@ -1,0 +1,496 @@
+{
+ "requests": 49,
+ "identical": 49,
+ "results": [
+  {
+   "path": "/screener/search/status",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "7a4be59aec285d22",
+   "bytes": 59
+  },
+  {
+   "path": "/screener/rankings",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "e7a977a188df37ce",
+   "bytes": 170984
+  },
+  {
+   "path": "/screener/search?q=AAPL&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "c2158f44f493de8b",
+   "bytes": 819
+  },
+  {
+   "path": "/screener/search?q=apple&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "a34755aedf2df400",
+   "bytes": 819
+  },
+  {
+   "path": "/screener/search?q=bank+of&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "718050c230741a75",
+   "bytes": 957
+  },
+  {
+   "path": "/screener/search?q=micro&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "f07e99a43ae72262",
+   "bytes": 4732
+  },
+  {
+   "path": "/screener/search?q=zzzz&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "5201ecab99ebc5b5",
+   "bytes": 81
+  },
+  {
+   "path": "/screener/search?q=berkshire+hathaway&size=50",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "9d92b412500590a2",
+   "bytes": 1030
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&eligibility=EXCLUDED",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "6121197fc5c60916",
+   "bytes": 23410
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&eligibility=ALL&sort=SYMBOL&direction=ASC&size=200&page=1",
+   "status": [
+    400,
+    400
+   ],
+   "identical": true,
+   "sha256": "0cb7e0bfaa7f824b",
+   "bytes": 106
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&sector=Information+Technology",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "5918c2cc82b11b44",
+   "bytes": 179767
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&universe=NASDAQ100&size=100",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "c02bf824a9704d37",
+   "bytes": 342801
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&instrumentId=2b1523bc-f02f-492d-875f-72082205b46d",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "1ac2d51545107434",
+   "bytes": 3103
+  },
+  {
+   "path": "/screener/rankings?asOf=2026-10-31",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "796ebe6dbb62a9a7",
+   "bytes": 170984
+  },
+  {
+   "path": "/screener/rankings?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&page=100000",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "4ff03ab9e74a6877",
+   "bytes": 1595
+  },
+  {
+   "path": "/screener/rankings?runId=not-a-uuid",
+   "status": [
+    400,
+    400
+   ],
+   "identical": true,
+   "sha256": "0cb7e0bfaa7f824b",
+   "bytes": 106
+  },
+  {
+   "path": "/screener/instruments/2b1523bc-f02f-492d-875f-72082205b46d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "bc619710be709ef6",
+   "bytes": 3513
+  },
+  {
+   "path": "/screener/instruments/2b1523bc-f02f-492d-875f-72082205b46d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "0a0c98972beb5983",
+   "bytes": 23298
+  },
+  {
+   "path": "/screener/instruments/ac4b5eab-9730-446f-9d96-ed0410490e33/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "31cbcabfc9451626",
+   "bytes": 3497
+  },
+  {
+   "path": "/screener/instruments/ac4b5eab-9730-446f-9d96-ed0410490e33/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "a496861339e5f2ef",
+   "bytes": 31587
+  },
+  {
+   "path": "/screener/instruments/b8670cd2-07b1-4e67-90c7-adc214970e39/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "5682c24d82a9ba56",
+   "bytes": 3524
+  },
+  {
+   "path": "/screener/instruments/b8670cd2-07b1-4e67-90c7-adc214970e39/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "950785beac207257",
+   "bytes": 31530
+  },
+  {
+   "path": "/screener/instruments/5a667e1a-334a-4550-8225-5c4d70d03721/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "5903a77c9b975837",
+   "bytes": 3668
+  },
+  {
+   "path": "/screener/instruments/5a667e1a-334a-4550-8225-5c4d70d03721/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "d384ce6d409d3272",
+   "bytes": 32327
+  },
+  {
+   "path": "/screener/instruments/31f53982-f419-4f57-9fc7-3436a05468c9/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "29cd8c8a689a3858",
+   "bytes": 3522
+  },
+  {
+   "path": "/screener/instruments/31f53982-f419-4f57-9fc7-3436a05468c9/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "cc88c7217659db32",
+   "bytes": 32822
+  },
+  {
+   "path": "/screener/instruments/48915c2c-741c-4387-ac72-24fb43eebb63/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "4404312030d7316f",
+   "bytes": 3504
+  },
+  {
+   "path": "/screener/instruments/48915c2c-741c-4387-ac72-24fb43eebb63/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "ccba38cf45d8d2b2",
+   "bytes": 33080
+  },
+  {
+   "path": "/screener/instruments/e870ea7a-1c40-4a5e-8e73-e7fe621f8e3d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "51d2b2d8f838705d",
+   "bytes": 3504
+  },
+  {
+   "path": "/screener/instruments/e870ea7a-1c40-4a5e-8e73-e7fe621f8e3d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "3c9c7baf09e1434b",
+   "bytes": 32380
+  },
+  {
+   "path": "/screener/instruments/cd396dde-b725-4f81-8cac-06feb19c1d26/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "49482f493e055871",
+   "bytes": 3648
+  },
+  {
+   "path": "/screener/instruments/cd396dde-b725-4f81-8cac-06feb19c1d26/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "60248e755a7d0326",
+   "bytes": 32222
+  },
+  {
+   "path": "/screener/instruments/11f84169-2cfd-469a-b49d-4292a9deb758/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "61a710bf474954ad",
+   "bytes": 3521
+  },
+  {
+   "path": "/screener/instruments/11f84169-2cfd-469a-b49d-4292a9deb758/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "aa17a5cdbdedbe79",
+   "bytes": 32630
+  },
+  {
+   "path": "/screener/instruments/d8565834-5800-4a3b-8f09-dba654879e4c/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "2eb290a92c8617a0",
+   "bytes": 3552
+  },
+  {
+   "path": "/screener/instruments/d8565834-5800-4a3b-8f09-dba654879e4c/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "d9c013d6be971912",
+   "bytes": 31865
+  },
+  {
+   "path": "/screener/instruments/fa435ad4-4c07-4350-8adc-7ebba543cb21/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "9185c737f35d9c5f",
+   "bytes": 3460
+  },
+  {
+   "path": "/screener/instruments/fa435ad4-4c07-4350-8adc-7ebba543cb21/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "8a3958dac72ecab5",
+   "bytes": 32940
+  },
+  {
+   "path": "/screener/instruments/41c42b93-3b0c-4bc1-87c6-265198880e5d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "b0d26e2b12910a4c",
+   "bytes": 3500
+  },
+  {
+   "path": "/screener/instruments/41c42b93-3b0c-4bc1-87c6-265198880e5d/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "f301b4f4b9a7aa32",
+   "bytes": 33083
+  },
+  {
+   "path": "/screener/instruments/db604ec8-f781-49a8-a7d7-e2cc016391d5/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "60eba0cea0d6d3aa",
+   "bytes": 3493
+  },
+  {
+   "path": "/screener/instruments/db604ec8-f781-49a8-a7d7-e2cc016391d5/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "663af9a6037f40e1",
+   "bytes": 28230
+  },
+  {
+   "path": "/screener/instruments/0485b5ed-85a6-4e40-a978-65919a0f89bd/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "b156237917db0493",
+   "bytes": 3581
+  },
+  {
+   "path": "/screener/instruments/0485b5ed-85a6-4e40-a978-65919a0f89bd/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "660b025d0b091f7c",
+   "bytes": 27987
+  },
+  {
+   "path": "/screener/instruments/77f24b58-a12d-4483-b86f-9d695eb4324a/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "2489072d5c5c9a40",
+   "bytes": 3612
+  },
+  {
+   "path": "/screener/instruments/77f24b58-a12d-4483-b86f-9d695eb4324a/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "85e79b29c7329996",
+   "bytes": 27106
+  },
+  {
+   "path": "/screener/instruments/97e6932f-7dca-4a6f-b955-5bd469481ee6/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=SUMMARY",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "5238013d08ea5903",
+   "bytes": 3525
+  },
+  {
+   "path": "/screener/instruments/97e6932f-7dca-4a6f-b955-5bd469481ee6/financials?runId=bead056b-eb58-4e18-aa5b-6e7815d6f8e9&view=FULL",
+   "status": [
+    200,
+    200
+   ],
+   "identical": true,
+   "sha256": "cd47dfbcddf23efc",
+   "bytes": 36793
+  },
+  {
+   "path": "/screener/instruments/2b1523bc-f02f-492d-875f-72082205b46d/financials",
+   "status": [
+    400,
+    400
+   ],
+   "identical": true,
+   "sha256": "8e155218b1c480ca",
+   "bytes": 165
+  }
+ ]
+}

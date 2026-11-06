@@ -1,3 +1,0 @@
-spring:
-  datasource:
-    password: ${SCREENER_DB_PASSWORD:local-quant_screener-development-only}

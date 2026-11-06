@@ -49,7 +49,7 @@ public class IngestionRuntime implements ApplicationRunner {
     public void cycle() {
         if (!cycleLock.tryLock()) return;
         try {
-            // Delivery to canonical data is done by the scoring-service outbox worker (P2s, no Kafka).
+            // Pages are accepted into canonical data while they are staged (P2s stage B).
             coordinator.reconcile();
         } catch (RuntimeException failure) {
             // Provider/SQL exception messages may contain credentials or full payloads.

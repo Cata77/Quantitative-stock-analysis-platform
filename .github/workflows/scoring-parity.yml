@@ -51,4 +51,4 @@ jobs:
           path: |
             **/build/reports/tests/
             **/build/test-results/
-            scoring-service/build/reports/*.jfr
+            market-data-producer/build/reports/*.jfr

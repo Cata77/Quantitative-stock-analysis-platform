@@ -2,7 +2,7 @@
 
 Utilitarul întreținut în repo este
 [`quant_research.universe_export`](../research-engine/src/quant_research/universe_export.py).
-Accesează API-ul Screener prin Gateway, cu `research:read`, și generează o listă
+Accesează API-ul Screener prin backend-ul web, cu `research:read`, și generează o listă
 HTML locală plus CSV. Nu necesită acces la baza de date sau modificarea modelului.
 
 ## Rulare
@@ -70,11 +70,12 @@ motiv, ori valoarea este în afara intervalului 0–100. Un RSI lipsă rămâne 
 CSV și „—” cu motivul în HTML, nu zero. RSI este informativ: nu intră în scor sau
 în rang și nu a fost evaluat ca semnal.
 
-Colectarea face o cerere per instrument. Ritmul e limitat de Gateway (100 de
-cereri/minut per client): cererile sunt eșalonate (`--rsi-per-minute`, implicit 90;
-`--rsi-workers`, implicit 4), deci pentru circa 500 de instrumente exportul
-durează aproximativ 6 minute. Un 429 sau un token expirat oprește exportul fără
-fișiere. Adresa implicită este `127.0.0.1`, nu `localhost`. Pe Windows, clientul
+Colectarea face o cerere per instrument. Cererile sunt eșalonate
+(`--rsi-per-minute`, implicit 600; `--rsi-workers`, implicit 4), ca să limiteze
+încărcarea bazei. Până la P2s, Gateway permitea 100 de cereri/minut per client, deci
+implicitul era 90 și exportul dura aproximativ 6 minute; backend-ul web nu mai are o
+limită per client (vezi [dovezile P2s](evidence/p2s/README.md) pentru durata actuală).
+Un token expirat oprește exportul fără fișiere. Adresa implicită este `127.0.0.1`, nu `localhost`. Pe Windows, clientul
 Python încearcă întâi IPv6 (`::1`), iar fiecare cerere pierde ~2 s. Durata de ~2 s
 măsurată inițial la 2026-11-05 venea din această cauză, nu de la server (0,02 s
 pe `127.0.0.1`).

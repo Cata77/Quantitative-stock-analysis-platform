@@ -1,6 +1,7 @@
 package com.quantplatform.marketdata.operations;
 
 import com.quantplatform.ingestion.ObservationEvent;
+import com.quantplatform.marketdata.canonical.OutboxDeliveryWorker;
 
 import java.time.Duration;
 import java.time.ZoneOffset;
@@ -10,24 +11,39 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 import tools.jackson.databind.ObjectMapper;
 
-/** Durable work primitives. Provider calls and Kafka sends belong outside these transactions. */
+/**
+ * Durable work primitives. Provider calls belong outside these transactions.
+ *
+ * <p>P2s stage B: a staged page is accepted into canonical data in the same transaction as its
+ * source artifact, outbox journal row and checkpoint ({@link OutboxDeliveryWorker#deliverStaged}).
+ * Without a delivery worker (tests only) pages stay {@code PENDING} for a later drain.
+ */
 @Service
 public class IngestionRunStore {
     private final JdbcClient jdbc;
     private final TransactionTemplate transactions;
     private final ObjectMapper mapper;
+    private final OutboxDeliveryWorker delivery;
 
+    @Autowired
     public IngestionRunStore(DataSource dataSource, PlatformTransactionManager transactionManager,
-                             ObjectMapper mapper) {
+                             ObjectMapper mapper, OutboxDeliveryWorker delivery) {
         this.jdbc = JdbcClient.create(dataSource);
         this.transactions = new TransactionTemplate(transactionManager);
         this.mapper = mapper;
+        this.delivery = delivery;
+    }
+
+    /** Staging only, without canonical acceptance (simulates events staged before stage B). */
+    public IngestionRunStore(DataSource dataSource, PlatformTransactionManager transactionManager, ObjectMapper mapper) {
+        this(dataSource, transactionManager, mapper, null);
     }
 
     public UUID plan(IngestionPlan plan) {
@@ -226,6 +242,8 @@ public class IngestionRunStore {
                         """).param("item", lease.itemId()).param("event", stored).update();
                 events.add(stored);
             }
+            // Same transaction: the page, its journal rows and their canonical effect commit together.
+            int accepted = delivery == null ? 0 : delivery.deliverStaged(events);
             jdbc.sql("""
                     INSERT INTO operations.ingestion_checkpoints (ingestion_run_item_id, attempt_id, checkpoint)
                     VALUES (:item, :token, CAST(:checkpoint AS jsonb))
@@ -241,16 +259,17 @@ public class IngestionRunStore {
                 finishAttempt(lease, "STAGED", null);
             }
             refreshRun(lease.runId());
-            return new StagedPage(dataset, provider, List.copyOf(events));
+            return new StagedPage(dataset, provider, List.copyOf(events), accepted);
         }));
         org.slf4j.LoggerFactory.getLogger(getClass()).atInfo().addKeyValue("run_id",lease.runId())
             .addKeyValue("instrument_id",lease.instrumentId()).addKeyValue("event_ids",staged.events())
             .addKeyValue("dataset_id",staged.dataset()).addKeyValue("provider",staged.provider())
-            .log("Provider page staged in durable outbox");
+            .addKeyValue("canonical_accepted",staged.accepted())
+            .log("Provider page staged and accepted");
         return staged.events();
     }
 
-    private record StagedPage(UUID dataset, String provider, List<UUID> events) {}
+    private record StagedPage(UUID dataset, String provider, List<UUID> events, int accepted) {}
 
     private void requireSnapshot(UUID snapshot, String code) {
         boolean valid = jdbc.sql("""

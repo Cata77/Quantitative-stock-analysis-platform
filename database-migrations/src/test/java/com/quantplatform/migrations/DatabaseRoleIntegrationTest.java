@@ -43,7 +43,7 @@ class DatabaseRoleIntegrationTest {
         }
         var flyway=Flyway.configure().dataSource(url,"quant_migrator","isolated-test-migration-password")
             .defaultSchema("operations").schemas("operations").locations("classpath:db/migration").load();
-        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(29);
+        assertThat(flyway.migrate().migrationsExecuted).isEqualTo(30);
         assertThat(flyway.migrate().migrationsExecuted).isZero();
     }
     @Test void administratorOwnedRepeatablesCanBeRepairedForRestrictedMigrations() throws Exception {
@@ -92,8 +92,9 @@ class DatabaseRoleIntegrationTest {
             .locations("classpath:db/migration").load();
         restricted.validate();assertThat(restricted.migrate().migrationsExecuted).isZero();
     }
+    static final List<String> CURRENT_ROLES=List.of("quant_web","quant_ingestion","quant_scoring","quant_research");
     @Test void everyApplicationRoleIsNonAdministrativeAndCannotAssumeTheMigrator() throws Exception {
-        for(String role:List.of("quant_auth","quant_portfolio","quant_ingestion","quant_scoring","quant_screener","quant_research")) {
+        for(String role:CURRENT_ROLES) {
             try(var c=connection();var s=c.createStatement();var rows=s.executeQuery("SELECT rolsuper OR rolcreatedb OR rolcreaterole OR rolbypassrls OR pg_has_role('"+role+"','quant_migrator','MEMBER') FROM pg_roles WHERE rolname='"+role+"'")) {
                 assertThat(rows.next()).isTrue();assertThat(rows.getBoolean(1)).isFalse();
             }
@@ -102,61 +103,87 @@ class DatabaseRoleIntegrationTest {
             denied(role,"SELECT * FROM operations.flyway_schema_history");
         }
     }
-    @Test void authAndPortfolioCanOnlyModifyTheirOwnTables() throws Exception {
-        allowed("quant_auth","INSERT INTO public.users(id,username,password_hash) VALUES('70000000-0000-0000-0000-000000000001','role-user','hash')");
-        allowed("quant_portfolio","INSERT INTO public.portfolios(user_id,ticker,quantity,entry_price,purchased_at) VALUES('70000000-0000-0000-0000-000000000001','AAPL',1,10,now())");
-        allowed("quant_auth","UPDATE public.users SET username=username WHERE false");
-        allowed("quant_portfolio","DELETE FROM public.portfolios WHERE false");
-        denied("quant_auth","SELECT * FROM public.portfolios");denied("quant_portfolio","SELECT password_hash FROM public.users");
-        denied("quant_auth","SELECT * FROM research.scoring_runs");denied("quant_portfolio","SELECT * FROM reference.issuers");
+    @Test void webBackendOwnsAccountsAndHoldingsAndOnlyReadsThePublication() throws Exception {
+        allowed("quant_web","INSERT INTO public.users(id,username,password_hash) VALUES('70000000-0000-0000-0000-000000000001','role-user','hash')");
+        allowed("quant_web","INSERT INTO public.portfolios(user_id,ticker,quantity,entry_price,purchased_at) VALUES('70000000-0000-0000-0000-000000000001','AAPL',1,10,now())");
+        allowed("quant_web","UPDATE public.users SET username=username WHERE false");
+        allowed("quant_web","DELETE FROM public.portfolios WHERE false");
+        denied("quant_web","DELETE FROM public.users WHERE false");
+        allowed("quant_web","SELECT * FROM research.stock_scores");
+        allowed("quant_web","SELECT * FROM reference.issuers WHERE false");
+        denied("quant_web","UPDATE research.stock_scores SET warnings=warnings WHERE false");
+        // P2b: RSI reads the adjusted daily bars; EBITDA_FROM_SOURCE_V1 reads facts, filings and retained responses.
+        allowed("quant_web","SELECT * FROM market_data.daily_bar_observations WHERE false");
+        denied("quant_web","UPDATE market_data.daily_bar_observations SET close=close WHERE false");
+        denied("quant_web","SELECT * FROM market_data.corporate_actions WHERE false");
+        allowed("quant_web","SELECT * FROM fundamentals.fundamental_facts WHERE false");
+        allowed("quant_web","SELECT * FROM fundamentals.filings WHERE false");
+        allowed("quant_web","SELECT * FROM operations.source_artifacts WHERE false");
+        denied("quant_web","UPDATE fundamentals.fundamental_facts SET priority=priority WHERE false");
+        denied("quant_web","UPDATE operations.source_artifacts SET media_type=media_type WHERE false");
+        denied("quant_web","SELECT * FROM fundamentals.statements WHERE false");
+        denied("quant_web","SELECT * FROM operations.outbox_events WHERE false");
+        denied("quant_web","SELECT * FROM public.market_bars WHERE false");
+        denied("quant_web","SELECT operations.reconcile_ingestion_coverage('forbidden')");
     }
-    @Test void ingestionAndScoringHaveDistinctWritesAndCanReconcile() throws Exception {
+    @Test void collectorOwnsStagingAndCanonicalWritesInOneIdentity() throws Exception {
+        // P2s stage B: the canonical consumer runs inside the collector.
         allowed("quant_ingestion","INSERT INTO reference.issuers(legal_name) VALUES('Role fixture')");
         allowed("quant_ingestion","UPDATE operations.outbox_events SET status=status WHERE false");
-        allowed("quant_scoring","UPDATE operations.kafka_inbox SET delivery_count=delivery_count WHERE false");
-        allowed("quant_scoring","SELECT operations.reconcile_ingestion_coverage('role-test')");
+        allowed("quant_ingestion","SELECT event_id FROM operations.outbox_events WHERE false FOR UPDATE SKIP LOCKED");
+        allowed("quant_ingestion","UPDATE operations.kafka_inbox SET delivery_count=delivery_count WHERE false");
+        allowed("quant_ingestion","UPDATE operations.dead_letter_records SET reason=reason WHERE false");
+        allowed("quant_ingestion","UPDATE operations.dead_letter_replays SET reason=reason WHERE false");
+        allowed("quant_ingestion","UPDATE market_data.daily_bar_observations SET close=close WHERE false");
+        allowed("quant_ingestion","UPDATE fundamentals.fundamental_facts SET priority=priority WHERE false");
+        allowed("quant_ingestion","UPDATE public.market_bars SET provider=provider WHERE false");
         allowed("quant_ingestion","SELECT operations.reconcile_ingestion_coverage('role-test')");
-        denied("quant_ingestion","UPDATE operations.kafka_inbox SET delivery_count=delivery_count WHERE false");
+        denied("quant_ingestion","DELETE FROM operations.outbox_events WHERE false");
+        denied("quant_ingestion","DELETE FROM market_data.observations WHERE false");
         denied("quant_ingestion","UPDATE research.stock_scores SET warnings=warnings WHERE false");
-        // P2s: the scoring worker delivers outbox events (status updates only; inserts stay with ingestion).
-        allowed("quant_scoring","UPDATE operations.outbox_events SET status=status WHERE false");
-        denied("quant_scoring","INSERT INTO operations.outbox_events SELECT * FROM operations.outbox_events WHERE false");
+        denied("quant_ingestion","SELECT password_hash FROM public.users");
+        denied("quant_ingestion","SELECT * FROM public.portfolios");
+    }
+    @Test void publisherWritesOnlyResearchAndAuditedReviews() throws Exception {
+        allowed("quant_scoring","UPDATE research.scoring_runs SET attempts=attempts WHERE false");
+        allowed("quant_scoring","SELECT * FROM operations.outbox_events WHERE false");
+        allowed("quant_scoring","SELECT * FROM fundamentals.fundamental_facts WHERE false");
+        allowed("quant_scoring","SELECT * FROM operations.input_reviews WHERE false");
+        // The consumer writes it held before stage B were removed by V026.
+        denied("quant_scoring","UPDATE operations.kafka_inbox SET delivery_count=delivery_count WHERE false");
+        denied("quant_scoring","UPDATE operations.outbox_events SET status=status WHERE false");
+        denied("quant_scoring","UPDATE operations.ingestion_runs SET status=status WHERE false");
+        denied("quant_scoring","UPDATE market_data.daily_bar_observations SET close=close WHERE false");
+        denied("quant_scoring","UPDATE fundamentals.fundamental_facts SET priority=priority WHERE false");
+        denied("quant_scoring","UPDATE reference.instrument_symbols SET symbol=symbol WHERE false");
+        denied("quant_scoring","UPDATE public.market_bars SET provider=provider WHERE false");
+        denied("quant_scoring","SELECT operations.reconcile_ingestion_coverage('forbidden')");
         denied("quant_scoring","SELECT password_hash FROM public.users");
     }
-    @Test void readersCannotWriteAndRetiredSearchRoleHasNoAccess() throws Exception {
-        for(String role:List.of("quant_screener","quant_research")) {
-            allowed(role,"SELECT * FROM research.stock_scores");
-            denied(role,"UPDATE research.stock_scores SET warnings=warnings WHERE false");
-            denied(role,"SELECT password_hash FROM public.users");
-            denied(role,"SELECT operations.reconcile_ingestion_coverage('forbidden')");
-        }
-        // P2s: outbox delivery from PostgreSQL; the worker updates status but never inserts or deletes events.
-        allowed("quant_scoring","SELECT event_id FROM operations.outbox_events WHERE false FOR UPDATE SKIP LOCKED");
-        denied("quant_scoring","DELETE FROM operations.outbox_events WHERE false");
-        denied("quant_screener","UPDATE operations.outbox_events SET status=status WHERE false");
-        allowed("quant_screener","SELECT * FROM market_data.daily_bar_observations WHERE false");
-        denied("quant_screener","UPDATE market_data.daily_bar_observations SET close=close WHERE false");
-        denied("quant_screener","SELECT * FROM market_data.corporate_actions WHERE false");
-        // EBITDA_FROM_SOURCE_V1: read-only access to published facts, filings and retained responses.
-        allowed("quant_screener","SELECT * FROM fundamentals.fundamental_facts WHERE false");
-        allowed("quant_screener","SELECT * FROM fundamentals.filings WHERE false");
-        allowed("quant_screener","SELECT * FROM operations.source_artifacts WHERE false");
-        denied("quant_screener","UPDATE fundamentals.fundamental_facts SET priority=priority WHERE false");
-        denied("quant_screener","UPDATE operations.source_artifacts SET media_type=media_type WHERE false");
-        denied("quant_screener","SELECT * FROM fundamentals.statements WHERE false");
-        denied("quant_screener","SELECT * FROM operations.outbox_events WHERE false");
-        // P2s (V025): the Elasticsearch indexer role was retired; it keeps no privileges.
-        denied("quant_search","SELECT * FROM research.stock_scores");
-        denied("quant_search","SELECT * FROM reference.issuers");
-        denied("quant_search","SELECT * FROM market_data.daily_bar_observations WHERE false");
-        denied("quant_search","SELECT * FROM operations.search_rebuild_checkpoints");
+    @Test void researchReaderCannotWriteAndRetiredRolesHaveNoAccess() throws Exception {
+        allowed("quant_research","SELECT * FROM research.stock_scores");
         allowed("quant_research","SELECT * FROM fundamentals.fundamental_facts");
+        denied("quant_research","UPDATE research.stock_scores SET warnings=warnings WHERE false");
+        denied("quant_research","SELECT password_hash FROM public.users");
+        denied("quant_research","SELECT operations.reconcile_ingestion_coverage('forbidden')");
+        // P2s: the Elasticsearch indexer (V025) and the merged web services (V026) keep no privileges.
+        for(String retired:List.of("quant_search","quant_auth","quant_portfolio","quant_screener")) {
+            denied(retired,"SELECT * FROM research.stock_scores");
+            denied(retired,"SELECT * FROM reference.issuers");
+            denied(retired,"SELECT * FROM public.users");
+            denied(retired,"SELECT * FROM public.portfolios");
+            denied(retired,"SELECT * FROM market_data.daily_bar_observations WHERE false");
+            try(var c=connection();var s=c.createStatement();var rows=s.executeQuery(
+                    "SELECT count(*) FROM information_schema.role_table_grants WHERE grantee='"+retired+"'")) {
+                rows.next();assertThat(rows.getInt(1)).as(retired+" table grants").isZero();
+            }
+        }
     }
     @Test void migratorOwnsDdlAndNewFunctionsAreNotPubliclyExecutable() throws Exception {
         allowed("quant_migrator","CREATE TABLE research.role_probe(id integer)");
         allowed("quant_migrator","DROP TABLE research.role_probe");
         allowed("quant_migrator","CREATE FUNCTION operations.role_probe() RETURNS integer LANGUAGE sql AS 'SELECT 1'");
-        denied("quant_screener","SELECT operations.role_probe()");
+        denied("quant_web","SELECT operations.role_probe()");
         allowed("quant_migrator","DROP FUNCTION operations.role_probe()");
         denied("quant_migrator","CREATE ROLE forbidden_role");
     }

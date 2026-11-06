@@ -1,7 +1,7 @@
-# Auth Service
+# Auth
 
-Gestionează conturile și emite tokenuri de acces. Port Docker local: **18081**
-(8081 în container); accesul obișnuit se face prin Gateway, pe **18080**.
+Gestionează conturile și emite tokenuri de acces. Din P2s este pachetul
+`com.quantplatform.auth` al [backend-ului web](WEB-BACKEND.md), pe **18080**.
 
 ## Flow
 
@@ -19,12 +19,13 @@ După expirare se face din nou login; nu există endpoint de refresh sau logout.
 Tabelul `public.users` păstrează UUID-ul utilizatorului, username-ul unic,
 hashul parolei și data creării. Username existent: 409; credențiale greșite: 401.
 
-Auth este singurul serviciu cu cheia privată:
-`JWT_PRIVATE_KEY` (PEM PKCS8) și `JWT_KEY_ID`. Toate serviciile folosesc
+Backend-ul web este singurul proces cu cheia privată:
+`JWT_PRIVATE_KEY` (PEM PKCS8) și `JWT_KEY_ID`. Validarea folosește
 `JWT_ISSUER`, `JWT_AUDIENCE` și `JWT_PUBLIC_JWKS`.
 `GET /auth/jwks` returnează numai cheile publice. Configurarea DB folosește rolul
-`quant_auth`; parolele și cheile private se păstrează în afara documentației/Git.
+`quant_web` (până la V026: `quant_auth`); parolele și cheile private se păstrează în
+afara documentației/Git.
 
 Inputurile și exemplele JSON sunt în [ENDPOINTS.md](ENDPOINTS.md).
-Surse: [controller](../auth-service/src/main/java/com/quantplatform/auth/api/AuthController.java),
-[emiterea tokenurilor](../auth-service/src/main/java/com/quantplatform/auth/security/JwtService.java).
+Surse: [controller](../web-backend/src/main/java/com/quantplatform/auth/api/AuthController.java),
+[emiterea tokenurilor](../web-backend/src/main/java/com/quantplatform/auth/security/JwtService.java).

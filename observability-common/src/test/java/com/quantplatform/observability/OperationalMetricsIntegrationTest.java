@@ -20,7 +20,7 @@ class OperationalMetricsIntegrationTest {
         try(var c=source(DB.getUsername()).getConnection();var s=c.createStatement()) { s.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE"); }
         Flyway.configure().dataSource(DB.getJdbcUrl(),DB.getUsername(),DB.getPassword()).defaultSchema("operations").schemas("operations").load().migrate();
         try(var c=source(DB.getUsername()).getConnection();var s=c.createStatement()) {
-            for(String role:new String[]{"quant_ingestion","quant_scoring","quant_screener","quant_auth"})
+            for(String role:new String[]{"quant_ingestion","quant_web","quant_research"})
                 s.execute("ALTER ROLE "+role+" LOGIN PASSWORD 'isolated-telemetry-password'");
             s.execute("INSERT INTO operations.data_providers(code,name,license_notes) VALUES('fixture','Fixture','fixture')");
             s.execute("INSERT INTO operations.datasets(provider_id,code,version,license_notes) SELECT provider_id,'fixture','1','fixture' FROM operations.data_providers");
@@ -28,12 +28,12 @@ class OperationalMetricsIntegrationTest {
         }
     }
     @Test void telemetryRunsWithActualServiceGrantsAndDoesNotInventCoverage() {
-        for(String application:new String[]{"market-data-producer","scoring-service","screener-service"}) {
-            String role=application.equals("market-data-producer")?"quant_ingestion":application.equals("scoring-service")?"quant_scoring":"quant_screener";
+        for(String application:new String[]{"market-data-producer","web-backend"}) {
+            String role=application.equals("market-data-producer")?"quant_ingestion":"quant_web";
             var registry=new SimpleMeterRegistry();
             var metrics=new JdbcOperationalMetrics(source(role),registry,application);metrics.refresh();
             assertThat(registry.get("quant.telemetry.up").gauge().value()).isEqualTo(1);
-            if(!application.equals("screener-service")) {
+            if(application.equals("market-data-producer")) {
                 assertThat(registry.get("quant.quality.blocking").gauge().value()).isEqualTo(1);
                 assertThat(registry.get("quant.watermark.lag.seconds").gauge().value()).isNaN();
             } else {
@@ -46,9 +46,9 @@ class OperationalMetricsIntegrationTest {
     @Test void autoConfigurationInstallsReadinessAndTelemetry() {
         new org.springframework.boot.test.context.runner.ApplicationContextRunner()
             .withConfiguration(org.springframework.boot.autoconfigure.AutoConfigurations.of(OperationalAutoConfiguration.class))
-            .withBean(javax.sql.DataSource.class,()->source("quant_scoring"))
+            .withBean(javax.sql.DataSource.class,()->source("quant_ingestion"))
             .withBean(io.micrometer.core.instrument.MeterRegistry.class,SimpleMeterRegistry::new)
-            .withPropertyValues("spring.application.name=scoring-service","operations.telemetry.enabled=true","operations.readiness.enabled=true")
+            .withPropertyValues("spring.application.name=market-data-producer","operations.telemetry.enabled=true","operations.readiness.enabled=true")
             .run(context -> {
                 assertThat(context).hasNotFailed().hasSingleBean(JdbcOperationalMetrics.class)
                     .hasSingleBean(SchemaReadinessHealthIndicator.class);
@@ -57,9 +57,10 @@ class OperationalMetricsIntegrationTest {
     }
     @Test void permissionFailureIsNotReportedAsEmptyHealthyMetricsOrReady() {
         var registry=new SimpleMeterRegistry();
-        new JdbcOperationalMetrics(source("quant_auth"),registry,"scoring-service").refresh();
+        // quant_research may read publications but not the collector's delivery state.
+        new JdbcOperationalMetrics(source("quant_research"),registry,"market-data-producer").refresh();
         assertThat(registry.get("quant.telemetry.up").gauge().value()).isZero();
         assertThat(registry.get("quant.outbox.pending").gauge().value()).isNaN();
-        assertThat(new SchemaReadinessHealthIndicator(source("quant_auth"),"scoring-service").health().getStatus().getCode()).isEqualTo("DOWN");
+        assertThat(new SchemaReadinessHealthIndicator(source("quant_research"),"web-backend").health().getStatus().getCode()).isEqualTo("DOWN");
     }
 }

@@ -1,3 +1,0 @@
-spring:
-  datasource:
-    password: ${SCORING_DB_PASSWORD:local-quant_scoring-development-only}

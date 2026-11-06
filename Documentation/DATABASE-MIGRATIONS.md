@@ -1,5 +1,38 @@
 # Database Migrations
 
+## Roluri după P2s (V026, 2026-11-06)
+
+V026 reduce identitățile aplicației la procesele rămase. Drepturile curente sunt în
+`R__security_grants.sql`; V026 retrage numai ce aparținea proceselor eliminate.
+
+| Rol | Proces | Drepturi |
+|---|---|---|
+| `quant_ingestion` | Colectorul, inclusiv procesarea canonică | Scrie referințe, staging, outbox, inbox, DLQ, `market_data`, `fundamentals`, acoperire, proiecția legacy `public.market_bars`/`fundamental_snapshots`; execută reconcilierea |
+| `quant_scoring` | Publicarea Python | Scrie `research`, inserează revizuiri în `operations.input_reviews`, citește inputurile; fără scrieri canonice și fără reconciliere |
+| `quant_web` | Backend-ul web | `public.users` (fără `DELETE`), `public.portfolios`, citirea publicațiilor, a referințelor, a barelor zilnice (RSI) și a faptelor/filingurilor/răspunsurilor SEC (EBITDA) |
+| `quant_research` | Cercetare | Numai citire, neschimbat |
+
+`quant_auth`, `quant_portfolio` și `quant_screener` nu mai au niciun grant (ca
+`quant_search` după V025). Rolurile sunt la nivel de cluster, iar Flyway
+(`NOCREATEROLE`) nu le poate crea sau șterge. Upgrade pe o instalare existentă:
+
+1. backup verificat (`backup.sh`, apoi restaurare de probă într-o bază nouă);
+2. ca administrator: `infrastructure/bootstrap-roles.sql` creează `quant_web`, apoi se
+   provizionează separat `LOGIN` și parola (local: `local-roles.sql`);
+3. Flyway ca `quant_migrator` aplică V026 și `R__security_grants`; fără pasul 2, V026
+   eșuează fără să schimbe nimic;
+4. după oprirea proceselor vechi și verificarea că rolurile retrase nu au sesiuni,
+   administratorul le poate șterge (`DROP ROLE`).
+
+Pe baza locală s-a aplicat la 2026-11-06: întâi pe copia restaurată
+`quant_p2s_final_verify`, apoi pe `quant_platform`, după backupul verificat
+`local-backups/p2s-final-20261106/` (dump 2,47 GB, SHA-256, `pg_restore --list` și
+restaurare completă cu numărători identice). Drepturile efective rezultate sunt
+identice pe copie și pe baza principală. Rolurile retrase nu au fost șterse încă.
+Testul de roluri verifică tabelul de mai sus.
+
+## Istoric
+
 V025 (P2s, 2026-11-05) elimină `operations.search_rebuild_checkpoints`, checkpointul
 rebuild-urilor Elasticsearch. Tabelul nu mai avea consumatori; `DROP ... RESTRICT`
 refuză dependențele neașteptate. Singurul rând local, al ultimului index
@@ -94,6 +127,15 @@ rolul normal. Istoricul Flyway își păstrează ownerul.
 cu `BACKUP_DB_USER`, `BACKUP_DIRECTORY` și `BACKUP_PGPASS_FILE`.
 
 Backupul include dumpul PostgreSQL, checksumul și versiunile serverului/extensiei.
+
+**Incident 2026-11-06.** Comanda `gradlew clean` rulată din rădăcină șterge și
+directorul `build/` al proiectului rădăcină. Acolo erau artefactele locale citate mai
+jos și în rapoartele P2/P2b/P2s: ultimul dump complet (`build/p2s-cleanup-20261105/`),
+metadatele dumpurilor mai vechi, JAR-ul care a publicat `bead056b` și rezultatele
+intermediare ale auditurilor. Toate au fost pierdute; dovezile comise în
+`Documentation/evidence/` și baza de date nu au fost afectate. Backupurile noi stau în
+`local-backups/` (ignorat de Git și de contextul Docker), în afara oricărui director
+`build/`. Căile `build/...` de mai jos sunt istorice.
 Restaurarea se verifică pe o bază izolată, cu versiuni compatibile, înainte de
 folosire; scriptul refuză suprascrierea unei baze deja existente.
 

@@ -3,12 +3,8 @@ FROM gradle:9.1.0-jdk25 AS builder
 WORKDIR /workspace
 COPY settings.gradle build.gradle ./
 RUN mkdir -p \
-    gateway-service \
-    auth-service \
-    portfolio-service \
+    web-backend \
     market-data-producer \
-    scoring-service \
-    screener-service \
     ingestion-contract \
     security-common \
     observability-common

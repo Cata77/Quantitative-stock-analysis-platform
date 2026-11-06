@@ -219,13 +219,13 @@ def collect_rsi(
     run: dict,
     rows: list[dict],
     workers: int = 4,
-    max_per_minute: int = 90,
+    max_per_minute: int = 600,
 ) -> dict[str, dict]:
     """RSI per instrument from the financials summary of the same pinned publication.
 
-    Requests run concurrently (each takes seconds server-side) so the universe completes
-    within one 15-minute JWT, while starts are paced below the Gateway's default limit
-    of 100 requests/minute per client.
+    Requests run concurrently so the universe completes well within one 15-minute JWT.
+    Starts are paced to bound the load on the database; since P2s the web backend has
+    no per-client limit (the former Gateway allowed 100 requests/minute).
     """
     require(1 <= workers <= 16, "RSI workers must be 1..16")
     require(max_per_minute >= 1, "RSI rate must be positive")
@@ -516,7 +516,9 @@ def main() -> None:
     parser.add_argument("--as-of")
     parser.add_argument("--page-size", type=int, default=200)
     parser.add_argument("--rsi-workers", type=int, default=4, help="Parallel RSI calls, 1..16")
-    parser.add_argument("--rsi-per-minute", type=int, default=90, help="Gateway limit is 100")
+    parser.add_argument(
+        "--rsi-per-minute", type=int, default=600, help="Pacing of financials requests"
+    )
     parser.add_argument("--eligibility", choices=("ALL", "ELIGIBLE", "EXCLUDED"), default="ALL")
     parser.add_argument("--output", type=Path, required=True, help="New output directory")
     args = parser.parse_args()

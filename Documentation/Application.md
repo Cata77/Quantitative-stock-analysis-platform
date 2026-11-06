@@ -5,8 +5,10 @@
 Platforma ajută la compararea acțiunilor din S&P 500 și Nasdaq-100 prin scoruri
 explicabile de **Value, Quality și Momentum**. Păstrează datele sursă, versiunea
 modelului și motivele excluderilor, astfel încât un rezultat să poată fi reprodus.
-Proiectul servește și învățării arhitecturii cu microservicii. Kafka și Elasticsearch au fost
-eliminate în P2s: evenimentele și căutarea folosesc PostgreSQL.
+Proiectul a pornit și ca exercițiu de microservicii; în P2s (2026-11-05/06) a fost
+simplificat pentru un singur utilizator: Kafka și Elasticsearch au fost eliminate
+(evenimentele și căutarea folosesc PostgreSQL), procesarea canonică a trecut în colector,
+iar Gateway, Auth, Portfolio și Screener au devenit un singur backend web.
 
 Formula și datele folosite sunt explicate în [MODEL.md](MODEL.md).
 
@@ -14,17 +16,14 @@ Formula și datele folosite sunt explicate în [MODEL.md](MODEL.md).
 
 | Componentă | Rol | Port local Docker implicit |
 |---|---|---|
-| [Gateway](GATEWAY-SERVICE.md) | Intrare HTTP, autentificare și rutare | 18080 |
-| [Auth](AUTH-SERVICE.md) | Conturi și tokenuri JWT | 18081 |
-| [Screener](SCREENER-SERVICE.md) | Clasamente și căutare de companii | 18082 |
-| [Portfolio](PORTFOLIO-SERVICE.md) | Deținerile fiecărui utilizator | 18083 |
-| [Market Data Producer](MARKET-DATA-PRODUCER.md) | Colectare de prețuri și raportări financiare | 18084 |
-| [Scoring](SCORING-SERVICE.md) | Livrarea outbox-ului în date canonice (scorurile se publică din Python) | 18085 |
+| [Web Backend](WEB-BACKEND.md) | Intrare HTTP: [Auth](AUTH-SERVICE.md), [Portfolio](PORTFOLIO-SERVICE.md), [Screener](SCREENER-SERVICE.md) ca pachete | 18080 |
+| [Market Data Producer](MARKET-DATA-PRODUCER.md) | Colectare de prețuri și raportări, plus procesarea canonică | 18084 |
 | [Database Migrations](DATABASE-MIGRATIONS.md) | Aplică schema Flyway, apoi se oprește | Fără HTTP |
-| [Research Engine](RESEARCH-ENGINE.md) | Modelul unic: pregătire, publicarea scorurilor, cercetare | CLI, fără HTTP |
+| [Research Engine](RESEARCH-ENGINE.md) | Modelul unic: pregătire, [publicarea scorurilor](SCORE-PUBLICATION.md), cercetare | CLI, fără HTTP |
 | PostgreSQL / TimescaleDB | Sursa de adevăr: date, utilizatori și rezultate | 6543 |
 
-Serviciile folosesc o singură bază de date, cu roluri și permisiuni separate.
+Procesele folosesc o singură bază de date, cu câte un rol fiecare: `quant_web`,
+`quant_ingestion`, `quant_scoring` (publicarea Python) și `quant_research` (citire).
 Modulele `ingestion-contract`, `security-common` și `observability-common`
 sunt biblioteci comune, nu procese Docker separate. Prometheus și backupul automat
 sunt servicii opționale, definite în overlay-urile Compose dedicate.
@@ -34,23 +33,19 @@ sunt servicii opționale, definite în overlay-urile Compose dedicate.
 ```mermaid
 flowchart LR
     Sources["Alpaca / SEC / fișiere de referință"] --> Producer["Market Data Producer"]
-    Producer --> Outbox["PostgreSQL: surse + outbox"]
-    Outbox --> Scoring
-    Scoring --> DB["PostgreSQL: date canonice + scoruri publicate"]
+    Producer --> DB["PostgreSQL: surse, jurnal, date canonice, scoruri publicate"]
     Research["Research Engine: model, publicare, cercetare"] --> DB
-    DB --> Screener
-    Client --> Gateway
-    Gateway --> Auth
-    Gateway --> Portfolio
-    Gateway --> Screener
+    DB --> Web["Web Backend: auth, portfolio, screener"]
+    Client --> Web
 ```
 
 1. Se importă listele datate ale indicilor, identitățile instrumentelor și calendarul.
-2. Producer descarcă datele, păstrează sursele și scrie evenimentele în outbox (PostgreSQL).
-3. Scoring elimină efectele mesajelor duplicate și salvează datele canonice.
+2. Producer descarcă datele și, în aceeași tranzacție pe pagină, păstrează sursele,
+   jurnalul de observații și datele canonice; inbox-ul elimină efectele duplicatelor.
+3. Observațiile invalide rămân în carantină (DLQ), cu motiv și replay auditat.
 4. Cu date suficiente, Research Engine (Python) calculează întregul univers și publică atomic
    scorurile și excluderile (P2s: modelul nu mai există în Java).
-5. Screener livrează clasamentul publicat și căutarea, ambele din PostgreSQL.
+5. Web Backend livrează clasamentul publicat și căutarea, ambele din PostgreSQL.
 6. Utilizatorul face login, consultă rezultatele și își gestionează deținerile.
 
 Datele sunt selectate după momentul în care erau cunoscute. O descărcare făcută
@@ -69,7 +64,7 @@ astăzi nu devine automat informație disponibilă pentru un scor din trecut.
 | `reference.classification_versions`, `reference.issuer_classifications` | Sectoare și clasificări versionate |
 | `operations.data_providers`, `operations.datasets`, `operations.job_definitions` | Surse și definițiile colectărilor |
 | `operations.ingestion_runs`, `operations.ingestion_run_items`, `operations.ingestion_attempts`, `operations.ingestion_checkpoints` | Progres, încercări și reluarea colectării |
-| `operations.source_artifacts`, `operations.outbox_events`, `operations.kafka_inbox` | Date sursă, livrare și deduplicare (numele `kafka_inbox` a rămas istoric) |
+| `operations.source_artifacts`, `operations.outbox_events`, `operations.kafka_inbox` | Date sursă, jurnalul observațiilor și deduplicarea (numele `outbox`/`kafka_inbox` au rămas istorice) |
 | `operations.data_coverage`, `operations.data_watermarks`, `operations.data_quality_issues` | Acoperire, actualitate și probleme de date |
 | `operations.dead_letter_records`, `operations.dead_letter_replays` | Mesaje respinse și reluări auditate |
 | `market_data.daily_bar_observations`, `market_data.corporate_actions` | Prețuri zilnice, ajustări, dividende și splituri |
@@ -81,8 +76,9 @@ astăzi nu devine automat informație disponibilă pentru un scor din trecut.
 | `research.factor_observations`, `research.score_exclusions` | Factorii calculați și motivele excluderilor |
 | `research.score_lineage`, `research.score_source_artifacts` | Legătura dintre fiecare scor, input și sursă |
 
-Tabelele vechi `public.market_bars`, `public.fundamental_snapshots` și
-`public.factor_scores` sunt încă folosite de codul legacy din Scoring și Python.
+Tabelele vechi `public.market_bars` și `public.fundamental_snapshots` sunt încă scrise
+de proiecția legacy din colector și citite de CLI-ul Python vechi; `public.factor_scores`
+nu mai are un proces care să-l scrie (calculatorul demonstrativ Java a fost eliminat în P2s).
 Clasamentul actual citește publicațiile din schema `research`. V019 elimină
 `public.tick_data`, `operations.month_end_score_jobs` și schemele goale `identity`,
 `portfolio`; conturile și deținerile rămân în schema `public`.
@@ -99,6 +95,8 @@ docker compose -f infrastructure/docker-compose.yml -f infrastructure/docker-com
 docker compose -f infrastructure/docker-compose.yml -f infrastructure/docker-compose.local.yml --profile application ps -a
 ```
 
+Profilul `application` pornește 4 containere: PostgreSQL, migrările (se opresc după
+aplicare), colectorul și backend-ul web. Publicarea scorurilor rulează la cerere, din Python.
 Construirea imaginilor și pornirea serviciilor nu înlocuiesc importul de referințe,
 configurarea furnizorilor și publicarea unui scor. Începe cu
 [catalogul endpointurilor](ENDPOINTS.md) pentru register, login și rankings.
@@ -111,7 +109,8 @@ Actualizare 2026-11-02: P2 este încheiat. Publicația
 economică 30 octombrie. Rezultatul este **518 = 515 scoruri + 3 excluderi
 documentate**: WBD, delistat, plus HONA și SPCX, listări recente fără 10-K.
 Vezi [dovezile](evidence/p2/closeout-final/publication-20261102/README.md).
-Schema include V025. Paragraful următor descrie starea istorică.
+Actualizare 2026-11-06: P2s este încheiat, iar schema include V026
+([dovezi](evidence/p2s/README.md)). Paragraful următor descrie starea istorică.
 
 Actualizare 2026-10-27: modelul flexibil **1.4.0** are 442 scoruri parțiale și
 76 excluderi pe inputurile snapshotului din 23 octombrie; schema include V022.

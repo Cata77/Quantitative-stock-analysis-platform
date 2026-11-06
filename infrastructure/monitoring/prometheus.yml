@@ -9,4 +9,4 @@ scrape_configs:
     authorization:
       credentials_file: /run/secrets/metrics-token
     static_configs:
-      - targets: [gateway-service:8080, auth-service:8081, portfolio-service:8083, market-data-producer:8084, scoring-service:8085, screener-service:8082]
+      - targets: [web-backend:8080, market-data-producer:8084]

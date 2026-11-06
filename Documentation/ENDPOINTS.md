@@ -1,6 +1,7 @@
 # Endpointurile aplicației
 
-Baza URL locală prin Gateway: **http://localhost:18080**.
+Baza URL locală, [backend-ul web](WEB-BACKEND.md): **http://127.0.0.1:18080**
+(același port și aceleași rute ca vechiul Gateway; P2s, 2026-11-06).
 Pentru POST/PUT se trimite `Content-Type: application/json`.
 Pentru rutele protejate: `Authorization: Bearer <accessToken>`.
 Porturile de mai jos sunt valorile implicite din Docker Compose.
@@ -246,24 +247,24 @@ Utilizatorul este dedus din JWT; nu se trimite `userId`.
 
 ## Health și operațiuni
 
-Aceste rute se accesează direct pe serviciul vizat. Pe portul 18080 descriu
-Gateway; acesta nu le redirecționează către celelalte servicii.
+Aceste rute se accesează direct pe procesul vizat: backend-ul web (18080) sau colectorul (18084).
 
 | Metodă și rută | Unde | Input și acces | Descriere |
 |---|---|---|---|
-| `GET /actuator/health` | Oricare dintre cele 6 servicii HTTP | Fără input, public | Stare generală |
-| `GET /actuator/health/liveness` | Oricare dintre cele 6 servicii HTTP | Fără input, public | Procesul răspunde |
-| `GET /actuator/health/readiness` | Oricare dintre cele 6 servicii HTTP | Fără input, public | Serviciul este pregătit conform verificărilor sale |
-| `GET /actuator/prometheus` | Oricare dintre cele 6 servicii HTTP | Fără input; Bearer cu `operations:read` | Metrici pentru monitorizare |
+| `GET /actuator/health` | Backend-ul web sau colectorul | Fără input, public | Stare generală |
+| `GET /actuator/health/liveness` | Backend-ul web sau colectorul | Fără input, public | Procesul răspunde |
+| `GET /actuator/health/readiness` | Backend-ul web sau colectorul | Fără input, public | Procesul este pregătit conform verificărilor sale |
+| `GET /actuator/prometheus` | Backend-ul web sau colectorul | Fără input; Bearer cu `operations:read` | Metrici pentru monitorizare |
 | `GET /internal/ingestion/status` | Producer, `http://localhost:18084` | Fără input; Bearer cu `operations:read` | Starea colectării, erori și ultima sesiune acoperită |
 
-Porturi directe: Gateway **18080**, Auth **18081**, Screener **18082**,
-Portfolio **18083**, Producer **18084**, Scoring **18085**.
+Porturi: backend-ul web **18080**, colectorul **18084**. Porturile 18081–18083 și 18085
+(Auth, Screener, Portfolio, Scoring) nu mai există din P2s.
 Tokenul primit la login nu are `operations:read`; identitatea operațională este
 provisionată separat. Un serviciu oprit nu răspunde pe portul său.
 
-Nu există endpoint HTTP pentru lansarea calculului, importul de date, replay DLQ
-sau reconstruirea indexului. Acestea sunt procese/CLI descrise în documentele modulelor.
+Nu există endpoint HTTP pentru lansarea calculului, importul de date sau replay DLQ.
+Acestea sunt procese/CLI descrise în documentele modulelor. Limita de 100 de
+cereri/minut a vechiului Gateway (răspunsul 429) a fost eliminată în P2s.
 
 ## Erori uzuale
 
@@ -274,7 +275,6 @@ sau reconstruirea indexului. Acestea sunt procese/CLI descrise în documentele m
 | 403 | Token valid fără permisiunea cerută |
 | 404 | Deținere inexistentă sau care nu aparține utilizatorului |
 | 409 | Username deja folosit |
-| 429 | Limita de cereri a Gateway a fost depășită |
 | 503 | O dependență necesară cererii este indisponibilă |
 
 Fără un run publicat, rankings răspunde cu `run: null` și

@@ -27,3 +27,6 @@ research-engine/.env
 # Deployment-only signing keys and TLS material
 infrastructure/keys/
 infrastructure/certs/
+
+# Local database backups (never commit dumps)
+local-backups/

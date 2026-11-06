@@ -6,9 +6,9 @@ tests:
     input_series:
       - series: 'up{job="quant-services",instance="fixture"}'
         values: '0+0x15'
-      - series: 'quant_telemetry_up{application="scoring-service"}'
+      - series: 'quant_telemetry_up{application="market-data-producer"}'
         values: '0+0x15'
-      - series: 'quant_outbox_oldest_seconds{application="scoring-service"}'
+      - series: 'quant_outbox_oldest_seconds{application="market-data-producer"}'
         values: '600+0x15'
     alert_rule_test:
       - eval_time: 6m
@@ -19,20 +19,20 @@ tests:
       - eval_time: 6m
         alertname: QuantTelemetryUnavailable
         exp_alerts:
-          - exp_labels: {application: scoring-service, severity: critical}
+          - exp_labels: {application: market-data-producer, severity: critical}
             exp_annotations: {summary: "Durable-state telemetry query failed; do not interpret absent metrics as healthy"}
       - eval_time: 6m
         alertname: QuantDeliveryStalled
         exp_alerts:
-          - exp_labels: {application: scoring-service, severity: warning}
+          - exp_labels: {application: market-data-producer, severity: warning}
             exp_annotations: {summary: "Oldest undelivered observation exceeds five minutes"}
   - interval: 1m
     input_series:
       - series: 'up{job="quant-services",instance="fixture"}'
         values: '1+0x15'
-      - series: 'quant_telemetry_up{application="scoring-service"}'
+      - series: 'quant_telemetry_up{application="market-data-producer"}'
         values: '1+0x15'
-      - series: 'quant_outbox_oldest_seconds{application="scoring-service"}'
+      - series: 'quant_outbox_oldest_seconds{application="market-data-producer"}'
         values: '0+0x15'
     alert_rule_test:
       - {eval_time: 6m, alertname: QuantServiceScrapeFailed, exp_alerts: []}

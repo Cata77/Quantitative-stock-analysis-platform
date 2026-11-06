@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+springBoot {
+    mainClass = 'com.quantplatform.web.WebBackendApplication'
+}
+
+// P2s: one HTTP backend replaces gateway, auth, portfolio and screener. The former services
+// remain separate packages (com.quantplatform.auth, .portfolio, .screener).
+dependencies {
+    implementation project(':observability-common')
+    implementation project(':security-common')
+    testImplementation testFixtures(project(':security-common'))
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    // Jackson 2 for the stored read models (rankings, financials).
+    implementation platform('com.fasterxml.jackson:jackson-bom:2.21.3')
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.boot:spring-boot-webmvc-test'
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.flywaydb:flyway-database-postgresql'
+    testImplementation platform('org.testcontainers:testcontainers-bom:2.0.5')
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
+    testRuntimeOnly 'com.h2database:h2'
+}
+
+sourceSets.test.resources.srcDir project(':database-migrations').file('src/main/resources')

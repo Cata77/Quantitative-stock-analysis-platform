@@ -11,26 +11,6 @@ services:
       SPRING_PROFILES_ACTIVE: local
       DATABASE_MIGRATION_USER: quant_migrator
       DATABASE_MIGRATION_PASSWORD: local-quant_migrator-development-only
-  auth-service:
-    environment:
-      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
-      SPRING_PROFILES_ACTIVE: local
-      JWT_ISSUER: quant-platform-local
-      JWT_AUDIENCE: quant-platform
-      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
-      AUTH_DB_PASSWORD: local-quant_auth-development-only
-      JWT_PRIVATE_KEY: classpath:security/local-private.pem
-      JWT_KEY_ID: local-development-only
-    volumes: !override []
-  portfolio-service:
-    environment:
-      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
-      SPRING_PROFILES_ACTIVE: local
-      JWT_ISSUER: quant-platform-local
-      JWT_AUDIENCE: quant-platform
-      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
-      PORTFOLIO_DB_PASSWORD: local-quant_portfolio-development-only
-    volumes: !override []
   market-data-producer:
     environment:
       JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
@@ -41,30 +21,15 @@ services:
       MARKET_DATA_DB_PASSWORD: local-quant_ingestion-development-only
     volumes: !override
       - ./reference-data:/reference-data:ro
-  scoring-service:
-    environment:
-      SPRING_PROFILES_ACTIVE: local
-      JWT_ISSUER: quant-platform-local
-      JWT_AUDIENCE: quant-platform
-      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
-      SCORING_DB_PASSWORD: local-quant_scoring-development-only
-      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
-    volumes: !override []
-  screener-service:
-    environment:
-      SPRING_PROFILES_ACTIVE: local
-      JWT_ISSUER: quant-platform-local
-      JWT_AUDIENCE: quant-platform
-      JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
-      SCREENER_DB_PASSWORD: local-quant_screener-development-only
-      JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
-    volumes: !override []
-  gateway-service:
+  web-backend:
     environment:
       JAVA_TOOL_OPTIONS: -Xms64m -Xmx384m
       SPRING_PROFILES_ACTIVE: local
       JWT_ISSUER: quant-platform-local
       JWT_AUDIENCE: quant-platform
       JWT_PUBLIC_JWKS: classpath:security/local-public.jwks.json
-      GATEWAY_ALLOWED_ORIGINS: http://localhost:3000
+      JWT_PRIVATE_KEY: classpath:security/local-private.pem
+      JWT_KEY_ID: local-development-only
+      WEB_DB_PASSWORD: local-quant_web-development-only
+      WEB_ALLOWED_ORIGINS: http://localhost:3000
     volumes: !override []

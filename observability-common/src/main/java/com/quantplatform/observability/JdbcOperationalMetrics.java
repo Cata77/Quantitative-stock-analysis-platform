@@ -13,9 +13,8 @@ public final class JdbcOperationalMetrics {
     private volatile double up=0;
     public JdbcOperationalMetrics(DataSource source,MeterRegistry registry,String application) {
         this.source=source;
-        boolean ingestion=application.equals("market-data-producer");
-        boolean scoring=application.equals("scoring-service");
-        if(ingestion||scoring) {
+        // P2s: delivery metrics belong to the collector, publication metrics to the web backend.
+        if(application.equals("market-data-producer")) {
             queries.put("outbox.pending","SELECT count(*) FROM operations.outbox_events WHERE status<>'PUBLISHED'");
             queries.put("outbox.oldest.seconds","SELECT COALESCE(EXTRACT(EPOCH FROM now()-min(created_at)),0) FROM operations.outbox_events WHERE status<>'PUBLISHED'");
             queries.put("inbox.accepted","SELECT count(*) FROM operations.kafka_inbox WHERE processing_result='ACCEPTED'");
@@ -27,7 +26,7 @@ public final class JdbcOperationalMetrics {
             queries.put("quality.blocking","SELECT count(*) FROM operations.data_quality_issues WHERE status='OPEN' AND severity='BLOCKING'");
             queries.put("dlq.unreplayed","SELECT count(*) FROM operations.dead_letter_records d WHERE NOT EXISTS (SELECT 1 FROM operations.dead_letter_replays r WHERE r.dead_letter_id=d.dead_letter_id AND r.status='PUBLISHED')");
         }
-        if(scoring||application.equals("screener-service")) {
+        if(application.equals("web-backend")) {
             String latest="WITH latest AS (SELECT * FROM research.scoring_runs WHERE state='PUBLISHED' AND candidate='primary' ORDER BY as_of_date DESC,published_at DESC,score_run_id LIMIT 1) ";
             queries.put("publication.present",latest+"SELECT count(*) FROM latest");
             queries.put("publication.timestamp",latest+"SELECT EXTRACT(EPOCH FROM published_at) FROM latest");

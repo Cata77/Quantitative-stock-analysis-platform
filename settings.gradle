@@ -1,11 +1,8 @@
 rootProject.name = 'quant-platform'
 
-include 'gateway-service'
-include 'auth-service'
-include 'portfolio-service'
+// P2s: one collector (incl. canonical processing) and one web backend; the model is in research-engine.
+include 'web-backend'
 include 'market-data-producer'
-include 'scoring-service'
-include 'screener-service'
 include 'database-migrations'
 include 'ingestion-contract'
 

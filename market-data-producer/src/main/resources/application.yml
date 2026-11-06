@@ -78,6 +78,18 @@ ingestion:
     corporate-actions-enabled: ${DAILY_PRICE_CORPORATE_ACTIONS_ENABLED:true}
     actions-refresh-days: ${DAILY_PRICE_ACTIONS_REFRESH_DAYS:14}
 
+# Canonical processing (P2s stage B, formerly scoring-service). New pages are accepted while staged;
+# the delivery loop drains only events left PENDING (pre-upgrade backlog, audited replays).
+canonical:
+  delivery-enabled: ${CANONICAL_DELIVERY_ENABLED:true}
+  delivery-interval-ms: ${CANONICAL_DELIVERY_INTERVAL_MS:1000}
+  lease: ${CANONICAL_DELIVERY_LEASE:PT2M}
+  retry-attempts: ${CANONICAL_RETRY_ATTEMPTS:3}
+  retry-backoff: ${CANONICAL_RETRY_BACKOFF:1s}
+  command:
+    # serve | dlq-inspect | dlq-replay (with dead-letter-id, replay-id, operator, reason)
+    operation: ${CANONICAL_OPERATION:serve}
+
 # SEC and FFIEC ingestion are independent of the optional legacy OVERVIEW adapter.
 fundamentals:
   mapping-version: ${SEC_MAPPING_VERSION:sec-us-gaap-v1}

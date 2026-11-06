@@ -1,4 +1,4 @@
-# P2s — publicarea în Python: reproducerea publicației `bead056b`, 2026-11-05
+# P2s — simplificarea arhitecturii, 2026-11-05/06
 
 Decizia utilizatorului din 2026-11-05: modelul este calculat și publicat numai în Python.
 Condiția înaintea eliminării formulei Java este reproducerea identică a ultimei
@@ -203,8 +203,123 @@ din documentul stocat, și testul de plan de execuție la 600 de instrumente.
   producer, observability și testele Python DB (39). Scoring și Screener au fost
   reconstruite; readiness-ul lor e `UP`.
 
-## Ce urmează
+## Încheierea P2s (2026-11-06)
 
-Prima publicație Python pe baza principală, la următoarea dată cu date colectate.
-Apoi pașii P2s rămași: etapa B (procesarea canonică în colector, fără
-`scoring-service`) și un singur backend web.
+### Ce s-a schimbat
+
+- **Etapa B.** Procesarea canonică a trecut din `scoring-service` în colector
+  (pachetul `com.quantplatform.marketdata.canonical`). Fiecare pagină de furnizor se
+  confirmă într-o singură tranzacție: artefactul sursă, jurnalul (`outbox_events`),
+  checkpointul, inbox-ul și datele canonice. Inbox-ul păstrează consumatorul
+  `scoring-service-v2`, deci cele 1.294.435 de observații acceptate deja sunt
+  recunoscute. Bucla de livrare a rămas pentru evenimentele `PENDING` (ordine pe
+  instrument, replay DLQ). `scoring-service` a fost eliminat; calculatorul demonstrativ
+  care scria `public.factor_scores` (fără scheduler) a dispărut odată cu el.
+- **Backend web unic.** `web-backend` înlocuiește Gateway, Auth, Portfolio și Screener;
+  pachetele vechi sunt păstrate. Au fost eliminate limita de 100 de cereri/minut și
+  header-ul de identitate dintre servicii; JWT-ul rămâne obligatoriu.
+- **V026.** Rolurile: `quant_ingestion` (colector + canonic), `quant_scoring` (publicare
+  Python), `quant_web` (backend), `quant_research`; `quant_auth`, `quant_portfolio` și
+  `quant_screener` fără granturi. Detalii în [Database Migrations](../../DATABASE-MIGRATIONS.md).
+
+### Backup și migrare
+
+1. Backup cu `infrastructure/backup/backup.sh` (în containerul DB, ca administrator
+   local): `local-backups/p2s-final-20261106/quant_platform-before-v026-20261106.dump`,
+   2.470.604.181 octeți, SHA-256 `968346ef…0e85c80`, `pg_restore --list` cu 528 de intrări.
+2. Restaurare completă cu `restore.sh` în baza nouă `quant_p2s_final_verify`
+   (8 min 57 s). Numărători identice cu baza principală: 1.294.435 evenimente outbox
+   (0 nelivrate), 1.294.435 intrări inbox, 1.270.909 bare zilnice, 1.013.333 fapte,
+   8 runuri, 4.144 scoruri, 30 de utilizatori, schema V025; `input_sha256` al
+   `bead056b` identic (`94200f16…164d1c`).
+3. `quant_web` creat ca administrator, cu aceeași instrucțiune ca în `bootstrap-roles.sql`,
+   plus parola locală din `local-roles.sql`.
+4. V026 + `R__security_grants` aplicate întâi pe copie, apoi pe `quant_platform`, prin
+   serviciul compose `database-migrations` (`quant_migrator`). Drepturile efective
+   (`has_table_privilege`, 16 verificări pe 7 roluri) sunt identice pe ambele baze.
+5. Înainte de trecere: Scoring, Gateway, Screener și Auth oprite, 0 sesiuni ale
+   rolurilor aplicației, 0 evenimente nelivrate.
+
+**Incident.** Prima măsurare a timpilor a rulat `gradlew clean test` din rădăcină;
+`:clean` al proiectului rădăcină a șters `build/`, cu artefactele locale vechi (inclusiv
+ultimul dump din 2026-11-05 și JAR-ul care a publicat `bead056b`). Dovezile comise și
+baza de date nu au fost afectate; backupul de mai sus a fost făcut imediat după aceea.
+
+### Aceleași valori ca înainte
+
+Vechiul Screener (imaginea din 2026-11-05) a rulat pe copia restaurată, cu granturile
+vechi reaplicate numai acolo; `web-backend` a rulat pe baza principală după V026.
+Tokenul a fost emis local cu cheia de dezvoltare, fără conturi noi. După comparații,
+copia `quant_p2s_final_verify` a fost ștearsă; dumpul verificat rămâne pe disc.
+
+| Verificare | Rezultat |
+|---|---|
+| Export univers `bead056b` (518 = 515 + 3), toate paginile, RSI pentru 518 instrumente | `pages.json`, `rsi.json`, `universe.csv`, `universe.html` identice octet cu octet; diferă numai `verifiedAt` |
+| 49 de cereri: clasamente (eligibilitate, sortare, sector, indice, instrument, `asOf`, pagină goală, UUID invalid), căutare (6 interogări), financiare `SUMMARY`/`FULL` pentru 16 instrumente, `runId` lipsă | 49/49 identice, inclusiv cele 400 ([api-compare.json](final-20261106/api-compare.json)) |
+| Reproducerea `bead056b` (`quant_research.publication.reproduce` și `compare`) cu rolul `quant_scoring` după V026 | identice cu dovezile din 2026-11-05: documentul de input are același SHA-256 (`94200f16…164d1c`, 127.311.670 octeți), iar toate tabelele de rezultate coincid; prima încercare a depășit limita de 60 s a interogării de input (cache rece după restaurarea copiei), a doua a durat 121 s |
+
+SHA-256 export: `pages.json` `97f4addc…6acd4`, `rsi.json` `8ceda13b…e3e79`,
+`universe.csv` `e50abdf4…18d63`, `universe.html` `16fdbfc8…1ed04`.
+
+Colectorul nou a pornit pe baza reală cu rolul `quant_ingestion`, în modul
+`dlq-inspect` (fără colectare): a citit singura intrare DLQ, din era Kafka, și a ieșit
+cu 0. Nu s-a rulat o colectare reală de la Alpaca/SEC; reluarea întreruptă este
+verificată prin testele de integrare de mai jos.
+
+### Teste
+
+| Modul | Înainte | După |
+|---|---|---|
+| `gateway-service` | 10 | — (eliminat) |
+| `auth-service` | 6 | în `web-backend` |
+| `portfolio-service` | 4 | în `web-backend` |
+| `screener-service` | 27 | în `web-backend` |
+| `web-backend` | — | 42 (6 + 4 + 27 + 5 noi de securitate) |
+| `scoring-service` | 52 | — (eliminat; testele regulilor de date mutate în colector) |
+| `market-data-producer` | 47 | 101 (47 + 45 mutate + 9 noi) |
+| `database-migrations` | 19 | 20 (testele de roluri rescrise pentru V026) |
+| `security-common`, `observability-common`, `ingestion-contract` | 9, 4, 1 | 9, 4, 1 (adaptate) |
+| **Total Java** | **179** | **177**, toate trecute |
+
+Teste noi pentru etapa B (`StagedAcceptanceIntegrationTest`): pagina canonică în aceeași
+tranzacție, re-staging fără efect, carantină parțială a paginii, colectare întreruptă și
+reluată de la checkpoint fără duplicate sau pierderi, rollback complet la eroare
+tranzitorie, ordinea față de un eveniment `PENDING`, replay auditat după importul
+calendarului și întregul flux rulat numai cu rolul `quant_ingestion`.
+Au dispărut testele infrastructurii eliminate: rate limiting și header de identitate
+(Gateway, 10 teste), parserul Kafka, calculatorul demonstrativ, verificările
+Kafka/Elasticsearch din politica de securitate. Python: 260 de teste trecute cu
+`QUANT_DB_TESTS=1` (migrările, inclusiv V026, aplicate pe un TimescaleDB temporar),
+51 de teste ale auditurilor arhivate, Ruff curat.
+
+O corecție găsită la recitire, înainte de încheiere: evenimentele staged în aceeași
+tranzacție au același `created_at`, deci ordinea după `event_id` amâna unele evenimente
+ale aceluiași instrument (de exemplu filinguri SEC dintr-o pagină) pentru bucla de
+livrare. `deliverStaged` le procesează acum în ordinea `(created_at, event_id)` a
+buclei; testul `everyObservationOfAMultiEventPageIsAcceptedInTheStagingTransaction`
+acoperă cazul.
+
+### Timpi și dimensiuni
+
+| Măsură | Înainte | După |
+|---|---|---|
+| `gradlew clean test` (aceeași comandă, aceeași mașină) | 534 s, 179 teste | 448 s, 176 teste (înaintea testului de mai sus) |
+| Suma timpilor raportați de teste | 266,6 s | 290,5 s |
+| `docker compose build --no-cache` (toate imaginile) | 100,7 s, 7 imagini | 94,4 s, 3 imagini |
+| Module Gradle | 10 | 6 |
+| Procese JVM permanente | 6 | 2 |
+| Containere în profilul `application` | 8 definite (5 rulau) | 4 definite (PostgreSQL, migrări, colector, backend) |
+| Export univers (pacing implicit) | 5 min 50 s la 90 cereri/min (limita Gateway) | 56 s la 600 cereri/min (noul implicit), rezultat identic octet cu octet |
+
+Câștigul la build și teste este mic: compilarea domină construirea imaginilor, iar
+testele colectorului includ acum procesarea canonică (Testcontainers). Câștigul real
+este numărul de procese, de imagini și de identități DB, plus exportul fără limitare.
+
+### Rămas, în afara P2s
+
+- Ștergerea rolurilor `quant_auth`, `quant_portfolio`, `quant_screener` (fără granturi)
+  de către administrator.
+- Prima publicație Python pe baza principală și o colectare reală cu colectorul nou,
+  la următoarea dată cu date noi.
+- Imaginile Docker vechi (`quant-platform-{auth,gateway,portfolio,screener,scoring}-service`)
+  sunt încă pe disc, pentru revenire rapidă; se pot șterge.

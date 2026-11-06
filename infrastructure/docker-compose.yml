@@ -37,53 +37,6 @@ services:
         condition: service_healthy
     restart: "no"
 
-  auth-service:
-    profiles: [application]
-    build:
-      context: ..
-      dockerfile: infrastructure/Dockerfile.services
-      target: auth-service
-    ports:
-      - "127.0.0.1:${AUTH_HOST_PORT:-18081}:8081"
-    environment:
-      JWT_PRIVATE_KEY: file:/run/signing/private.pem
-      JWT_KEY_ID: ${JWT_KEY_ID:-}
-      JWT_ISSUER: ${JWT_ISSUER:-}
-      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
-      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      AUTH_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      AUTH_DB_USER: ${AUTH_DB_USER:-quant_auth}
-      AUTH_DB_PASSWORD: ${AUTH_DB_PASSWORD:-}
-    volumes:
-      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
-      - ./keys/private.pem:/run/signing/private.pem:ro
-    depends_on:
-      database-migrations:
-        condition: service_completed_successfully
-    restart: unless-stopped
-
-  portfolio-service:
-    profiles: [application]
-    build:
-      context: ..
-      dockerfile: infrastructure/Dockerfile.services
-      target: portfolio-service
-    ports:
-      - "127.0.0.1:${PORTFOLIO_HOST_PORT:-18083}:8083"
-    environment:
-      JWT_ISSUER: ${JWT_ISSUER:-}
-      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
-      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      PORTFOLIO_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      PORTFOLIO_DB_USER: ${PORTFOLIO_DB_USER:-quant_portfolio}
-      PORTFOLIO_DB_PASSWORD: ${PORTFOLIO_DB_PASSWORD:-}
-    volumes:
-      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
-    depends_on:
-      database-migrations:
-        condition: service_completed_successfully
-    restart: unless-stopped
-
   market-data-producer:
     profiles: [application]
     build:
@@ -139,6 +92,9 @@ services:
       REFERENCE_DATA_IMPORT_EXPECTED_MEMBER_COUNT: ${REFERENCE_DATA_IMPORT_EXPECTED_MEMBER_COUNT:-0}
       REFERENCE_DATA_CLASSIFICATION_SOURCE: ${REFERENCE_DATA_CLASSIFICATION_SOURCE:-}
       REFERENCE_DATA_CLASSIFICATION_VERSION: ${REFERENCE_DATA_CLASSIFICATION_VERSION:-}
+      # P2s stage B: canonical processing and the dead-letter quarantine run in the collector.
+      CANONICAL_DELIVERY_ENABLED: ${CANONICAL_DELIVERY_ENABLED:-true}
+      CANONICAL_OPERATION: ${CANONICAL_OPERATION:-serve}
     volumes:
       - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
       - ./reference-data:/reference-data:ro
@@ -147,75 +103,31 @@ services:
         condition: service_completed_successfully
     restart: unless-stopped
 
-  scoring-service:
+  # P2s: one HTTP backend (accounts, holdings, screener) replaces gateway, auth, portfolio and screener.
+  web-backend:
     profiles: [application]
     build:
       context: ..
       dockerfile: infrastructure/Dockerfile.services
-      target: scoring-service
+      target: web-backend
     ports:
-      - "127.0.0.1:${SCORING_HOST_PORT:-18085}:8085"
+      - "127.0.0.1:${WEB_HOST_PORT:-${GATEWAY_HOST_PORT:-18080}}:8080"
     environment:
+      WEB_ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:-}
+      JWT_PRIVATE_KEY: file:/run/signing/private.pem
+      JWT_KEY_ID: ${JWT_KEY_ID:-}
       JWT_ISSUER: ${JWT_ISSUER:-}
       JWT_AUDIENCE: ${JWT_AUDIENCE:-}
       JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      SCORING_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      SCORING_DB_USER: ${SCORING_DB_USER:-quant_scoring}
-      SCORING_DB_PASSWORD: ${SCORING_DB_PASSWORD:-}
+      WEB_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
+      WEB_DB_USER: ${WEB_DB_USER:-quant_web}
+      WEB_DB_PASSWORD: ${WEB_DB_PASSWORD:-}
     volumes:
       - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
+      - ./keys/private.pem:/run/signing/private.pem:ro
     depends_on:
       database-migrations:
         condition: service_completed_successfully
-    restart: unless-stopped
-
-  screener-service:
-    profiles: [application]
-    build:
-      context: ..
-      dockerfile: infrastructure/Dockerfile.services
-      target: screener-service
-    ports:
-      - "127.0.0.1:${SCREENER_HOST_PORT:-18082}:8082"
-    environment:
-      JWT_ISSUER: ${JWT_ISSUER:-}
-      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
-      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      SCREENER_DB_URL: jdbc:postgresql://timescaledb:5432/${TIMESCALEDB_DB:-quant_platform}
-      SCREENER_DB_USER: ${SCREENER_DB_USER:-quant_screener}
-      SCREENER_DB_PASSWORD: ${SCREENER_DB_PASSWORD:-}
-    volumes:
-      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
-    depends_on:
-      database-migrations:
-        condition: service_completed_successfully
-    restart: unless-stopped
-
-  gateway-service:
-    profiles: [application]
-    build:
-      context: ..
-      dockerfile: infrastructure/Dockerfile.services
-      target: gateway-service
-    ports:
-      - "127.0.0.1:${GATEWAY_HOST_PORT:-18080}:8080"
-    environment:
-      GATEWAY_ALLOWED_ORIGINS: ${GATEWAY_ALLOWED_ORIGINS:-}
-      JWT_ISSUER: ${JWT_ISSUER:-}
-      JWT_AUDIENCE: ${JWT_AUDIENCE:-}
-      JWT_PUBLIC_JWKS: file:/run/keys/public.jwks.json
-      AUTH_SERVICE_URI: http://auth-service:8081
-      SCREENER_SERVICE_URI: http://screener-service:8082
-      PORTFOLIO_SERVICE_URI: http://portfolio-service:8083
-    volumes:
-      - ./keys/public.jwks.json:/run/keys/public.jwks.json:ro
-    depends_on:
-      auth-service:
-        condition: service_started
-      portfolio-service:
-        condition: service_started
-      screener-service:
-        condition: service_started
     restart: unless-stopped
 
 volumes:

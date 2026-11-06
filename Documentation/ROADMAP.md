@@ -263,7 +263,8 @@ presupus superior sau înlocuit automat. Implementarea API/UI se coordonează cu
 
 ### P2s — Simplificarea arhitecturii, înaintea interfeței web
 
-Adăugat la 2026-11-05, la cererea utilizatorului; în lucru (vezi bifele de mai jos).
+Adăugat la 2026-11-05, la cererea utilizatorului; **încheiat la 2026-11-06**
+([dovezi](evidence/p2s/README.md)). Rulează 4 containere în loc de 17.
 Constatare din analiza proiectului din aceeași zi: pentru un singur utilizator,
 ~518 instrumente și un scor lunar, aplicația rulează 17 servicii Docker. Sunt 7
 servicii Spring, Kafka, Zookeeper, Elasticsearch, TimescaleDB și un indexer. Modelul
@@ -330,10 +331,20 @@ care urmează să fie comasate.
   `HistoricalBackfillRunner`), serviciile `kafka`/`zookeeper` și certificatele lor din
   compose. Lockfile-urile sunt actualizate. Teste: Scoring 52 și producer 47 (doar
   PostgreSQL), migrări 19. Rulează 5 containere.
-- [ ] **Etapa B:** procesarea canonică se mută în colector (aceeași tranzacție ca
-  staging-ul), fără outbox/inbox între procese, și `scoring-service` dispare. Se
-  păstrează idempotența, checkpointurile, retry-urile auditate și artefactele sursă.
-  Verificarea: reluarea unei colectări întrerupte, fără duplicate sau pierderi.
+- [x] **Etapa B, 2026-11-06:** procesarea canonică este în colector, în aceeași
+  tranzacție cu staging-ul paginii (`OutboxDeliveryWorker.deliverStaged`), iar
+  `scoring-service` a fost eliminat. Inbox-ul, cu același consumator `scoring-service-v2`,
+  păstrează idempotența; checkpointurile, încercările auditate și artefactele sursă sunt
+  neschimbate. O observație invalidă intră în DLQ printr-un savepoint, fără să piardă
+  restul paginii; o eroare tranzitorie anulează pagina și elementul se reia. Bucla de
+  livrare a rămas numai pentru evenimentele `PENDING` (ordine pe instrument, replay DLQ).
+  Comenzile `dlq-inspect`/`dlq-replay` sunt în colector (`CANONICAL_OPERATION`).
+  Verificare: test de colectare întreruptă și reluată de la checkpoint, fără duplicate
+  sau pierderi, plus rollback complet la eroare tranzitorie și rularea întregului flux
+  cu rolul `quant_ingestion`. Pe baza reală: 0 evenimente în așteptare la trecere,
+  `dlq-inspect` rulat cu rolul nou. Calculatorul demonstrativ Java (`public.factor_scores`,
+  fără scheduler) a fost eliminat; proiecția legacy `market_bars`/`fundamental_snapshots`
+  e păstrată în colector.
 - [x] Căutarea companiilor în PostgreSQL, fără Elasticsearch și `search-indexer`
   (2026-11-05). Cuvintele se potrivesc toate, fără diferență de majuscule, cu
   relevanță după vechile boost-uri (simbol > nume > sector/SIC). `GET /screener/search`
@@ -345,21 +356,31 @@ care urmează să fie comasate.
   `ElasticsearchConfiguration`, `scoring.elasticsearch.*`) a fost eliminată. Volumul
   `quant-platform_elasticsearch-data` rămâne de șters manual. Constatare: întârzierea constantă de ~2 s a clienților Python venea din
   `localhost` → IPv6 pe Windows, nu de la servicii; exportul folosește acum `127.0.0.1`.
-- [ ] Un singur backend web în locul auth, portfolio, screener și gateway, cu
-  modulele păstrate ca pachete. Autentificarea rămâne obligatorie. Se elimină
-  rate limitingul și tokenurile dintre servicii, inutile pentru un singur utilizator
-  local; expunerea publică rămâne în P7. Contractele din ENDPOINTS.md se păstrează
-  sau se documentează schimbările.
+- [x] Un singur backend web (`web-backend`, 2026-11-06) în locul auth, portfolio,
+  screener și gateway; modulele sunt pachete (`com.quantplatform.auth`, `.portfolio`,
+  `.screener`), fiecare cu tratarea erorilor proprie. Autentificarea rămâne obligatorie;
+  JWT-ul se validează o singură dată în proces. Au fost eliminate limita de 100 de
+  cereri/minut (429) și header-ul de identitate dintre servicii; expunerea publică rămâne
+  în P7. Portul 18080 și contractele din ENDPOINTS.md sunt neschimbate: exportul
+  universului (pagini, RSI, CSV, HTML) e identic octet cu octet cu cel din Screenerul vechi,
+  la fel 49/49 de cereri comparate (filtre, căutare, financiare `SUMMARY`/`FULL`, erori).
 - [x] Scripturile de audit de o singură folosință sunt arhivate (2026-11-05) în
   `research-engine/archive/p0_p2_audits/`: 9 module și 8 fișiere de test (51 de teste,
   rulate separat, inclusiv în CI). `quant_research.source_audit` păstrează numai
   `query`, folosit de `publication_audit` (din freeze). Dovezile nu au fost
   modificate; rapoartele P0/P2 au o notă cu noile comenzi.
-- [ ] Rolurile DB și granturile se reduc la ce mai folosesc procesele rămase, prin
-  migrare nouă, după backup verificat.
-- [ ] Testele infrastructurii eliminate dispar odată cu ea. Se păstrează și, unde
-  lipsesc, se completează testele pentru formulă, perioadele TTM, cutoffuri,
-  excluderi, idempotența colectării și exportul.
+- [x] Rolurile DB reduse prin V026 (2026-11-06), după backupul verificat
+  `local-backups/p2s-final-20261106/` (restaurat complet într-o bază nouă, cu numărători
+  identice): `quant_ingestion` (colector + canonic), `quant_scoring` (publicare Python),
+  `quant_web` (backend) și `quant_research`. `quant_auth`, `quant_portfolio` și
+  `quant_screener` nu mai au granturi; ștergerea lor rămâne pentru administrator. Aplicat
+  întâi pe copia restaurată, apoi pe baza locală, cu drepturi efective identice.
+- [x] Testele infrastructurii eliminate au dispărut odată cu ea: rate limiting și
+  header-ul de identitate (Gateway), parserul Kafka, calculatorul demonstrativ și
+  verificările Kafka/Elasticsearch din politica de securitate. Testele regulilor de date
+  au fost mutate în colector (livrare, prețuri, filinguri, TTM, cutoffuri, calendar),
+  plus 8 teste noi pentru etapa B. Formula, excluderile și exportul au testele Python.
+  Java: 179 de teste înainte, 177 după (toate trecute); Python: 260 + 51 arhivate.
 
 Riscuri: pierderea garanțiilor de idempotență la eliminarea outboxului, rescrierea
 accidentală a publicațiilor vechi, schimbarea contractelor API. Fiecare pas are
@@ -372,6 +393,13 @@ reprodusă identic cu implementarea păstrată; exportul universului și endpoin
 financiar returnează aceleași valori ca înainte; build și teste mai rapide, cu
 timpii măsurați înainte și după.
 
+Rezultat 2026-11-06 (detalii în [dovezi](evidence/p2s/README.md)): 4 containere
+(PostgreSQL, migrări, colector, backend web), publicarea rulând la cerere din Python;
+`bead056b` reprodusă din nou cu rolul `quant_scoring` după V026; exportul și endpointul
+financiar identice; module Gradle 10 → 6, imagini 7 → 3, procese JVM permanente 6 → 2.
+Timpii sunt în dovezi; câștigul de timp la build și teste este mic, iar testele de
+integrare ale colectorului au crescut, fiindcă includ acum procesarea canonică.
+
 ### P2c — Interfață web: prima versiune utilizabilă
 
 Planificată după lista completă P1, endpointul financiar P2b și simplificarea
@@ -382,7 +410,7 @@ Alegerea frameworkului și a stilului vizual se stabilește la începutul etapei
 - [ ] Definirea navigației și a ecranelor: autentificare, clasament, detaliu
   companie și portofoliu. Layout adaptat pentru desktop și mobil, controale
   accesibile din tastatură, contrast și etichete clare.
-- [ ] Înregistrare/login prin Gateway, rute protejate și gestionarea expirării
+- [ ] Înregistrare/login prin backend-ul web (fostul Gateway, același port), rute protejate și gestionarea expirării
   sesiunii. API-ul actual nu are refresh/logout; deconectarea locală elimină
   sesiunea din client, fără promisiunea revocării tokenului pe server.
 - [ ] Pagina de clasament: căutare, filtrele disponibile în API, sortare,
@@ -404,7 +432,7 @@ Alegerea frameworkului și a stilului vizual se stabilește la începutul etapei
 - [ ] Export al universului prin utilitarul/contractul stabilizat în P1;
   dacă exportul există numai ca CLI, planificarea unui API sau a unui flux client
   paginat, cu limite explicite, înaintea adăugării butonului de descărcare.
-- [ ] Integrare numai prin Gateway, configurare CORS pentru originile permise,
+- [ ] Integrare numai prin backend-ul web, configurare CORS pentru originile permise,
   strategie explicită de păstrare a sesiunii și fără secrete de furnizor în browser.
 - [ ] Verificări ale fluxurilor principale: login → clasament → companie,
   instrument exclus, portofoliu, expirare sesiune și navigare pe mobil.
@@ -557,7 +585,7 @@ ajustate și reviziile pot necesita recolectări intenționate, versionate.
 - [ ] Backup în afara mașinii și probă de restaurare; verificarea recuperării
   după oprire, fără duplicate sau pierderea checkpointurilor.
 - [ ] Estimare costuri și alegere găzduire pe baza măsurătorilor. Expunerea publică
-  a Gateway/UI este o etapă separată, cu TLS și controlul accesului.
+  a backend-ului web/UI este o etapă separată, cu TLS și controlul accesului.
 
 Criteriu de finalizare: cicluri zilnice automate și o publicație lunară verificată
 cap-coadă, plus o probă de oprire/repornire cu recuperare și alertare la cutoff ratat.
@@ -568,6 +596,9 @@ Găzduirea continuă reduce întreruperile, dar nu rezolvă singură lipsurile d
 Notă 2026-11-05: comasarea serviciilor și eliminarea Kafka/Elasticsearch sunt în
 P2s. Punctele de mai jos care privesc cod eliminat acolo (de ex. outboxul din
 `IngestionCoordinator` sau paritatea din adaptoare) se reevaluează după P2s.
+Notă 2026-11-06: P2s este încheiat. `CanonicalModelInputs` și `FrozenModel` nu mai
+există în Java (modelul e numai în Python); `RankingPage`/`RankingQueryRepository` sunt
+acum în `web-backend`.
 
 Etapă transversală, executată incremental împreună cu taskurile funcționale
 relevante. Constatările provin din inspecția codului; câștigurile de performanță
@@ -614,8 +645,7 @@ de produs și nu se creează servicii noi doar pentru separarea unor clase.
 
 ## Reguli pentru actualizarea planului
 
-P0, P1, P2 și P2b sunt încheiate; urmează P2s (după decizia privind implementarea
-unică a modelului), apoi P2c; P2b.1 se poate face în paralel. Verificarea resurselor, alegerea serverului și deploymentul rămân la final, în P7, după rezolvarea problemelor prioritare.
+P0, P1, P2, P2b și P2s sunt încheiate; urmează P2c; P2b.1 se poate face în paralel. Verificarea resurselor, alegerea serverului și deploymentul rămân la final, în P7, după rezolvarea problemelor prioritare.
 P2b expune datele financiare, iar P2c construiește UI-ul pe contractele P1/P2b;
 UI-ul inițial poate fi folosit local înaintea validării istorice complete.
 P2 și P3 pot fi reordonate după numărul de

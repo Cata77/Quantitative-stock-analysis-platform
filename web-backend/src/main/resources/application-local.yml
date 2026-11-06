@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    password: ${WEB_DB_PASSWORD:local-quant_web-development-only}
+web:
+  allowed-origins: ${WEB_ALLOWED_ORIGINS:http://localhost:3000}
+security:
+  jwt:
+    private-key: ${JWT_PRIVATE_KEY:classpath:security/local-private.pem}
+    key-id: ${JWT_KEY_ID:local-development-only}

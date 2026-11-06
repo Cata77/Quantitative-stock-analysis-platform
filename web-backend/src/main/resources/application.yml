@@ -1,0 +1,41 @@
+server:
+  forward-headers-strategy: none
+  port: ${WEB_PORT:8080}
+
+spring:
+  application:
+    name: web-backend
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${WEB_DB_URL:jdbc:postgresql://localhost:6543/quant_platform}
+    username: ${WEB_DB_USER:quant_web}
+    password: ${WEB_DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${WEB_DB_POOL_SIZE:10}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  sql:
+    init:
+      mode: never
+
+web:
+  allowed-origins: ${WEB_ALLOWED_ORIGINS:}
+
+security:
+  jwt:
+    private-key: ${JWT_PRIVATE_KEY:}
+    key-id: ${JWT_KEY_ID:}
+    expiration: ${JWT_EXPIRATION:15m}
+
+logging:
+  level:
+    com.quantplatform: INFO
+    org.springframework.security: INFO

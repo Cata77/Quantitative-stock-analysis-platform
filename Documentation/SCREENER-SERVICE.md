@@ -1,7 +1,8 @@
-# Screener Service
+# Screener
 
-Expune clasamentele publicate și căutarea de companii. Port local **18082**
-(8082 în container); prin Gateway se accesează pe **18080**, cu `research:read`.
+Expune clasamentele publicate și căutarea de companii. Din P2s este pachetul
+`com.quantplatform.screener` al [backend-ului web](WEB-BACKEND.md), pe **18080**,
+cu `research:read`.
 
 ## Flow pentru rankings
 
@@ -45,7 +46,7 @@ ale datasetului și vintage-ului publicației. Selecția acestor prețuri reprod
 regulile din `scoring-inputs.sql`. A doua este D&A/EBITDA `EBITDA_FROM_SOURCE_V1`,
 din răspunsul SEC păstrat în spatele faptelor `OPERATING_INCOME_TTM` ale publicației,
 pe aceleași filinguri și perioade. Contractul complet este în [ENDPOINTS.md](ENDPOINTS.md).
-Codul este în [financials](../screener-service/src/main/java/com/quantplatform/screener/financials).
+Codul este în [financials](../web-backend/src/main/java/com/quantplatform/screener/financials).
 
 ## Căutare
 
@@ -73,7 +74,7 @@ Ordinea este după relevanță, apoi după `instrumentId`. Spre deosebire de
 Elasticsearch, nu există potrivire aproximativă (greșeli de tastare). Modificările
 din datele canonice sunt vizibile imediat, fără reindexare.
 
-Screener API folosește rolul `quant_screener`, cu citire pe schema `research`,
+Screener folosește rolul `quant_web` (până la V026: `quant_screener`), cu citire pe schema `research`,
 pe referințe și numai pe `market_data.daily_bar_observations` pentru RSI.
 Pentru EBITDA citește și `fundamentals.fundamental_facts`, `fundamentals.filings` și
 `operations.source_artifacts`, fără drept de scriere.
@@ -82,7 +83,7 @@ Pentru EBITDA citește și `fundamentals.fundamental_facts`, `fundamentals.filin
 "schema_version":1}`: nu mai există un index de construit. Dacă PostgreSQL nu este
 disponibil, căutarea și clasamentele răspund cu 503. Tabelul
 `operations.search_rebuild_checkpoints` și rolul `quant_search` au fost eliminate
-(V025). Readiness-ul verifică acum `research.stock_scores`.
+(V025). Readiness-ul backend-ului web verifică și `research.stock_scores`.
 
-Configurare: [application.yml](../screener-service/src/main/resources/application.yml).
+Configurare: [application.yml](../web-backend/src/main/resources/application.yml).
 API și toate filtrele: [ENDPOINTS.md](ENDPOINTS.md).
