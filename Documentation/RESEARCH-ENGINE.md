@@ -41,6 +41,9 @@ Comenzile vechi `quant-research` rămân exploratorii și folosesc modelul demon
 `python -m quant_research.exclusion_audit` generează diagnosticul offline al unei
 publicații arhivate, cu reconciliere, proveniență și suprapunerea excluderilor.
 Comanda și limitele auditului sunt în [diagnosticul P0](P0-EXCLUSION-AUDIT.md).
+`quant_research.sector_audit` (P2b.1) reconciliază grupurile de normalizare pe sector ale
+unei publicații cu regula modelului și produce raportul pe sector și metrică; vezi
+[dovezile P2b.1](evidence/p2b1/README.md).
 
 `quant_research.p0_sources` capturează inventarul SEC numai-citire pentru run;
 `quant_research.p0_report` produce explicațiile complete și experimentele offline

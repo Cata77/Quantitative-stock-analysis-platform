@@ -40,6 +40,8 @@ Nu există endpointuri de refresh, logout sau citire `/auth/users/{id}`.
 | `GET /screener/search` | Caută instrumente; returnează și `instrumentId` | `q` obligatoriu, nevid, max. 100 caractere; `page=0` (0–100000), `size=20` (1–100) |
 | `GET /screener/search/status` | `LIVE` / `POSTGRESQL`: căutarea citește direct baza (fără index) | Fără body sau parametri |
 | `GET /screener/instruments/{instrumentId}/financials` | Indicatorii companiei dintr-o publicație (P/E, marje, RSI etc.); cu `view=FULL`, dosarul complet cu proveniență | `instrumentId` în rută și `runId` obligatoriu, ambele UUID din rankings; `view=SUMMARY` (implicit) sau `FULL`; fără body |
+| `GET /screener/sectors` | Sectoarele unei publicații, cu numărul de membri | `runId` obligatoriu; fără body |
+| `GET /screener/sectors/{sector}/comparison` | Comparația în sector: populații, mediane, normalizare, rang și percentilă în sector | `sector` în rută (max. 100 caractere), `runId` obligatoriu; fără body |
 
 ### Parametrii rankings
 
@@ -213,6 +215,49 @@ of the publication`. Instrumentele excluse răspund cu 200, iar lipsurile sunt e
 /screener/instruments/<instrumentId-din-rankings>/financials?runId=<run.id-din-rankings>
 /screener/instruments/<instrumentId>/financials?runId=<runId>&view=FULL
 ```
+
+### Comparația în cadrul unui sector (P2b.1)
+
+```text
+/screener/sectors?runId=<run.id-din-rankings>
+/screener/sectors/<sector>/comparison?runId=<run.id-din-rankings>
+```
+
+`runId` este obligatoriu: comparația aparține mereu publicației consultate. Sectorul este
+cel înghețat în inputul publicației (`score_lineage.canonical_input.sector`), cu numele
+exact din listă (de exemplu `Information Technology`, codificat în URL). Scorurile
+publicate, rangul global și normalizarea nu se recalculează.
+
+`GET /screener/sectors` răspunde cu `sector`, `members`, `eligible` și `general` (numărul
+rândurilor cu profil GENERAL) pentru fiecare sector al runului.
+
+Răspunsul comparației:
+
+| Câmp | Conținut |
+|---|---|
+| `publication` | `runId`, `asOfDate`, `modelVersion`, `classificationVersionId` |
+| `population` | `members` (toate profilurile din sector), `eligible`, `profiles` (număr pe profil), `peerGroupMembers` (rândurile GENERAL, grupul de normalizare al sectorului) |
+| `groups` | `GENERAL` și/sau `PRICE_ONLY`, cu definiție, `members`, `eligible`, `smallSample` (sub 20 de eligibili) |
+| `metrics` | Pentru cele 7 metrici, pe rândurile GENERAL: `observations` și `median` din valorile brute (eligibili, un rând pe emitent), `normalizedInSector`, `normalizedOnFallback`, `notNormalized`, `primaryCohortSize`, `fallbackCohort`/`fallbackCohortSize`, `smallSample` |
+| `members` | Toți membrii sectorului: `instrumentId`, `symbol`, `profile`, `comparisonGroup`, `eligible`, `scoreStatus`, `compositeScore`, `globalRank`, `globalPercentile`, `sectorRank`, `sectorPercentile`, `sectorPopulation` și `metrics` (valoare brută, `normalization` = `SECTOR`/`FALLBACK`/`NONE`, `cohort`, `cohortCount`, `reason`) |
+| `warnings` | `PUBLISHED_SCORES_NOT_RECALCULATED` mereu; `PEER_GROUP_SMALLER_THAN_SECTOR`, `PRICE_ONLY_MEMBERS_RANKED_SEPARATELY`, `SMALL_SAMPLE:<grup>`, `FALLBACK_NORMALIZATION:<metrică>`, `NO_OBSERVATIONS:<metrică>` |
+| `rules` | Sursa sectorului, regula rangului și a percentilei, pragul eșantionului mic, populația medianei |
+
+Reguli:
+- **Grupuri de comparație.** `GENERAL`: profil GENERAL, metrici contabile și momentum
+  normalizate față de sector (sau pe fallback). `PRICE_ONLY`: celelalte profiluri,
+  scorate numai pe momentum față de tot universul de preț. Cele două nu se clasează
+  împreună, fiindcă scorurile lor au definiții diferite.
+- **Rangul în sector** se calculează pe toți eligibilii grupului, înaintea oricărei
+  paginări în client, în ordinea globală publicată (compozit, apoi departajarea
+  modelului). Percentila: `100 × (N − rang mediu al egalităților) / (N − 1)`, cu
+  egalitățile pe compozitul nerotunjit; lipsește când N < 2. Exclușii nu au rang în sector.
+- **Valorile brute** sunt raporturi fără unitate (momentum este randamentul total al
+  ferestrei modelului), în aceeași perioadă ca scorul. Mediana este informativă și nu
+  intră în scor. EBIT/EV și ROIC apar de obicei fără observații (`NOT_REPORTED`).
+
+Erori: 400 pentru `runId` lipsă sau UUID invalid; 404 `Publication not found` pentru un
+run inexistent, nepublicat sau incomplet; 404 `Sector has no members in the publication`.
 
 ## Portfolio — token cu portfolio:write
 

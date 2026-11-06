@@ -48,6 +48,16 @@ din răspunsul SEC păstrat în spatele faptelor `OPERATING_INCOME_TTM` ale publ
 pe aceleași filinguri și perioade. Contractul complet este în [ENDPOINTS.md](ENDPOINTS.md).
 Codul este în [financials](../web-backend/src/main/java/com/quantplatform/screener/financials).
 
+## Comparația în sector (P2b.1)
+
+`GET /screener/sectors/{sector}/comparison?runId=...` explică un sector al unei publicații,
+fără să recalculeze scorurile. Separă membrii sectorului (toate profilurile) de grupul de
+normalizare (profil GENERAL) și clasează separat rândurile `PRICE_ONLY` (scorate numai pe
+momentum). Pentru fiecare metrică arată mediana brută, câte valori au fost normalizate în
+sector sau pe fallback și mărimea cohortei; avertizează pentru eșantioane sub 20. Regulile
+vin din [auditul P2b.1](evidence/p2b1/README.md); contractul complet este în
+[ENDPOINTS.md](ENDPOINTS.md). Codul: [sectors](../web-backend/src/main/java/com/quantplatform/screener/sectors).
+
 ## Căutare
 
 `GET /screener/search?q=...` caută după simbol, nume, sector și industrie

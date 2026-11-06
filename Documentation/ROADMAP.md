@@ -240,19 +240,30 @@ metrica respectivă în grupul primar; când nu sunt suficiente, folosește mini
 după filtrele inițiale de eligibilitate/acoperire, înaintea eligibilității finale.
 Filtrul API `sector` există, dar nu recalculează scorurile sau rangul global.
 
-- [ ] Audit al clasificărilor și al provenienței: sector, industrie, profil și
-  grup efectiv de normalizare sunt concepte distincte. Etichetele locale nu
-  reprezintă automat un istoric GICS licențiat.
-- [ ] Raport pe sector și metrică: total membri, acoperire, cohortă efectivă,
-  număr de observații și frecvența fallbackului; verificarea publicației reale.
-- [ ] Definirea comparației în cadrul sectorului în API/UI: valori brute,
-  mediana metricii, scoruri publicate și numărul de companii comparate, folosind
-  același run și perioade/unități comparabile. Separarea profilurilor incompatibile.
-- [ ] Evaluarea unui rang/percentile în sector, distinct de rangul global și de
-  normalizarea factorilor. Definirea populației și a egalităților; calcul pe
-  întreaga populație selectată, înainte de paginare, fără schimbarea scorului publicat.
-- [ ] Afișarea grupului real de comparație și avertizarea pentru eșantioane mici;
-  filtrarea pe sector nu trebuie etichetată drept recalculare sectorială.
+- [x] Audit al clasificărilor și al provenienței (2026-11-06,
+  [dovezi](evidence/p2b1/README.md)): sectorul vine dintr-o singură versiune locală
+  (`local-sectors-2026-09-26`, nume GICS, 15 revizuiri locale, fără istoric înainte de
+  2026-09-26); profilul vine din SIC-ul SEC; grupul de normalizare este sectorul numai
+  pentru GENERAL; industria nu este stocată (SIC există doar în răspunsurile SEC, 511/518).
+  Cele 107 rânduri non-GENERAL (inclusiv UNH, ELV, CI, CNC, HUM ca INSURER) sunt scorate
+  numai pe momentum, față de tot universul, deci nu sunt comparate în sector.
+- [x] Raport pe sector și metrică pe `bead056b` (`quant_research.sector_audit`, numai
+  citire): reconciliat cu publicația, 517 rânduri și 1.432 de valori, 0 diferențe. Fallback
+  frecvent (book/market 27%; Financials și Real Estate fără cohortă primară contabilă),
+  cohorte la prag (Utilities FCF exact 10), iar EBIT/EV și ROIC nu sunt normalizate nicăieri
+  (`NOT_REPORTED`, cauza din P0, fără zero pentru componentele lipsă).
+- [x] Comparația în cadrul sectorului în API (2026-11-06):
+  `GET /screener/sectors/{sector}/comparison?runId=` și `GET /screener/sectors?runId=`.
+  Valori brute, mediana pe metrică (eligibili GENERAL, un rând pe emitent), scoruri
+  publicate, numărul de companii comparate și eticheta cohortei, toate din același run.
+  Profilurile incompatibile sunt separate: `GENERAL` față de `PRICE_ONLY` (numai momentum).
+- [x] Rang și percentilă în sector, distincte de rangul global și de normalizare: pe toți
+  eligibilii grupului de comparație, înainte de paginare, în ordinea globală publicată;
+  percentila cu rangul mediu al egalităților pe compozitul nerotunjit. Scorul publicat nu
+  se schimbă. Verificat pe `bead056b`: toate cele 11 sectoare reconciliate cu auditul.
+- [ ] Afișarea grupului real de comparație și avertizarea pentru eșantioane mici:
+  API-ul le expune (`population`, `groups`, `warnings`, inclusiv
+  `PUBLISHED_SCORES_NOT_RECALCULATED` și `SMALL_SAMPLE`); afișarea în UI rămâne în P2c.
 - [ ] În P5, compararea normalizării pe sector cu cea pe industrie unde există
   clasificări și suficiente date. Evaluarea acoperirii, stabilității rangurilor
   și performanței istorice înaintea unei schimbări de model versionate.
@@ -260,6 +271,11 @@ Filtrul API `sector` există, dar nu recalculează scorurile sau rangul global.
 Criteriu de finalizare: comparația pe sector este explicabilă și reconciliată cu
 publicația. Nivelul de industrie rămâne o alternativă de evaluat, fără a fi
 presupus superior sau înlocuit automat. Implementarea API/UI se coordonează cu P2b/P2c.
+
+Pentru punctele rămase, auditul arată că o comparație trebuie să numească populația
+(membrii sectorului sau grupul GENERAL: Financials 76 față de 13, Real Estate 30 față de 1),
+să nu amestece scoruri numai-momentum cu cele GENERAL într-un rang de sector și să arate
+pentru fiecare metrică dacă normalizarea a fost în sector sau pe fallback.
 
 ### P2s — Simplificarea arhitecturii, înaintea interfeței web
 

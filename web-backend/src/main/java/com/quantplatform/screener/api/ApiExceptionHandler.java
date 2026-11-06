@@ -69,6 +69,14 @@ public class ApiExceptionHandler {
         return problem(HttpStatus.NOT_FOUND, exception.getMessage(), request);
     }
 
+    @ExceptionHandler(com.quantplatform.screener.sectors.SectorNotFoundException.class)
+    ResponseEntity<ProblemDetail> handleSectorNotFound(
+            com.quantplatform.screener.sectors.SectorNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        return problem(HttpStatus.NOT_FOUND, exception.getMessage(), request);
+    }
+
     @ExceptionHandler(DataAccessException.class)
     ResponseEntity<ProblemDetail> handleDependencyUnavailable(HttpServletRequest request) {
         return problem(

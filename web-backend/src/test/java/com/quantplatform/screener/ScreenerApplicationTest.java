@@ -290,4 +290,46 @@ class ScreenerApplicationTest {
         assertThat(search.search("Renamed",0,10).content()).singleElement()
             .extracting(CompanySearchItem::instrumentId).isEqualTo("30000000-0000-0000-0000-000000000001");
     }
+    // P2b.1: sector comparison of one publication, without recalculating published scores.
+    @Test void sectorComparisonSeparatesGroupsAndRanksTiesWithinTheSameRun() throws Exception {
+        mvc.perform(get("/screener/sectors").header("Authorization",READER_TOKEN).param("runId",RUN))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(1))
+            .andExpect(jsonPath("$[0].sector").value("Technology")).andExpect(jsonPath("$[0].members").value(3))
+            .andExpect(jsonPath("$[0].eligible").value(2)).andExpect(jsonPath("$[0].general").value(2));
+        mvc.perform(get("/screener/sectors/Technology/comparison").header("Authorization",READER_TOKEN).param("runId",RUN))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.publication.runId").value(RUN)).andExpect(jsonPath("$.sector").value("Technology"))
+            .andExpect(jsonPath("$.population.members").value(3)).andExpect(jsonPath("$.population.eligible").value(2))
+            .andExpect(jsonPath("$.population.peerGroupMembers").value(2))
+            .andExpect(jsonPath("$.population.profiles.UNSUPPORTED").value(1))
+            .andExpect(jsonPath("$.groups[0].group").value("GENERAL")).andExpect(jsonPath("$.groups[0].smallSample").value(true))
+            .andExpect(jsonPath("$.groups[1].group").value("PRICE_ONLY")).andExpect(jsonPath("$.groups[1].eligible").value(0))
+            .andExpect(jsonPath("$.warnings").value(org.hamcrest.Matchers.hasItems("PUBLISHED_SCORES_NOT_RECALCULATED",
+                "PEER_GROUP_SMALLER_THAN_SECTOR","PRICE_ONLY_MEMBERS_RANKED_SEPARATELY","SMALL_SAMPLE:GENERAL")))
+            // Both eligible members have the same composite: one rank each, the mean tie rank for the percentile.
+            .andExpect(jsonPath("$.members[0].symbol").value("OLD1")).andExpect(jsonPath("$.members[0].sectorRank").value(1))
+            .andExpect(jsonPath("$.members[1].sectorRank").value(2))
+            .andExpect(jsonPath("$.members[0].sectorPercentile").value(50)).andExpect(jsonPath("$.members[1].sectorPercentile").value(50))
+            .andExpect(jsonPath("$.members[0].sectorPopulation").value(2)).andExpect(jsonPath("$.members[0].globalRank").value(1))
+            .andExpect(jsonPath("$.members[2].comparisonGroup").value("PRICE_ONLY"))
+            .andExpect(jsonPath("$.members[2].sectorRank").doesNotExist())
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("12345678901234567890.123456789")));
+    }
+    @Test void sectorComparisonRequiresAPublishedRunAndAKnownSector() throws Exception {
+        mvc.perform(get("/screener/sectors/Technology/comparison").param("runId",RUN)).andExpect(status().isUnauthorized());
+        mvc.perform(get("/screener/sectors/Technology/comparison").header("Authorization",
+            com.quantplatform.security.SecurityTokens.token(READER_ID,"portfolio:write")).param("runId",RUN))
+            .andExpect(status().isForbidden());
+        mvc.perform(get("/screener/sectors/Technology/comparison").header("Authorization",READER_TOKEN))
+            .andExpect(status().isBadRequest());
+        mvc.perform(get("/screener/sectors/Technology/comparison").header("Authorization",READER_TOKEN).param("runId","bad"))
+            .andExpect(status().isBadRequest());
+        mvc.perform(get("/screener/sectors/Energy/comparison").header("Authorization",READER_TOKEN).param("runId",RUN))
+            .andExpect(status().isNotFound()).andExpect(jsonPath("$.detail").value("Sector has no members in the publication"));
+        mvc.perform(get("/screener/sectors/Technology/comparison").header("Authorization",READER_TOKEN)
+            .param("runId",UUID.randomUUID().toString()))
+            .andExpect(status().isNotFound()).andExpect(jsonPath("$.detail").value("Publication not found"));
+        mvc.perform(get("/screener/sectors").header("Authorization",READER_TOKEN).param("runId",UUID.randomUUID().toString()))
+            .andExpect(status().isNotFound());
+    }
 }

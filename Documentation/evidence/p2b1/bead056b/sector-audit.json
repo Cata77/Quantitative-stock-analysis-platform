@@ -1,0 +1,4878 @@
+{
+ "run": {
+  "id": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+  "as_of_date": "2026-10-30",
+  "knowledge_cutoff": "2026-11-01T20:00:00+00:00",
+  "state": "PUBLISHED",
+  "classification_version": "e53b26e0-7e40-4ea1-b6b4-6d2867d8ae24",
+  "model_version": "1.5.0"
+ },
+ "concepts": {
+  "sector": "reference.issuer_classifications.mapped_sector (classification version of the run)",
+  "profile": "accounting profile of the model (GENERAL, FINANCIAL, INSURER, EQUITY_REIT, UNKNOWN)",
+  "peer_group": "sector for GENERAL rows; none for other profiles",
+  "cohort": "group each metric was normalized in (factor_observations.cohort)",
+  "industry": "not stored; SEC SIC major group shown as a candidate only"
+ },
+ "rule": {
+  "primary_minimum": 10,
+  "fallback_minimum": 20,
+  "small_sample_below": 20,
+  "representatives": "one row per issuer"
+ },
+ "totals": {
+  "rows": 518,
+  "eligible": 515,
+  "normalization_base": 517,
+  "representative_base": 514,
+  "profiles": {
+   "EQUITY_REIT": 27,
+   "FINANCIAL": 49,
+   "GENERAL": 411,
+   "INSURER": 23,
+   "UNKNOWN": 8
+  },
+  "classified": 518,
+  "local_review_classifications": 15,
+  "with_sic": 511,
+  "distinct_sic": 183,
+  "fallback_warnings": {
+   "book_market": 30,
+   "cash_earnings": 10,
+   "fcf_yield": 20,
+   "gross_profitability": 24,
+   "momentum": 108
+  },
+  "metric_cohorts": {
+   "book_market": {
+    "NONE": 300,
+    "PRIMARY": 81,
+    "PROFILE": 30
+   },
+   "cash_earnings": {
+    "NONE": 87,
+    "PRIMARY": 314,
+    "PROFILE": 10
+   },
+   "ebit_ev": {
+    "NONE": 411
+   },
+   "fcf_yield": {
+    "NONE": 180,
+    "PRIMARY": 211,
+    "PROFILE": 20
+   },
+   "gross_profitability": {
+    "NONE": 163,
+    "PRIMARY": 224,
+    "PROFILE": 24
+   },
+   "momentum": {
+    "NONE": 5,
+    "PRICE_UNIVERSE": 108,
+    "PRIMARY": 405
+   },
+   "roic": {
+    "NONE": 411
+   }
+  }
+ },
+ "sectors": {
+  "Communication Services": {
+   "members": 23,
+   "eligible": 22,
+   "profiles": {
+    "GENERAL": 23
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "27": 2,
+    "48": 10,
+    "73": 7,
+    "78": 1,
+    "79": 3
+   },
+   "smallest_primary_cohort": 14,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 23,
+     "raw_available": 4,
+     "normalized_primary": 0,
+     "normalized_fallback": 4,
+     "not_normalized": 19,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 18,
+      "STALE_SHARES": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 23,
+     "raw_available": 16,
+     "normalized_primary": 15,
+     "normalized_fallback": 0,
+     "not_normalized": 8,
+     "primary_cohort_size": 14,
+     "missing_reasons": {
+      "NOT_REPORTED": 7
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 23,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 23,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 21,
+      "NO_COMPATIBLE_COHORT": 1,
+      "STALE_SHARES": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 23,
+     "raw_available": 6,
+     "normalized_primary": 0,
+     "normalized_fallback": 6,
+     "not_normalized": 17,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 16,
+      "STALE_SHARES": 1
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 23,
+     "raw_available": 8,
+     "normalized_primary": 0,
+     "normalized_fallback": 8,
+     "not_normalized": 15,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 15
+     }
+    },
+    "momentum": {
+     "general_rows": 23,
+     "raw_available": 22,
+     "normalized_primary": 22,
+     "normalized_fallback": 0,
+     "not_normalized": 1,
+     "primary_cohort_size": 19,
+     "missing_reasons": {
+      "INSUFFICIENT_HISTORY": 1
+     }
+    },
+    "roic": {
+     "general_rows": 23,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 23,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 22,
+      "NO_COMPATIBLE_COHORT": 1
+     }
+    }
+   }
+  },
+  "Consumer Discretionary": {
+   "members": 49,
+   "eligible": 49,
+   "profiles": {
+    "GENERAL": 47,
+    "UNKNOWN": 2
+   },
+   "local_review_classifications": 2,
+   "sic_major_groups": {
+    "15": 4,
+    "23": 2,
+    "30": 2,
+    "31": 1,
+    "37": 4,
+    "38": 1,
+    "39": 1,
+    "44": 3,
+    "47": 2,
+    "50": 1,
+    "51": 1,
+    "52": 3,
+    "55": 3,
+    "56": 2,
+    "57": 2,
+    "58": 5,
+    "59": 2,
+    "70": 5,
+    "73": 4,
+    "NO": 1
+   },
+   "smallest_primary_cohort": 11,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 47,
+     "raw_available": 11,
+     "normalized_primary": 11,
+     "normalized_fallback": 0,
+     "not_normalized": 36,
+     "primary_cohort_size": 11,
+     "missing_reasons": {
+      "INVALID_DENOMINATOR": 3,
+      "NOT_REPORTED": 31,
+      "STALE_FILING": 2
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 47,
+     "raw_available": 43,
+     "normalized_primary": 43,
+     "normalized_fallback": 0,
+     "not_normalized": 4,
+     "primary_cohort_size": 43,
+     "missing_reasons": {
+      "NOT_REPORTED": 2,
+      "STALE_FILING": 2
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 47,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 47,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 45,
+      "STALE_FILING": 2
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 47,
+     "raw_available": 33,
+     "normalized_primary": 33,
+     "normalized_fallback": 0,
+     "not_normalized": 14,
+     "primary_cohort_size": 33,
+     "missing_reasons": {
+      "NOT_REPORTED": 12,
+      "STALE_FILING": 2
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 47,
+     "raw_available": 26,
+     "normalized_primary": 26,
+     "normalized_fallback": 0,
+     "not_normalized": 21,
+     "primary_cohort_size": 26,
+     "missing_reasons": {
+      "NOT_REPORTED": 19,
+      "STALE_FILING": 2
+     }
+    },
+    "momentum": {
+     "general_rows": 47,
+     "raw_available": 47,
+     "normalized_primary": 47,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 47,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 47,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 47,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 45,
+      "STALE_FILING": 2
+     }
+    }
+   }
+  },
+  "Consumer Staples": {
+   "members": 34,
+   "eligible": 34,
+   "profiles": {
+    "GENERAL": 33,
+    "UNKNOWN": 1
+   },
+   "local_review_classifications": 1,
+   "sic_major_groups": {
+    "20": 16,
+    "21": 2,
+    "26": 1,
+    "28": 6,
+    "51": 1,
+    "53": 5,
+    "54": 1,
+    "55": 1,
+    "NO": 1
+   },
+   "smallest_primary_cohort": 15,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 33,
+     "raw_available": 7,
+     "normalized_primary": 0,
+     "normalized_fallback": 7,
+     "not_normalized": 26,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 21,
+      "STALE_FILING": 4,
+      "STALE_SHARES": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 33,
+     "raw_available": 26,
+     "normalized_primary": 26,
+     "normalized_fallback": 0,
+     "not_normalized": 7,
+     "primary_cohort_size": 26,
+     "missing_reasons": {
+      "NOT_REPORTED": 3,
+      "STALE_FILING": 4
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 33,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 33,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 28,
+      "STALE_FILING": 4,
+      "STALE_SHARES": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 33,
+     "raw_available": 15,
+     "normalized_primary": 15,
+     "normalized_fallback": 0,
+     "not_normalized": 18,
+     "primary_cohort_size": 15,
+     "missing_reasons": {
+      "NOT_REPORTED": 13,
+      "STALE_FILING": 4,
+      "STALE_SHARES": 1
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 33,
+     "raw_available": 24,
+     "normalized_primary": 24,
+     "normalized_fallback": 0,
+     "not_normalized": 9,
+     "primary_cohort_size": 24,
+     "missing_reasons": {
+      "NOT_REPORTED": 5,
+      "STALE_FILING": 4
+     }
+    },
+    "momentum": {
+     "general_rows": 33,
+     "raw_available": 33,
+     "normalized_primary": 33,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 33,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 33,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 33,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 29,
+      "STALE_FILING": 4
+     }
+    }
+   }
+  },
+  "Energy": {
+   "members": 21,
+   "eligible": 21,
+   "profiles": {
+    "FINANCIAL": 1,
+    "GENERAL": 20
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "13": 9,
+    "29": 6,
+    "35": 1,
+    "49": 4,
+    "67": 1
+   },
+   "smallest_primary_cohort": 18,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 20,
+     "raw_available": 4,
+     "normalized_primary": 0,
+     "normalized_fallback": 4,
+     "not_normalized": 16,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 16
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 20,
+     "raw_available": 18,
+     "normalized_primary": 18,
+     "normalized_fallback": 0,
+     "not_normalized": 2,
+     "primary_cohort_size": 18,
+     "missing_reasons": {
+      "NOT_REPORTED": 2
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 20,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 20,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 20
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 20,
+     "raw_available": 8,
+     "normalized_primary": 0,
+     "normalized_fallback": 8,
+     "not_normalized": 12,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 12
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 20,
+     "raw_available": 7,
+     "normalized_primary": 0,
+     "normalized_fallback": 7,
+     "not_normalized": 13,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 13
+     }
+    },
+    "momentum": {
+     "general_rows": 20,
+     "raw_available": 20,
+     "normalized_primary": 20,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 20,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 20,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 20,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 20
+     }
+    }
+   }
+  },
+  "Financials": {
+   "members": 76,
+   "eligible": 76,
+   "profiles": {
+    "FINANCIAL": 45,
+    "GENERAL": 13,
+    "INSURER": 18
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "60": 17,
+    "61": 3,
+    "62": 19,
+    "63": 18,
+    "64": 6,
+    "73": 13
+   },
+   "smallest_primary_cohort": 13,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 13,
+     "raw_available": 6,
+     "normalized_primary": 0,
+     "normalized_fallback": 6,
+     "not_normalized": 7,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "INVALID_DENOMINATOR": 1,
+      "NOT_REPORTED": 3,
+      "STALE_FILING": 2,
+      "STALE_SHARES": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 13,
+     "raw_available": 9,
+     "normalized_primary": 0,
+     "normalized_fallback": 9,
+     "not_normalized": 4,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 2,
+      "STALE_FILING": 2
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 13,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 13,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 10,
+      "STALE_FILING": 2,
+      "STALE_SHARES": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 13,
+     "raw_available": 5,
+     "normalized_primary": 0,
+     "normalized_fallback": 5,
+     "not_normalized": 8,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 5,
+      "STALE_FILING": 2,
+      "STALE_SHARES": 1
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 13,
+     "raw_available": 6,
+     "normalized_primary": 0,
+     "normalized_fallback": 6,
+     "not_normalized": 7,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 5,
+      "STALE_FILING": 2
+     }
+    },
+    "momentum": {
+     "general_rows": 13,
+     "raw_available": 13,
+     "normalized_primary": 13,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 13,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 13,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 13,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 11,
+      "STALE_FILING": 2
+     }
+    }
+   }
+  },
+  "Health Care": {
+   "members": 61,
+   "eligible": 61,
+   "profiles": {
+    "GENERAL": 56,
+    "INSURER": 5
+   },
+   "local_review_classifications": 1,
+   "sic_major_groups": {
+    "28": 18,
+    "38": 24,
+    "50": 1,
+    "51": 3,
+    "59": 1,
+    "63": 5,
+    "73": 1,
+    "80": 5,
+    "87": 3
+   },
+   "smallest_primary_cohort": 20,
+   "small_sample": false,
+   "metrics": {
+    "book_market": {
+     "general_rows": 56,
+     "raw_available": 20,
+     "normalized_primary": 20,
+     "normalized_fallback": 0,
+     "not_normalized": 36,
+     "primary_cohort_size": 20,
+     "missing_reasons": {
+      "INVALID_DENOMINATOR": 3,
+      "NOT_REPORTED": 27,
+      "STALE_FILING": 5,
+      "STALE_SHARES": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 56,
+     "raw_available": 47,
+     "normalized_primary": 47,
+     "normalized_fallback": 0,
+     "not_normalized": 9,
+     "primary_cohort_size": 47,
+     "missing_reasons": {
+      "NOT_REPORTED": 4,
+      "STALE_FILING": 5
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 56,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 56,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 50,
+      "STALE_FILING": 5,
+      "STALE_SHARES": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 56,
+     "raw_available": 40,
+     "normalized_primary": 40,
+     "normalized_fallback": 0,
+     "not_normalized": 16,
+     "primary_cohort_size": 40,
+     "missing_reasons": {
+      "NOT_REPORTED": 10,
+      "STALE_FILING": 5,
+      "STALE_SHARES": 1
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 56,
+     "raw_available": 43,
+     "normalized_primary": 43,
+     "normalized_fallback": 0,
+     "not_normalized": 13,
+     "primary_cohort_size": 43,
+     "missing_reasons": {
+      "NOT_REPORTED": 8,
+      "STALE_FILING": 5
+     }
+    },
+    "momentum": {
+     "general_rows": 56,
+     "raw_available": 56,
+     "normalized_primary": 56,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 56,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 56,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 56,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 51,
+      "STALE_FILING": 5
+     }
+    }
+   }
+  },
+  "Industrials": {
+   "members": 87,
+   "eligible": 85,
+   "profiles": {
+    "GENERAL": 85,
+    "UNKNOWN": 2
+   },
+   "local_review_classifications": 4,
+   "sic_major_groups": {
+    "16": 1,
+    "17": 3,
+    "23": 1,
+    "28": 1,
+    "33": 1,
+    "34": 5,
+    "35": 14,
+    "36": 9,
+    "37": 12,
+    "38": 8,
+    "40": 3,
+    "42": 3,
+    "45": 5,
+    "47": 2,
+    "49": 2,
+    "50": 2,
+    "52": 1,
+    "55": 1,
+    "73": 10,
+    "87": 1,
+    "NO": 2
+   },
+   "smallest_primary_cohort": 20,
+   "small_sample": false,
+   "metrics": {
+    "book_market": {
+     "general_rows": 85,
+     "raw_available": 20,
+     "normalized_primary": 20,
+     "normalized_fallback": 0,
+     "not_normalized": 65,
+     "primary_cohort_size": 20,
+     "missing_reasons": {
+      "NOT_REPORTED": 55,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 85,
+     "raw_available": 64,
+     "normalized_primary": 64,
+     "normalized_fallback": 0,
+     "not_normalized": 21,
+     "primary_cohort_size": 64,
+     "missing_reasons": {
+      "NOT_REPORTED": 12,
+      "STALE_FILING": 9
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 85,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 85,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 75,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 85,
+     "raw_available": 44,
+     "normalized_primary": 44,
+     "normalized_fallback": 0,
+     "not_normalized": 41,
+     "primary_cohort_size": 44,
+     "missing_reasons": {
+      "NOT_REPORTED": 31,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 1
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 85,
+     "raw_available": 45,
+     "normalized_primary": 45,
+     "normalized_fallback": 0,
+     "not_normalized": 40,
+     "primary_cohort_size": 45,
+     "missing_reasons": {
+      "NOT_REPORTED": 31,
+      "STALE_FILING": 9
+     }
+    },
+    "momentum": {
+     "general_rows": 85,
+     "raw_available": 82,
+     "normalized_primary": 82,
+     "normalized_fallback": 0,
+     "not_normalized": 3,
+     "primary_cohort_size": 82,
+     "missing_reasons": {
+      "INSUFFICIENT_HISTORY": 3
+     }
+    },
+    "roic": {
+     "general_rows": 85,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 85,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 76,
+      "STALE_FILING": 9
+     }
+    }
+   }
+  },
+  "Information Technology": {
+   "members": 81,
+   "eligible": 81,
+   "profiles": {
+    "FINANCIAL": 1,
+    "GENERAL": 77,
+    "UNKNOWN": 3
+   },
+   "local_review_classifications": 7,
+   "sic_major_groups": {
+    "33": 1,
+    "35": 18,
+    "36": 24,
+    "38": 7,
+    "50": 1,
+    "59": 1,
+    "61": 1,
+    "73": 24,
+    "87": 1,
+    "NO": 3
+   },
+   "smallest_primary_cohort": 30,
+   "small_sample": false,
+   "metrics": {
+    "book_market": {
+     "general_rows": 77,
+     "raw_available": 30,
+     "normalized_primary": 30,
+     "normalized_fallback": 0,
+     "not_normalized": 47,
+     "primary_cohort_size": 30,
+     "missing_reasons": {
+      "INVALID_DENOMINATOR": 3,
+      "NOT_REPORTED": 41,
+      "STALE_FILING": 3
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 77,
+     "raw_available": 70,
+     "normalized_primary": 70,
+     "normalized_fallback": 0,
+     "not_normalized": 7,
+     "primary_cohort_size": 70,
+     "missing_reasons": {
+      "NOT_REPORTED": 4,
+      "STALE_FILING": 3
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 77,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 77,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 74,
+      "STALE_FILING": 3
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 77,
+     "raw_available": 56,
+     "normalized_primary": 56,
+     "normalized_fallback": 0,
+     "not_normalized": 21,
+     "primary_cohort_size": 56,
+     "missing_reasons": {
+      "NOT_REPORTED": 18,
+      "STALE_FILING": 3
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 77,
+     "raw_available": 66,
+     "normalized_primary": 66,
+     "normalized_fallback": 0,
+     "not_normalized": 11,
+     "primary_cohort_size": 66,
+     "missing_reasons": {
+      "NOT_REPORTED": 8,
+      "STALE_FILING": 3
+     }
+    },
+    "momentum": {
+     "general_rows": 77,
+     "raw_available": 76,
+     "normalized_primary": 76,
+     "normalized_fallback": 0,
+     "not_normalized": 1,
+     "primary_cohort_size": 76,
+     "missing_reasons": {
+      "INSUFFICIENT_HISTORY": 1
+     }
+    },
+    "roic": {
+     "general_rows": 77,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 77,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 74,
+      "STALE_FILING": 3
+     }
+    }
+   }
+  },
+  "Materials": {
+   "members": 25,
+   "eligible": 25,
+   "profiles": {
+    "GENERAL": 25
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "01": 1,
+    "10": 2,
+    "14": 2,
+    "26": 4,
+    "28": 10,
+    "32": 1,
+    "33": 2,
+    "34": 1,
+    "39": 1,
+    "52": 1
+   },
+   "smallest_primary_cohort": 13,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 25,
+     "raw_available": 6,
+     "normalized_primary": 0,
+     "normalized_fallback": 6,
+     "not_normalized": 19,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 17,
+      "STALE_FILING": 2
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 25,
+     "raw_available": 16,
+     "normalized_primary": 16,
+     "normalized_fallback": 0,
+     "not_normalized": 9,
+     "primary_cohort_size": 16,
+     "missing_reasons": {
+      "NOT_REPORTED": 7,
+      "STALE_FILING": 2
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 25,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 25,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 22,
+      "NO_COMPATIBLE_COHORT": 1,
+      "STALE_FILING": 2
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 25,
+     "raw_available": 13,
+     "normalized_primary": 13,
+     "normalized_fallback": 0,
+     "not_normalized": 12,
+     "primary_cohort_size": 13,
+     "missing_reasons": {
+      "NOT_REPORTED": 10,
+      "STALE_FILING": 2
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 25,
+     "raw_available": 20,
+     "normalized_primary": 20,
+     "normalized_fallback": 0,
+     "not_normalized": 5,
+     "primary_cohort_size": 20,
+     "missing_reasons": {
+      "NOT_REPORTED": 3,
+      "STALE_FILING": 2
+     }
+    },
+    "momentum": {
+     "general_rows": 25,
+     "raw_available": 25,
+     "normalized_primary": 25,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 25,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 25,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 25,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 22,
+      "NO_COMPATIBLE_COHORT": 1,
+      "STALE_FILING": 2
+     }
+    }
+   }
+  },
+  "Real Estate": {
+   "members": 30,
+   "eligible": 30,
+   "profiles": {
+    "EQUITY_REIT": 27,
+    "FINANCIAL": 2,
+    "GENERAL": 1
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "65": 2,
+    "67": 27,
+    "73": 1
+   },
+   "smallest_primary_cohort": null,
+   "small_sample": false,
+   "metrics": {
+    "book_market": {
+     "general_rows": 1,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 1,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 1
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 1,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 1,
+     "not_normalized": 0,
+     "primary_cohort_size": null,
+     "missing_reasons": {}
+    },
+    "ebit_ev": {
+     "general_rows": 1,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 1,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 1
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 1,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 1,
+     "not_normalized": 0,
+     "primary_cohort_size": null,
+     "missing_reasons": {}
+    },
+    "gross_profitability": {
+     "general_rows": 1,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 1,
+     "not_normalized": 0,
+     "primary_cohort_size": null,
+     "missing_reasons": {}
+    },
+    "momentum": {
+     "general_rows": 1,
+     "raw_available": 1,
+     "normalized_primary": 0,
+     "normalized_fallback": 1,
+     "not_normalized": 0,
+     "primary_cohort_size": null,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 1,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 1,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 1
+     }
+    }
+   }
+  },
+  "Utilities": {
+   "members": 31,
+   "eligible": 31,
+   "profiles": {
+    "GENERAL": 31
+   },
+   "local_review_classifications": 0,
+   "sic_major_groups": {
+    "49": 31
+   },
+   "smallest_primary_cohort": 10,
+   "small_sample": true,
+   "metrics": {
+    "book_market": {
+     "general_rows": 31,
+     "raw_available": 3,
+     "normalized_primary": 0,
+     "normalized_fallback": 3,
+     "not_normalized": 28,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 14,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 5
+     }
+    },
+    "cash_earnings": {
+     "general_rows": 31,
+     "raw_available": 15,
+     "normalized_primary": 15,
+     "normalized_fallback": 0,
+     "not_normalized": 16,
+     "primary_cohort_size": 15,
+     "missing_reasons": {
+      "NOT_REPORTED": 7,
+      "STALE_FILING": 9
+     }
+    },
+    "ebit_ev": {
+     "general_rows": 31,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 31,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 17,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 5
+     }
+    },
+    "fcf_yield": {
+     "general_rows": 31,
+     "raw_available": 10,
+     "normalized_primary": 10,
+     "normalized_fallback": 0,
+     "not_normalized": 21,
+     "primary_cohort_size": 10,
+     "missing_reasons": {
+      "NOT_REPORTED": 7,
+      "STALE_FILING": 9,
+      "STALE_SHARES": 5
+     }
+    },
+    "gross_profitability": {
+     "general_rows": 31,
+     "raw_available": 2,
+     "normalized_primary": 0,
+     "normalized_fallback": 2,
+     "not_normalized": 29,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 20,
+      "STALE_FILING": 9
+     }
+    },
+    "momentum": {
+     "general_rows": 31,
+     "raw_available": 31,
+     "normalized_primary": 31,
+     "normalized_fallback": 0,
+     "not_normalized": 0,
+     "primary_cohort_size": 31,
+     "missing_reasons": {}
+    },
+    "roic": {
+     "general_rows": 31,
+     "raw_available": 0,
+     "normalized_primary": 0,
+     "normalized_fallback": 0,
+     "not_normalized": 31,
+     "primary_cohort_size": null,
+     "missing_reasons": {
+      "NOT_REPORTED": 22,
+      "STALE_FILING": 9
+     }
+    }
+   }
+  }
+ },
+ "reconciliation": {
+  "checked_rows": 517,
+  "issues": [],
+  "status": "RECONCILED"
+ },
+ "rows": [
+  {
+   "symbol": "A",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "AAPL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ABBV",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ABNB",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "ABT",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ACGL",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ACN",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ADBE",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ADI",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ADM",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "ADP",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "ADSK",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "AEE",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "AEP",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "AES",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "AFL",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AIG",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AIZ",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AJG",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AKAM",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ALAB",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ALB",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "ALGN",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ALL",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ALLE",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "ALNY",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "AMAT",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "AMCR",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "AMD",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "AME",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "AMGN",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "AMP",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AMT",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AMZN",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "ANET",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "AON",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AOS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "APA",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "APD",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "APH",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "APO",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "APP",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "APTV",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "ARE",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ARES",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ARM",
+   "profile": "UNKNOWN",
+   "sector": "Information Technology",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ASML",
+   "profile": "UNKNOWN",
+   "sector": "Information Technology",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ATO",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "AVGO",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "AVY",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "AWK",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "AXON",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "AXP",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "AZO",
+   "profile": "UNKNOWN",
+   "sector": "Consumer Discretionary",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BA",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "BAC",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BALL",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "BAX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "BBY",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "BDX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "BE",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "BEN",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BF.B",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "BG",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "BIIB",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "BKNG",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "BKR",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "BLK",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BMY",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "BNY",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "BRK.B",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BRO",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BSX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "BX",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "BXP",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "C",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CAH",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "CARR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CASY",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "CAT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CB",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CBOE",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CBRE",
+   "profile": "FINANCIAL",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CCEP",
+   "profile": "UNKNOWN",
+   "sector": "Consumer Staples",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CCI",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CCL",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "CDNS",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CDW",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CEG",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "CF",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "CFG",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CHD",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "CHRW",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CHTR",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "CI",
+   "profile": "INSURER",
+   "sector": "Health Care",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CIEN",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CINF",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CL",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "CLX",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "CMCSA",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "CME",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CMG",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "CMI",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CMS",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "CNC",
+   "profile": "INSURER",
+   "sector": "Health Care",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CNP",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "COF",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "COHR",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "COIN",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "COO",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "COP",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "COR",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "COST",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "CPAY",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "CPRT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CPT",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "CRH",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "CRL",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "CRM",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CRWD",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CRWV",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CSCO",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CSGP",
+   "profile": "GENERAL",
+   "sector": "Real Estate",
+   "peer_group": "Real Estate",
+   "eligible": true
+  },
+  {
+   "symbol": "CSX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CTAS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "CTSH",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "CTVA",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "CVNA",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "CVS",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "CVX",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "D",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "DAL",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "DASH",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "DD",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "DDOG",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "DE",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "DECK",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "DELL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "DG",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "DGX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "DHI",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "DHR",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "DIS",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "DLR",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "DLTR",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "DOC",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "DOV",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "DOW",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "DPZ",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "DRI",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "DTE",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "DUK",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "DVA",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "DVN",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "DXCM",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "EBAY",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "ECHO",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "ECL",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "ED",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "EFX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "EG",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "EIX",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "EL",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "ELV",
+   "profile": "INSURER",
+   "sector": "Health Care",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "EME",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "EMR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "EOG",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "EQIX",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "EQT",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "ERIE",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ES",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "ESS",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ETN",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "ETR",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "EVRG",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "EW",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "EXC",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "EXE",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "EXPD",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "EXPE",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "EXR",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "F",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "FANG",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "FAST",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "FCX",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "FDS",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "FDX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "FDXF",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "FE",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "FER",
+   "profile": "UNKNOWN",
+   "sector": "Industrials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "FERG",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "FFIV",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "FICO",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "FIS",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "FISV",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "FITB",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "FIX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "FLEX",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "FOX",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "FOXA",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "FRT",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "FSLR",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "FTNT",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "FTV",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "GD",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "GDDY",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "GE",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "GEHC",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "GEN",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "GEV",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "GILD",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "GIS",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "GL",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "GLW",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "GM",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "GNRC",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "GOOG",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "GOOGL",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "GPC",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "GPN",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "GRMN",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "GS",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "GWW",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "HAL",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "HAS",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "HBAN",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "HCA",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "HD",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "HIG",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "HII",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "HLT",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "HON",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "HONA",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": false
+  },
+  {
+   "symbol": "HOOD",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "HPE",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "HPQ",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "HRL",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "HSIC",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "HST",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "HSY",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "HUBB",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "HUM",
+   "profile": "INSURER",
+   "sector": "Health Care",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "HWM",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "IBKR",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "IBM",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ICE",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "IDXX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "IEX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "IFF",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "ILMN",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "INCY",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "INTC",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "INTU",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "INVH",
+   "profile": "FINANCIAL",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "IP",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "IQV",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "IR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "IRM",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ISRG",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "IT",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ITW",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "IVZ",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "J",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "JBHT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "JBL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "JCI",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "JKHY",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "JNJ",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "JPM",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "KDP",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "KEY",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "KEYS",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "KHC",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "KIM",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "KKR",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "KLAC",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "KMB",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "KMI",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "KO",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "KR",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "KVUE",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "L",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "LDOS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "LEN",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "LH",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "LHX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "LII",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "LIN",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "LITE",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "LLY",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "LMT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "LNT",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "LOW",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "LRCX",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "LULU",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "LUV",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "LVS",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "LYB",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "LYV",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "MA",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "MAA",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "MAR",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "MAS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "MCD",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "MCHP",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "MCK",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "MCO",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "MDLZ",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "MDT",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "MELI",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "MET",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "META",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "MGM",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "MKC",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "MLM",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "MMM",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "MNST",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "MO",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "MOS",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "MPC",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "MPWR",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "MRK",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "MRNA",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "MRSH",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "MRVL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "MS",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "MSCI",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "MSFT",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "MSI",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "MSTR",
+   "profile": "FINANCIAL",
+   "sector": "Information Technology",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "MTB",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "MTD",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "MU",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "NBIS",
+   "profile": "UNKNOWN",
+   "sector": "Information Technology",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "NCLH",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "NDAQ",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "NDSN",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "NEE",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "NEM",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "NFLX",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "NI",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "NKE",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "NOC",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "NOW",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "NRG",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "NSC",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "NTAP",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "NTRS",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "NUE",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "NVDA",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "NVR",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "NWS",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "NWSA",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "NXPI",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "O",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "ODFL",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "OKE",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "OMC",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "ON",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ORCL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ORLY",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "OTIS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "OXY",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "P",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "PANW",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "PAYX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "PCAR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "PCG",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "PDD",
+   "profile": "UNKNOWN",
+   "sector": "Consumer Discretionary",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PEG",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "PEP",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "PFE",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "PFG",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PG",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "PGR",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PH",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "PHM",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "PKG",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "PLD",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PLTR",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "PM",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "PNC",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PNR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "PNW",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "PODD",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "PPG",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "PPL",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "PRU",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PSA",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "PSX",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "PTC",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "PWR",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "PYPL",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "Q",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "QCOM",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "RCL",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "RDDT",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "REG",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "REGN",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "RF",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "RJF",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "RKLB",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "RL",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "RMD",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ROK",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "ROL",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "ROP",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ROST",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "RSG",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "RTX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "RVTY",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "SBAC",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "SBUX",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "SCHW",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "SHOP",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "SHW",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "SJM",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "SKYD",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "SLB",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "SMCI",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "SNA",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "SNDK",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "SNPS",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "SO",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "SOLV",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "SPCX",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": false
+  },
+  {
+   "symbol": "SPG",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "SPGI",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "SRE",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "STE",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "STLD",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "STT",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "STX",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "STZ",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "SW",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "SWK",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "SWKS",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "SYF",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "SYK",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "SYY",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "T",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "TDG",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "TDY",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "TECH",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "TEL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "TER",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "TFC",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "TGT",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "TJX",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "TKO",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "TMO",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "TMUS",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "TPL",
+   "profile": "FINANCIAL",
+   "sector": "Energy",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "TPR",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "TRGP",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "TRI",
+   "profile": "UNKNOWN",
+   "sector": "Industrials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "TRMB",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "TROW",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "TRV",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "TSCO",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "TSLA",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "TSN",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "TT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "TTWO",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "TXN",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "TXT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "TYL",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "UAL",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "UBER",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "UDR",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "UHS",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ULTA",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "UNH",
+   "profile": "INSURER",
+   "sector": "Health Care",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "UNP",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "UPS",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "URI",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "USB",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "V",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "VEEV",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "VICI",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "VLO",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "VLTO",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "VMC",
+   "profile": "GENERAL",
+   "sector": "Materials",
+   "peer_group": "Materials",
+   "eligible": true
+  },
+  {
+   "symbol": "VMRK",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "VRSK",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "VRSN",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "VRT",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "VRTX",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "VST",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "VTR",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "VTRS",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "VZ",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": true
+  },
+  {
+   "symbol": "WAB",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "WAT",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "WBD",
+   "profile": "GENERAL",
+   "sector": "Communication Services",
+   "peer_group": "Communication Services",
+   "eligible": false
+  },
+  {
+   "symbol": "WDAY",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "WDC",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "WEC",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "WELL",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "WFC",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "WM",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "WMB",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "WMT",
+   "profile": "GENERAL",
+   "sector": "Consumer Staples",
+   "peer_group": "Consumer Staples",
+   "eligible": true
+  },
+  {
+   "symbol": "WRB",
+   "profile": "INSURER",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "WSM",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "WST",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "WTW",
+   "profile": "FINANCIAL",
+   "sector": "Financials",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "WY",
+   "profile": "EQUITY_REIT",
+   "sector": "Real Estate",
+   "peer_group": null,
+   "eligible": true
+  },
+  {
+   "symbol": "WYNN",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "XEL",
+   "profile": "GENERAL",
+   "sector": "Utilities",
+   "peer_group": "Utilities",
+   "eligible": true
+  },
+  {
+   "symbol": "XOM",
+   "profile": "GENERAL",
+   "sector": "Energy",
+   "peer_group": "Energy",
+   "eligible": true
+  },
+  {
+   "symbol": "XYL",
+   "profile": "GENERAL",
+   "sector": "Industrials",
+   "peer_group": "Industrials",
+   "eligible": true
+  },
+  {
+   "symbol": "XYZ",
+   "profile": "GENERAL",
+   "sector": "Financials",
+   "peer_group": "Financials",
+   "eligible": true
+  },
+  {
+   "symbol": "YUM",
+   "profile": "GENERAL",
+   "sector": "Consumer Discretionary",
+   "peer_group": "Consumer Discretionary",
+   "eligible": true
+  },
+  {
+   "symbol": "ZBH",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  },
+  {
+   "symbol": "ZBRA",
+   "profile": "GENERAL",
+   "sector": "Information Technology",
+   "peer_group": "Information Technology",
+   "eligible": true
+  },
+  {
+   "symbol": "ZTS",
+   "profile": "GENERAL",
+   "sector": "Health Care",
+   "peer_group": "Health Care",
+   "eligible": true
+  }
+ ]
+}

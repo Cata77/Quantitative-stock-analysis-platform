@@ -1,0 +1,187 @@
+{
+ "run": "bead056b-eb58-4e18-aa5b-6e7815d6f8e9",
+ "sectors": 11,
+ "problems": [],
+ "seconds": 1.53,
+ "summary": {
+  "Communication Services": {
+   "members": 23,
+   "peerGroup": 23,
+   "groups": {
+    "GENERAL": 22
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "FALLBACK_NORMALIZATION:book_market",
+    "FALLBACK_NORMALIZATION:fcf_yield",
+    "FALLBACK_NORMALIZATION:gross_profitability"
+   ]
+  },
+  "Consumer Discretionary": {
+   "members": 49,
+   "peerGroup": 47,
+   "groups": {
+    "GENERAL": 47,
+    "PRICE_ONLY": 2
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Consumer Staples": {
+   "members": 34,
+   "peerGroup": 33,
+   "groups": {
+    "GENERAL": 33,
+    "PRICE_ONLY": 1
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "FALLBACK_NORMALIZATION:book_market",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Energy": {
+   "members": 21,
+   "peerGroup": 20,
+   "groups": {
+    "GENERAL": 20,
+    "PRICE_ONLY": 1
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "FALLBACK_NORMALIZATION:book_market",
+    "FALLBACK_NORMALIZATION:fcf_yield",
+    "FALLBACK_NORMALIZATION:gross_profitability",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Financials": {
+   "members": 76,
+   "peerGroup": 13,
+   "groups": {
+    "GENERAL": 13,
+    "PRICE_ONLY": 63
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:GENERAL",
+    "FALLBACK_NORMALIZATION:book_market",
+    "FALLBACK_NORMALIZATION:cash_earnings",
+    "FALLBACK_NORMALIZATION:fcf_yield",
+    "FALLBACK_NORMALIZATION:gross_profitability",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Health Care": {
+   "members": 61,
+   "peerGroup": 56,
+   "groups": {
+    "GENERAL": 56,
+    "PRICE_ONLY": 5
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Industrials": {
+   "members": 87,
+   "peerGroup": 85,
+   "groups": {
+    "GENERAL": 83,
+    "PRICE_ONLY": 2
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Information Technology": {
+   "members": 81,
+   "peerGroup": 77,
+   "groups": {
+    "GENERAL": 77,
+    "PRICE_ONLY": 4
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:PRICE_ONLY",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Materials": {
+   "members": 25,
+   "peerGroup": 25,
+   "groups": {
+    "GENERAL": 25
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "FALLBACK_NORMALIZATION:book_market"
+   ]
+  },
+  "Real Estate": {
+   "members": 30,
+   "peerGroup": 1,
+   "groups": {
+    "GENERAL": 1,
+    "PRICE_ONLY": 29
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "PEER_GROUP_SMALLER_THAN_SECTOR",
+    "PRICE_ONLY_MEMBERS_RANKED_SEPARATELY",
+    "SMALL_SAMPLE:GENERAL",
+    "FALLBACK_NORMALIZATION:cash_earnings",
+    "FALLBACK_NORMALIZATION:fcf_yield",
+    "FALLBACK_NORMALIZATION:gross_profitability",
+    "FALLBACK_NORMALIZATION:momentum",
+    "NO_OBSERVATIONS:book_market",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  },
+  "Utilities": {
+   "members": 31,
+   "peerGroup": 31,
+   "groups": {
+    "GENERAL": 31
+   },
+   "warnings": [
+    "PUBLISHED_SCORES_NOT_RECALCULATED",
+    "FALLBACK_NORMALIZATION:book_market",
+    "FALLBACK_NORMALIZATION:gross_profitability",
+    "NO_OBSERVATIONS:ebit_ev",
+    "NO_OBSERVATIONS:roic"
+   ]
+  }
+ }
+}
